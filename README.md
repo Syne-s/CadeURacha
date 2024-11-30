@@ -14,6 +14,7 @@
 ## 🎥 Sobre:
 
 Estamos fazendo um projeto que busca suprir as necessidades dos **atletas** e **entusiastas de basquete** no que tange ao **mapeamento e organização da utilização de arenas públicas**.  
+
 Esperamos melhorar a **logística** e **organização de jogos independentes**.  
 
 Para isso, optamos por utilizar a linguagem **Python** com o framework **Django** para o *Back-End* e **HTML**, **CSS** e **Bootstrap** como ferramentas para o *Front-End*.
