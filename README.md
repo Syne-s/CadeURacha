@@ -37,16 +37,16 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 ---
 
 <a id="requisitos-funcionais"></a>
-## 📑 Requisitos Funcionais:
+## 📑 Requisitos Funcionais: ✓
 
 | Código | Descrição                  | Status |
 |--------|----------------------------|:------:|
-| RF001  | Cadastrar Usuário          |   ✓    |
+| RF001  | Cadastrar Usuário          |   ✕    |
 | RF002  | Autenticar Usuário         |   ✕    |
 | RF003  | Cadastrar Quadras          |   ✕    |
 | RF004  | Cadastrar Eventos          |   ✕    |
 | RF005  | Filtrar Bairro             |   ✕    |
-| RF006  | Buscar Rachas              |   ✓    |
+| RF006  | Buscar Rachas              |   ✕    |
 | RF007  | Editar Dados do Usuário    |   ✕    |
 | RF008  | Sair do Sistema            |   ✕    |
 | RF009  | Reservar Quadra                 |   ✕    |
