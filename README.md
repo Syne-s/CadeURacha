@@ -49,8 +49,11 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | RF006  | Buscar Rachas              |   ✓    |
 | RF007  | Editar Dados do Usuário    |   ✕    |
 | RF008  | Sair do Sistema            |   ✕    |
-| RF009  | Gerenciar reservas de quadras                 |   ✕    |
-| RF010  | Exemplo 5                  |   ✕    |
+| RF009  | Reservar Quadra                 |   ✕    |
+| RF010  | Cancelar Reserva                 |   ✕    |
+| RF011  | Visualizar Reservas                 |   ✕    |
+| RF012  | Editar Reserva                 |   ✕    |
+| RF013  | Verificar Disponibilidade               |   ✕    |
 
 ---
 
