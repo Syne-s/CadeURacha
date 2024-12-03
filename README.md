@@ -57,8 +57,7 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | RF014  | Adicionar uma Avaliação da Quadra       |   ✕    |
 | RF015  | Confirmar Participação em Jogo (Racha)  |   ✕    |
 | RF016  |  Notificação de Novo Jogo |   ✕    |
-| RF017  |  Definir Preferências de Jogo |   ✕    |
-| RF018  |  Recomendar Jogadores com Perfis Semelhantes |   ✕    |
+
 
 
 ---
