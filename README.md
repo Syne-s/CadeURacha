@@ -1,6 +1,15 @@
-# Synes - CadêURacha
+<div align="center">
+
+# Synes - CadêURacha 🏀
+
+</div>
+
+
+<div align="center">
 
 ###### Palavras-Chave: Basquete • Projeto Integrado I • Sistemas e Mídias Digitais • CadêURacha
+
+</div>
 
 ## Sumário:
 - [Sobre](#sobre)
@@ -21,8 +30,14 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 
 ---
 
+  
 <a id="equipe"></a>
+  
 ## 🙋 Nossa Equipe:
+
+
+<div align="center">
+<br>
 
 | Nome                                | Função             |
 |-------------------------------------|--------------------|
@@ -34,17 +49,27 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | Renan Carlos da Silva Nunes         | Designer e Líder   |
 | Samya Soares Pereira                | Front-End          |
 
+</div>
+
+<br>
+
 ---
+
 
 <a id="requisitos-funcionais"></a>
 ## 📑 Requisitos Funcionais: 
+
+<div align="center">
+
+
+<br>
 
 | Código | Descrição                  | Status |
 |--------|----------------------------|:------:|
 | RF001  | Cadastrar Usuário          |   ✓    |
 | RF002  | Autenticar Usuário         |   ✕    |
-| RF003  | Cadastrar Quadras          |   ✕    |
-| RF004  | Cadastrar Eventos          |   ✕    |
+| RF003  | Cadastrar Quadra          |   ✕    |
+| RF004  | Cadastrar Jogo          |   ✕    |
 | RF005  | Filtrar Bairro             |   ✕    |
 | RF006  | Buscar Rachas              |   ✕    |
 | RF007  | Editar Dados do Usuário    |   ✕    |
@@ -53,12 +78,15 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | RF010  | Cancelar Reserva                 |   ✕    |
 | RF011  | Visualizar Reservas                 |   ✕    |
 | RF012  | Editar Reserva                 |   ✕    |
-| RF013  | Verificar Disponibilidade               |   ✕    |
-| RF014  | Adicionar uma Avaliação da Quadra       |   ✕    |
+| RF013  | Verificar Disponibilidade de Quadra               |   ✕    |
+| RF014  | Avaliar Quadra      |   ✕    |
 | RF015  | Confirmar Participação em Jogo (Racha)  |   ✕    |
-| RF016  |  Notificação de Novo Jogo |   ✕    |
+| RF016  |  Notificar Novo Jogo |   ✕    |
+| RF017  | Excluir Conta |   ✕    |
 
+</div>
 
+<br>
 
 ---
 
