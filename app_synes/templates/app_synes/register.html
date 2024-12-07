@@ -9,6 +9,13 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center">Cadastro de Usuário</h2>
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
         <form method="POST" action="">
             {% csrf_token %}
             <div class="form-group">

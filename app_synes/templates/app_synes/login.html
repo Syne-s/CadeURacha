@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Login</h2>
+
+        <form id="loginForm" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+                <div class="alert alert-danger d-none" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+                <div class="alert alert-danger d-none" id="passwordError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div class="alert alert-success d-none mt-3" id="successMessage"></div>
+        <div class="alert alert-danger d-none mt-3" id="errorMessage"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "{% url 'login' %}",
+                    type: "POST",
+                    data: {
+                        email: $('#email').val(),
+                        password: $('#password').val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#successMessage').text(response.message).removeClass('d-none');
+                            $('#errorMessage').addClass('d-none');
+                            window.location.href = "{% url 'index' %}";
+                        } else {
+                            $('#errorMessage').text(response.message).removeClass('d-none');
+                            $('#successMessage').addClass('d-none');
+                        }
+                    },
+                    error: function(response) {
+                        $('#errorMessage').text("Erro ao tentar fazer login.").removeClass('d-none');
+                        $('#successMessage').addClass('d-none');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
