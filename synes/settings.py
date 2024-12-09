@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'synes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Banco de dados SQLite
-        'NAME': BASE_DIR / 'db.sqlite3',  # Localização do banco de dados
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',  # Nome do banco de dados
+        'USER': 'postgres',  # Usuário
+        'PASSWORD': 'eLBxoXfIyqiYwRxBRSxjNLZtOTsgowRu',  # Senha
+        'HOST': 'autorack.proxy.rlwy.net',  # Host
+        'PORT': '37107',  # Porta
     }
 }
 
