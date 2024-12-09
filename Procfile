@@ -1,0 +1,1 @@
+web: gunicorn synes.wsgi:application --bind :$PORT
