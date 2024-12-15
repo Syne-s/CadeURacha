@@ -62,3 +62,9 @@ def index(request):
     View para a página inicial.
     """
     return render(request, "app_synes/index.html")
+
+def map(request):
+    """
+    View para a página do mapa.
+    """
+    return render(request, "app_synes/map.html")

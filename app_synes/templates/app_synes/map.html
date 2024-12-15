@@ -1,0 +1,51 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Mapa{% endblock %}
+{% block extra_head %}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #mapid {
+            position: absolute;
+            top: 56px; /* Ajuste para considerar a altura da navbar */
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="mapid"></div>
+{% endblock %}
+{% block extra_body %}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        window.onload = function() {
+            const mapElement = document.getElementById('mapid');
+
+            const mymap = L.map(mapElement, {
+                center: [-3.78222, -38.5434], // Coordenadas de Fortaleza - CE, Brasil
+                zoom: 12,
+                minZoom: 11,
+                layers: [
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    })
+                ]
+            });
+
+            // Redimensionar o mapa quando a janela for redimensionada
+            window.addEventListener('resize', function() {
+                mymap.invalidateSize();
+            });
+        };
+    </script>
+{% endblock %}
