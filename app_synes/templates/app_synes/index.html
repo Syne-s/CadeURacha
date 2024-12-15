@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center">Bem-vindo ao Sistema!</h1>
-        <p class="text-center mt-3">
-            Este é o início do nosso sistema. Utilize os botões abaixo para navegar.
-        </p>
-        <div class="d-flex justify-content-center mt-4">
-            <a href="{% url 'register' %}" class="btn btn-primary mx-2">Registrar-se</a>
-            <a href="{% url 'login' %}" class="btn btn-primary mx-2">Entrar</a>
-        </div>
+{% extends 'app_synes/base.html' %}
+{% block title %}Página Inicial{% endblock %}
+{% block content %}
+    <h1 class="text-center">Bem-vindo ao Sistema!</h1>
+    <p class="text-center mt-3">
+        Este é o início do nosso sistema. Utilize os botões abaixo para navegar.
+    </p>
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{% url 'register' %}" class="btn btn-primary mx-2">Registrar-se</a>
+        <a href="{% url 'login' %}" class="btn btn-primary mx-2">Entrar</a>
     </div>
-</body>
-</html>
+{% endblock %}
