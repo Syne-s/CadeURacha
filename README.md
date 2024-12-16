@@ -82,6 +82,7 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | RF014  | Confirmar Participação em Jogo (Racha)  |   ✕    |
 | RF015  |  Notificar Novo Jogo |   ✕    |
 | RF016  | Excluir Conta |   ✕    |
+| RF017  | Recomendar Jogadores com Perfis Semelhantes |   ✕    |
 
 </div>
 
