@@ -68,21 +68,20 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 |--------|----------------------------|:------:|
 | RF001  | Cadastrar Usuário          |   ✓    |
 | RF002  | Autenticar Usuário         |   ✕    |
-| RF003  | Cadastrar Quadra          |   ✕    |
-| RF004  | Cadastrar Jogo          |   ✕    |
-| RF005  | Filtrar Bairro             |   ✕    |
-| RF006  | Buscar Rachas              |   ✕    |
-| RF007  | Editar Dados do Usuário    |   ✕    |
-| RF008  | Sair do Sistema            |   ✕    |
-| RF009  | Reservar Quadra                 |   ✕    |
-| RF010  | Cancelar Reserva                 |   ✕    |
-| RF011  | Visualizar Reservas                 |   ✕    |
-| RF012  | Editar Reserva                 |   ✕    |
-| RF013  | Verificar Disponibilidade de Quadra               |   ✕    |
-| RF014  | Avaliar Quadra      |   ✕    |
-| RF015  | Confirmar Participação em Jogo (Racha)  |   ✕    |
-| RF016  |  Notificar Novo Jogo |   ✕    |
-| RF017  | Excluir Conta |   ✕    |
+| RF003  | Cadastrar Jogo          |   ✕    |
+| RF004  | Filtrar Bairro             |   ✕    |
+| RF005  | Buscar Rachas              |   ✕    |
+| RF006  | Editar Dados do Usuário    |   ✕    |
+| RF007  | Sair do Sistema            |   ✕    |
+| RF008  | Reservar Quadra                 |   ✕    |
+| RF009  | Cancelar Reserva                 |   ✕    |
+| RF010  | Visualizar Reservas                 |   ✕    |
+| RF011  | Editar Reserva                 |   ✕    |
+| RF012  | Verificar Disponibilidade de Quadra               |   ✕    |
+| RF013  | Avaliar Quadra      |   ✕    |
+| RF014  | Confirmar Participação em Jogo (Racha)  |   ✕    |
+| RF015  |  Notificar Novo Jogo |   ✕    |
+| RF016  | Excluir Conta |   ✕    |
 
 </div>
 
