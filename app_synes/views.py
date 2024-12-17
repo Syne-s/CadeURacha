@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse
-from .models import CustomUser  # Importe o modelo CustomUser
+from django.contrib.auth.decorators import login_required
+from .models import CustomUser, Arena
+from .forms import ArenaForm
 
 def register(request):
     if request.method == "POST":
@@ -72,3 +74,29 @@ def map(request):
     View para a página do mapa.
     """
     return render(request, "app_synes/map.html")
+
+@login_required
+def cadastrar_arena(request):
+    if request.method == 'POST':
+        form = ArenaForm(request.POST)
+        if form.is_valid():
+            arena = form.save(commit=False)
+            arena.usuario = request.user
+            arena.save()
+            return redirect('map')  # Redireciona de volta para o mapa
+    else:
+        # Recupera latitude e longitude dos parâmetros GET
+        latitude = request.GET.get('lat')
+        longitude = request.GET.get('lng')
+        
+        # Inicializa o formulário com as coordenadas
+        form = ArenaForm(initial={
+            'latitude': latitude,
+            'longitude': longitude
+        })
+    
+    return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
+
+def map(request):
+    arenas = Arena.objects.filter(status=True)
+    return render(request, 'app_synes/map.html', {'arenas': arenas})

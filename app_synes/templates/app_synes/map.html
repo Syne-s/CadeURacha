@@ -23,7 +23,7 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="mapid"></div>
+    <div id="map" style="height: 600px;"></div>
 {% endblock %}
 {% block extra_body %}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -47,5 +47,28 @@
                 mymap.invalidateSize();
             });
         };
+
+        // Configuração do mapa (usando Leaflet como exemplo)
+        var map = L.map('map').setView([-23.5505, -46.6333], 10);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        // Adicionar marcadores das arenas existentes
+        {% for arena in arenas %}
+            L.marker([{{ arena.latitude }}, {{ arena.longitude }}])
+             .addTo(map)
+             .bindPopup('<b>{{ arena.nome }}</b><br>{{ arena.tipo_esporte }}');
+        {% endfor %}
+
+        // Capturar clique no mapa
+        map.on('click', function(e) {
+            if ({{ user.is_authenticated|yesno:"true,false" }}) {
+                if(confirm('Deseja cadastrar uma nova arena neste local?')) {
+                    window.location.href = "{% url 'cadastrar_arena' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
+                }
+            } else {
+                alert('Você precisa estar logado para cadastrar uma arena');
+            }
+        });
     </script>
 {% endblock %}

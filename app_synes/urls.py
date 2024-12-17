@@ -6,5 +6,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('', views.index, name='index'),
-    path('map/', views.map, name='map'),      
+    path('map/', views.map, name='map'),
+    path('cadastrar_arena/', views.cadastrar_arena, name='cadastrar_arena'),
 ]
