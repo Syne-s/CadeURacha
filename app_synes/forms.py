@@ -12,8 +12,12 @@ class UserRegistrationForm(UserCreationForm):
 class ArenaForm(forms.ModelForm):
     class Meta:
         model = Arena
-        fields = ['nome', 'latitude', 'longitude', 'endereco', 'capacidade', 'tipo_esporte']
+        fields = ['nome', 'latitude', 'longitude', 'endereco']
         widgets = {
             'latitude': forms.HiddenInput(),
             'longitude': forms.HiddenInput(),
+            'endereco': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Endereço será preenchido automaticamente'
+            })
         }

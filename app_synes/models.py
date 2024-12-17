@@ -13,7 +13,7 @@ class Arena(models.Model):
     nome = models.CharField(max_length=200, verbose_name="Nome da Arena")
     latitude = models.FloatField(verbose_name="Latitude")
     longitude = models.FloatField(verbose_name="Longitude")
-    endereco = models.CharField(max_length=300, blank=True, null=True, verbose_name="Endereço")
+    endereco = models.CharField(max_length=300, verbose_name="Endereço")
     capacidade = models.IntegerField(blank=True, null=True, verbose_name="Capacidade")
     tipo_esporte = models.CharField(max_length=100, verbose_name="Tipo de Esporte")
     

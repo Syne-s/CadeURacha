@@ -1,14 +1,63 @@
 {% extends 'app_synes/base.html' %}
-
 {% block title %}Cadastrar Nova Arena{% endblock %}
-
 {% block content %}
-<div class="container">
-    <h2>Cadastrar Nova Arena</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Cadastrar Arena</button>
-    </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Cadastrar Nova Arena</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_nome" class="form-label">Nome da Arena</label>
+                            <input type="text" name="nome" id="id_nome" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_endereco" class="form-label">Endereço</label>
+                            <input type="text" name="endereco" id="id_endereco" class="form-control" readonly>
+                        </div>
+                        
+                        <input type="hidden" name="latitude" id="id_latitude">
+                        <input type="hidden" name="longitude" id="id_longitude">
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Cadastrar Arena</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Recuperar coordenadas da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const lat = urlParams.get('lat');
+    const lng = urlParams.get('lng');
+
+    // Definir valores nos campos hidden
+    document.getElementById('id_latitude').value = lat;
+    document.getElementById('id_longitude').value = lng;
+
+    // Buscar endereço via API do OpenStreetMap
+    if (lat && lng) {
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+        .then(response => response.json())
+        .then(data => {
+            const endereco = data.display_name;
+            document.getElementById('id_endereco').value = endereco;
+        })
+        .catch(error => {
+            console.error('Erro ao buscar endereço:', error);
+            document.getElementById('id_endereco').value = 'Endereço não encontrado';
+        });
+    }
+});
+</script>
 {% endblock %}

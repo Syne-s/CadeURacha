@@ -13,62 +13,49 @@
             width: 100%;
         }
 
-        #mapid {
+        #map {
             position: absolute;
-            top: 56px; /* Ajuste para considerar a altura da navbar */
-            bottom: 0;
+            top: 50px; /* Ajuste conforme a altura da sua navbar */
             left: 0;
             right: 0;
+            bottom: 0;
         }
     </style>
 {% endblock %}
 {% block content %}
-    <div id="map" style="height: 600px;"></div>
+    <div id="map"></div>
 {% endblock %}
 {% block extra_body %}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
         window.onload = function() {
-            const mapElement = document.getElementById('mapid');
-
-            const mymap = L.map(mapElement, {
-                center: [-3.78222, -38.5434], // Coordenadas de Fortaleza - CE, Brasil
+            var map = L.map('map', {
+                center: [-3.78222, -38.5434],
                 zoom: 12,
-                minZoom: 11,
-                layers: [
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    })
-                ]
+                minZoom: 11
             });
 
-            // Redimensionar o mapa quando a janela for redimensionada
-            window.addEventListener('resize', function() {
-                mymap.invalidateSize();
-            });
-        };
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-        // Configuração do mapa (usando Leaflet como exemplo)
-        var map = L.map('map').setView([-23.5505, -46.6333], 10);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            // Adicionar marcadores das arenas existentes
+            {% for arena in arenas %}
+                L.marker([{{ arena.latitude }}, {{ arena.longitude }}])
+                 .addTo(map)
+                 .bindPopup('<b>{{ arena.nome }}</b>');
+            {% endfor %}
 
-        // Adicionar marcadores das arenas existentes
-        {% for arena in arenas %}
-            L.marker([{{ arena.latitude }}, {{ arena.longitude }}])
-             .addTo(map)
-             .bindPopup('<b>{{ arena.nome }}</b><br>{{ arena.tipo_esporte }}');
-        {% endfor %}
-
-        // Capturar clique no mapa
-        map.on('click', function(e) {
-            if ({{ user.is_authenticated|yesno:"true,false" }}) {
-                if(confirm('Deseja cadastrar uma nova arena neste local?')) {
-                    window.location.href = "{% url 'cadastrar_arena' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
+            // Capturar clique no mapa
+            map.on('click', function(e) {
+                if ({{ user.is_authenticated|yesno:"true,false" }}) {
+                    if(confirm('Deseja cadastrar uma nova arena neste local?')) {
+                        window.location.href = "{% url 'cadastrar_arena' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
+                    }
+                } else {
+                    alert('Você precisa estar logado para cadastrar uma arena');
                 }
-            } else {
-                alert('Você precisa estar logado para cadastrar uma arena');
-            }
-        });
+            });
+        }
     </script>
 {% endblock %}
