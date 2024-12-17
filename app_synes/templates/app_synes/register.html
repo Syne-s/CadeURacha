@@ -16,7 +16,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <form method="POST" action="">
+                    <form id="registerForm" method="POST" action="">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="username">Nome de Usuário</label>
@@ -41,4 +41,47 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block extra_body %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("iyDPNxi3a8yhnB6bg");
+   })();
+
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var email = document.getElementById('email').value;
+        var username = document.getElementById('username').value;
+
+        // Validações básicas
+        if (!email || !username) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        // Validação do formato do e-mail
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, insira um e-mail válido.');
+            return;
+        }
+
+        emailjs.send("service_weifrl9", "template_4areqlb", {
+            to_email: email,
+            to_name: username,
+            name: username
+        }).then(
+            function(response) {
+                console.log('Email enviado com sucesso!', response);
+                document.getElementById('registerForm').submit();
+            }, 
+            function(error) {
+                console.error('Erro detalhado:', error);
+                alert('Não foi possível enviar o e-mail. Detalhes no console.');
+            }
+        );
+    });
+</script>
 {% endblock %}

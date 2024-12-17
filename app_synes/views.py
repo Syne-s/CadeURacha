@@ -42,22 +42,29 @@ def register(request):
     return render(request, "app_synes/register.html")
 
 def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-
-        try:
-            user = CustomUser.objects.get(email=email)
-            user = authenticate(request, username=user.username, password=password)
-            if user is not None:
-                login(request, user)
-                return JsonResponse({'success': True, 'message': "Login realizado com sucesso!"})
-            else:
-                return JsonResponse({'success': False, 'message': "E-mail ou senha inválidos."})
-        except CustomUser.DoesNotExist:
-            return JsonResponse({'success': False, 'message': "E-mail ou senha inválidos."})
-
-    return render(request, "app_synes/login.html")
+    if request.method == 'POST':
+        login_input = request.POST['login']
+        password = request.POST['password']
+        
+        # Check if login_input is an email or username
+        if '@' in login_input:
+            try:
+                user = CustomUser.objects.get(email=login_input)
+                username = user.username
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'success': False, 'message': 'Invalid email or password'})
+        else:
+            username = login_input
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success': True, 'message': 'Login efetuado com sucesso!'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Usuário/E-mail ou senha inválidos.'})
+    
+    return render(request, 'app_synes/login.html')
 
 def logout_view(request):
     logout(request)
