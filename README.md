@@ -64,25 +64,29 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 
 <br>
 
-| Código | Descrição                  | Status |
-|--------|----------------------------|:------:|
-| RF001  | Cadastrar Usuário          |   ✓    |
-| RF002  | Autenticar Usuário         |   ✕    |
-| RF003  | Cadastrar Quadra          |   ✕    |
-| RF004  | Cadastrar Jogo          |   ✕    |
-| RF005  | Filtrar Bairro             |   ✕    |
-| RF006  | Buscar Rachas              |   ✕    |
-| RF007  | Editar Dados do Usuário    |   ✕    |
-| RF008  | Sair do Sistema            |   ✕    |
-| RF009  | Reservar Quadra                 |   ✕    |
-| RF010  | Cancelar Reserva                 |   ✕    |
-| RF011  | Visualizar Reservas                 |   ✕    |
-| RF012  | Editar Reserva                 |   ✕    |
-| RF013  | Verificar Disponibilidade de Quadra               |   ✕    |
-| RF014  | Avaliar Quadra      |   ✕    |
-| RF015  | Confirmar Participação em Jogo (Racha)  |   ✕    |
-| RF016  |  Notificar Novo Jogo |   ✕    |
-| RF017  | Excluir Conta |   ✕    |
+| Código | Descrição                              | Status |
+|--------|----------------------------------------|:------:|
+| RF001  | Cadastrar Usuário                      |   ✓    |
+| RF002  | Autenticar Usuário                     |   ✕    |
+| RF003  | Cadastrar Jogo                         |   ✕    |
+| RF004  | Filtrar Bairro                         |   ✕    |
+| RF005  | Buscar Rachas                          |   ✕    |
+| RF006  | Editar Dados do Usuário                |   ✕    |
+| RF007  | Editar Reserva                         |   ✕    |
+| RF008  | Editar Jogo                            |   ✕    |
+| RF009  | Reservar Quadra                        |   ✕    |
+| RF010  | Cancelar Reserva de Quadra             |   ✕    |
+| RF011  | Cancelar Presença em Jogo              |   ✕    |
+| RF012  | Visualizar Reservas                    |   ✕    |
+| RF013  | Verificar Disponibilidade de Quadra    |   ✕    |
+| RF014  | Avaliar Quadra                         |   ✕    |
+| RF015  | Confirmar Participação em Jogo (Racha) |   ✕    |
+| RF016  | Notificar Novo Jogo                    |   ✕    |
+| RF017  | Sair do Sistema                        |   ✕    |
+| RF018  | Excluir Conta                          |   ✕    |
+| RF019  | Excluir Jogo                           |   ✕    |
+| RF020  | Recomendar Jogos para Iniciantes       |   ✕    |
+
 
 </div>
 

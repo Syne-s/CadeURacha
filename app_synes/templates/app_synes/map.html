@@ -1,0 +1,61 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Mapa{% endblock %}
+{% block extra_head %}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #map {
+            position: absolute;
+            top: 50px; /* Ajuste conforme a altura da sua navbar */
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="map"></div>
+{% endblock %}
+{% block extra_body %}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        window.onload = function() {
+            var map = L.map('map', {
+                center: [-3.78222, -38.5434],
+                zoom: 12,
+                minZoom: 11
+            });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Adicionar marcadores das arenas existentes
+            {% for arena in arenas %}
+                L.marker([{{ arena.latitude }}, {{ arena.longitude }}])
+                 .addTo(map)
+                 .bindPopup('<b>{{ arena.nome }}</b>');
+            {% endfor %}
+
+            // Capturar clique no mapa
+            map.on('click', function(e) {
+                if ({{ user.is_authenticated|yesno:"true,false" }}) {
+                    if(confirm('Deseja cadastrar uma nova arena neste local?')) {
+                        window.location.href = "{% url 'cadastrar_arena' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
+                    }
+                } else {
+                    alert('Você precisa estar logado para cadastrar uma arena');
+                }
+            });
+        }
+    </script>
+{% endblock %}

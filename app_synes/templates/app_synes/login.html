@@ -1,34 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center">Login</h2>
-
-        <form id="loginForm" method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
-                <div class="alert alert-danger d-none" id="emailError"></div>
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Login{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Login</h2>
+                </div>
+                <div class="card-body">
+                    <form id="loginForm" method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="login">Usuário ou E-mail</label>
+                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite seu nome de usuário ou e-mail" required>
+                            <div class="alert alert-danger d-none" id="loginError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+                            <div class="alert alert-danger d-none" id="passwordError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'password_reset' %}" class="text-sm text-blue-600 hover:underline">Esqueceu sua senha?</a>
+                    </div>
+                    <div class="alert alert-success d-none mt-3" id="successMessage"></div>
+                    <div class="alert alert-danger d-none mt-3" id="errorMessage"></div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
-                <div class="alert alert-danger d-none" id="passwordError"></div>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <div class="alert alert-success d-none mt-3" id="successMessage"></div>
-        <div class="alert alert-danger d-none mt-3" id="errorMessage"></div>
+        </div>
     </div>
-
+</div>
+{% endblock %}
+{% block extra_body %}
     <script>
         $(document).ready(function() {
             $('#loginForm').on('submit', function(event) {
@@ -37,7 +43,7 @@
                     url: "{% url 'login' %}",
                     type: "POST",
                     data: {
-                        email: $('#email').val(),
+                        login: $('#login').val(),
                         password: $('#password').val(),
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
@@ -59,5 +65,4 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}

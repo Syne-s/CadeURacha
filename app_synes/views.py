@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse
-from .models import CustomUser  # Importe o modelo CustomUser
+from django.contrib.auth.decorators import login_required
+from .models import CustomUser, Arena
+from .forms import ArenaForm
 
 def register(request):
     if request.method == "POST":
@@ -40,25 +42,68 @@ def register(request):
     return render(request, "app_synes/register.html")
 
 def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+    if request.method == 'POST':
+        login_input = request.POST['login']
+        password = request.POST['password']
+        
+        # Check if login_input is an email or username
+        if '@' in login_input:
+            try:
+                user = CustomUser.objects.get(email=login_input)
+                username = user.username
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'success': False, 'message': 'Invalid email or password'})
+        else:
+            username = login_input
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success': True, 'message': 'Login efetuado com sucesso!'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Usuário/E-mail ou senha inválidos.'})
+    
+    return render(request, 'app_synes/login.html')
 
-        try:
-            user = CustomUser.objects.get(email=email)
-            user = authenticate(request, username=user.username, password=password)
-            if user is not None:
-                login(request, user)
-                return JsonResponse({'success': True, 'message': "Login realizado com sucesso!"})
-            else:
-                return JsonResponse({'success': False, 'message': "E-mail ou senha inválidos."})
-        except CustomUser.DoesNotExist:
-            return JsonResponse({'success': False, 'message': "E-mail ou senha inválidos."})
-
-    return render(request, "app_synes/login.html")
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 def index(request):
     """
     View para a página inicial.
     """
     return render(request, "app_synes/index.html")
+
+def map(request):
+    """
+    View para a página do mapa.
+    """
+    return render(request, "app_synes/map.html")
+
+@login_required
+def cadastrar_arena(request):
+    if request.method == 'POST':
+        form = ArenaForm(request.POST)
+        if form.is_valid():
+            arena = form.save(commit=False)
+            arena.usuario = request.user
+            arena.save()
+            return redirect('map')  # Redireciona de volta para o mapa
+    else:
+        # Recupera latitude e longitude dos parâmetros GET
+        latitude = request.GET.get('lat')
+        longitude = request.GET.get('lng')
+        
+        # Inicializa o formulário com as coordenadas
+        form = ArenaForm(initial={
+            'latitude': latitude,
+            'longitude': longitude
+        })
+    
+    return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
+
+def map(request):
+    arenas = Arena.objects.filter(status=True)
+    return render(request, 'app_synes/map.html', {'arenas': arenas})

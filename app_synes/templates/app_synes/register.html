@@ -1,41 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center">Cadastro de Usuário</h2>
-        {% if messages %}
-            <div class="alert alert-info">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Cadastro{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center mb-0">Cadastro de Usuário</h2>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        <div class="alert alert-info">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <form id="registerForm" method="POST" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Nome de Usuário</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Confirmar Senha</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirme sua senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                    </form>
+                </div>
             </div>
-        {% endif %}
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Nome de Usuário</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome" required>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirmar Senha</label>
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirme sua senha" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
-        </form>        
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
+{% block extra_body %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("iyDPNxi3a8yhnB6bg");
+   })();
+
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var email = document.getElementById('email').value;
+        var username = document.getElementById('username').value;
+
+        // Validações básicas
+        if (!email || !username) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        // Validação do formato do e-mail
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Por favor, insira um e-mail válido.');
+            return;
+        }
+
+        emailjs.send("service_weifrl9", "template_4areqlb", {
+            to_email: email,
+            to_name: username,
+            name: username
+        }).then(
+            function(response) {
+                console.log('Email enviado com sucesso!', response);
+                document.getElementById('registerForm').submit();
+            }, 
+            function(error) {
+                console.error('Erro detalhado:', error);
+                alert('Não foi possível enviar o e-mail. Detalhes no console.');
+            }
+        );
+    });
+</script>
+{% endblock %}
