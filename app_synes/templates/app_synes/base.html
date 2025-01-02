@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -174,7 +175,7 @@
         .footer {
             background-color: white;
             border-top: 1px solid var(--border-color);
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             margin-top: auto;
         }
 
@@ -182,7 +183,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -190,14 +191,22 @@
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
             color: var(--primary-color);
             font-weight: 600;
         }
 
-        .footer-logo .menu-icon {
-            background-color: var(--primary-color);
-            color: white;
+        .footer-logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: var (--text-color);
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
         .footer-wave {
@@ -211,12 +220,6 @@
                 transparent 20px
             );
             opacity: 0.3;
-        }
-
-        .footer-text {
-            text-align: center;
-            color: var(--text-color);
-            font-size: 0.9rem;
         }
 
         /* Responsive Design */
@@ -294,15 +297,12 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <div class="menu-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                Synes
+                <img src="{% static 'app_synes/images/synes.png' %}" alt="Synes Logo" class="synes-logo">
+                <span style="font-size: 1.2rem;">Synes</span>
             </div>
-            <div class="footer-wave"></div>
             <div class="footer-text">
-                <p>&copy; 2024 Synes. Todos os direitos reservados.</p>
-                <p>CadêURacha - Conectando jogadores de basquete em Fortaleza</p>
+                <p><strong>CadêURacha</strong> - Conectando jogadores de basquete em Fortaleza.</p>
+                <p>&copy; 2025 Synes. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
