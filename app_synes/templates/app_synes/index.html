@@ -1,13 +1,46 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Home{% endblock %}
+{% block title %}CadêURacha - Encontre seu jogo{% endblock %}
+
 {% block content %}
-    <h1 class="text-center">Bem-vindo ao CadêURacha!</h1>
-    <p class="text-center mt-3">
-        Este é o início do nosso sistema. Utilize os botões abaixo para navegar.
-    </p>
-    <div class="d-flex justify-content-center mt-4">
-        <a href="{% url 'register' %}" class="btn btn-primary mx-2">Registrar-se</a>
-        <a href="{% url 'login' %}" class="btn btn-primary mx-2">Entrar</a>
-        <a href="{% url 'map' %}" class="btn btn-primary mx-2">Ver Mapa</a> <!-- Adicionando o botão para acessar o mapa -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-4 mb-4">Bem-vindo ao CadêURacha!</h1>
+        <p class="lead mb-4">Encontre jogos de basquete próximos a você e conecte-se com outros jogadores.</p>
+        <a href="{% url 'map' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-search me-2"></i>Encontrar Jogos
+        </a>
     </div>
+</section>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-map-marked-alt fa-3x mb-3 text-primary"></i>
+                    <h3 class="card-title">Localize Quadras</h3>
+                    <p class="card-text">Encontre as melhores quadras de basquete perto de você.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                    <h3 class="card-title">Junte-se a Jogos</h3>
+                    <p class="card-text">Participe de jogos existentes ou crie o seu próprio.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-basketball-ball fa-3x mb-3 text-primary"></i>
+                    <h3 class="card-title">Melhore seu Jogo</h3>
+                    <p class="card-text">Conecte-se com jogadores de todos os níveis e aprimore suas habilidades.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
