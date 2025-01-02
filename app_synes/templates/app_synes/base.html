@@ -204,26 +204,21 @@
 
         .footer-text {
             text-align: center;
-            color: var (--text-color);
+            color: var(--text-color);
             font-size: 1rem;
             line-height: 1.5;
         }
 
-        .footer-wave {
-            width: 100%;
-            height: 20px;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--border-color),
-                var(--border-color) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            opacity: 0.3;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block; /* Garante que o botão hambúrguer seja visível */
+            }
+            
+            .top-nav {
+                flex-wrap: wrap; /* Permite que os elementos quebrem em telas menores */
+            }
+
             .nav-center {
                 margin: 0 1rem;
             }
@@ -243,48 +238,49 @@
 </head>
 <body>
     <!-- Top Navigation Bar -->
-    <nav class="top-nav">
-        <div class="nav-left">
-            <div class="menu-icon">
-                <i class="fas fa-bars"></i>
-            </div>
-            <a href="{% url 'index' %}" class="logo">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light top-nav">
+        <div class="container-fluid">
+            <a class="navbar-brand logo" href="{% url 'index' %}">
                 <i class="fas fa-basketball-ball"></i>
                 CadêURacha
             </a>
-        </div>
-
-        <div class="nav-center">
-            <input type="text" class="search-bar" placeholder="Buscar jogos ou quadras...">
-            <i class="fas fa-search search-icon"></i>
-        </div>
-
-        <div class="nav-right">
-            <a href="#" class="nav-icon">
-                <i class="fas fa-bell"></i>
-            </a>
-            {% if user.is_authenticated %}
-                <div class="dropdown">
-                    {% if user.profile_picture %}
-                        <img src="{{ user.profile_picture.url }}" alt="Foto de perfil" class="profile-picture" data-bs-toggle="dropdown">
-                    {% else %}
-                        <div class="nav-icon" data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    {% endif %}
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="#">Meus jogos</a>
-                        <a class="dropdown-item" href="#">Minhas reservas</a>
-                        <a class="dropdown-item" href="#">Editar perfil</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
-                    </div>
+            <div class="nav-center">
+                <div class="input-group">
+                    <input type="text" class="form-control search-bar" placeholder="Buscar jogos ou quadras...">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
-            {% else %}
-                <a href="{% url 'login' %}" class="nav-icon">
-                    <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <div class="nav-right">
+                <a class="nav-link nav-icon" href="#">
+                    <i class="fas fa-bell"></i>
                 </a>
-            {% endif %}
+                {% if user.is_authenticated %}
+                    <div class="nav-item dropdown">
+                        {% if user.profile_picture %}
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ user.profile_picture.url }}" alt="Foto de perfil" class="profile-picture">
+                            </a>
+                        {% else %}
+                            <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        {% endif %}
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Meus jogos</a></li>
+                            <li><a class="dropdown-item" href="#">Minhas reservas</a></li>
+                            <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a class="nav-link nav-icon" href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 
