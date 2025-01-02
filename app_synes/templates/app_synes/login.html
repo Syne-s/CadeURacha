@@ -21,48 +21,44 @@
                             <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
                             <div class="alert alert-danger d-none" id="passwordError"></div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Entrar</button>
                     </form>
-                    <div class="text-center mt-3">
-                        <a href="{% url 'password_reset' %}" class="text-sm text-blue-600 hover:underline">Esqueceu sua senha?</a>
-                    </div>
-                    <div class="alert alert-success d-none mt-3" id="successMessage"></div>
-                    <div class="alert alert-danger d-none mt-3" id="errorMessage"></div>
+                    <div class="alert alert-success d-none mt-3" id="loginSuccess"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
-{% block extra_body %}
-    <script>
-        $(document).ready(function() {
-            $('#loginForm').on('submit', function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: "{% url 'login' %}",
-                    type: "POST",
-                    data: {
-                        login: $('#login').val(),
-                        password: $('#password').val(),
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $('#successMessage').text(response.message).removeClass('d-none');
-                            $('#errorMessage').addClass('d-none');
-                            window.location.href = "{% url 'index' %}";
-                        } else {
-                            $('#errorMessage').text(response.message).removeClass('d-none');
-                            $('#successMessage').addClass('d-none');
-                        }
-                    },
-                    error: function(response) {
-                        $('#errorMessage').text("Erro ao tentar fazer login.").removeClass('d-none');
-                        $('#successMessage').addClass('d-none');
-                    }
-                });
-            });
-        });
-    </script>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('loginSuccess').classList.remove('d-none');
+            document.getElementById('loginSuccess').textContent = data.message;
+            setTimeout(() => {
+                window.location.href = '/'; // Redireciona para a página inicial ou outra página desejada
+            }, 2000); // Aguarda 2 segundos antes de redirecionar
+        } else {
+            document.getElementById('loginError').classList.remove('d-none');
+            document.getElementById('loginError').textContent = data.message;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
 {% endblock %}
