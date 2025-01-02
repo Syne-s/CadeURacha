@@ -3,12 +3,14 @@
 
 {% block content %}
 <section class="hero-section">
-    <div class="container">
+    <div class="container text-center">
         <h1 class="display-4 mb-4">Bem-vindo ao CadêURacha!</h1>
         <p class="lead mb-4">Encontre jogos de basquete próximos a você e conecte-se com outros jogadores.</p>
-        <a href="{% url 'map' %}" class="btn btn-primary btn-lg">
-            <i class="fas fa-search me-2"></i>Encontrar Jogos
-        </a>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'map' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-search me-2"></i>Encontrar Jogos
+            </a>
+        </div>
     </div>
 </section>
 
