@@ -141,7 +141,7 @@
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: var(--accent-color);
+            background-color: var (--accent-color);
             color: white;
             border-radius: 50%;
             width: 18px;
@@ -291,12 +291,28 @@
                 </div>
             </div>
             <div class="nav-right">
-                <a class="nav-icon" href="#" title="Notificações">
-                    <div class="notification-icon">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">3</span>
-                    </div>
-                </a>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="notification-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                        {% if user.notifications.unread %}
+                            {% for notification in user.notifications.unread %}
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        {{ notification.title }} - {{ notification.message }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>
+                                <a class="dropdown-item" href="#">Nenhuma notificação</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
                 {% if user.is_authenticated %}
                     <div class="nav-item dropdown">
                         {% if user.profile_picture %}
