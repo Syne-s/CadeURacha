@@ -9,12 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         :root {
-            --primary-color: #004E89;
-            --secondary-color: #1A659E;
-            --accent-color: #FF6B35;
-            --background-color: #F7F9FC;
+            --primary-color: #bf4222; /* tia-maria 700 */
+            --secondary-color: #d35023; /* tia-maria 600 */
+            --accent-color: #e1672e; /* tia-maria 500 */
+            --background-color: #fdf6ef; /* tia-maria 50 */
             --text-color: #2D3748;
             --border-color: #E2E8F0;
+            --hover-color: #e78750; /* tia-maria 400 */
+            --active-color: #8c3220; /* tia-maria 800 */
+            --disabled-color: #fbe9d9; /* tia-maria 100 */
+            --focus-shadow-color: rgba(191, 66, 34, 0.25); /* tia-maria 700 com transparência */
         }
 
         body {
@@ -70,6 +74,24 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .logo i, .logo span {
+            color: var(--primary-color); /* Cor do ícone de bola de basquete e do texto */
+            transition: color 0.3s;
+        }
+
+        .logo:hover, .logo:hover i, .logo:hover span {
+            color: var(--hover-color);
+        }
+
+        .logo:active, .logo:active i, .logo:active span {
+            color: var(--active-color);
+        }
+
+        .logo:disabled, .logo:disabled i, .logo:disabled span {
+            color: var(--disabled-color);
         }
 
         .nav-center {
@@ -79,13 +101,43 @@
             position: relative;
         }
 
-        .search-bar {
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
             width: 100%;
+        }
+
+        .search-bar {
+            flex: 1;
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             outline: none;
             font-size: 0.95rem;
+            background-color: white; /* Mantém o background branco */
+            color: var(--text-color);
+            transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary-color);
+            background-color: white; /* Mantém o background branco */
+            box-shadow: 0 0 0 0.2rem var(--focus-shadow-color);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-color);
+        }
+
+        .search-bar:hover {
+            border-color: var(--hover-color);
+        }
+
+        .search-bar:disabled {
+            background-color: var(--disabled-color);
+            border-color: var(--border-color);
+            color: var(--text-color);
         }
 
         .search-icon {
@@ -95,6 +147,37 @@
             transform: translateY(-50%);
             color: #666;
             cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .search-container:hover .search-bar,
+        .search-container:hover .search-icon {
+            border-color: var(--hover-color);
+            color: var(--hover-color);
+        }
+
+        .btn-outline-secondary {
+            color: var(--text-color);
+            border-color: var(--border-color);
+            transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+        }
+
+        .btn-outline-secondary:hover {
+            color: var(--hover-color);
+            border-color: var(--hover-color);
+            background-color: var(--background-color);
+        }
+
+        .btn-outline-secondary:focus, .btn-outline-secondary:active {
+            color: var (--active-color);
+            border-color: var(--active-color);
+            background-color: var(--background-color);
+        }
+
+        .btn-outline-secondary:disabled {
+            color: var(--disabled-color);
+            border-color: var(--border-color);
+            background-color: var(--background-color);
         }
 
         .nav-right {
@@ -280,14 +363,12 @@
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
                 <i class="fas fa-basketball-ball"></i>
-                CadêURacha
+                <span>CadêURacha</span>
             </a>
             <div class="nav-center">
-                <div class="input-group">
+                <div class="search-container">
                     <input type="text" class="form-control search-bar" placeholder="Buscar jogos ou quadras...">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
+                    <i class="fas fa-search search-icon"></i>
                 </div>
             </div>
             <div class="nav-right">
