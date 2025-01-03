@@ -42,7 +42,7 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | Nome                                | Função             |
 |-------------------------------------|--------------------|
 | Carla Suenne Barbosa da Silva       | Back-End           |
-| Jerbesson Silva da Costa            | Back-End           |
+| Jerbesson Silva da Costa            | Full Stack         |
 | Lorenna Aguiar Nunes                | Front-End          |
 | Maria Graziela Mendes Castro        | Front-End          |
 | Maria Luíza de Meneses Albuquerque  | Designer           |
