@@ -111,13 +111,15 @@
             justify-content: center;
             cursor: pointer;
             border-radius: 50%;
-            transition: background-color 0.2s;
+            transition: all 0.3s ease;
             color: var(--text-color);
             text-decoration: none;
+            position: relative;
         }
 
         .nav-icon:hover {
             background-color: var(--background-color);
+            transform: scale(1.05);
         }
 
         .profile-picture {
@@ -127,6 +129,42 @@
             object-fit: cover;
             cursor: pointer;
             border: 2px solid var(--primary-color);
+        }
+
+        /* Novo estilo para o ícone de notificação */
+        .notification-icon {
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* Search Results */
@@ -253,8 +291,11 @@
                 </div>
             </div>
             <div class="nav-right">
-                <a class="nav-link nav-icon" href="#">
-                    <i class="fas fa-bell"></i>
+                <a class="nav-icon" href="#" title="Notificações">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
                 </a>
                 {% if user.is_authenticated %}
                     <div class="nav-item dropdown">
