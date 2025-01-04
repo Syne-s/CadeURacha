@@ -23,6 +23,13 @@
             </div>
             <input type="hidden" name="latitude" id="id_latitude">
             <input type="hidden" name="longitude" id="id_longitude">
+            <input type="hidden" name="logradouro" id="id_logradouro">
+            <input type="hidden" name="bairro" id="id_bairro">
+            <input type="hidden" name="cidade" id="id_cidade">
+            <input type="hidden" name="estado" id="id_estado">
+            <input type="hidden" name="regiao" id="id_regiao">
+            <input type="hidden" name="cep" id="id_cep">
+            <input type="hidden" name="pais" id="id_pais">
             <button type="submit" class="auth-button">Cadastrar Arena</button>
         </form>
     </div>
@@ -46,6 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             const endereco = data.display_name;
             document.getElementById('id_endereco').value = endereco;
+
+            // Separar o endereço em partes
+            const parts = endereco.split(',').map(part => part.trim());
+            document.getElementById('id_logradouro').value = parts[0] || '';
+            document.getElementById('id_bairro').value = parts[1] || '';
+            document.getElementById('id_cidade').value = parts[2] || '';
+            document.getElementById('id_estado').value = parts[5] || '';
+            document.getElementById('id_regiao').value = parts[6] || '';
+            document.getElementById('id_cep').value = parts[7] || '';
+            document.getElementById('id_pais').value = parts[8] || '';
         })
         .catch(error => {
             console.error('Erro ao buscar endereço:', error);

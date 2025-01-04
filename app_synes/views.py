@@ -78,34 +78,18 @@ def index(request):
     """
     return render(request, "app_synes/index.html")
 
-def map(request):
-    """
-    View para a página do mapa.
-    """
-    return render(request, "app_synes/map.html")
+def map_view(request):
+    arenas = Arena.objects.all().order_by('nome')
+    neighborhoods = Arena.objects.values_list('bairro', flat=True).distinct().order_by('bairro')
+    return render(request, 'app_synes/map.html', {'arenas': arenas, 'neighborhoods': neighborhoods})
 
 @login_required
 def cadastrar_arena(request):
     if request.method == 'POST':
         form = ArenaForm(request.POST)
         if form.is_valid():
-            arena = form.save(commit=False)
-            arena.usuario = request.user
-            arena.save()
-            return redirect('map')  # Redireciona de volta para o mapa
+            form.save()
+            return redirect('index')
     else:
-        # Recupera latitude e longitude dos parâmetros GET
-        latitude = request.GET.get('lat')
-        longitude = request.GET.get('lng')
-        
-        # Inicializa o formulário com as coordenadas
-        form = ArenaForm(initial={
-            'latitude': latitude,
-            'longitude': longitude
-        })
-    
+        form = ArenaForm()
     return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
-
-def map(request):
-    arenas = Arena.objects.filter(status=True)
-    return render(request, 'app_synes/map.html', {'arenas': arenas})

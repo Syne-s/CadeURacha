@@ -152,7 +152,9 @@
                          data-lat="{{ arena.latitude }}"
                          data-lng="{{ arena.longitude }}">
                         <h4 class="arena-name">{{ arena.nome }}</h4>
-                        <p class="arena-address">{{ arena.endereco }}</p>
+                        <p class="arena-address">
+                            {{ arena.logradouro }}, {{ arena.bairro }}, {{ arena.cidade }}, {{ arena.estado }}, {{ arena.cep }}
+                        </p>
                     </div>
                 {% endfor %}
             </div>
@@ -179,6 +181,12 @@ document.addEventListener('DOMContentLoaded', function() {
             lat: {{ arena.latitude }},
             lng: {{ arena.longitude }},
             address: "{{ arena.endereco }}",
+            logradouro: "{{ arena.logradouro }}",
+            bairro: "{{ arena.bairro }}",
+            cidade: "{{ arena.cidade }}",
+            estado: "{{ arena.estado }}",
+            cep: "{{ arena.cep }}",
+            pais: "{{ arena.pais }}",
             type: "{{ arena.tipo_esporte }}"
         },
         {% endfor %}
@@ -188,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addMarker(arena) {
         var marker = L.marker([arena.lat, arena.lng]).addTo(map);
-        marker.bindPopup(`<b>${arena.name}</b><br>${arena.address}`);
+        marker.bindPopup(`<b>${arena.name}</b><br>${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}`);
         markers[arena.id] = marker;
         
         var listItem = document.createElement('div');
@@ -198,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
         listItem.dataset.lng = arena.lng;
         listItem.innerHTML = `
             <h4 class="arena-name">${arena.name}</h4>
-            <p class="arena-address">${arena.address}</p>
+            <p class="arena-address">${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}</p>
         `;
         listItem.onclick = function() {
             map.setView([arena.lat, arena.lng], 15);
@@ -209,6 +217,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Limpar a lista de arenas antes de adicionar novos itens
     document.querySelector('.arena-list').innerHTML = '';
+
+    // Ordenar arenas por nome
+    arenas.sort((a, b) => a.name.localeCompare(b.name));
 
     arenas.forEach(addMarker);
 

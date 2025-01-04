@@ -3,8 +3,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True, verbose_name="E-mail")  # Torna o e-mail único e obrigatório
-    is_active = models.BooleanField(default=True, verbose_name="Usuário ativo")  # Para desativar/excluir usuários
+    email = models.EmailField(unique=True, verbose_name="E-mail")
+    is_active = models.BooleanField(default=True, verbose_name="Usuário ativo")
 
     def __str__(self):
         return self.username
@@ -16,6 +16,15 @@ class Arena(models.Model):
     endereco = models.CharField(max_length=300, verbose_name="Endereço")
     capacidade = models.IntegerField(blank=True, null=True, verbose_name="Capacidade")
     tipo_esporte = models.CharField(max_length=100, verbose_name="Tipo de Esporte")
+    
+    # Campos para armazenar partes separadas do endereço
+    logradouro = models.CharField(max_length=255, blank=True, null=True, verbose_name="Logradouro")
+    bairro = models.CharField(max_length=255, blank=True, null=True, verbose_name="Bairro")
+    cidade = models.CharField(max_length=255, blank=True, null=True, verbose_name="Cidade")
+    estado = models.CharField(max_length=255, blank=True, null=True, verbose_name="Estado")
+    regiao = models.CharField(max_length=255, blank=True, null=True, verbose_name="Região")
+    cep = models.CharField(max_length=20, blank=True, null=True, verbose_name="CEP")
+    pais = models.CharField(max_length=255, blank=True, null=True, verbose_name="País")
     
     # Relacionamento com usuário que cadastrou
     usuario = models.ForeignKey(
@@ -34,4 +43,4 @@ class Arena(models.Model):
     class Meta:
         verbose_name = "Arena"
         verbose_name_plural = "Arenas"
-        ordering = ['-data_cadastro']
+        ordering = ['-data_cadastro']      
