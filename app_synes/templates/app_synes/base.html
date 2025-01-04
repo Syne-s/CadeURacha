@@ -635,6 +635,12 @@
             </div>
             <div class="nav-right">
                 {% if user.is_authenticated %}
+                    <!-- Ícone de mapa -->
+                    <div class="nav-item">
+                        <a class="nav-link nav-icon" href="{% url 'map' %}">
+                            <i class="fas fa-map"></i>
+                        </a>
+                    </div>
                     <!-- Sino de notificações para usuários autenticados -->
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -657,9 +663,9 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-basketball-ball"></i>Meus jogos</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-check"></i>Minhas reservas</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i>Editar perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-basketball-ball"></i>Meus Jogos</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-check"></i>Minhas Reservas</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i>Editar Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item logout-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Sair</a></li>
                         </ul>
