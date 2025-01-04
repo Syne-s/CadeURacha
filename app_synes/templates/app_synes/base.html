@@ -330,19 +330,22 @@
             gap: 1rem;
             color: var(--primary-color);
             font-weight: 600;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+            justify-content: center;
         }
 
         .footer-logo img {
-            width: 50px;
-            height: 50px;
+            width: 120px;
+            height: 120px;
             object-fit: contain;
         }
 
         .footer-text {
             text-align: center;
-            color: var(--text-color);
-            font-size: 1rem;
-            line-height: 1.5;
+            width: 100%;
+            padding-top: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -491,10 +494,17 @@
 
         /* Estilização para mensagem de nenhuma notificação */
         .dropdown-item.no-notifications {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             color: #666;
-            text-align: center;
-            justify-content: center;
+            padding: 0.75rem 1rem;
             font-style: italic;
+        }
+
+        .dropdown-item.no-notifications i {
+            font-size: 1rem;
+            color: #666;
         }
 
         /* Responsividade para telas menores */
@@ -623,13 +633,15 @@
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="notification-icon">
                                 <i class="fas fa-bell"></i>
-                                <div class="notification-badge">3</div>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                            <li><a class="dropdown-item" href="#">Notificação 1</a></li>
-                            <li><a class="dropdown-item" href="#">Notificação 2</a></li>
-                            <li><a class="dropdown-item" href="#">Notificação 3</a></li>
+                            <li>
+                                <div class="dropdown-item no-notifications">
+                                    <i class="fas fa-bell-slash"></i>
+                                    <span>Sem Notificações</span>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <!-- Ícone/Menu do usuário -->
@@ -669,8 +681,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="{% static 'app_synes/images/synes.png' %}" alt="Synes Logo" class="synes-logo">
-                <span style="font-size: 1.2rem;">Synes</span>
+                <img src="{% static 'app_synes/images/synes-logo.png' %}" alt="Synes Logo" class="synes-logo">
             </div>
             <div class="footer-text">
                 <p><strong>CadêURacha</strong> - Conectando jogadores de basquete em Fortaleza.</p>
