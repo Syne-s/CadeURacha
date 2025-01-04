@@ -1,36 +1,30 @@
 {% extends 'app_synes/base.html' %}
 {% block title %}Cadastrar Nova Arena{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="text-center mb-0">Cadastrar Nova Arena</h2>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="id_nome" class="form-label">Nome da Arena</label>
-                            <input type="text" name="nome" id="id_nome" class="form-control" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="id_endereco" class="form-label">Endereço</label>
-                            <input type="text" name="endereco" id="id_endereco" class="form-control" readonly>
-                        </div>
-                        
-                        <input type="hidden" name="latitude" id="id_latitude">
-                        <input type="hidden" name="longitude" id="id_longitude">
-                        
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Cadastrar Arena</button>
-                        </div>
-                    </form>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-basketball-ball auth-icon"></i>
+            <h2 class="text-center mb-0">Cadastrar Nova Arena</h2>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-basketball-ball"></i></span>
+                    <input type="text" name="nome" id="id_nome" class="form-control" placeholder="Nome da Arena" required>
                 </div>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" name="endereco" id="id_endereco" class="form-control" placeholder="Endereço" readonly>
+                </div>
+            </div>
+            <input type="hidden" name="latitude" id="id_latitude">
+            <input type="hidden" name="longitude" id="id_longitude">
+            <button type="submit" class="auth-button">Cadastrar Arena</button>
+        </form>
     </div>
 </div>
 
@@ -60,4 +54,113 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<style>
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #666;
+    transition: border-color 0.2s ease;
+}
+
+.form-control {
+    border-left: none;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+/* Remove outline padrão do Bootstrap */
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+/* Quando o input está em foco, estiliza também o span adjacente */
+.form-control:focus ~ .input-group-text {
+    border-color: var(--primary-color);
+}
+
+/* Quando o span está em foco, estiliza também o input */
+.input-group:focus-within .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .form-control {
+    border-color: var(--primary-color);
+}
+
+.auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.auth-button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.auth-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: var(--hover-color);
+}
+</style>
 {% endblock %}
