@@ -35,15 +35,30 @@
         overflow-y: auto;
         border-left: 1px solid var(--border-color);
     }
+    .sidebar-header {
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #ccc; /* Borda sutil */
+        text-align: center; /* Centralizar o título */
+    }
+    .sidebar-header h2 {
+        font-size: 1.5rem;
+        color: var(--text-color);
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase; /* Deixar título em maiúsculas */
+        letter-spacing: 1px; /* Espaçamento entre letras */
+    }
     .filter-section {
         margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
+        padding-bottom: 1rem;
         border-bottom: 1px solid #ccc;
+        text-align: center; /* Centralizar o título */
     }
     .filter-section h3 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: var(--text-color);
-        margin-bottom: 1rem;
+        margin-bottom: 1rem; /* Aumentar espaço abaixo do texto */
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -54,6 +69,12 @@
         padding: 0.5rem;
         width: 100%;
         font-size: 0.95rem;
+        margin-bottom: 1rem; /* Aumentar espaço abaixo do select */
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem var(--focus-shadow-color);
     }
     .arena-list {
         margin-top: 1rem;
@@ -103,23 +124,6 @@
         .filter-section {
             margin-bottom: 1rem;
         }
-    }
-    #sidebar h2 {
-        font-size: 1.5rem;
-        color: var(--text-color);
-        margin-bottom: 1.5rem;
-        font-weight: 600;
-    }
-    .sidebar-header {
-        padding-bottom: 0.5rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid #ccc; /* Borda sutil */
-    }
-
-    .sidebar-header h2 {
-        font-size: 1.25rem;
-        margin: 0 0 0.5rem;
-        text-transform: uppercase; /* Deixar título em maiúsculas */
     }
 </style>
 {% endblock %}
@@ -189,13 +193,22 @@ document.addEventListener('DOMContentLoaded', function() {
         
         var listItem = document.createElement('div');
         listItem.className = 'arena-item';
-        listItem.innerHTML = `<strong>${arena.name}</strong><br>${arena.address}`;
+        listItem.dataset.id = arena.id;
+        listItem.dataset.lat = arena.lat;
+        listItem.dataset.lng = arena.lng;
+        listItem.innerHTML = `
+            <h4 class="arena-name">${arena.name}</h4>
+            <p class="arena-address">${arena.address}</p>
+        `;
         listItem.onclick = function() {
             map.setView([arena.lat, arena.lng], 15);
             marker.openPopup();
         };
-        document.getElementById('arena-list').appendChild(listItem);
+        document.querySelector('.arena-list').appendChild(listItem);
     }
+
+    // Limpar a lista de arenas antes de adicionar novos itens
+    document.querySelector('.arena-list').innerHTML = '';
 
     arenas.forEach(addMarker);
 
@@ -217,11 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 easeLinearity: 0.25
             });
 
-            markersLayer.eachLayer((layer) => {
-                if (layer.options.arenaId === this.dataset.id) {
-                    layer.openPopup();
-                }
-            });
+            markers[this.dataset.id].openPopup();
         });
     });
 });
