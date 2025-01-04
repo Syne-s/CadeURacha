@@ -139,7 +139,7 @@
             <div class="filter-section">
                 <h3>Filtrar por Bairro</h3>
                 <select class="form-select" id="neighborhood-filter">
-                    <option value="">Todos os bairros</option>
+                    <option value="">Todos os Bairros</option>
                     {% for neighborhood in neighborhoods %}
                         <option value="{{ neighborhood }}">{{ neighborhood }}</option>
                     {% endfor %}
@@ -150,7 +150,8 @@
                     <div class="arena-item" 
                          data-id="{{ arena.id }}"
                          data-lat="{{ arena.latitude }}"
-                         data-lng="{{ arena.longitude }}">
+                         data-lng="{{ arena.longitude }}"
+                         data-bairro="{{ arena.bairro }}">
                         <h4 class="arena-name">{{ arena.nome }}</h4>
                         <p class="arena-address">
                             {{ arena.logradouro }}, {{ arena.bairro }}, {{ arena.cidade }}, {{ arena.estado }}, {{ arena.cep }}
@@ -204,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         listItem.dataset.id = arena.id;
         listItem.dataset.lat = arena.lat;
         listItem.dataset.lng = arena.lng;
+        listItem.dataset.bairro = arena.bairro;
         listItem.innerHTML = `
             <h4 class="arena-name">${arena.name}</h4>
             <p class="arena-address">${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}</p>
@@ -243,6 +245,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             markers[this.dataset.id].openPopup();
         });
+    });
+
+    // Filtrar arenas por bairro
+    document.getElementById('neighborhood-filter').addEventListener('change', function() {
+        var selectedBairro = this.value;
+        document.querySelector('.arena-list').innerHTML = '';
+        Object.values(markers).forEach(marker => map.removeLayer(marker));
+
+        var filteredArenas = arenas.filter(arena => !selectedBairro || arena.bairro === selectedBairro);
+        filteredArenas.forEach(addMarker);
     });
 });
 </script>
