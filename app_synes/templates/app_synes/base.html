@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         :root {
-            --primary-color: #bf4222; /* tia-maria 700 */
-            --secondary-color: #d35023; /* tia-maria 600 */
-            --accent-color: #e1672e; /* tia-maria 500 */
-            --background-color: #fdf6ef; /* tia-maria 50 */
+            --primary-color: #bf4222;
+            --secondary-color: #d35023;
+            --accent-color: #e1672e;
+            --background-color: #fdf6ef;
             --text-color: #2D3748;
             --border-color: #E2E8F0;
-            --hover-color: #e78750; /* tia-maria 400 */
-            --active-color: #8c3220; /* tia-maria 800 */
-            --disabled-color: #fbe9d9; /* tia-maria 100 */
-            --focus-shadow-color: rgba(191, 66, 34, 0.25); /* tia-maria 700 com transparência */
+            --hover-color: #e78750;
+            --active-color: #8c3220;
+            --disabled-color: #fbe9d9;
+            --focus-shadow-color: rgba(191, 66, 34, 0.25);
         }
 
         body {
@@ -31,7 +31,6 @@
             margin: 0;
         }
 
-        /* Top Navigation Bar */
         .top-nav {
             background-color: white;
             border-bottom: 1px solid var(--border-color);
@@ -78,7 +77,7 @@
         }
 
         .logo i, .logo span {
-            color: var(--primary-color); /* Cor do ícone de bola de basquete e do texto */
+            color: var(--primary-color);
             transition: color 0.3s;
         }
 
@@ -115,14 +114,14 @@
             border-radius: 4px;
             outline: none;
             font-size: 0.95rem;
-            background-color: white; /* Mantém o background branco */
+            background-color: white;
             color: var(--text-color);
             transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
         .search-bar:focus {
             border-color: var(--primary-color);
-            background-color: white; /* Mantém o background branco */
+            background-color: white;
             box-shadow: 0 0 0 0.2rem var(--focus-shadow-color);
         }
 
@@ -169,73 +168,80 @@
         }
 
         .btn-outline-secondary:focus, .btn-outline-secondary:active {
-            color: var (--active-color);
+            color: var(--active-color);
             border-color: var(--active-color);
             background-color: var(--background-color);
         }
 
         .btn-outline-secondary:disabled {
             color: var(--disabled-color);
-            border-color: var(--border-color);
+            border-color: var (--border-color);
             background-color: var(--background-color);
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .nav-icon {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             border-radius: 50%;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-            text-decoration: none;
+            transition: color 0.2s ease;
+            color: var(--primary-color);
+            background-color: transparent;
+            border: 2px solid transparent;
             position: relative;
         }
 
         .nav-icon:hover {
-            background-color: var(--background-color);
-            transform: scale(1.05);
+            color: var(--hover-color);
         }
 
         .profile-picture {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             cursor: pointer;
             border: 2px solid var(--primary-color);
+            transition: all 0.2s ease;
         }
 
-        /* Novo estilo para o ícone de notificação */
+        .profile-picture:hover {
+            border-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
         .notification-icon {
             position: relative;
             color: var(--primary-color);
+            font-size: 1.2rem;
         }
 
         .notification-badge {
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: var (--accent-color);
+            background-color: var(--accent-color);
             color: white;
             border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             border: 2px solid white;
             animation: pulse 2s infinite;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         @keyframes pulse {
@@ -250,7 +256,17 @@
             }
         }
 
-        /* Search Results */
+        .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
+        .nav-item.dropdown.show .nav-link.nav-icon .fa-bell,
+        .nav-item.dropdown.show .nav-link.nav-icon i {
+            color: var(--text-color);
+        }
+
+        .nav-item.dropdown.show .dropdown-toggle::after {
+            display: inline-block;
+            border-top-color: var(--text-color);
+        }
+
         .search-results {
             margin-top: 1rem;
             padding: 1rem;
@@ -285,14 +301,12 @@
             transform: translateY(-2px);
         }
 
-        /* Main Content Area */
         .main-content {
-            margin-top: 65px; /* Height of top nav */
+            margin-top: 65px;
             padding: 1.5rem;
             flex: 1;
         }
 
-        /* Footer */
         .footer {
             background-color: white;
             border-top: 1px solid var(--border-color);
@@ -330,14 +344,13 @@
             line-height: 1.5;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .navbar-toggler {
-                display: block; /* Garante que o botão hambúrguer seja visível */
+                display: block;
             }
             
             .top-nav {
-                flex-wrap: wrap; /* Permite que os elementos quebrem em telas menores */
+                flex-wrap: wrap;
             }
 
             .nav-center {
@@ -347,6 +360,20 @@
             .results-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+
+            .nav-right {
+                gap: 1rem;
+            }
+            
+            .nav-icon {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .profile-picture {
+                width: 36px;
+                height: 36px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -354,11 +381,225 @@
                 display: none;
             }
         }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            color: var(--primary-color);
+            background-color: transparent;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            color: var(--hover-color);
+        }
+
+        .notification-icon {
+            position: relative;
+            color: inherit;
+            font-size: 1.2rem;
+        }
+
+        .nav-item.dropdown.show .nav-link.nav-icon,
+        .nav-item.dropdown.show .nav-link.nav-icon .notification-icon,
+        .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
+        .nav-item.dropdown.show .nav-link.nav-icon .fa-bell {
+            color: var(--primary-color);
+        }
+
+        .nav-item.dropdown.show .nav-link.nav-icon:hover,
+        .nav-item.dropdown.show .nav-link.nav-icon:hover .notification-icon,
+        .nav-item.dropdown.show .nav-link.nav-icon:hover .fa-user,
+        .nav-item.dropdown.show .nav-link.nav-icon:hover .fa-bell {
+            color: var(--hover-color);
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            padding: 0.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 240px;
+            margin-top: 0.5rem;
+            background: white;
+        }
+
+        /* Estilização dos itens do dropdown */
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        /* Ícones para os itens do dropdown */
+        .dropdown-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Hover estado dos itens */
+        .dropdown-item:hover {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item:hover i {
+            color: var(--hover-color);
+        }
+
+        /* Divider estilizado */
+        .dropdown-divider {
+            margin: 0.5rem 0;
+            border-top: 1px solid var(--border-color);
+            opacity: 0.8;
+        }
+
+        /* Estilização específica para notificações */
+        #notificationDropdown + .dropdown-menu .dropdown-item {
+            white-space: normal;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem;
+        }
+
+        #notificationDropdown + .dropdown-menu .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Estilização para notificações não lidas */
+        .dropdown-item.unread {
+            background-color: var(--background-color);
+            font-weight: 500;
+        }
+
+        /* Estilização para mensagem de nenhuma notificação */
+        .dropdown-item.no-notifications {
+            color: #666;
+            text-align: center;
+            justify-content: center;
+            font-style: italic;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 576px) {
+            .dropdown-menu {
+                min-width: 280px;
+            }
+        }
+
+        /* Estilização específica para o botão de logout */
+        .logout-link {
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .logout-link:hover {
+            color: var(--hover-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background-color: var(--primary-color);
+            border: none;
+        }
+
+        .nav-button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-button i {
+            font-size: 1rem;
+        }
+
+        /* Login button style */
+        .auth-buttons .login-btn {
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .auth-buttons .login-btn:hover {
+            color: var(--hover-color);
+            border-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        /* Register button style */
+        .auth-buttons .register-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .auth-buttons .register-btn:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        /* Icon styles */
+        .auth-buttons i {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 576px) {
+            .auth-buttons {
+                gap: 0.5rem;
+            }
+            
+            .auth-buttons .login-btn,
+            .auth-buttons .register-btn {
+                padding: 0.4rem 0.8rem;
+            }
+        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <!-- Top Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light top-nav">
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
@@ -372,62 +613,55 @@
                 </div>
             </div>
             <div class="nav-right">
-                <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="notification-icon">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        {% if user.notifications.unread %}
-                            {% for notification in user.notifications.unread %}
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        {{ notification.title }} - {{ notification.message }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        {% else %}
-                            <li>
-                                <a class="dropdown-item" href="#">Nenhuma notificação</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
                 {% if user.is_authenticated %}
+                    <!-- Sino de notificações para usuários autenticados -->
                     <div class="nav-item dropdown">
-                        {% if user.profile_picture %}
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ user.profile_picture.url }}" alt="Foto de perfil" class="profile-picture">
-                            </a>
-                        {% else %}
-                            <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i>
-                            </a>
-                        {% endif %}
+                        <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="notification-icon">
+                                <i class="fas fa-bell"></i>
+                                <div class="notification-badge">3</div>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                            <li><a class="dropdown-item" href="#">Notificação 1</a></li>
+                            <li><a class="dropdown-item" href="#">Notificação 2</a></li>
+                            <li><a class="dropdown-item" href="#">Notificação 3</a></li>
+                        </ul>
+                    </div>
+                    <!-- Ícone/Menu do usuário -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Meus jogos</a></li>
-                            <li><a class="dropdown-item" href="#">Minhas reservas</a></li>
-                            <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-basketball-ball"></i>Meus jogos</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-check"></i>Minhas reservas</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i>Editar perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                            <li><a class="dropdown-item logout-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Sair</a></li>
                         </ul>
                     </div>
                 {% else %}
-                    <a class="nav-link nav-icon" href="{% url 'login' %}">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </a>
+                    <!-- Botões para usuários não autenticados -->
+                    <div class="auth-buttons">
+                        <a href="{% url 'login' %}" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Entrar</span>
+                        </a>
+                        <a href="{% url 'register' %}" class="register-btn">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Cadastrar</span>
+                        </a>
+                    </div>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
     <main class="main-content">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">

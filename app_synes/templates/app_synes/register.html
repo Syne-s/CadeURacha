@@ -1,87 +1,192 @@
 {% extends 'app_synes/base.html' %}
 {% block title %}CadêURacha - Cadastro{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="text-center mb-0">Cadastro de Usuário</h2>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-basketball-ball auth-icon"></i>
+            <h2>Crie sua conta</h2>
+            <p>Junte-se ao CadêURacha hoje!</p>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info">
+                    <p>{{ message }}</p>
                 </div>
-                <div class="card-body">
-                    {% if messages %}
-                        <div class="alert alert-info">
-                            {% for message in messages %}
-                                <p>{{ message }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                    <form id="registerForm" method="POST" action="">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="username">Nome de Usuário</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm_password">Confirmar Senha</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirme sua senha" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
-                    </form>
+            {% endfor %}
+        {% endif %}
+
+        <form id="registerForm" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Nome de Usuário" required>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirmar Senha" required>
+                </div>
+            </div>
+            <button type="submit" class="auth-button">Cadastrar</button>
+        </form>
+        <div class="auth-footer">
+            <p>Já tem uma conta? <a href="{% url 'login' %}" class="auth-link">Entre aqui</a></p>
         </div>
     </div>
 </div>
-{% endblock %}
-{% block extra_body %}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script type="text/javascript">
-   (function(){
-      emailjs.init("iyDPNxi3a8yhnB6bg");
-   })();
 
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+<style>
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
 
-        var email = document.getElementById('email').value;
-        var username = document.getElementById('username').value;
+.auth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
 
-        // Validações básicas
-        if (!email || !username) {
-            alert('Por favor, preencha todos os campos.');
-            return;
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #666;
+    transition: border-color 0.2s ease;
+}
+
+.form-control {
+    border-left: none;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+/* Remove outline padrão do Bootstrap */
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+/* Quando o input está em foco, estiliza também o span adjacente */
+.form-control:focus ~ .input-group-text {
+    border-color: var(--primary-color);
+}
+
+/* Quando o span está em foco, estiliza também o input */
+.input-group:focus-within .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .form-control {
+    border-color: var(--primary-color);
+}
+
+.auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.auth-button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.auth-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: var(--hover-color);
+}
+</style>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '{% url "login" %}';
+        } else {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-danger';
+            alert.textContent = data.message;
+            form.insertBefore(alert, form.firstChild);
         }
-
-        // Validação do formato do e-mail
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Por favor, insira um e-mail válido.');
-            return;
-        }
-
-        emailjs.send("service_weifrl9", "template_4areqlb", {
-            to_email: email,
-            to_name: username,
-            name: username
-        }).then(
-            function(response) {
-                console.log('Email enviado com sucesso!', response);
-                document.getElementById('registerForm').submit();
-            }, 
-            function(error) {
-                console.error('Erro detalhado:', error);
-                alert('Não foi possível enviar o e-mail. Detalhes no console.');
-            }
-        );
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
+});
 </script>
 {% endblock %}

@@ -1,34 +1,143 @@
 {% extends 'app_synes/base.html' %}
 {% block title %}CadêURacha - Login{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="text-center mb-0">Login</h2>
-                </div>
-                <div class="card-body">
-                    <form id="loginForm" method="POST" action="">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="login">Usuário ou E-mail</label>
-                            <input type="text" class="form-control" id="login" name="login" placeholder="Digite seu nome de usuário ou e-mail" required>
-                            <div class="alert alert-danger d-none" id="loginError"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
-                            <div class="alert alert-danger d-none" id="passwordError"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-3">Entrar</button>
-                    </form>
-                    <div class="alert alert-success d-none mt-3" id="loginSuccess"></div>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-basketball-ball auth-icon"></i>
+            <h2>Bem-vindo de volta!</h2>
+            <p>Entre para continuar no CadêURacha</p>
+        </div>
+        <form id="loginForm" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Usuário ou E-mail" required>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                </div>
+            </div>
+            <button type="submit" class="auth-button">Entrar</button>
+        </form>
+        <div class="auth-footer">
+            <p>Ainda não tem uma conta? <a href="{% url 'register' %}" class="auth-link">Cadastre-se</a></p>
         </div>
     </div>
 </div>
+
+<style>
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #666;
+    transition: border-color 0.2s ease;
+}
+
+.form-control {
+    border-left: none;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+/* Remove outline padrão do Bootstrap */
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+/* Quando o input está em foco, estiliza também o span adjacente */
+.form-control:focus ~ .input-group-text {
+    border-color: var(--primary-color);
+}
+
+/* Quando o span está em foco, estiliza também o input */
+.input-group:focus-within .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .form-control {
+    border-color: var(--primary-color);
+}
+
+.auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.auth-button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.auth-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+    color: var(--hover-color);
+}
+</style>
 
 <script>
 document.getElementById('loginForm').addEventListener('submit', function(event) {
