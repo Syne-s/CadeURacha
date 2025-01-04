@@ -9,25 +9,20 @@
         display: flex;
         flex-direction: row;
     }
-    
     #map {
         flex: 1;
-        min-height: 400px; /* Minimum height for map */
-        cursor: grab; /* Default cursor for panning */
+        min-height: 400px;
+        cursor: grab;
     }
-    
     #map:active {
-        cursor: grabbing; /* Cursor when actively panning */
+        cursor: grabbing;
     }
-    
     .leaflet-marker-icon {
-        cursor: pointer !important; /* Force pointer cursor on markers */
+        cursor: pointer !important;
     }
-    
     .leaflet-container {
-        cursor: grab !important; /* Default cursor for the map container */
+        cursor: grab !important;
     }
-    
     #sidebar {
         width: 300px;
         background: white;
@@ -35,20 +30,17 @@
         overflow-y: auto;
         border-left: 1px solid var(--border-color);
     }
-
     .filter-section {
         margin-bottom: 2rem;
         padding-bottom: 1rem;
         border-bottom: 1px solid var(--border-color);
     }
-
     .filter-section h3 {
         font-size: 1.1rem;
         color: var(--text-color);
         margin-bottom: 1rem;
         font-weight: 600;
     }
-
     .form-select {
         border-radius: 6px;
         border-color: var(--border-color);
@@ -56,11 +48,9 @@
         width: 100%;
         font-size: 0.95rem;
     }
-
     .arena-list {
         margin-top: 1rem;
     }
-
     .arena-item {
         padding: 1rem;
         border: 1px solid var(--border-color);
@@ -70,46 +60,39 @@
         transition: all 0.2s ease;
         background-color: white;
     }
-
     .arena-item:hover {
         background-color: var(--background-color);
         transform: translateY(-2px);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
     .arena-name {
         font-weight: 600;
         color: var(--text-color);
         margin-bottom: 0.5rem;
         font-size: 1rem;
     }
-
     .arena-address {
         color: #666;
         font-size: 0.9rem;
         margin-bottom: 0;
     }
-
     @media (max-width: 768px) {
         #map-container {
             flex-direction: column;
             height: auto;
             gap: 1rem;
         }
-        
         #map {
-            height: 400px; /* Fixed height on mobile */
+            height: 400px;
             width: 100%;
         }
-        
         #sidebar {
             width: 100%;
             border-left: none;
             border-top: 1px solid var(--border-color);
-            max-height: 300px; /* Limit sidebar height on mobile */
+            max-height: 300px;
             padding: 1rem;
         }
-
         .filter-section {
             margin-bottom: 1rem;
         }
@@ -194,8 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     arenas.forEach(addMarker);
 
-    // Implementar lógica de filtros aqui
-
     if ({{ user.is_authenticated|yesno:"true,false" }}) {
         map.on('click', function(e) {
             if(confirm('Deseja cadastrar uma nova arena neste local?')) {
@@ -204,19 +185,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Click handler for arena items
     document.querySelectorAll('.arena-item').forEach(item => {
         item.addEventListener('click', function() {
             const lat = parseFloat(this.dataset.lat);
             const lng = parseFloat(this.dataset.lng);
             
-            // Fly to location
             map.flyTo([lat, lng], 16, {
                 duration: 1.5,
                 easeLinearity: 0.25
             });
 
-            // Find and open marker popup
             markersLayer.eachLayer((layer) => {
                 if (layer.options.arenaId === this.dataset.id) {
                     layer.openPopup();
