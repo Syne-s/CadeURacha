@@ -4,10 +4,15 @@
 {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
+    main.main-content {
+        padding-top: 0px; /* Diminuir espaço do topo */
+        padding-bottom: 2rem; /* Espaço do rodapé */
+    }
     #map-container {
         height: calc(100vh - 56px - 2rem);
         display: flex;
         flex-direction: row;
+        padding-bottom: 2rem; /* Aumentar espaço até o footer */
     }
     #map {
         flex: 1;
@@ -31,15 +36,17 @@
         border-left: 1px solid var(--border-color);
     }
     .filter-section {
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #ccc;
     }
     .filter-section h3 {
         font-size: 1.1rem;
         color: var(--text-color);
         margin-bottom: 1rem;
         font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     .form-select {
         border-radius: 6px;
@@ -97,19 +104,34 @@
             margin-bottom: 1rem;
         }
     }
+    #sidebar h2 {
+        font-size: 1.5rem;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+    .sidebar-header {
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #ccc; /* Borda sutil */
+    }
+
+    .sidebar-header h2 {
+        font-size: 1.25rem;
+        margin: 0 0 0.5rem;
+        text-transform: uppercase; /* Deixar título em maiúsculas */
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid mt-3">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="mb-3">Mapa de Quadras</h2>
-        </div>
-    </div>
+<div class="container-fluid">
     <div id="map-container">
         <div id="map"></div>
         <div id="sidebar">
+            <div class="sidebar-header">
+                <h2>Mapa de Quadras</h2>
+            </div>
             <div class="filter-section">
                 <h3>Filtrar por Bairro</h3>
                 <select class="form-select" id="neighborhood-filter">

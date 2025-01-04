@@ -41,7 +41,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1000;
+            z-index: 2000; /* Aumentar para ficar acima do mapa */
         }
 
         .nav-left {
@@ -606,6 +606,13 @@
             .auth-buttons .register-btn {
                 padding: 0.4rem 0.8rem;
             }
+        }
+
+        #map-container {
+            height: calc(100vh - 56px - 2rem);
+            display: flex;
+            flex-direction: row;
+            margin-top: 65px; /* Ajustar para não ficar atrás do header */
         }
     </style>
     {% block extra_head %}{% endblock %}
