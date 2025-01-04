@@ -1,45 +1,47 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Arena
 from .forms import ArenaForm
 
 def register(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        confirm_password = request.POST.get("confirm_password")
+    # Handle GET request - show registration form
+    if request.method == 'GET':
+        return render(request, 'app_synes/register.html')
+    
+    # Handle POST request
+    if request.method == 'POST':
+        # Check if request is AJAX
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+            confirm_password = request.POST.get("confirm_password")
 
-        if password != confirm_password:
-            messages.error(request, "As senhas não coincidem.")
-            return render(request, "app_synes/register.html")
+            if password != confirm_password:
+                return JsonResponse({'success': False, 'message': 'As senhas não coincidem.'})
 
-        if CustomUser.objects.filter(username=username).exists():
-            messages.error(request, "Nome de usuário já existe.")
-            return render(request, "app_synes/register.html")
+            if CustomUser.objects.filter(username=username).exists():
+                return JsonResponse({'success': False, 'message': 'Nome de usuário já existe.'})
 
-        if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, "E-mail já está registrado.")
-            return render(request, "app_synes/register.html")
+            if CustomUser.objects.filter(email=email).exists():
+                return JsonResponse({'success': False, 'message': 'E-mail já está registrado.'})
 
-        try:
             user = CustomUser.objects.create_user(
                 username=username,
                 email=email,
                 password=password,
-                is_active=True,  # Ativo por padrão
             )
-            messages.success(request, "Usuário cadastrado com sucesso!")
-            return redirect("login")  # Substitua pela URL de login
 
-        except Exception as e:
-            messages.error(request, f"Erro ao cadastrar usuário: {e}")
-            return render(request, "app_synes/register.html")
+            return JsonResponse({'success': True, 'message': 'Cadastro realizado com sucesso!'})
+        
+        # Handle non-AJAX POST request
+        return render(request, 'app_synes/register.html')
 
-    return render(request, "app_synes/register.html")
+    # Handle other methods
+    return HttpResponseNotAllowed(['GET', 'POST'])
 
 def login_view(request):
     if request.method == 'POST':

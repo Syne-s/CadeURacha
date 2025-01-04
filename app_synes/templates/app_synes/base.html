@@ -24,7 +24,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--background-color);
-            color: var(--text-color);
+            color: var (--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -111,7 +111,7 @@
             flex: 1;
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 8px; /* Increased from 4px */
             outline: none;
             font-size: 0.95rem;
             background-color: white;
@@ -126,7 +126,8 @@
         }
 
         .search-bar::placeholder {
-            color: var(--text-color);
+            color: #999;
+            opacity: 0.6;
         }
 
         .search-bar:hover {
@@ -608,7 +609,10 @@
             </a>
             <div class="nav-center">
                 <div class="search-container">
-                    <input type="text" class="form-control search-bar" placeholder="Buscar jogos ou quadras...">
+                    <input type="text" 
+                           class="form-control search-bar" 
+                           placeholder="Busque arenas ou jogos agendados..."
+                           aria-label="Buscar">
                     <i class="fas fa-search search-icon"></i>
                 </div>
             </div>

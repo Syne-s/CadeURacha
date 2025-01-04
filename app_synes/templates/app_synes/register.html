@@ -165,27 +165,39 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     fetch(form.action, {
         method: 'POST',
         body: formData,
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': csrftoken
         },
+        credentials: 'same-origin'
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             window.location.href = '{% url "login" %}';
         } else {
             const alert = document.createElement('div');
             alert.className = 'alert alert-danger';
-            alert.textContent = data.message;
+            alert.textContent = data.message || 'Erro ao processar o cadastro';
             form.insertBefore(alert, form.firstChild);
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-danger';
+        alert.textContent = 'Ocorreu um erro ao processar sua solicitação';
+        form.insertBefore(alert, form.firstChild);
     });
 });
 </script>
