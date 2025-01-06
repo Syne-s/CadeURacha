@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Arena
-from .forms import ArenaForm
+from .forms import ArenaForm, EditProfileForm
 
 def register(request):
     # Handle GET request - show registration form
@@ -93,3 +93,14 @@ def cadastrar_arena(request):
     else:
         form = ArenaForm()
     return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = EditProfileForm(instance=request.user)
+    return render(request, 'app_synes/edit_profile.html', {'form': form})
