@@ -13,6 +13,7 @@
 
 ## Sumário:
 - [Sobre](#sobre)
+- [Instalação](#instalacao)
 - [Equipe](#equipe)
 - [Requisitos Funcionais](#requisitos-funcionais)
 - [Relatório e Apresentação](#relatório-e-apresentação)
@@ -27,6 +28,19 @@ Estamos fazendo um projeto que busca suprir as necessidades dos **atletas** e **
 Esperamos melhorar a **logística** e **organização de jogos independentes**.  
 
 Para isso, optamos por utilizar a linguagem **Python** com o framework **Django** para o *Back-End* e **HTML**, **CSS** e **Bootstrap** como ferramentas para o *Front-End*.
+
+---
+
+<a id="instalacao"></a>
+## 🚀 Instalação
+
+### Pré-requisitos
+
+Certifique-se de ter o Python 3.8+ instalado em sua máquina. Você pode verificar a versão do Python instalada executando:
+
+```sh
+python --version
+```
 
 ---
 
@@ -67,9 +81,9 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | Código | Descrição                              | Status |
 |--------|----------------------------------------|:------:|
 | RF001  | Cadastrar Usuário                      |   ✓    |
-| RF002  | Autenticar Usuário                     |   ✕    |
+| RF002  | Autenticar Usuário                     |   ✓    |
 | RF003  | Cadastrar Jogo                         |   ✕    |
-| RF004  | Filtrar Bairro                         |   ✕    |
+| RF004  | Filtrar Bairro                         |   ✓    |
 | RF005  | Buscar Rachas                          |   ✕    |
 | RF006  | Editar Dados do Usuário                |   ✕    |
 | RF007  | Editar Reserva                         |   ✕    |
@@ -82,7 +96,7 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 | RF014  | Avaliar Quadra                         |   ✕    |
 | RF015  | Confirmar Participação em Jogo (Racha) |   ✕    |
 | RF016  | Notificar Novo Jogo                    |   ✕    |
-| RF017  | Sair do Sistema                        |   ✕    |
+| RF017  | Sair do Sistema                        |   ✓    |
 | RF018  | Excluir Conta                          |   ✕    |
 | RF019  | Excluir Jogo                           |   ✕    |
 | RF020  | Recomendar Jogos para Iniciantes       |   ✕    |
