@@ -123,7 +123,7 @@ pip install -r requirements.txt
 #### Configurações finais para execução local:
 Após instalar todas as dependências:
 
-1. **Criar o arquivo .env na raíz do projeto e colar o código abaixo no arquivo**:
+1. **Criar o arquivo .env na raíz do projeto e cole o código abaixo no arquivo**:
 ```sh
 DB_NAME=railway
 DB_USER=postgres
