@@ -79,14 +79,9 @@ Após instalar o Python, abra o terminal e execute:
 python -m ensurepip --upgrade
 ```
 
-1. **pip** (geralmente já vem com Python):
-```sh
-python -m ensurepip --upgrade
-```
-
 2. **virtualenv**:
 ```sh
-pip install virtualenv
+python -m venv venv
 ```
 
 3. **Django** (será instalado automaticamente ao configurar o projeto):
