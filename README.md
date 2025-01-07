@@ -13,8 +13,8 @@
 
 ## Sumário:
 - [Sobre](#sobre)
-- [Instalação](#instalacao)
 - [Equipe](#equipe)
+- [Instalação](#instalacao)
 - [Requisitos Funcionais](#requisitos-funcionais)
 - [Relatório e Apresentação](#relatório-e-apresentação)
 
@@ -31,20 +31,6 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 
 ---
 
-<a id="instalacao"></a>
-## 🚀 Instalação
-
-### Pré-requisitos
-
-Certifique-se de ter o Python 3.8+ instalado em sua máquina. Você pode verificar a versão do Python instalada executando:
-
-```sh
-python --version
-```
-
----
-
-  
 <a id="equipe"></a>
   
 ## 🙋 Nossa Equipe:
@@ -69,6 +55,55 @@ python --version
 
 ---
 
+<a id="instalacao"></a>
+## 🚀 Instalação
+
+### Pré-requisitos
+
+#### Instalações via Navegador:
+1. **Python 3.8+**: 
+   - Baixe do [site oficial do Python](https://www.python.org/downloads/)
+   - Durante a instalação, marque a opção "Add Python to PATH"
+
+2. **Git**: 
+   - Baixe do [site oficial do Git](https://git-scm.com/downloads)
+
+3. **Visual Studio Code** (ou outro editor de código):
+   - Baixe do [site oficial do VS Code](https://code.visualstudio.com/download)
+
+#### Instalações via Terminal:
+Após instalar o Python, abra o terminal e execute:
+
+1. **pip** (geralmente já vem com Python):
+```sh
+python -m ensurepip --upgrade
+```
+
+1. **pip** (geralmente já vem com Python):
+```sh
+python -m ensurepip --upgrade
+```
+
+2. **virtualenv**:
+```sh
+pip install virtualenv
+```
+
+3. **Django** (será instalado automaticamente ao configurar o projeto):
+```sh
+# Será instalado durante a configuração do ambiente virtual
+pip install -r requirements.txt
+```
+
+### Configuração do Projeto
+
+1. **Clone o repositório:**
+```sh
+git clone https://github.com/Syne-s/CadeURacha.git
+cd CadeURacha
+```
+
+  
 
 <a id="requisitos-funcionais"></a>
 ## 📑 Requisitos Funcionais: 
