@@ -71,35 +71,78 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 3. **Visual Studio Code** (ou outro editor de código):
    - Baixe do [site oficial do VS Code](https://code.visualstudio.com/download)
 
-#### Instalações via Terminal:
-Após instalar o Python, abra o terminal e execute:
 
-1. **pip** (geralmente já vem com Python):
-```sh
-python -m ensurepip --upgrade
-```
-
-2. **virtualenv**:
-```sh
-python -m venv venv
-```
-
-3. **Django** (será instalado automaticamente ao configurar o projeto):
-```sh
-# Será instalado durante a configuração do ambiente virtual
-pip install -r requirements.txt
-```
-
-### Configuração do Projeto
+#### Configuração do Projeto:
 
 1. **Clone o repositório:**
 ```sh
 git clone https://github.com/Syne-s/CadeURacha.git
+```
+
+2. **Acessar o diretório local:**
+```sh
 cd CadeURacha
 ```
 
-  
+3. **Abrir o diretório no Editor de Código (VS Code):**
+```sh
+code .
+```
 
+#### Instalações via Terminal:
+Após instalar o Python e acessar o diretório clonado, abra o terminal no VS Code (ou outro editor de código) e execute:
+
+1. **Instalar pip**:
+```sh
+python -m pip install --upgrade pip
+```
+
+2. **Instalar virtualenv**:
+```sh
+python -m pip install virtualenv
+```
+
+3. **Criar ambiente virtual**:
+```sh
+python -m venv venv
+```
+
+4. **Ativar ambiente virtual**:
+```sh
+venv/Scripts/activate
+
+#Caso não funcione, use esse
+activate
+```
+
+5. **Instalar dependências do projeto**:
+```sh
+pip install -r requirements.txt
+```
+
+#### Configurações finais para execução local:
+Após instalar todas as dependências:
+
+1. **Criar o arquivo .env na raíz do projeto e colar o código abaixo no arquivo**:
+```sh
+DB_NAME=railway
+DB_USER=postgres
+DB_PASSWORD=eLBxoXfIyqiYwRxBRSxjNLZtOTsgowRu
+DB_HOST=autorack.proxy.rlwy.net
+DB_PORT=37107
+SECRET_KEY=django-insecure-m7nz^1020$)xzc1y6r9r5z890@%ni7^&6+^@0@k2c*n@3zq!qi
+DEBUG=True
+```
+
+2. **Rodar o servidor local**:
+```sh
+python manage.py runserver
+```
+
+3. **Acessar o servidor local**:
+    - CTRL + Clique no link fornecido pelo Terminal
+
+---
 <a id="requisitos-funcionais"></a>
 ## 📑 Requisitos Funcionais: 
 
