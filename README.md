@@ -110,9 +110,6 @@ python -m venv venv
 4. **Ativar ambiente virtual**:
 ```sh
 venv/Scripts/activate
-
-#Caso não funcione, use esse
-activate
 ```
 
 5. **Instalar dependências do projeto**:
@@ -123,24 +120,24 @@ pip install -r requirements.txt
 #### Configurações finais para execução local:
 Após instalar todas as dependências:
 
-1. **Criar o arquivo .env na raíz do projeto e colar o código abaixo no arquivo**:
+1. **Configurar arquivos estáticos**:
 ```sh
-DB_NAME=railway
-DB_USER=postgres
-DB_PASSWORD=eLBxoXfIyqiYwRxBRSxjNLZtOTsgowRu
-DB_HOST=autorack.proxy.rlwy.net
-DB_PORT=37107
-SECRET_KEY=django-insecure-m7nz^1020$)xzc1y6r9r5z890@%ni7^&6+^@0@k2c*n@3zq!qi
-DEBUG=True
+python manage.py collectstatic
 ```
 
-2. **Rodar o servidor local**:
+2. **Executar migrações**:
+```sh
+python manage.py migrate
+```
+
+3. **Rodar o servidor local**:
 ```sh
 python manage.py runserver
 ```
 
-3. **Acessar o servidor local**:
-    - CTRL + Clique no link fornecido pelo Terminal
+4. **Acessar o servidor local**:
+   - CTRL + Clique no link fornecido pelo Terminal
+   - O endereço padrão é: http://127.0.0.1:8000/
 
 ---
 <a id="requisitos-funcionais"></a>
