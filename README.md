@@ -178,7 +178,8 @@ python manage.py runserver
 ---
 
 <a id="relatório-e-apresentação"></a>
-## 📝 Relatório e Apresentação:
+## 📝 Relatórios e Apresentação:
 
 ### Arquivos e Documentos Importantes:
 - [Documento Oficial de Requisitos Funcionais e Não Funcionais](https://docs.google.com/document/d/1Ld6v-xZWNANKwsz1KVL2QF71mMjOWA8E/edit?usp=sharing&ouid=116392937404212256733&rtpof=true&sd=true)
+- [Relatório Detalhado - Propostas Alternativas | Atualização de Requisitos](https://docs.google.com/document/d/1KjsB0fQIU5rVq6Xi0fGJ0Ob9SQvN61hODizhosGPWV0/edit?usp=sharing)
