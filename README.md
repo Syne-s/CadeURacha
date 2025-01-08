@@ -120,7 +120,11 @@ pip install -r requirements.txt
 #### Configurações finais para execução local:
 Após instalar todas as dependências:
 
+<<<<<<< HEAD
 1. **Configurar arquivos estáticos**:
+=======
+1. **Criar o arquivo .env na raíz do projeto e cole o código abaixo no arquivo**:
+>>>>>>> c56a913c54ef414b3da9a6ed459ea31ceb2b4ccf
 ```sh
 python manage.py collectstatic
 ```
