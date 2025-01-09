@@ -1,5 +1,3 @@
-<!-- filepath: /e:/Users/jerbc/Documents/DJANGO/synes/app_synes/templates/app_synes/edit_profile.html -->
-
 {% extends 'app_synes/base.html' %}
 {% block title %}CadêURacha - Editar Perfil{% endblock %}
 {% block content %}
@@ -10,21 +8,54 @@
             <h2 class="text-center mb-0">Editar Perfil</h2>
             <p class="text-center">Atualize suas informações pessoais</p>
         </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    {{ form.username }}
+                    {{ profile_form.username }}
                 </div>
             </div>
             <div class="form-group">
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    {{ form.email }}
+                    {{ profile_form.email }}
                 </div>
             </div>
             <button type="submit" class="auth-button">Salvar Alterações</button>
+        </form>
+
+        <hr class="my-4">
+
+        <h3 class="text-center mt-4">Alterar Senha</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    {{ password_form.old_password }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    {{ password_form.new_password1 }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    {{ password_form.new_password2 }}
+                </div>
+            </div>
+            <button type="submit" class="auth-button">Alterar Senha</button>
         </form>
     </div>
 </div>
@@ -135,6 +166,30 @@
 
 .auth-link:hover {
     color: var(--hover-color);
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
 }
 </style>
 {% endblock %}

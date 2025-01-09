@@ -256,6 +256,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var filteredArenas = arenas.filter(arena => !selectedBairro || arena.bairro === selectedBairro);
         filteredArenas.forEach(addMarker);
     });
+
+    function flyToArena(lat, lng) {
+        map.flyTo({
+            center: [lng, lat],
+            zoom: 20, // Changed from lower value to maximum zoom
+            essential: true,
+            duration: 2000 // 1 second animation
+        });
+    }
 });
 </script>
 {% endblock %}

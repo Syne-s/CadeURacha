@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Arena
-from .forms import ArenaForm, EditProfileForm
+from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 def register(request):
     # Handle GET request - show registration form
@@ -97,10 +98,39 @@ def cadastrar_arena(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
+        profile_form = EditProfileForm(request.POST, instance=request.user)
+        password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        
+        if 'username' in request.POST or 'email' in request.POST:
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, 'Perfil atualizado com sucesso.')
+            else:
+                for field, errors in profile_form.errors.items():
+                    for error in errors:
+                        messages.error(request, error, extra_tags='danger')
+        
+        if 'old_password' in request.POST or 'new_password1' in request.POST or 'new_password2' in request.POST:
+            if password_form.is_valid():
+                password_form.save()
+                update_session_auth_hash(request, password_form.user)  # Important!
+                messages.success(request, 'Senha alterada com sucesso.')
+            else:
+                for field, errors in password_form.errors.items():
+                    for error in errors:
+                        if field == 'old_password' and 'incorrect' in error.lower():
+                            messages.error(request, 'A senha atual está incorreta.', extra_tags='danger')
+                        elif 'The two password fields didn’t match.' in error:
+                            messages.error(request, 'Os dois campos de senha não coincidem.', extra_tags='danger')
+                        else:
+                            messages.error(request, error, extra_tags='danger')
+        
+        return redirect('edit_profile')
     else:
-        form = EditProfileForm(instance=request.user)
-    return render(request, 'app_synes/edit_profile.html', {'form': form})
+        profile_form = EditProfileForm(instance=request.user)
+        password_form = CustomPasswordChangeForm(user=request.user)
+    
+    return render(request, 'app_synes/edit_profile.html', {
+        'profile_form': profile_form,
+        'password_form': password_form
+    })

@@ -154,7 +154,7 @@ python manage.py runserver
 | RF003  | Cadastrar Jogo                         |   ✕    |
 | RF004  | Filtrar Bairro                         |   ✓    |
 | RF005  | Buscar Rachas                          |   ✕    |
-| RF006  | Editar Dados do Usuário                |   ✕    |
+| RF006  | Editar Dados do Usuário                |   ✓    |
 | RF007  | Editar Reserva                         |   ✕    |
 | RF008  | Editar Jogo                            |   ✕    |
 | RF009  | Reservar Quadra                        |   ✕    |
