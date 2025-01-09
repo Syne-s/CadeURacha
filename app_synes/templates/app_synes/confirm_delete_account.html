@@ -1,68 +1,18 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Editar Perfil{% endblock %}
+{% block title %}CadêURacha - Confirmar Exclusão de Conta{% endblock %}
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
-            <i class="fas fa-user-edit auth-icon"></i>
-            <h2 class="text-center mb-0">Editar Perfil</h2>
-            <p class="text-center">Atualize suas informações pessoais</p>
+            <i class="fas fa-user-times auth-icon"></i>
+            <h2 class="text-center mb-0">Confirmar Exclusão de Conta</h2>
+            <p class="text-center">Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
         </div>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} text-center">
-                    <p>{{ message }}</p>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <form method="post">
+        <form method="post" action="{% url 'delete_account' %}">
             {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    {{ profile_form.username }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    {{ profile_form.email }}
-                </div>
-            </div>
-            <button type="submit" class="auth-button">Salvar Alterações</button>
+            <button type="submit" class="btn btn-danger w-100 mb-2">Confirmar Exclusão</button>
         </form>
-
-        <hr class="my-4">
-
-        <h3 class="text-center mt-4">Alterar Senha</h3>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    {{ password_form.old_password }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    {{ password_form.new_password1 }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    {{ password_form.new_password2 }}
-                </div>
-            </div>
-            <button type="submit" class="auth-button">Alterar Senha</button>
-        </form>
-
-        <hr class="my-4">
-
-        <form method="get" action="{% url 'confirm_delete_account' %}">
-            <button type="submit" class="btn btn-danger w-100">Excluir Conta</button>
-        </form>
+        <a href="{% url 'edit_profile' %}" class="btn btn-secondary w-100">Cancelar</a>
     </div>
 </div>
 

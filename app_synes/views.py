@@ -134,3 +134,17 @@ def edit_profile(request):
         'profile_form': profile_form,
         'password_form': password_form
     })
+
+@login_required
+def confirm_delete_account(request):
+    return render(request, 'app_synes/confirm_delete_account.html')
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        user.is_active = False
+        user.save()
+        messages.success(request, 'Sua conta foi desativada com sucesso.')
+        return redirect('index')
+    return redirect('confirm_delete_account')
