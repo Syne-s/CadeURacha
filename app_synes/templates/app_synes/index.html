@@ -2,17 +2,48 @@
 {% block title %}CadêURacha - Encontre seu jogo{% endblock %}
 
 {% block content %}
-<section class="hero-section" style="background-color: var(--background-color); color: var(--text-color);">
+<section class="hero-section">
     <div class="container text-center">
-        <h1 class="display-4 mb-4" style="color: var(--primary-color); margin-top: 24px;">Bem-vindo ao CadêURacha!</h1>
-        <p class="lead mb-4" style="color: var(--text-color); margin-bottom: 32px;">Encontre jogos de basquete próximos a você e conecte-se com outros jogadores.</p>
-        <div class="d-flex justify-content-center">
-            <a href="{% url 'map' %}" class="btn btn-primary btn-lg" style="background-color: var(--primary-color); border-color: var(--primary-color);">
-                <i class="fas fa-search me-2"></i>Encontrar Jogos
-            </a>
-        </div>
+        <h1 class="display-4 mb-4">Bem-vindo ao CadêURacha!</h1>
+        <p class="lead mb-4">Encontre jogos de basquete próximos a você e conecte-se com outros jogadores.</p>
     </div>
 </section>
+
+<style>
+.hero-section {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 2rem;
+}
+
+.hero-section h1 {
+    color: var(--primary-color);
+    margin-top: 24px;
+}
+
+.hero-section p {
+    color: var(--text-color);
+    margin-bottom: 32px;
+}
+
+.auth-button {
+    width: auto;
+    padding: 0.75rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.auth-button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+    color: white;
+}
+</style>
 
 <div class="container mt-5">
     <div class="row">
