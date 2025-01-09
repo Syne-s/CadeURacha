@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_synes',  # Adicione seu aplicativo aqui
+    'app_synes',
 ]
 
 MIDDLEWARE = [

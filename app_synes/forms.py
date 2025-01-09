@@ -24,6 +24,13 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirme a Nova Senha'}))
 
 class JogoForm(forms.ModelForm):
+    data = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    horario = forms.TimeField(
+        widget=forms.TimeInput(attrs={'type': 'time'})
+    )
+
     class Meta:
         model = Jogo
         fields = ['titulo', 'descricao', 'data', 'horario', 'max_jogadores', 'arena']

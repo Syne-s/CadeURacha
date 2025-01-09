@@ -49,6 +49,9 @@ class Jogo(models.Model):
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
     data = models.DateField()
-    horario = models.TimeField()
+    horario = models.TimeField()  # Readicionando o campo
     max_jogadores = models.IntegerField(verbose_name="Quantidade máxima de jogadores")
     arena = models.ForeignKey(Arena, on_delete=models.CASCADE, related_name='jogos')
+
+    def __str__(self):
+        return self.titulo

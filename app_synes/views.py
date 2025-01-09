@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Arena
 from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
 from django.contrib.auth import update_session_auth_hash
+from datetime import datetime
 
 def register(request):
     # Handle GET request - show registration form
@@ -161,24 +162,28 @@ def criar_jogo(request):
 
 def cadastrar_jogo(request):
     if request.method == 'POST':
+        print("Dados do POST:", request.POST)  # Debug
+        print("Horário recebido:", request.POST.get('horario'))  # Debug
         form = JogoForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('nome_da_view_de_sucesso')
+            jogo = form.save(commit=False)
+            
+            # Pegar o horário do POST
+            horario = request.POST.get('horario')
+            
+            # Converter para objeto time
+            from datetime import datetime
+            try:
+                hora_formatada = datetime.strptime(horario, '%H:%M').time()
+                jogo.horario = hora_formatada
+                jogo.save()
+                messages.success(request, 'Jogo criado com sucesso!')
+                return redirect('index')
+            except Exception as e:
+                print(f"Erro ao salvar horário: {e}")
+                messages.error(request, 'Erro ao salvar o horário')
+        else:
+            print(form.errors)  # Para debug
     else:
-        arena_id = request.GET.get('arena_id')
-        initial_data = {
-            'arena': arena_id,
-            'nome': request.GET.get('nome'),
-            'endereco': request.GET.get('endereco'),
-            'latitude': request.GET.get('latitude'),
-            'longitude': request.GET.get('longitude'),
-            'logradouro': request.GET.get('logradouro'),
-            'bairro': request.GET.get('bairro'),
-            'cidade': request.GET.get('cidade'),
-            'estado': request.GET.get('estado'),
-            'cep': request.GET.get('cep'),
-            'pais': request.GET.get('pais'),
-        }
-        form = JogoForm(initial=initial_data)
+        form = JogoForm()
     return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
