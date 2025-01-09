@@ -43,4 +43,12 @@ class Arena(models.Model):
     class Meta:
         verbose_name = "Arena"
         verbose_name_plural = "Arenas"
-        ordering = ['-data_cadastro']      
+        ordering = ['-data_cadastro']
+
+class Jogo(models.Model):
+    titulo = models.CharField(max_length=200)
+    descricao = models.TextField()
+    data = models.DateField()
+    horario = models.TimeField()
+    max_jogadores = models.IntegerField(verbose_name="Quantidade máxima de jogadores")
+    arena = models.ForeignKey(Arena, on_delete=models.CASCADE, related_name='jogos')

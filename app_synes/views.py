@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Arena
-from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm
+from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
 from django.contrib.auth import update_session_auth_hash
 
 def register(request):
@@ -148,3 +148,23 @@ def delete_account(request):
         messages.success(request, 'Sua conta foi desativada com sucesso.')
         return redirect('index')
     return redirect('confirm_delete_account')
+
+def criar_jogo(request):
+    if request.method == 'POST':
+        form = JogoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('nome_da_view_de_sucesso')
+    else:
+        form = JogoForm()
+    return render(request, 'app_synes/criar_jogo.html', {'form': form})
+
+def cadastrar_jogo(request):
+    if request.method == 'POST':
+        form = JogoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('nome_da_view_de_sucesso')
+    else:
+        form = JogoForm()
+    return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})

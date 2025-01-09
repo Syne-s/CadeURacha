@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import cadastrar_jogo
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('confirm_delete_account/', views.confirm_delete_account, name='confirm_delete_account'),
     path('delete_account/', views.delete_account, name='delete_account'),
+    path('cadastrar_jogo/', cadastrar_jogo, name='cadastrar_jogo'),
 ]
