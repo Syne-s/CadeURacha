@@ -166,5 +166,19 @@ def cadastrar_jogo(request):
             form.save()
             return redirect('nome_da_view_de_sucesso')
     else:
-        form = JogoForm()
+        arena_id = request.GET.get('arena_id')
+        initial_data = {
+            'arena': arena_id,
+            'nome': request.GET.get('nome'),
+            'endereco': request.GET.get('endereco'),
+            'latitude': request.GET.get('latitude'),
+            'longitude': request.GET.get('longitude'),
+            'logradouro': request.GET.get('logradouro'),
+            'bairro': request.GET.get('bairro'),
+            'cidade': request.GET.get('cidade'),
+            'estado': request.GET.get('estado'),
+            'cep': request.GET.get('cep'),
+            'pais': request.GET.get('pais'),
+        }
+        form = JogoForm(initial=initial_data)
     return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
