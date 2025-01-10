@@ -195,9 +195,12 @@ def criar_reserva(request):
         form = ReservaForm(request.POST)
         if form.is_valid():
             reserva = form.save(commit=False)
-            reserva.usuario = request.user
+            reserva.usuario = request.user  # Set the current user
             reserva.save()
-            return redirect('listar_reservas')
+            messages.success(request, 'Reserva criada com sucesso!')
+            return redirect('index')
+        else:
+            messages.error(request, 'Erro ao criar reserva.')
     else:
         form = ReservaForm()
     return render(request, 'app_synes/criar_reserva.html', {'form': form})
