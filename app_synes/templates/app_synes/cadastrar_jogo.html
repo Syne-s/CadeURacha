@@ -167,12 +167,27 @@
 </style>
 
 <script>
+// Existing time formatting code
 document.getElementById('horario').addEventListener('change', function(e) {
     const time = e.target.value;
     if(time) {
         const [hours, minutes] = time.split(':');
         if(hours && minutes) {
             e.target.value = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+        }
+    }
+});
+
+// New code to handle arena selection from URL
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const arenaId = urlParams.get('arena_id');
+    
+    if (arenaId) {
+        const arenaSelect = document.getElementById('arena');
+        const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
+        if (option) {
+            option.selected = true;
         }
     }
 });
