@@ -57,6 +57,21 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const arenaId = urlParams.get('arena_id');
+    
+    if (arenaId) {
+        const arenaSelect = document.querySelector('select[name="{{ form.arena.name }}"]');
+        const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
+        if (option) {
+            option.selected = true;
+        }
+    }
+});
+</script>
+
 <style>
 .auth-container {
     min-height: calc(100vh - 120px);
