@@ -151,7 +151,7 @@ python manage.py runserver
 |--------|----------------------------------------|:------:|
 | RF001  | Cadastrar Usuário                      |   ✓    |
 | RF002  | Autenticar Usuário                     |   ✓    |
-| RF003  | Cadastrar Jogo                         |   ✕    |
+| RF003  | Cadastrar Jogo                         |   ✓    |
 | RF004  | Filtrar Bairro                         |   ✓    |
 | RF005  | Buscar Rachas                          |   ✕    |
 | RF006  | Editar Dados do Usuário                |   ✓    |
