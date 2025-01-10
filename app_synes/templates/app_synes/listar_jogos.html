@@ -1,0 +1,13 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}Meus Jogos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Meus Jogos</h2>
+    <ul>
+        {% for jogo in jogos %}
+            <li>{{ jogo.titulo }} - {{ jogo.data }} às {{ jogo.horario }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

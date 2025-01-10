@@ -204,3 +204,8 @@ def criar_reserva(request):
 def listar_reservas(request):
     reservas = Reserva.objects.filter(usuario=request.user)
     return render(request, 'app_synes/listar_reservas.html', {'reservas': reservas})
+
+@login_required
+def listar_jogos(request):
+    jogos = Jogo.objects.filter(usuario=request.user)
+    return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
