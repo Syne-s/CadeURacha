@@ -9,6 +9,44 @@
     </div>
 </section>
 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'map' %}" class="card-link">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-map-marked-alt fa-3x mb-3"></i>
+                        <h3 class="card-title">Localize Quadras</h3>
+                        <p class="card-text">Encontre as melhores quadras de basquete perto de você.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'cadastrar_jogo' %}" class="card-link">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-basketball-ball fa-3x mb-3"></i>
+                        <h3 class="card-title">Criar Jogo</h3>
+                        <p class="card-text">Organize seu próprio jogo e convide outros jogadores.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'criar_reserva' %}" class="card-link">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                        <h3 class="card-title">Reservar Quadra</h3>
+                        <p class="card-text">Reserve uma quadra para seu próximo jogo.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
 <style>
 .hero-section {
     background-color: var(--background-color);
@@ -26,54 +64,48 @@
     margin-bottom: 32px;
 }
 
-.auth-button {
-    width: auto;
-    padding: 0.75rem 2rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    text-decoration: none;
+.card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.3s ease;
+    height: 100%;
 }
 
-.auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
-    color: white;
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    padding: 2rem;
+    color: var(--text-color);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.card-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-link:hover .card {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card i {
+    color: var(--primary-color);
+}
+
+.card-title {
+    color: var(--primary-color);
+    margin: 1rem 0;
 }
 </style>
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card" style="border: 1px solid var(--border-color); border-radius: 8px; background-color: white;">
-                <div class="card-body text-center" style="color: var(--text-color);">
-                    <i class="fas fa-map-marked-alt fa-3x mb-3" style="color: var(--primary-color);"></i>
-                    <h3 class="card-title" style="color: var(--primary-color);">Localize Quadras</h3>
-                    <p class="card-text">Encontre as melhores quadras de basquete perto de você.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card" style="border: 1px solid var(--border-color); border-radius: 8px; background-color: white;">
-                <div class="card-body text-center" style="color: var(--text-color);">
-                    <i class="fas fa-users fa-3x mb-3" style="color: var(--primary-color);"></i>
-                    <h3 class="card-title" style="color: var(--primary-color);">Junte-se a Jogos</h3>
-                    <p class="card-text">Participe de jogos existentes ou crie o seu próprio.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card" style="border: 1px solid var(--border-color); border-radius: 8px; background-color: white;">
-                <div class="card-body text-center" style="color: var(--text-color);">
-                    <i class="fas fa-basketball-ball fa-3x mb-3" style="color: var(--primary-color);"></i>
-                    <h3 class="card-title" style="color: var(--primary-color);">Melhore seu Jogo</h3>
-                    <p class="card-text">Conecte-se com jogadores de todos os níveis e aprimore suas habilidades.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
