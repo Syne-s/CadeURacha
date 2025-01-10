@@ -1,0 +1,17 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}Reservar Quadra{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Reservar Quadra</h2>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="auth-button">Reservar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

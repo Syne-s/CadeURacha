@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, Arena, Jogo
-from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
+from .models import CustomUser, Arena, Jogo, Reserva
+from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm, ReservaForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime, timezone
 from django.utils import timezone
@@ -186,3 +186,21 @@ def cadastrar_jogo(request):
     else:
         form = JogoForm()
     return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
+
+@login_required
+def criar_reserva(request):
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.usuario = request.user
+            reserva.save()
+            return redirect('listar_reservas')
+    else:
+        form = ReservaForm()
+    return render(request, 'app_synes/criar_reserva.html', {'form': form})
+
+@login_required
+def listar_reservas(request):
+    reservas = Reserva.objects.filter(usuario=request.user)
+    return render(request, 'app_synes/listar_reservas.html', {'reservas': reservas})

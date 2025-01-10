@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import cadastrar_jogo
+from .views import cadastrar_jogo, criar_reserva, listar_reservas
 
 urlpatterns = [
     path('register/', views.register, name='register'),
@@ -18,4 +18,6 @@ urlpatterns = [
     path('confirm_delete_account/', views.confirm_delete_account, name='confirm_delete_account'),
     path('delete_account/', views.delete_account, name='delete_account'),
     path('cadastrar_jogo/', cadastrar_jogo, name='cadastrar_jogo'),
+    path('reservar/', criar_reserva, name='criar_reserva'),
+    path('reservas/', listar_reservas, name='listar_reservas'),
 ]

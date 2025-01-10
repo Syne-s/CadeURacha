@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.validators import RegexValidator
-from .models import Arena, Jogo
+from .models import Arena, Jogo, Reserva
 
 class ArenaForm(forms.ModelForm):
     class Meta:
@@ -37,3 +37,13 @@ class JogoForm(forms.ModelForm):
     class Meta:
         model = Jogo
         fields = ['titulo', 'descricao', 'data', 'horario', 'max_jogadores', 'arena']
+
+class ReservaForm(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        fields = ['arena', 'data', 'horario_inicio', 'horario_fim']
+        widgets = {
+            'data': forms.DateInput(attrs={'type': 'date'}),
+            'horario_inicio': forms.TimeInput(attrs={'type': 'time'}),
+            'horario_fim': forms.TimeInput(attrs={'type': 'time'}),
+        }
