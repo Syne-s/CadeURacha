@@ -163,12 +163,14 @@ def criar_jogo(request):
         form = JogoForm()
     return render(request, 'app_synes/criar_jogo.html', {'form': form})
 
+@login_required
 def cadastrar_jogo(request):
     if request.method == 'POST':
         form = JogoForm(request.POST)
         if form.is_valid():
             try:
                 jogo = form.save(commit=False)
+                jogo.usuario = request.user  # Set the usuario field to the current user
                 jogo.save()
 
                 # Verificar o valor direto do banco
