@@ -1,14 +1,100 @@
 <!-- filepath: /e:/Users/jerbc/Documents/DJANGO/synes/app_synes/templates/app_synes/listar_jogos.html -->
 {% extends 'app_synes/base.html' %}
-{% block title %}Meus Jogos{% endblock %}
+{% block title %}CadêURacha - Meus Jogos{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Meus Jogos</h2>
-    <ul>
-        {% for jogo in jogos %}
-            <li>{{ jogo.titulo }} - {{ jogo.data }} às {{ jogo.horario }}</li>
-        {% endfor %}
-    </ul>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-basketball-ball auth-icon"></i>
+            <h2>Meus Jogos</h2>
+            <p>Seus jogos agendados</p>
+        </div>
+        <div class="jogos-list">
+            {% for jogo in jogos %}
+                <div class="jogo-item">
+                    <h4 class="jogo-titulo">{{ jogo.titulo }}</h4>
+                    <p class="jogo-info">{{ jogo.data }} às {{ jogo.horario }}</p>
+                </div>
+            {% empty %}
+                <div class="no-jogos">
+                    <p>Você ainda não tem jogos agendados.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
+<style>
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.jogos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.jogo-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.jogo-titulo {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.jogo-info {
+    color: var(--text-color);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.no-jogos {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    background: var(--background-color);
+    border-radius: 8px;
+}
+</style>
 {% endblock %}
