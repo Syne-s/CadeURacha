@@ -203,7 +203,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <a href="{% url 'cadastrar_jogo' %}?arena_id=${arena.id}&nome=${arena.name}&endereco=${arena.endereco}&latitude=${arena.lat}&longitude=${arena.lng}&logradouro=${arena.logradouro}&bairro=${arena.bairro}&cidade=${arena.cidade}&estado=${arena.estado}&cep=${arena.cep}&pais=${arena.pais}">Cadastrar Jogo</a>
         `);
         markers[arena.id] = marker;
-        
+
+        marker.on('click', function() {
+            flyToArena(arena.lat, arena.lng);
+            marker.openPopup();
+        });
+
         var listItem = document.createElement('div');
         listItem.className = 'arena-item';
         listItem.dataset.id = arena.id;
@@ -215,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p class="arena-address">${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}</p>
         `;
         listItem.onclick = function() {
-            map.setView([arena.lat, arena.lng], 15);
+            flyToArena(arena.lat, arena.lng);
             marker.openPopup();
         };
         document.querySelector('.arena-list').appendChild(listItem);
@@ -242,11 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const lat = parseFloat(this.dataset.lat);
             const lng = parseFloat(this.dataset.lng);
             
-            map.flyTo([lat, lng], 16, {
-                duration: 1.5,
-                easeLinearity: 0.25
-            });
-
+            flyToArena(lat, lng);
             markers[this.dataset.id].openPopup();
         });
     });
@@ -262,11 +263,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function flyToArena(lat, lng) {
-        map.flyTo({
-            center: [lng, lat],
-            zoom: 20, // Changed from lower value to maximum zoom
-            essential: true,
-            duration: 2000 // 1 second animation
+        map.flyTo([lat, lng], 16, {
+            duration: 1.5,
+            easeLinearity: 0.25
         });
     }
 });
