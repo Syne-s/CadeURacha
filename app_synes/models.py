@@ -49,7 +49,7 @@ class Jogo(models.Model):
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
     data = models.DateField()
-    horario = models.TimeField()  # Readicionando o campo
+    horario = models.CharField(max_length=5, null=False, blank=False)  # Alterado para CharField
     max_jogadores = models.IntegerField(verbose_name="Quantidade máxima de jogadores")
     arena = models.ForeignKey(Arena, on_delete=models.CASCADE, related_name='jogos')
 

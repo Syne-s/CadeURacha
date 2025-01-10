@@ -1,15 +1,18 @@
+import traceback
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, Arena
+from .models import CustomUser, Arena, Jogo
 from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
 from django.contrib.auth import update_session_auth_hash
-from datetime import datetime
+from datetime import datetime, timezone
+from django.utils import timezone
 
 def register(request):
     # Handle GET request - show registration form
+    
     if request.method == 'GET':
         return render(request, 'app_synes/register.html')
     
@@ -162,28 +165,24 @@ def criar_jogo(request):
 
 def cadastrar_jogo(request):
     if request.method == 'POST':
-        print("Dados do POST:", request.POST)  # Debug
-        print("Horário recebido:", request.POST.get('horario'))  # Debug
         form = JogoForm(request.POST)
         if form.is_valid():
-            jogo = form.save(commit=False)
-            
-            # Pegar o horário do POST
-            horario = request.POST.get('horario')
-            
-            # Converter para objeto time
-            from datetime import datetime
             try:
-                hora_formatada = datetime.strptime(horario, '%H:%M').time()
-                jogo.horario = hora_formatada
+                jogo = form.save(commit=False)
                 jogo.save()
+
+                # Verificar o valor direto do banco
+                jogo_db = Jogo.objects.get(id=jogo.id)
+                print("Horário lido do banco:", repr(jogo_db.horario))
+                
                 messages.success(request, 'Jogo criado com sucesso!')
                 return redirect('index')
             except Exception as e:
-                print(f"Erro ao salvar horário: {e}")
-                messages.error(request, 'Erro ao salvar o horário')
+                print(f"Erro ao salvar jogo: {e}")
+                print("Traceback completo:", traceback.format_exc())
+                messages.error(request, 'Erro ao salvar o jogo')
         else:
-            print(form.errors)  # Para debug
+            print("Erros no formulário:", form.errors)
     else:
         form = JogoForm()
     return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})

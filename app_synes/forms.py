@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import Arena
-from .models import Jogo
+from django.core.validators import RegexValidator
+from .models import Arena, Jogo
 
 class ArenaForm(forms.ModelForm):
     class Meta:
@@ -24,11 +24,14 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirme a Nova Senha'}))
 
 class JogoForm(forms.ModelForm):
-    data = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
-    )
-    horario = forms.TimeField(
-        widget=forms.TimeInput(attrs={'type': 'time'})
+    horario = forms.CharField(
+        max_length=5,
+        validators=[RegexValidator(regex=r'^\d{2}:\d{2}$', message="Formato de hora inválido, use HH:MM")],
+        widget=forms.TimeInput(attrs={
+            'type': 'time',
+            'class': 'form-control',
+            'required': True
+        })
     )
 
     class Meta:
