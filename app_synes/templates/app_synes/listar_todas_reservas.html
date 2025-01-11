@@ -2,23 +2,67 @@
 {% block title %}CadêURacha - Todas as Reservas{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Todas as Reservas Marcadas</h2>
-    <div class="reservas-list">
-        {% for reserva in reservas %}
-            <div class="reserva-item">
-                <h4 class="reserva-arena">{{ reserva.arena.nome }}</h4>
-                <p class="reserva-info">{{ reserva.data|date:"d/m/Y" }} das {{ reserva.horario_inicio|time:"H:i" }} às {{ reserva.horario_fim|time:"H:i" }}</p>
-            </div>
-        {% empty %}
-            <div class="no-reservas">
-                <p>Não há reservas marcadas no momento.</p>
-            </div>
-        {% endfor %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-calendar-check auth-icon"></i>
+            <h2>Todas as Reservas Marcadas</h2>
+            <p>Veja todas as reservas marcadas no sistema</p>
+        </div>
+        <div class="reservas-list">
+            {% for reserva in reservas %}
+                <div class="reserva-item">
+                    <h4 class="reserva-arena">{{ reserva.arena.nome }}</h4>
+                    <p class="reserva-info">{{ reserva.data|date:"d/m/Y" }} das {{ reserva.horario_inicio|time:"H:i" }} às {{ reserva.horario_fim|time:"H:i" }}</p>
+                </div>
+            {% empty %}
+                <div class="no-reservas">
+                    <p>Não há reservas marcadas no momento.</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
 <style>
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
 .reservas-list {
     display: flex;
     flex-direction: column;
