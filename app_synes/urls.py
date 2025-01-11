@@ -21,4 +21,6 @@ urlpatterns = [
     path('reservar/', criar_reserva, name='criar_reserva'),
     path('reservas/', listar_reservas, name='listar_reservas'),
     path('jogos/', listar_jogos, name='listar_jogos'),
+    path('listar_todos_jogos/', views.listar_todos_jogos, name='listar_todos_jogos'),  # Adicionada
+    path('listar_todas_reservas/', views.listar_todas_reservas, name='listar_todas_reservas'),  # Adicionada
 ]

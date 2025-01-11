@@ -214,3 +214,11 @@ def listar_reservas(request):
 def listar_jogos(request):
     jogos = Jogo.objects.filter(usuario=request.user)
     return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
+
+def listar_todos_jogos(request):
+    jogos = Jogo.objects.all()
+    return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
+
+def listar_todas_reservas(request):
+    reservas = Reserva.objects.all()
+    return render(request, 'app_synes/listar_todas_reservas.html', {'reservas': reservas})

@@ -1,0 +1,55 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Todas as Reservas{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Todas as Reservas Marcadas</h2>
+    <div class="reservas-list">
+        {% for reserva in reservas %}
+            <div class="reserva-item">
+                <h4 class="reserva-arena">{{ reserva.arena.nome }}</h4>
+                <p class="reserva-info">{{ reserva.data|date:"d/m/Y" }} das {{ reserva.horario_inicio|time:"H:i" }} às {{ reserva.horario_fim|time:"H:i" }}</p>
+            </div>
+        {% empty %}
+            <div class="no-reservas">
+                <p>Não há reservas marcadas no momento.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.reservas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reserva-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.reserva-arena {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.reserva-info {
+    color: var(--text-color);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.no-reservas {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    background: var(--background-color);
+    border-radius: 8px;
+}
+</style>
+{% endblock %}

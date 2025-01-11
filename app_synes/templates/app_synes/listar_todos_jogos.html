@@ -1,0 +1,56 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Todos os Jogos{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Todos os Jogos Marcados</h2>
+    <div class="jogos-list">
+        {% for jogo in jogos %}
+            <div class="jogo-item">
+                <h4 class="jogo-titulo">{{ jogo.titulo }}</h4>
+                <p class="jogo-info">{{ jogo.data|date:"d/m/Y" }} às {{ jogo.horario }}</p>
+                <p class="jogo-info">Arena: {{ jogo.arena.nome }}</p>
+            </div>
+        {% empty %}
+            <div class="no-jogos">
+                <p>Não há jogos marcados no momento.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.jogos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.jogo-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.jogo-titulo {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.jogo-info {
+    color: var(--text-color);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.no-jogos {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    background: var(--background-color);
+    border-radius: 8px;
+}
+</style>
+{% endblock %}
