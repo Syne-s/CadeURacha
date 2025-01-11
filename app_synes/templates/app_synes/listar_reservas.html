@@ -13,7 +13,7 @@
             {% for reserva in reservas %}
                 <div class="reserva-item">
                     <h4 class="reserva-arena">{{ reserva.arena.nome }}</h4>
-                    <p class="reserva-info">{{ reserva.data }} das {{ reserva.horario_inicio }} às {{ reserva.horario_fim }}</p>
+                    <p class="reserva-info">{{ reserva.data|date:"d/m/Y" }} das {{ reserva.horario_inicio }} às {{ reserva.horario_fim }}</p>
                 </div>
             {% empty %}
                 <div class="no-reservas">
