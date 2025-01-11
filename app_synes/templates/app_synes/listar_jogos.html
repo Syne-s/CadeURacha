@@ -15,6 +15,7 @@
                 <div class="jogo-item">
                     <h4 class="jogo-titulo">{{ jogo.titulo }}</h4>
                     <p class="jogo-info">{{ jogo.data|date:"d/m/Y" }} às {{ jogo.horario }}</p>
+                    <p class="jogo-info">Quadra: {{ jogo.arena.nome }}</p>
                 </div>
             {% empty %}
                 <div class="no-jogos">
