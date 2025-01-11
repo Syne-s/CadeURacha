@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set the min attribute for the date input to today's date
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', today);
+
+    // Set the min attribute for the time input to 2 hours from now
+    const now = new Date();
+    now.setHours(now.getHours() + 2);
+    const minTime = now.toTimeString().split(' ')[0].substring(0, 5);
+    document.getElementById('{{ form.horario_inicio.id_for_label }}').setAttribute('min', minTime);
+    document.getElementById('{{ form.horario_fim.id_for_label }}').setAttribute('min', minTime);
 });
 </script>
 
