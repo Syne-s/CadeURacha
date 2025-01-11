@@ -105,6 +105,44 @@
         font-size: 0.9rem;
         margin-bottom: 0;
     }
+    .slider-container {
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    .slider-label {
+        font-size: 1rem;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+    }
+    .slider {
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 8px;
+        background: var(--border-color);
+        outline: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+    .slider:hover {
+        opacity: 1;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: var(--primary-color);
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: var(--primary-color);
+        cursor: pointer;
+        border-radius: 50%;
+    }
     @media (max-width: 768px) {
         #map-container {
             flex-direction: column;
@@ -145,6 +183,10 @@
                         <option value="{{ neighborhood }}">{{ neighborhood }}</option>
                     {% endfor %}
                 </select>
+            </div>
+            <div class="slider-container">
+                <label class="slider-label" for="radius-slider">RAIO DE BUSCA (km): <span id="radius-value">5</span></label>
+                <input type="range" class="slider" id="radius-slider" min="1" max="20" value="5">
             </div>
             <div class="arena-list">
                 {% for arena in arenas %}
@@ -280,18 +322,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var currentLocationIcon = L.divIcon({
                 className: 'current-location-icon',
-                html: '<i class="fa-solid fa-circle" style="color: #4285F4; font-size: 20px;"></i>',
+                html: '<i class="fa-solid fa-circle" style="color: var(--primary-color); font-size: 20px;"></i>',
                 iconSize: [20, 20],
                 iconAnchor: [10, 10]
             });
 
             var currentLocationMarker = L.marker([lat, lng], { icon: currentLocationIcon }).addTo(map);
             currentLocationMarker.bindPopup("Você está aqui").openPopup();
+
+            // Update radius value
+            document.getElementById('radius-slider').addEventListener('input', function() {
+                var radius = this.value;
+                document.getElementById('radius-value').textContent = radius;
+                filterArenasByRadius(lat, lng, radius);
+            });
+
+            // Initial filter
+            filterArenasByRadius(lat, lng, document.getElementById('radius-slider').value);
         }, function(error) {
             console.error("Erro ao obter localização: ", error);
         });
     } else {
         console.error("Geolocalização não é suportada pelo navegador.");
+    }
+
+    function filterArenasByRadius(lat, lng, radius) {
+        document.querySelector('.arena-list').innerHTML = '';
+        Object.values(markers).forEach(marker => map.removeLayer(marker));
+
+        var filteredArenas = arenas.filter(arena => {
+            var distance = map.distance([lat, lng], [arena.lat, arena.lng]) / 1000; // Convert to km
+            return distance <= radius;
+        });
+
+        filteredArenas.forEach(addMarker);
     }
 });
 </script>
