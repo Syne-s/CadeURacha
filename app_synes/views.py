@@ -9,6 +9,7 @@ from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoFor
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime, timezone
 from django.utils import timezone
+from django.db.models import Q
 
 def register(request):
     # Handle GET request - show registration form
@@ -222,3 +223,46 @@ def listar_todos_jogos(request):
 def listar_todas_reservas(request):
     reservas = Reserva.objects.all()
     return render(request, 'app_synes/listar_todas_reservas.html', {'reservas': reservas})
+
+def search(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        query = request.GET.get('q', '').strip()
+        if len(query) >= 2:
+            # Primeiro pesquisar arenas
+            arenas = Arena.objects.filter(
+                Q(nome__icontains=query) |
+                Q(bairro__icontains=query)
+            )[:5]  # Limit results
+
+            # IDs das arenas encontradas
+            arena_ids = [arena.id for arena in arenas]
+
+            # Pesquisar jogos relacionados à query ou às arenas encontradas
+            jogos = Jogo.objects.filter(
+                Q(titulo__icontains=query) |
+                Q(descricao__icontains=query) |
+                Q(arena_id__in=arena_ids)
+            ).select_related('arena')[:5]  # Limit results and optimize query
+
+            results = {
+                'arenas': [
+                    {
+                        'id': arena.id,
+                        'nome': arena.nome,
+                        'endereco': f"{arena.bairro}, {arena.cidade}",
+                        'tipo': 'quadra'
+                    } for arena in arenas
+                ],
+                'jogos': [
+                    {
+                        'id': jogo.id,
+                        'titulo': jogo.titulo,
+                        'arena': jogo.arena.nome,
+                        'data': jogo.data.strftime('%d/%m/%Y'),
+                        'horario': str(jogo.horario),
+                        'tipo': 'jogo'
+                    } for jogo in jogos
+                ]
+            }
+            return JsonResponse(results)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
