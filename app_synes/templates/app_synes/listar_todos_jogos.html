@@ -15,6 +15,7 @@
                     <h4 class="jogo-titulo">{{ jogo.titulo }}</h4>
                     <p class="jogo-info"><strong>{{ jogo.arena.nome }}</strong></p>
                     <p class="jogo-info">{{ jogo.data|date:"d/m/Y" }} às {{ jogo.horario }}</p>
+                    <p class="jogo-descricao">{{ jogo.descricao }}</p>
                 </div>
             {% empty %}
                 <div class="no-jogos">
@@ -87,6 +88,13 @@
     color: var(--text-color);
     margin-bottom: 0;
     font-size: 0.95rem;
+}
+
+.jogo-descricao {
+    color: #666;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    font-style: italic;
 }
 
 .no-jogos {
