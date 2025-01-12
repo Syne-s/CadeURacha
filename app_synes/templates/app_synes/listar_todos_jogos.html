@@ -4,10 +4,17 @@
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} text-center">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        {% endif %}
         <div class="auth-header">
             <i class="fas fa-basketball-ball auth-icon"></i>
             <h2>Todos os Jogos Marcados</h2>
-            <p>Veja todos os jogos marcados no sistema</p>
+            <p>Veja tos odos os jogos marcadno sistema</p>
         </div>
         <div class="jogos-list">
             {% for jogo in jogos %}
@@ -23,6 +30,8 @@
                 </div>
             {% endfor %}
         </div>
+
+    
     </div>
 </div>
 

@@ -10,6 +10,7 @@ from django.contrib.auth import update_session_auth_hash
 from datetime import datetime, timezone
 from django.utils import timezone
 from django.db.models import Q
+from django.contrib.messages import get_messages
 
 def register(request):
     # Handle GET request - show registration form
@@ -179,7 +180,8 @@ def cadastrar_jogo(request):
                 print("Horário lido do banco:", repr(jogo_db.horario))
                 
                 messages.success(request, 'Jogo criado com sucesso!')
-                return redirect('index')
+                jogos = Jogo.objects.all()
+                return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
             except Exception as e:
                 print(f"Erro ao salvar jogo: {e}")
                 print("Traceback completo:", traceback.format_exc())
@@ -213,6 +215,10 @@ def listar_reservas(request):
 
 @login_required
 def listar_jogos(request):
+    jogos = Jogo.objects.all()
+    storage = get_messages(request)
+    for message in storage:
+        print(f"Mensagem: {message}")
     jogos = Jogo.objects.filter(usuario=request.user)
     return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
 
