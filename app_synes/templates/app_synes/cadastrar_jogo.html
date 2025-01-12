@@ -1,58 +1,58 @@
 {% extends 'app_synes/base.html' %}
-
-{% block title %}Cadastrar Jogo{% endblock %}
+{% block title %}CadêURacha - Reservar Quadra{% endblock %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
-            <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2>Cadastrar Jogo</h2>
-            <p>Preencha os detalhes do jogo abaixo.</p>
+            <i class="fas fa-calendar-check auth-icon"></i>
+            <h2 class="text-center mb-0">Reservar Quadra</h2>
+            <p class="text-center">Preencha os detalhes da reserva abaixo</p>
         </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                    <select class="form-control" id="arena" name="arena" required>
-                        {% for arena in form.fields.arena.queryset %}
-                            <option value="{{ arena.id }}">{{ arena.nome }}</option>
+                    <select class="form-control" name="{{ form.arena.name }}" id="{{ form.arena.id_for_label }}">
+                        {% for choice in form.arena.field.choices %}
+                            {% if choice.0 %}
+                                <option value="{{ choice.0 }}" {% if form.arena.value == choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-heading"></i></span>
-                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                    <textarea class="form-control" id="descricao" name="descricao" placeholder="Descrição" required></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    <input type="date" class="form-control" id="data" name="data" required>
+                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ form.data.value|default:'' }}" min="{{ today }}">
                 </div>
             </div>
             <div class="form-group">
+                <small class="text-muted mb-2 d-block">Horário de início da reserva</small>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" id="horario" name="horario" required>
+                    <input type="time" class="form-control" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" value="{{ form.horario_inicio.value|default:'' }}">
                 </div>
             </div>
             <div class="form-group">
+                <small class="text-muted mb-2 d-block">Horário de término da reserva</small>
                 <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                    <input type="number" class="form-control" id="max_jogadores" name="max_jogadores" placeholder="Quantidade máxima de jogadores" required min="1">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                    <input type="time" class="form-control" name="{{ form.horario_fim.name }}" id="{{ form.horario_fim.id_for_label }}" value="{{ form.horario_fim.value|default:'' }}">
                 </div>
             </div>
-            <button type="submit" class="auth-button">Criar Jogo</button>
+            <button type="submit" class="auth-button">Reservar</button>
         </form>
     </div>
 </div>
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const arenaId = urlParams.get('arena_id');
     
     if (arenaId) {
-        const arenaSelect = document.getElementById('arena');
+        const arenaSelect = document.querySelector('select[name="{{ form.arena.name }}"]');
         const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
         if (option) {
             option.selected = true;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const today = new Date();
     today.setDate(today.getDate() + 1);
     const tomorrow = today.toISOString().split('T')[0];
-    document.getElementById('data').setAttribute('min', tomorrow);
+    document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
 });
 </script>
 
@@ -167,21 +167,28 @@ document.addEventListener('DOMContentLoaded', function() {
     transform: translateY(-2px);
 }
 
-.auth-footer {
-    text-align: center;
-    margin-top: 2rem;
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
 }
 
-.auth-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
 }
 
-.auth-link:hover {
-    color: var(--hover-color);
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
 }
 </style>
-
 {% endblock %}
