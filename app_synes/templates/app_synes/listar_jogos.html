@@ -13,6 +13,8 @@
         <div class="jogos-list">
             {% for jogo in jogos %}
                 <div class="jogo-item">
+                    <a href="{% url 'editar_jogo' jogo.id %}" class="btn btn-primary btn-sm">Editar</a>
+                    <a href="{% url 'excluir_jogo' jogo.id %}" class="btn btn-danger btn-sm">Excluir</a>
                     <h4 class="jogo-titulo">{{ jogo.titulo }}</h4>
                     <p class="jogo-info"><strong>{{ jogo.arena.nome }}</strong></p>
                     <p class="jogo-info">{{ jogo.data|date:"d/m/Y" }} às {{ jogo.horario }}</p>
@@ -77,6 +79,9 @@
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .jogo-titulo {

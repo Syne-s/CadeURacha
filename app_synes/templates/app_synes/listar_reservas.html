@@ -12,8 +12,14 @@
         <div class="reservas-list">
             {% for reserva in reservas %}
                 <div class="reserva-item">
-                    <h4 class="reserva-arena">{{ reserva.arena.nome }}</h4>
-                    <p class="reserva-info">{{ reserva.data|date:"d/m/Y" }} das {{ reserva.horario_inicio|time:"H:i" }} às {{ reserva.horario_fim|time:"H:i" }}</p>
+                    <div class="reserva-info">
+                        <h4 class="reserva-arena">{{ reserva.arena.nome }}</h4>
+                        <p>{{ reserva.data|date:"d/m/Y" }} das {{ reserva.horario_inicio|time:"H:i" }} às {{ reserva.horario_fim|time:"H:i" }}</p>
+                    </div>
+                    <div class="reserva-actions">
+                        <a href="{% url 'editar_reserva' reserva.id %}" class="btn btn-primary btn-sm mb-1">Editar</a>
+                        <a href="{% url 'excluir_reserva' reserva.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                    </div>
                 </div>
             {% empty %}
                 <div class="no-reservas">
@@ -74,10 +80,13 @@
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.reserva-item:hover {
-    border-color: var(--border-color);
+.reserva-info {
+    flex-grow: 1;
 }
 
 .reserva-arena {
@@ -86,10 +95,16 @@
     font-size: 1.1rem;
 }
 
-.reserva-info {
+.reserva-info p {
     color: var(--text-color);
     margin-bottom: 0;
     font-size: 0.95rem;
+}
+
+.reserva-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .no-reservas {

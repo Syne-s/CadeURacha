@@ -1,5 +1,5 @@
 import traceback
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
@@ -266,3 +266,39 @@ def search(request):
             }
             return JsonResponse(results)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def editar_reserva(request, id):
+    reserva = get_object_or_404(Reserva, id=id)
+    if request.method == 'POST':
+        form = ReservaForm(request.POST, instance=reserva)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_reservas')
+    else:
+        form = ReservaForm(instance=reserva)
+    return render(request, 'app_synes/editar_reserva.html', {'form': form})
+
+def excluir_reserva(request, id):
+    reserva = get_object_or_404(Reserva, id=id)
+    if request.method == 'POST':
+        reserva.delete()
+        return redirect('listar_reservas')
+    return render(request, 'app_synes/excluir_reserva.html', {'reserva': reserva})
+
+def editar_jogo(request, id):
+    jogo = get_object_or_404(Jogo, id=id)
+    if request.method == 'POST':
+        form = JogoForm(request.POST, instance=jogo)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_jogos')
+    else:
+        form = JogoForm(instance=jogo)
+    return render(request, 'app_synes/editar_jogo.html', {'form': form})
+
+def excluir_jogo(request, id):
+    jogo = get_object_or_404(Jogo, id=id)
+    if request.method == 'POST':
+        jogo.delete()
+        return redirect('listar_jogos')
+    return render(request, 'app_synes/excluir_jogo.html', {'jogo': jogo})

@@ -21,7 +21,7 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                    <select class="form-control" name="{{ form.arena.name }}" id="{{ form.arena.id_for_label }}">
+                    <select class="form-control" name="{{ form.arena.name }}" id="{{ form.arena.id_for_label }}" disabled>
                         {% for choice in form.arena.field.choices %}
                             {% if choice.0 %}
                                 <option value="{{ choice.0 }}" {% if form.arena.value == choice.0 %}selected{% endif %}>
@@ -30,26 +30,30 @@
                             {% endif %}
                         {% endfor %}
                     </select>
+                    <button type="button" class="btn btn-secondary" onclick="enableField('id_arena')"><i class="fas fa-pen"></i></button>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ form.data.value|default:'' }}" min="{{ today }}">
+                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ form.data.value|default:'' }}" min="{{ today }}" disabled>
+                    <button type="button" class="btn btn-secondary" onclick="enableField('id_data')"><i class="fas fa-pen"></i></button>
                 </div>
             </div>
             <div class="form-group">
                 <small class="text-muted mb-2 d-block">Horário de início da reserva</small>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" value="{{ form.horario_inicio.value|default:'' }}">
+                    <input type="time" class="form-control" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" value="{{ form.horario_inicio.value|default:'' }}" disabled>
+                    <button type="button" class="btn btn-secondary" onclick="enableField('id_horario_inicio')"><i class="fas fa-pen"></i></button>
                 </div>
             </div>
             <div class="form-group">
                 <small class="text-muted mb-2 d-block">Horário de término da reserva</small>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" name="{{ form.horario_fim.name }}" id="{{ form.horario_fim.id_for_label }}" value="{{ form.horario_fim.value|default:'' }}">
+                    <input type="time" class="form-control" name="{{ form.horario_fim.name }}" id="{{ form.horario_fim.id_for_label }}" value="{{ form.horario_fim.value|default:'' }}" disabled>
+                    <button type="button" class="btn btn-secondary" onclick="enableField('id_horario_fim')"><i class="fas fa-pen"></i></button>
                 </div>
             </div>
             <button type="submit" class="auth-button">Reservar</button>
@@ -81,6 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('{{ form.horario_inicio.id_for_label }}').setAttribute('min', minTime);
     document.getElementById('{{ form.horario_fim.id_for_label }}').setAttribute('min', minTime);
 });
+
+function enableField(fieldId) {
+    document.getElementById(fieldId).disabled = false;
+}
 </script>
 
 <style>
