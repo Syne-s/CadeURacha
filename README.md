@@ -164,7 +164,7 @@ python manage.py runserver
 | RF013  | Sair do Sistema                        |   ✓    |
 | RF014  | Excluir Conta                          |   ✓    |
 | RF015  | Excluir Jogo                           |   ✓    |
-| RF026  | Recomendar Jogos para Iniciantes       |   ✕    |
+| RF016  | Recomendar Jogos para Iniciantes       |   ✕    |
 
 
 </div>
