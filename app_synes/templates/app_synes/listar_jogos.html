@@ -201,5 +201,10 @@ function closeModal() {
     modal.style.display = "none";
     document.body.classList.remove('modal-open');
 }
+
+// Ensure the modal is closed on page load
+document.addEventListener('DOMContentLoaded', function() {
+    closeModal();
+});
 </script>
 {% endblock %}

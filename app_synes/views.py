@@ -296,9 +296,11 @@ def editar_jogo(request, id):
         form = JogoForm(instance=jogo)
     return render(request, 'app_synes/editar_jogo.html', {'form': form})
 
+@login_required
 def excluir_jogo(request, id):
     jogo = get_object_or_404(Jogo, id=id)
     if request.method == 'POST':
         jogo.delete()
+        messages.success(request, 'Jogo excluído com sucesso!')
         return redirect('listar_jogos')
     return render(request, 'app_synes/excluir_jogo.html', {'jogo': jogo})
