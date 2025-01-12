@@ -28,4 +28,5 @@ urlpatterns = [
     path('listar_todos_jogos/', views.listar_todos_jogos, name='listar_todos_jogos'),  # Adicionada
     path('listar_todas_reservas/', views.listar_todas_reservas, name='listar_todas_reservas'),  # Adicionada
     path('search/', views.search, name='search'),
+    path('reservas/editar/<int:id>/', views.editar_reserva, name='editar_reserva'),
 ]

@@ -267,13 +267,17 @@ def search(request):
             return JsonResponse(results)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+@login_required
 def editar_reserva(request, id):
     reserva = get_object_or_404(Reserva, id=id)
     if request.method == 'POST':
         form = ReservaForm(request.POST, instance=reserva)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Reserva atualizada com sucesso!')
             return redirect('listar_reservas')
+        else:
+            messages.error(request, 'Erro ao atualizar reserva.')
     else:
         form = ReservaForm(instance=reserva)
     return render(request, 'app_synes/editar_reserva.html', {'form': form})
