@@ -1,0 +1,169 @@
+{% extends 'app_synes/base.html' %}
+{% block title %}CadêURacha - Editar Jogo{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-basketball-ball auth-icon"></i>
+            <h2 class="text-center mb-0">Editar Jogo</h2>
+            <p class="text-center">Atualize os detalhes do jogo abaixo</p>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <select class="form-control" name="{{ form.arena.name }}" id="{{ form.arena.id_for_label }}">
+                        {% for choice in form.arena.field.choices %}
+                            {% if choice.0 %}
+                                <option value="{{ choice.0 }}" {% if form.arena.value == choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-heading"></i></span>
+                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" value="{{ jogo.titulo }}" placeholder="Título">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição">{{ jogo.descricao }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ jogo.data|date:'Y-m-d' }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                    <input type="time" class="form-control" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" value="{{ jogo.horario }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <input type="number" class="form-control" name="{{ form.max_jogadores.name }}" id="{{ form.max_jogadores.id_for_label }}" value="{{ jogo.max_jogadores }}" min="1">
+                </div>
+            </div>
+            <button type="submit" class="auth-button">Atualizar Jogo</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #666;
+    transition: border-color 0.2s ease;
+}
+
+.form-control {
+    border-left: none;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+.form-control:focus ~ .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .form-control {
+    border-color: var(--primary-color);
+}
+
+.auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.auth-button:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the min attribute for the date input to tomorrow's date
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    const tomorrow = today.toISOString().split('T')[0];
+    document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
+});
+</script>
+{% endblock %}

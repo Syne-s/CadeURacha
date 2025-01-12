@@ -289,16 +289,20 @@ def excluir_reserva(request, id):
         return redirect('listar_reservas')
     return render(request, 'app_synes/excluir_reserva.html', {'reserva': reserva})
 
+@login_required
 def editar_jogo(request, id):
     jogo = get_object_or_404(Jogo, id=id)
     if request.method == 'POST':
         form = JogoForm(request.POST, instance=jogo)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Jogo atualizado com sucesso!')
             return redirect('listar_jogos')
+        else:
+            messages.error(request, 'Erro ao atualizar jogo.')
     else:
         form = JogoForm(instance=jogo)
-    return render(request, 'app_synes/editar_jogo.html', {'form': form})
+    return render(request, 'app_synes/editar_jogo.html', {'form': form, 'jogo': jogo})
 
 @login_required
 def excluir_jogo(request, id):
