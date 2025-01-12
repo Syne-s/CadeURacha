@@ -167,7 +167,7 @@ python manage.py runserver
 | RF016  | Notificar Novo Jogo                    |   ✕    |
 | RF017  | Sair do Sistema                        |   ✓    |
 | RF018  | Excluir Conta                          |   ✓    |
-| RF019  | Excluir Jogo                           |   ✕    |
+| RF019  | Excluir Jogo                           |   ✓    |
 | RF020  | Recomendar Jogos para Iniciantes       |   ✕    |
 
 
