@@ -158,7 +158,7 @@ python manage.py runserver
 | RF007  | Editar Reserva                         |   ✕    |
 | RF008  | Editar Jogo                            |   ✕    |
 | RF009  | Reservar Quadra                        |   ✓    |
-| RF010  | Cancelar Reserva de Quadra             |   ✕    |
+| RF010  | Cancelar Reserva de Quadra             |   ✓    |
 | RF011  | Cancelar Presença em Jogo              |   ✕    |
 | RF012  | Visualizar Reservas                    |   ✓    |
 | RF013  | Verificar Disponibilidade de Quadra    |   ✕    |
