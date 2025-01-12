@@ -19,11 +19,65 @@
         {% endif %}
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <select class="form-control" name="{{ form.arena.name }}" id="{{ form.arena.id_for_label }}">
+                        {% for choice in form.arena.field.choices %}
+                            {% if choice.0 %}
+                                <option value="{{ choice.0 }}" {% if form.arena.value == choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ reserva.data|date:'Y-m-d' }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <small class="text-muted mb-2 d-block">Horário de início da reserva</small>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                    <input type="time" class="form-control" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" value="{{ reserva.horario_inicio|time:'H:i' }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <small class="text-muted mb-2 d-block">Horário de término da reserva</small>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                    <input type="time" class="form-control" name="{{ form.horario_fim.name }}" id="{{ form.horario_fim.id_for_label }}" value="{{ reserva.horario_fim|time:'H:i' }}">
+                </div>
+            </div>
             <button type="submit" class="auth-button">Atualizar Reserva</button>
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const arenaId = urlParams.get('arena_id');
+    
+    if (arenaId) {
+        const arenaSelect = document.querySelector('select[name="{{ form.arena.name }}"]');
+        const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
+        if (option) {
+            option.selected = true;
+        }
+    }
+
+    // Set the min attribute for the date input to tomorrow's date
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    const tomorrow = today.toISOString().split('T')[0];
+    document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
+});
+</script>
 
 <style>
 .auth-container {
@@ -62,6 +116,40 @@
 .auth-header p {
     color: #666;
     margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #666;
+    transition: border-color 0.2s ease;
+}
+
+.form-control {
+    border-left: none;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
+}
+
+.form-control:focus ~ .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: var(--primary-color);
+}
+
+.input-group:focus-within .form-control {
+    border-color: var(--primary-color);
 }
 
 .auth-button {

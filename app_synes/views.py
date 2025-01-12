@@ -280,7 +280,7 @@ def editar_reserva(request, id):
             messages.error(request, 'Erro ao atualizar reserva.')
     else:
         form = ReservaForm(instance=reserva)
-    return render(request, 'app_synes/editar_reserva.html', {'form': form})
+    return render(request, 'app_synes/editar_reserva.html', {'form': form, 'reserva': reserva})
 
 def excluir_reserva(request, id):
     reserva = get_object_or_404(Reserva, id=id)
