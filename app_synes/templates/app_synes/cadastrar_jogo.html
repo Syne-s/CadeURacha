@@ -1,13 +1,13 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Reservar Quadra{% endblock %}
+{% block title %}CadêURacha - Criar Jogo{% endblock %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
-            <i class="fas fa-calendar-check auth-icon"></i>
-            <h2 class="text-center mb-0">Reservar Quadra</h2>
-            <p class="text-center">Preencha os detalhes da reserva abaixo</p>
+            <i class="fas fa-basketball-ball auth-icon"></i>
+            <h2 class="text-center mb-0">Criar Jogo</h2>
+            <p class="text-center">Preencha os detalhes do jogo abaixo</p>
         </div>
         {% if messages %}
             {% for message in messages %}
@@ -34,25 +34,35 @@
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-heading"></i></span>
+                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" placeholder="Título do Jogo" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição do Jogo" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ form.data.value|default:'' }}" min="{{ today }}">
+                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ form.data.value|default:'' }}" min="{{ today }}" required>
                 </div>
             </div>
             <div class="form-group">
-                <small class="text-muted mb-2 d-block">Horário de início da reserva</small>
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" name="{{ form.horario_inicio.name }}" id="{{ form.horario_inicio.id_for_label }}" value="{{ form.horario_inicio.value|default:'' }}">
+                    <input type="time" class="form-control" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" value="{{ form.horario.value|default:'' }}" required>
                 </div>
             </div>
             <div class="form-group">
-                <small class="text-muted mb-2 d-block">Horário de término da reserva</small>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" name="{{ form.horario_fim.name }}" id="{{ form.horario_fim.id_for_label }}" value="{{ form.horario_fim.value|default:'' }}">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <input type="number" class="form-control" name="{{ form.max_jogadores.name }}" id="{{ form.max_jogadores.id_for_label }}" placeholder="Quantidade máxima de jogadores" min="1" required>
                 </div>
             </div>
-            <button type="submit" class="auth-button">Reservar</button>
+            <button type="submit" class="auth-button">Criar Jogo</button>
         </form>
     </div>
 </div>

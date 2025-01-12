@@ -241,11 +241,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function addMarker(arena) {
         var marker = L.marker([arena.lat, arena.lng]).addTo(map);
         marker.bindPopup(`
-            <b>${arena.name}</b><br>
-            ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
-            <a href="{% url 'cadastrar_jogo' %}?arena_id=${arena.id}&nome=${arena.name}&endereco=${arena.endereco}&latitude=${arena.lat}&longitude=${arena.lng}&logradouro=${arena.logradouro}&bairro=${arena.bairro}&cidade=${arena.cidade}&estado=${arena.estado}&cep=${arena.cep}&pais=${arena.pais}">Cadastrar Jogo</a> | 
-            <a href="{% url 'criar_reserva' %}?arena_id=${arena.id}&nome=${arena.name}&endereco=${arena.endereco}&latitude=${arena.lat}&longitude=${arena.lng}&logradouro=${arena.logradouro}&bairro=${arena.bairro}&cidade=${arena.cidade}&estado=${arena.estado}&cep=${arena.cep}&pais=${arena.pais}">Reservar Quadra</a>
-        `);
+                <b>${arena.name}</b><br>
+                ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
+                <a href="{% url 'cadastrar_jogo' %}?arena_id=${arena.id}">Cadastrar Jogo</a> | 
+                <a href="{% url 'criar_reserva' %}?arena_id=${arena.id}">Reservar Quadra</a>
+            `);
         markers[arena.id] = marker;
 
         marker.on('click', function() {
