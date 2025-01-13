@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, Arena, Jogo, Reserva
-from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm, ReservaForm
+from .models import CustomUser, Arena, Jogo
+from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime, timezone
 from django.utils import timezone
@@ -193,27 +193,6 @@ def cadastrar_jogo(request):
     return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
 
 @login_required
-def criar_reserva(request):
-    if request.method == 'POST':
-        form = ReservaForm(request.POST)
-        if form.is_valid():
-            reserva = form.save(commit=False)
-            reserva.usuario = request.user  # Set the current user
-            reserva.save()
-            messages.success(request, 'Reserva criada com sucesso!')
-            return redirect('index')
-        else:
-            messages.error(request, 'Erro ao criar reserva.')
-    else:
-        form = ReservaForm()
-    return render(request, 'app_synes/criar_reserva.html', {'form': form})
-
-@login_required
-def listar_reservas(request):
-    reservas = Reserva.objects.filter(usuario=request.user)
-    return render(request, 'app_synes/listar_reservas.html', {'reservas': reservas})
-
-@login_required
 def listar_jogos(request):
     jogos = Jogo.objects.all()
     storage = get_messages(request)
@@ -225,10 +204,6 @@ def listar_jogos(request):
 def listar_todos_jogos(request):
     jogos = Jogo.objects.all()
     return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
-
-def listar_todas_reservas(request):
-    reservas = Reserva.objects.all()
-    return render(request, 'app_synes/listar_todas_reservas.html', {'reservas': reservas})
 
 def search(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -272,28 +247,6 @@ def search(request):
             }
             return JsonResponse(results)
     return JsonResponse({'error': 'Invalid request'}, status=400)
-
-@login_required
-def editar_reserva(request, id):
-    reserva = get_object_or_404(Reserva, id=id)
-    if request.method == 'POST':
-        form = ReservaForm(request.POST, instance=reserva)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Reserva atualizada com sucesso!')
-            return redirect('listar_reservas')
-        else:
-            messages.error(request, 'Erro ao atualizar reserva.')
-    else:
-        form = ReservaForm(instance=reserva)
-    return render(request, 'app_synes/editar_reserva.html', {'form': form, 'reserva': reserva})
-
-def excluir_reserva(request, id):
-    reserva = get_object_or_404(Reserva, id=id)
-    if request.method == 'POST':
-        reserva.delete()
-        return redirect('listar_reservas')
-    return render(request, 'app_synes/excluir_reserva.html', {'reserva': reserva})
 
 @login_required
 def editar_jogo(request, id):
