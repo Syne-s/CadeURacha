@@ -181,7 +181,7 @@ def cadastrar_jogo(request):
                 
                 messages.success(request, 'Jogo criado com sucesso!')
                 jogos = Jogo.objects.all()
-                return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
+                return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
             except Exception as e:
                 print(f"Erro ao salvar jogo: {e}")
                 print("Traceback completo:", traceback.format_exc())
@@ -298,12 +298,16 @@ def excluir_reserva(request, id):
 @login_required
 def editar_jogo(request, id):
     jogo = get_object_or_404(Jogo, id=id)
+    jogos = Jogo.objects.all()
     if request.method == 'POST':
         form = JogoForm(request.POST, instance=jogo)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Jogo atualizado com sucesso!')
-            return redirect('listar_jogos')
+            storage = get_messages(request)
+            for message in storage:
+                print(f"Mensagem: {message}")
+                messages.success(request, 'Jogo atualizado com sucesso!')
+            return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
         else:
             messages.error(request, 'Erro ao atualizar jogo.')
     else:

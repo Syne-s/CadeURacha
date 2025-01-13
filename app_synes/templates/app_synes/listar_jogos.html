@@ -10,6 +10,13 @@
             <h2>Meus Jogos</h2>
             <p>Seus jogos agendados</p>
         </div>
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} text-center">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        {% endif %}
         <div class="jogos-list">
             {% for jogo in jogos %}
                 <div class="jogo-item">
@@ -21,7 +28,7 @@
                     </div>
                     <div class="jogo-actions">
                         <a href="{% url 'editar_jogo' jogo.id %}" class="btn btn-primary btn-sm mb-1">Editar</a>
-                        <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ jogo.id }})">Excluir</button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('{{ jogo.id }}')">Excluir</button>
                     </div>
                 </div>
             {% empty %}

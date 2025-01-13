@@ -18,7 +18,10 @@
                     </div>
                     <div class="reserva-actions">
                         <a href="{% url 'editar_reserva' reserva.id %}" class="btn btn-primary btn-sm mb-1">Editar</a>
-                        <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ reserva.id }})">Excluir</button>
+                        <button 
+                            class="btn btn-danger btn-sm" 
+                            onclick="confirmDelete('{{ reserva.id }}')"
+                        >Excluir</button>
                     </div>
                 </div>
             {% empty %}
