@@ -243,8 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
         marker.bindPopup(`
                 <b>${arena.name}</b><br>
                 ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
-                <a href="{% url 'cadastrar_jogo' %}?arena_id=${arena.id}">Cadastrar Jogo</a> | 
-                <a href="{% url 'criar_reserva' %}?arena_id=${arena.id}">Reservar Quadra</a>
+                <a href="{% url 'cadastrar_jogo' %}?arena_id=${arena.id}">Cadastrar Jogo</a> 
             `);
         markers[arena.id] = marker;
 
