@@ -246,6 +246,7 @@ def search(request):
                 ]
             }
             return JsonResponse(results)
+        
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 @login_required
@@ -256,11 +257,9 @@ def editar_jogo(request, id):
         form = JogoForm(request.POST, instance=jogo)
         if form.is_valid():
             form.save()
-            storage = get_messages(request)
-            for message in storage:
-                print(f"Mensagem: {message}")
-                messages.success(request, 'Jogo atualizado com sucesso!')
-            return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
+            messages.success(request, 'Jogo atualizado com sucesso!')
+            return redirect('listar_jogos')
+            
         else:
             messages.error(request, 'Erro ao atualizar jogo.')
     else:

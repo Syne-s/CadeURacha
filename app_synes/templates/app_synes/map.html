@@ -211,7 +211,9 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('map').setView([-3.78222, -38.5434], 12);
+    var map = L.map('map', {
+        minZoom: 10,
+    }).setView([-3.78222, -38.5434], 12);
 
     function invertCoordinates(coordinates) {
         return coordinates.map(coord => [coord[1], coord[0]]);

@@ -816,7 +816,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="result-info">${jogo.data} às ${jogo.horario}</div>
                     `;
                     div.addEventListener('click', () => {
-                        window.location.href = `/jogos/${jogo.id}`;
+                        window.location.href = `listar_todos_jogos`;
                     });
                     searchResults.appendChild(div);
                 });
