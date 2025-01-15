@@ -274,3 +274,14 @@ def excluir_jogo(request, id):
         messages.success(request, 'Jogo excluído com sucesso!')
         return redirect('listar_jogos')
     return render(request, 'app_synes/excluir_jogo.html', {'jogo': jogo})
+
+@login_required
+def confirmar_presenca(request, id):
+    jogo = get_object_or_404(Jogo, id=id)
+    user = request.user
+
+    if user in jogo.participantes.all():
+        return JsonResponse({'status': 'error', 'message': 'Você já confirmou presença.'})
+
+    jogo.participantes.add(user)
+    return JsonResponse({'status': 'success', 'message': 'Presença confirmada!'})

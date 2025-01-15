@@ -23,4 +23,5 @@ urlpatterns = [
     path('jogos/excluir/<int:id>/', views.excluir_jogo, name='excluir_jogo'),  # Adicionada
     path('listar_todos_jogos/', views.listar_todos_jogos, name='listar_todos_jogos'),
     path('search/', views.search, name='search'),
+    path('confirmar-presenca/<int:id>/', views.confirmar_presenca, name='confirmar_presenca'),
 ]
