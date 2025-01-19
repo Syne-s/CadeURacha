@@ -53,8 +53,8 @@ class Jogo(models.Model):
     max_jogadores = models.IntegerField(verbose_name="Quantidade máxima de jogadores")
     arena = models.ForeignKey(Arena, on_delete=models.CASCADE, related_name='jogos')
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='jogos_cadastrados')
-    
     participantes = models.ManyToManyField(CustomUser, related_name="jogos_participando",blank=True)
+    criador_jogo = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='jogos_criados')
 
     def __str__(self):
         return self.titulo

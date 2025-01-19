@@ -26,36 +26,69 @@
                     <p class="jogo-info"><strong>{{ jogo.arena.nome }}</strong></p>
                     <p class="jogo-info">{{ jogo.data|date:"d/m/Y" }} às {{ jogo.horario }}</p>
                     <p class="jogo-descricao">{{ jogo.descricao }}</p>
-                    <div id="jogo-{{ jogo.id }}">
-                        <button class="confirmar-presenca-btn" data-jogo-id="{{ jogo.id }}">Confirmar Presença</button>
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div id="jogo-{{ jogo.id }}">
+                            {% if user in jogo.participantes.all %}
+                                <!-- Exibe o botão para cancelar presença caso o usuário já esteja inscrito -->
+                                <button class="btn-excluir-presenca" data-jogo-id="{{ jogo.id }}">Cancelar Presença</button>
+                            {% else %}
+                                <!-- Exibe o botão para confirmar presença caso o usuário não esteja inscrito -->
+                                <button class="btn-confirmar-presenca" data-jogo-id="{{ jogo.id }}">Confirmar Presença</button>
+                            {% endif %}
+                        </div>
+                        <br>
+                        <h5>Participantes:</h5>
+                        {% if jogo.participantes.all %}
+                            <ul>
+                                {% for participante in jogo.participantes.all %}
+                                    <li>{{ participante.username }}</li> <!-- Exibe o nome de usuário de cada participante -->
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>Não há participantes confirmados ainda.</p>
+                        {% endif %}
+                    {% else %}
+                        <p><a href="{% url 'login' %}">Faça login</a> para participar deste jogo.</p>
+                    {% endif %}
                 </div>
-                <h5>Participantes:</h5>
-                {% if jogo.participantes.all %}
-                    <ul>
-                        {% for participante in jogo.participantes.all %}
-                            <li>{{ participante.username }}</li> <!-- Exibe o nome de usuário de cada participante -->
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>Não há participantes confirmados ainda.</p>
-                {% endif %}
             {% empty %}
                 <div class="no-jogos">
                     <p>Não há jogos marcados no momento.</p>
                 </div>
             {% endfor %}
-
         </div>
     </div>
 </div>
 
 <style>
-.confirmar-presenca-btn {
+.btn-excluir-presenca{
+    width: 30%;
+    padding: 0.55rem;
     background-color: var(--primary-color);
     color: white;
-    padding: 10px;
-    border-radius: 5px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 300;
+    transition: all 0.2s ease;
+}
+
+.btn-excluir-presenca:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+.btn-confirmar-presenca {
+    width: 30%;
+    padding: 0.55rem;
+    background-color: rgb(79, 79, 248);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 300;
+    transition: all 0.2s ease;
+}
+.btn-confirmar-presenca:hover {
+    background-color:  rgb(37, 37, 161);
+    transform: translateY(-2px);
 }
 
 .auth-container {
@@ -138,6 +171,7 @@
 </style>
 
 <script>
+    ///--------Adicionar Presença-----------
 // Seleciona todos os botões de confirmação de presença
 document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
     button.addEventListener('click', function() {
@@ -165,6 +199,44 @@ document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
         .catch(error => {
             console.error(error);
             alert('Ocorreu um erro ao confirmar a presença.');
+        });
+    });
+});
+
+///--------Excluir Presença-----------
+// Função para obter o CSRF token
+function getCSRFToken() {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    return csrfToken;
+}
+// Seleciona todos os botões de exclusão de presença
+document.querySelectorAll('.btn-excluir-presenca').forEach(button => {
+    button.addEventListener('click', function() {
+        const jogoId = this.getAttribute('data-jogo-id');
+        const url = `/excluir-presenca/${jogoId}/`;
+
+        // Envia a requisição POST
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(), // Função para obter o CSRF token
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Erro ao cancelar presença');
+            }
+        })
+        .then(data => {
+            alert(data.message); // Exibe a mensagem do backend
+            // Opcional: Atualize a interface do usuário para refletir a mudança
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Ocorreu um erro ao cancelar a presença.');
         });
     });
 });

@@ -173,12 +173,13 @@ def cadastrar_jogo(request):
             try:
                 jogo = form.save(commit=False)
                 jogo.usuario = request.user  # Set the usuario field to the current user
+                jogo.criador_jogo = request.user #define o criador do jogo como o usuário logado
                 jogo.save()
+                jogo.participantes.add(request.user) # Adiciona o usuário logado como participante
 
                 # Verificar o valor direto do banco
                 jogo_db = Jogo.objects.get(id=jogo.id)
                 print("Horário lido do banco:", repr(jogo_db.horario))
-                
                 messages.success(request, 'Jogo criado com sucesso!')
                 jogos = Jogo.objects.all()
                 return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
@@ -285,3 +286,14 @@ def confirmar_presenca(request, id):
 
     jogo.participantes.add(user)
     return JsonResponse({'status': 'success', 'message': 'Presença confirmada!'})
+
+@login_required
+def excluir_presenca(request, id):
+    jogo = get_object_or_404(Jogo, id=id)
+    user = request.user
+
+    if user not in jogo.participantes.all():
+        return JsonResponse({'status': 'error', 'message': 'Você não confirmou presença neste evento.'})
+
+    jogo.participantes.remove(user)
+    return JsonResponse({'status': 'success', 'message': 'Presença removida com sucesso!'})
