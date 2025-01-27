@@ -156,16 +156,16 @@ python manage.py runserver
 | RF005  | Buscar Rachas                          |   ✓    |
 | RF006  | Editar Dados do Usuário                |   ✓    |
 | RF007  | Editar Jogo                            |   ✓    |
-| RF008  | Cancelar Presença em Jogo              |   ✕    |
+| RF008  | Cancelar Presença em Jogo              |   ✓    |
 | RF009  | Verificar Disponibilidade de Quadra    |   ✕    |
 | RF010  | Avaliar Quadra                         |   ✕    |
-| RF011  | Confirmar Participação em Jogo (Racha) |   ✕    |
+| RF011  | Confirmar Participação em Jogo (Racha) |   ✓    |
 | RF012  | Notificar Novo Jogo                    |   ✕    |
 | RF013  | Sair do Sistema                        |   ✓    |
 | RF014  | Excluir Conta                          |   ✓    |
 | RF015  | Excluir Jogo                           |   ✓    |
 | RF016  | Recomendar Jogos para Iniciantes       |   ✕    |
-
+| RF017  | Levar Bola                             |   ✓    |
 
 </div>
 
