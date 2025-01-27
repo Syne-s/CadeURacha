@@ -63,6 +63,16 @@
                     <input type="number" class="form-control" name="{{ form.max_jogadores.name }}" id="{{ form.max_jogadores.id_for_label }}" placeholder="Quantidade máxima de jogadores" min="1" required>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="id_qtd_bolas">Você vai levar uma bola de basquete para o racha?</label>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-success" id="btn-sim">Sim</button>
+                    <button type="button" class="btn btn-danger" id="btn-nao">Não</button>
+                </div>
+                
+                {{ form.bolas }}
+               
+            </div>
             <button type="submit" class="auth-button">Criar Jogo</button>
         </form>
     </div>
@@ -86,6 +96,26 @@ document.addEventListener('DOMContentLoaded', function() {
     today.setDate(today.getDate() + 1);
     const tomorrow = today.toISOString().split('T')[0];
     document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const btnSim = document.getElementById('btn-sim');
+    const btnNao = document.getElementById('btn-nao');
+    const bolasInput = document.getElementById('qtd-bolas');
+
+    btnSim.addEventListener('click', function () {
+        bolasInput.value = 1; // Define apenas uma bola
+        btnSim.classList.add('active'); // Adiciona destaque ao botão "Sim"
+        btnNao.classList.remove('active'); // Remove destaque do botão "Não"
+        
+    });
+
+    btnNao.addEventListener('click', function () {
+        bolasInput.value = 0; // Define 0 bolas
+        btnNao.classList.add('active'); // Adiciona destaque ao botão "Não"
+        btnSim.classList.remove('active'); // Remove destaque do botão "Sim"
+        
+    });
 });
 </script>
 
@@ -201,5 +231,16 @@ document.addEventListener('DOMContentLoaded', function() {
     color: #721c24;
     border-color: #f5c6cb;
 }
+.btn-group .btn.active {
+    background-color: #28a745 !important; /* Verde para Sim */
+    border-color: #000000 !important;
+    color: white;
+}
+.btn-group .btn-outline-danger.active {
+    background-color: #dc3545 !important; /* Vermelho para Não */
+    border-color: #000000 !important;
+    color: white;
+}
 </style>
+
 {% endblock %}

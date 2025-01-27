@@ -26,16 +26,20 @@
                     <p class="jogo-info"><strong>{{ jogo.arena.nome }}</strong></p>
                     <p class="jogo-info">{{ jogo.data|date:"d/m/Y" }} às {{ jogo.horario }}</p>
                     <p class="jogo-descricao">{{ jogo.descricao }}</p>
+                    
                     {% if user.is_authenticated %}
                         <div id="jogo-{{ jogo.id }}">
                             {% if user in jogo.participantes.all %}
                                 <!-- Exibe o botão para cancelar presença caso o usuário já esteja inscrito -->
                                 <button class="btn-excluir-presenca" data-jogo-id="{{ jogo.id }}">Cancelar Presença</button>
+                                
                             {% else %}
                                 <!-- Exibe o botão para confirmar presença caso o usuário não esteja inscrito -->
                                 <button class="btn-confirmar-presenca" data-jogo-id="{{ jogo.id }}">Confirmar Presença</button>
                             {% endif %}
                         </div>
+                        <br>
+                        <p class="jogo-info">Bolas de basquete confirmadas: {{ jogo.bolas}}</p>
                         <br>
                         <h5>Participantes:</h5>
                         {% if jogo.participantes.all %}

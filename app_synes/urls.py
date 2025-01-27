@@ -25,4 +25,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('confirmar-presenca/<int:id>/', views.confirmar_presenca, name='confirmar_presenca'),
     path('excluir-presenca/<int:id>/', views.excluir_presenca, name='excluir_presenca'),
+    path('jogo/<int:jogo_id>/levar_bola/', views.levar_bola, name='levar_bola'),
 ]

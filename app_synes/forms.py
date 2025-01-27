@@ -33,7 +33,27 @@ class JogoForm(forms.ModelForm):
             'required': True
         })
     )
+    bolas = forms.IntegerField(
+        widget=forms.HiddenInput(attrs={
+            'id': 'qtd-bolas',  # Você pode manter o ID se precisar acessá-lo no front-end
+        }),
+        initial=0,
+        required=True
+    )
 
     class Meta:
         model = Jogo
-        fields = ['titulo', 'descricao', 'data', 'horario', 'max_jogadores', 'arena']
+        fields = ['titulo', 'descricao', 'data', 'horario', 'max_jogadores', 'arena','bolas']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        data = cleaned_data.get('data')
+        horario = cleaned_data.get('horario')
+        arena = cleaned_data.get('arena')
+
+        if data and horario and arena:
+            # Verificar se já existe um jogo com a mesma data, horário e arena
+            conflito = Jogo.objects.filter(data=data, horario=horario, arena=arena).exists()
+            if conflito:
+                raise forms.ValidationError("Já existe um jogo marcado para esta data, horário e quadra.")
+        return cleaned_data

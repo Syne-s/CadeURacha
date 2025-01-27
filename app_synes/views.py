@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Arena, Jogo
 from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
 from django.contrib.auth import update_session_auth_hash
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 from django.utils import timezone
 from django.db.models import Q
 from django.contrib.messages import get_messages
@@ -172,38 +172,46 @@ def cadastrar_jogo(request):
         if form.is_valid():
             try:
                 jogo = form.save(commit=False)
-                jogo.usuario = request.user  # Set the usuario field to the current user
-                jogo.criador_jogo = request.user #define o criador do jogo como o usuário logado
+                jogo.usuario = request.user
+                jogo.criador_jogo = request.user
                 jogo.save()
-                jogo.participantes.add(request.user) # Adiciona o usuário logado como participante
-
-                # Verificar o valor direto do banco
-                jogo_db = Jogo.objects.get(id=jogo.id)
-                print("Horário lido do banco:", repr(jogo_db.horario))
+                jogo.participantes.add(request.user)
                 messages.success(request, 'Jogo criado com sucesso!')
-                jogos = Jogo.objects.all()
-                return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
+                return redirect('listar_todos_jogos')
             except Exception as e:
                 print(f"Erro ao salvar jogo: {e}")
-                print("Traceback completo:", traceback.format_exc())
-                messages.error(request, 'Erro ao salvar o jogo')
+                messages.error(request, 'Erro ao salvar o jogo.')
         else:
-            print("Erros no formulário:", form.errors)
+            messages.error(request, "Erro ao criar jogo. Verifique os dados informados.")
     else:
         form = JogoForm()
     return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
 
 @login_required
 def listar_jogos(request):
-    jogos = Jogo.objects.all()
-    storage = get_messages(request)
-    for message in storage:
-        print(f"Mensagem: {message}")
+    hoje = date.today()
+
+    # Excluir jogos expirados
+    Jogo.objects.filter(data__lt=hoje).delete()
+
+    # Filtrar apenas jogos criados pelo usuário logado
     jogos = Jogo.objects.filter(usuario=request.user)
+
+    # Mostrar mensagens relativas a essa página
+    for message in get_messages(request):
+        print(f"Mensagem: {message}")
+
     return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
 
 def listar_todos_jogos(request):
+    hoje = date.today()
+
+    # Excluir jogos expirados
+    Jogo.objects.filter(data__lt=hoje).delete()
+
+    # Recuperar todos os jogos restantes
     jogos = Jogo.objects.all()
+
     return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
 
 def search(request):
@@ -297,3 +305,21 @@ def excluir_presenca(request, id):
 
     jogo.participantes.remove(user)
     return JsonResponse({'status': 'success', 'message': 'Presença removida com sucesso!'})
+
+@login_required
+def levar_bola(request, jogo_id):
+    if request.method == "POST" and request.user.is_authenticated:
+        jogo = get_object_or_404(Jogo, id=jogo_id)
+
+        if request.POST.get("acao") == "sim":
+            jogo.bolas += 1  # Adiciona 1 bola
+            jogo.save()
+            mensagem = "Obrigado por levar uma bola!"
+        elif request.POST.get("acao") == "nao":
+            mensagem = "Tudo bem! Vamos contar com outras bolas."
+        else:
+            mensagem = "Ação inválida."
+
+        return JsonResponse({"mensagem": mensagem, "bolas_atualizadas": jogo.bolas})
+    else:
+        return JsonResponse({"mensagem": "Requisição inválida ou usuário não autenticado."}, status=400)
