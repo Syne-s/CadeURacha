@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.validators import RegexValidator
 from .models import Arena, Jogo
+from io import BytesIO
+from PIL import Image, ImageOps
+from django.core.files.base import ContentFile
 
 class ArenaForm(forms.ModelForm):
     class Meta:
@@ -18,6 +21,24 @@ class EditProfileForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
             'foto_perfil': forms.FileInput(attrs={'class': 'form-control'})  # Add widget for file input
         }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get('foto_perfil'):
+            image = Image.open(self.cleaned_data['foto_perfil'])
+            image = self._process_image(image)
+            image_io = BytesIO()
+            image.save(image_io, format='JPEG')
+            instance.foto_perfil.save(self.cleaned_data['foto_perfil'].name, ContentFile(image_io.getvalue()), save=False)
+        if commit:
+            instance.save()
+        return instance
+
+    def _process_image(self, image):
+        # Define the desired size
+        desired_size = (300, 300)  # Adjust as needed
+        image = ImageOps.fit(image, desired_size, Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+        return image
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Senha Atual'}))
