@@ -720,6 +720,38 @@
             background-color: #fbe9e7;
             color: #d84315;
         }
+
+        .nav-map-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            margin-right: 1rem;
+        }
+
+        .nav-map-link:hover {
+            color: var(--hover-color);
+        }
+
+        .nav-map-link i {
+            font-size: 1.2rem;
+        }
+
+        .nav-map-link span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-map-link span {
+                display: none;
+            }
+        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
@@ -730,6 +762,13 @@
                 <i class="fas fa-basketball-ball"></i>
                 <span><span style="color: #E5C03E;">cadê</span><span style="color: #EB7A42;">UR</span><span style="color: #E5C03E;">acha</span></span>
             </a>
+            
+            <!-- Add map link here -->
+            <a class="nav-map-link" href="{% url 'map' %}">
+                <span>MAPA</span>
+                <i class="fas fa-map"></i>
+            </a>
+
             <div class="nav-center">
                 <div class="search-container">
                     <input type="text" 
@@ -743,13 +782,7 @@
             </div>
             <div class="nav-right">
                 {% if user.is_authenticated %}
-                    <!-- Ícone de mapa -->
-                    <div class="nav-item">
-                        <a class="nav-link nav-icon" href="{% url 'map' %}">
-                            <i class="fas fa-map"></i>
-                        </a>
-                    </div>
-                    <!-- Sino de notificações para usuários autenticados -->
+                    <!-- Remove map icon and keep only notifications and profile -->
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="notification-icon">
