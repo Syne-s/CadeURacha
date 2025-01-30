@@ -12,10 +12,11 @@ class ArenaForm(forms.ModelForm):
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'foto_perfil']  # Add 'foto_perfil' field
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome de Usuário'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
+            'foto_perfil': forms.FileInput(attrs={'class': 'form-control'})  # Add widget for file input
         }
 
 class CustomPasswordChangeForm(PasswordChangeForm):
