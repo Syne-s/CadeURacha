@@ -96,7 +96,7 @@ def cadastrar_arena(request):
         form = ArenaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('app_synes/map.html')
     else:
         form = ArenaForm()
     return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
@@ -293,7 +293,11 @@ def confirmar_presenca(request, id):
         return JsonResponse({'status': 'error', 'message': 'Você já confirmou presença.'})
 
     jogo.participantes.add(user)
-    return JsonResponse({'status': 'success', 'message': 'Presença confirmada!'})
+    return JsonResponse({'status': 'success',
+                          'message': 'Presença confirmada!',
+                          'texto_cancelar_presenca':'Cancelar presença',
+                          'acao_cancelar_presenca':'cancelar-presenca'})
+
 
 @login_required
 def excluir_presenca(request, id):
@@ -304,7 +308,11 @@ def excluir_presenca(request, id):
         return JsonResponse({'status': 'error', 'message': 'Você não confirmou presença neste evento.'})
 
     jogo.participantes.remove(user)
-    return JsonResponse({'status': 'success', 'message': 'Presença removida com sucesso!'})
+    return JsonResponse({'status': 'success',
+                          'message': 'Presença removida com sucesso!',
+                          'texto_confirmar_presenca':'Confirmar presença',
+                          'acao_confirmar_presenca':'confirmar-presenca'})
+    
 
 @login_required
 def levar_bola(request, jogo_id):
@@ -323,3 +331,24 @@ def levar_bola(request, jogo_id):
         return JsonResponse({"mensagem": mensagem, "bolas_atualizadas": jogo.bolas})
     else:
         return JsonResponse({"mensagem": "Requisição inválida ou usuário não autenticado."}, status=400)
+    
+@login_required
+def levar_bola(request, jogo_id):
+    jogo = get_object_or_404(Jogo, id=jogo_id)
+
+    if request.method == 'POST':
+        acao = request.POST.get('acao')
+
+        if acao == 'adicionar':
+            jogo.bolas += 1
+            request.user.leva_bola = True  # Marcamos que esse usuário está levando a bola
+            messages.success(request, "Você confirmou que levará uma bola!")
+        elif acao == 'remover' and request.user.leva_bola:
+            jogo.bolas -= 1
+            request.user.leva_bola = False  # Desmarca que o usuário está levando a bola
+            messages.success(request, "Você cancelou sua bolinha.")
+
+        jogo.save()
+        request.user.save()
+
+    return redirect('listar_todos_jogos')

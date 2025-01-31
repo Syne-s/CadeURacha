@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, verbose_name="E-mail")
     is_active = models.BooleanField(default=True, verbose_name="Usuário ativo")
+    levar_bola = models.BooleanField(default=False, verbose_name="Levar bola de basquete")
 
     def __str__(self):
         return self.username
