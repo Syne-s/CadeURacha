@@ -15,54 +15,64 @@
                 </div>
             {% endfor %}
         {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    {{ profile_form.username }}
-                </div>
+        <div class="edit-profile-content">
+            <div class="left-column">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group text-center">
+                        <input type="file" id="id_foto_perfil" name="foto_perfil" style="display: none;">
+                        {% if profile_form.instance.foto_perfil %}
+                            <div class="profile-pic" onclick="document.getElementById('id_foto_perfil').click()">
+                                <img src="{{ profile_form.instance.foto_perfil.url }}" alt="Foto de Perfil" style="width: 100px; height: 100px; border-radius: 50%;">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            {{ profile_form.username }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            {{ profile_form.email }}
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-button">Salvar Alterações</button>
+                </form>
             </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    {{ profile_form.email }}
-                </div>
+            <div class="vertical-bar"></div> <!-- Barra vertical centralizada -->
+            <div class="right-column">
+                <h3 class="text-center mt-4">Alterar Senha</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            {{ password_form.old_password }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            {{ password_form.new_password1 }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            {{ password_form.new_password2 }}
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-button">Alterar Senha</button>
+                </form>
+                <hr class="my-4">
+                <form method="get" action="{% url 'confirm_delete_account' %}">
+                    <button type="submit" class="btn btn-danger w-100">Excluir Conta</button>
+                </form>
             </div>
-            <button type="submit" class="auth-button">Salvar Alterações</button>
-        </form>
-
-        <hr class="my-4">
-
-        <h3 class="text-center mt-4">Alterar Senha</h3>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    {{ password_form.old_password }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    {{ password_form.new_password1 }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    {{ password_form.new_password2 }}
-                </div>
-            </div>
-            <button type="submit" class="auth-button">Alterar Senha</button>
-        </form>
-
-        <hr class="my-4">
-
-        <form method="get" action="{% url 'confirm_delete_account' %}">
-            <button type="submit" class="btn btn-danger w-100">Excluir Conta</button>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -77,11 +87,11 @@
 
 .auth-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 40px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
 }
 
 .auth-header {
@@ -105,6 +115,25 @@
     margin-bottom: 0;
 }
 
+.edit-profile-content {
+    display: flex;
+    align-items: stretch; /* Garante que as colunas tenham a mesma altura */
+    justify-content: space-between;
+    position: relative; /* Para posicionar a barra vertical */
+}
+.left-column, .right-column {
+    width: 48%; /* Largura igual para ambas as colunas */
+    padding: 0 1rem; /* Espaçamento interno */
+}
+.vertical-bar {
+    width: 2px; /* Largura da barra vertical */
+    background-color: #ccc; /* Cor da barra */
+    position: absolute; /* Posicionamento absoluto dentro do contêiner pai */
+    top: 0;
+    bottom: 0;
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta para ficar perfeitamente centralizado */
+}
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -196,6 +225,22 @@
     background-color: #f8d7da;
     color: #721c24;
     border-color: #f5c6cb;
+}
+
+.profile-pic {
+    text-align: center;
+    margin-top: 1rem;
+    cursor: pointer;
+    position: relative;
+}
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    transition: opacity 0.3s ease;
+}
+.profile-pic:hover img {
+    opacity: 0.7;
 }
 </style>
 {% endblock %}

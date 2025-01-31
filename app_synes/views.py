@@ -26,6 +26,7 @@ def register(request):
             email = request.POST.get("email")
             password = request.POST.get("password")
             confirm_password = request.POST.get("confirm_password")
+            levar_bola = request.POST.get("levar_bola", False)  # Add this line
 
             if password != confirm_password:
                 return JsonResponse({'success': False, 'message': 'As senhas não coincidem.'})
@@ -40,6 +41,7 @@ def register(request):
                 username=username,
                 email=email,
                 password=password,
+                levar_bola=levar_bola  # Add this line
             )
 
             return JsonResponse({'success': True, 'message': 'Cadastro realizado com sucesso!'})
@@ -104,10 +106,10 @@ def cadastrar_arena(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        profile_form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user)  # Add request.FILES
         password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         
-        if 'username' in request.POST or 'email' in request.POST:
+        if 'username' in request.POST or 'email' in request.POST or 'foto_perfil' in request.FILES:
             if profile_form.is_valid():
                 profile_form.save()
                 messages.success(request, 'Perfil atualizado com sucesso.')

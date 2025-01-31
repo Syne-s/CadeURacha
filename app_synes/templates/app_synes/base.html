@@ -3,13 +3,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}CadêURacha{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <metae name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}cadêURacha{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"r rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #bf4222;
+            --primary-color: #EB7A42;
             --secondary-color: #d35023;
             --accent-color: #e1672e;
             --background-color: #fdf6ef;
@@ -22,7 +23,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Syne', sans-serif;
             background-color: var(--background-color);
             color: var (--text-color);
             min-height: 100vh;
@@ -32,7 +33,7 @@
         }
 
         .top-nav {
-            background-color: white;
+            background-color: #34327B;
             border-bottom: 1px solid var(--border-color);
             padding: 0.75rem 1.5rem;
             display: flex;
@@ -309,43 +310,88 @@
         }
 
         .footer {
-            background-color: white;
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 1.5rem;
+            position: relative;
+            background-color: #34327B;
+            padding: 1rem 1rem;
             margin-top: auto;
+        }
+
+        .footer-logo img {
+            width: 46.8px;
+            height: 46.8px;
+            position: relative;
+            opacity: 1;
+        }
+
+        .footer-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16.94px;
+            text-align: left;
+            position: relative;
+            left: 15px;
+            width: 586px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-text p {
+            margin: 0;
+            padding: 0;
+            display: block;
+            color: #9F84F9;
         }
 
         .footer-content {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            justify-content: space-between;
             max-width: 1200px;
             margin: 0 auto;
+            color: white;
         }
 
-        .footer-logo {
+        .footer-left {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            width: 100%;
-            justify-content: center;
+            gap: 0.75rem;
         }
 
         .footer-logo img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
 
-        .footer-text {
-            text-align: center;
-            width: 100%;
-            padding-top: 1rem;
+        .footer-contact {
+            color: #9F84F9;
+            display: none;
+        }
+
+        .footer-contact a {
+            color: #9F84F9;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (min-width: 640px) {
+            .footer-text {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            
+            .footer-contact {
+                display: flex;
+                align-items: center;
+                gap: 0.3rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -674,16 +720,55 @@
             background-color: #fbe9e7;
             color: #d84315;
         }
+
+        .nav-map-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            margin-right: 1rem;
+        }
+
+        .nav-map-link:hover {
+            color: var(--hover-color);
+        }
+
+        .nav-map-link i {
+            font-size: 1.2rem;
+        }
+
+        .nav-map-link span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-map-link span {
+                display: none;
+            }
+        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light top-nav">
+    <nav class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: #34327B;">
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
                 <i class="fas fa-basketball-ball"></i>
-                <span>CadêURacha</span>
+                <span><span style="color: #E5C03E;">cadê</span><span style="color: #EB7A42;">UR</span><span style="color: #E5C03E;">acha</span></span>
             </a>
+            
+            <!-- Add map link here -->
+            <a class="nav-map-link" href="{% url 'map' %}">
+                <span>MAPA</span>
+                <i class="fas fa-map"></i>
+            </a>
+
             <div class="nav-center">
                 <div class="search-container">
                     <input type="text" 
@@ -697,13 +782,7 @@
             </div>
             <div class="nav-right">
                 {% if user.is_authenticated %}
-                    <!-- Ícone de mapa -->
-                    <div class="nav-item">
-                        <a class="nav-link nav-icon" href="{% url 'map' %}">
-                            <i class="fas fa-map"></i>
-                        </a>
-                    </div>
-                    <!-- Sino de notificações para usuários autenticados -->
+                    <!-- Remove map icon and keep only notifications and profile -->
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="notification-icon">
@@ -722,7 +801,11 @@
                     <!-- Ícone/Menu do usuário -->
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i>
+                            {% if user.foto_perfil %}
+                                <img src="{{ user.foto_perfil.url }}" alt="Foto de Perfil" style="width: 40px; height: 40px; border-radius: 50%;">
+                            {% else %}
+                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto de Perfil Padrão" style="width: 40px; height: 40px; border-radius: 50%;">
+                            {% endif %}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'listar_jogos' %}"><i class="fas fa-basketball-ball"></i>Meus Jogos</a></li>
@@ -754,12 +837,18 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-logo">
-                <img src="{% static 'app_synes/images/synes-logo.png' %}" alt="Synes Logo" class="synes-logo">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <img src="{% static 'app_synes/images/synes.png' %}" alt="cadêURacha Logo">
+                </div>
+                <div class="footer-text">
+                    <p>cadêURacha - Conectando jogadores de basquete em Fortaleza.</p>
+                    <p>© 2025 Synes. Todos os direitos reservados.</p>
+                </div>
             </div>
-            <div class="footer-text">
-                <p><strong>CadêURacha</strong> - Conectando jogadores de basquete em Fortaleza.</p>
-                <p>&copy; 2025 Synes. Todos os direitos reservados.</p>
+            <div class="footer-contact">
+                <span>contate-nos:</span>
+                <a href="mailto:synes.proj@gmail.com">synes.proj@gmail.com</a>
             </div>
         </div>
     </footer>
