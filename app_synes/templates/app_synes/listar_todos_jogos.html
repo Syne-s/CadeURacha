@@ -30,11 +30,11 @@
                     {% if user.is_authenticated %}
                         <div id="jogo-{{ jogo.id }}">
                             {% if user in jogo.participantes.all %}
-                                <!-- Exibe o botão para cancelar presença caso o usuário já esteja inscrito -->
+                                
                                 <button class="btn-excluir-presenca" data-jogo-id="{{ jogo.id }}" data-acao="cancelar-presenca">Cancelar Presença</button>
                                 
                             {% else %}
-                                <!-- Exibe o botão para confirmar presença caso o usuário não esteja inscrito -->
+                                
                                 <button class="btn-confirmar-presenca" data-jogo-id="{{ jogo.id }}"data-acao="confirmar-presenca">Confirmar Presença</button>
                             {% endif %}
                         </div>
@@ -65,7 +65,7 @@
                         {% if jogo.participantes.all %}
                             <ul>
                                 {% for participante in jogo.participantes.all %}
-                                    <li>{{ participante.username }}</li> <!-- Exibe o nome de usuário de cada participante -->
+                                    <li>{{ participante.username }}</li> 
                                 {% endfor %}
                             </ul>
                         {% else %}
@@ -195,16 +195,15 @@
 </style>
 
 <script>
-    ///--------Adicionar Presença-----------
-// Seleciona todos os botões de confirmação de presença
+    
 document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
     button.addEventListener('click', function() {
         const jogoId = this.getAttribute('data-jogo-id');
         const url = `/confirmar-presenca/${jogoId}/`;
         
-        let acao = this.dataset.acao;  // 'confirmar' ou 'cancelar'
+        let acao = this.dataset.acao;  
         let btn = this;
-        // Envia a requisição POST
+        
         fetch(url, {
             method: 'POST',
             headers: {
@@ -238,27 +237,26 @@ document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
     });
 });
 
-///--------Excluir Presença-----------
-// Função para obter o CSRF token
+
 function getCSRFToken() {
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     return csrfToken;
 }
-// Seleciona todos os botões de exclusão de presença
+
 document.querySelectorAll('.btn-excluir-presenca').forEach(button => {
     button.addEventListener('click', function() {
         const jogoId = this.getAttribute('data-jogo-id');
         const url = `/excluir-presenca/${jogoId}/`;
 
-        let acao = this.dataset.acao;  // 'confirmar' ou 'cancelar'
+        let acao = this.dataset.acao;  
         let btn = this;
 
-        // Envia a requisição POST
+        
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken(), // Função para obter o CSRF token
+                'X-CSRFToken': getCSRFToken(), 
             },
         })
         .then(response => {
@@ -286,7 +284,7 @@ document.querySelectorAll('.btn-excluir-presenca').forEach(button => {
     });
 });
 
-// Função para obter o CSRF token
+
 function getCSRFToken() {
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     return csrfToken;

@@ -6,14 +6,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
     main.main-content {
-        padding-top: 0px; /* Diminuir espaço do topo */
-        padding-bottom: 2rem; /* Espaço do rodapé */
+        padding-top: 0px; 
+        padding-bottom: 2rem; 
     }
     #map-container {
         height: calc(100vh - 56px - 2rem);
         display: flex;
         flex-direction: row;
-        padding-bottom: 2rem; /* Aumentar espaço até o footer */
+        padding-bottom: 2rem; 
     }
     #map {
         flex: 1;
@@ -39,8 +39,8 @@
     .sidebar-header {
         padding-bottom: 1rem;
         margin-bottom: 1.5rem;
-        border-bottom: 1px solid #ccc; /* Borda sutil */
-        text-align: center; /* Centralizar o título */
+        border-bottom: 1px solid #ccc; 
+        text-align: center; 
     }
     .sidebar-header h2 {
         font-size: 1.5rem;
@@ -275,10 +275,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.arena-list').appendChild(listItem);
     }
 
-    // Limpar a lista de arenas antes de adicionar novos itens
+    
     document.querySelector('.arena-list').innerHTML = '';
 
-    // Ordenar arenas por nome
+    
     arenas.sort((a, b) => a.name.localeCompare(b.name));
 
     arenas.forEach(addMarker);
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Filtrar arenas por bairro
+   
     document.getElementById('neighborhood-filter').addEventListener('change', function() {
         var selectedBairro = this.value;
         document.querySelector('.arena-list').innerHTML = '';
@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Geolocation to get current position
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var lat = position.coords.latitude;
@@ -335,14 +335,14 @@ document.addEventListener('DOMContentLoaded', function() {
             var currentLocationMarker = L.marker([lat, lng], { icon: currentLocationIcon }).addTo(map);
             currentLocationMarker.bindPopup("Você está aqui").openPopup();
 
-            // Update radius value
+            
             document.getElementById('radius-slider').addEventListener('input', function() {
                 var radius = this.value;
                 document.getElementById('radius-value').textContent = radius;
                 filterArenasByRadius(lat, lng, radius);
             });
 
-            // Initial filter
+            
             filterArenasByRadius(lat, lng, document.getElementById('radius-slider').value);
         }, function(error) {
             console.error("Erro ao obter localização: ", error);

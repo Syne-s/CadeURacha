@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Set the min attribute for the date input to tomorrow's date
+    
     const today = new Date();
     today.setDate(today.getDate() + 1);
     const tomorrow = today.toISOString().split('T')[0];
@@ -104,16 +104,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const bolasInput = document.getElementById('qtd-bolas');
 
     btnSim.addEventListener('click', function () {
-        bolasInput.value = 1; // Define apenas uma bola
-        btnSim.classList.add('active'); // Adiciona destaque ao botão "Sim"
-        btnNao.classList.remove('active'); // Remove destaque do botão "Não"
+        bolasInput.value = 1; 
+        btnSim.classList.add('active'); 
+        btnNao.classList.remove('active'); 
         
     });
 
     btnNao.addEventListener('click', function () {
-        bolasInput.value = 0; // Define 0 bolas
-        btnNao.classList.add('active'); // Adiciona destaque ao botão "Não"
-        btnSim.classList.remove('active'); // Remove destaque do botão "Sim"
+        bolasInput.value = 0; 
+        btnNao.classList.add('active'); 
+        btnSim.classList.remove('active'); 
         
     });
 });
@@ -232,12 +232,12 @@ document.addEventListener('DOMContentLoaded', function () {
     border-color: #f5c6cb;
 }
 .btn-group .btn.active {
-    background-color: #28a745 !important; /* Verde para Sim */
+    background-color: #28a745 !important; 
     border-color: #000000 !important;
     color: white;
 }
 .btn-group .btn-outline-danger.active {
-    background-color: #dc3545 !important; /* Vermelho para Não */
+    background-color: #dc3545 !important; 
     border-color: #000000 !important;
     color: white;
 }

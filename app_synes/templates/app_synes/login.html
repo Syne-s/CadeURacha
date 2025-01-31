@@ -86,18 +86,18 @@
     transition: border-color 0.2s ease;
 }
 
-/* Remove outline padrão do Bootstrap */
+
 .form-control:focus {
     box-shadow: none;
     border-color: var(--primary-color);
 }
 
-/* Quando o input está em foco, estiliza também o span adjacente */
+
 .form-control:focus ~ .input-group-text {
     border-color: var(--primary-color);
 }
 
-/* Quando o span está em foco, estiliza também o input */
+
 .input-group:focus-within .input-group-text {
     border-color: var(--primary-color);
 }
@@ -163,18 +163,18 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .then(data => {
         if (data.success) {
-            // Create success alert
+            
             const successAlert = document.createElement('div');
             successAlert.className = 'alert alert-success';
             successAlert.textContent = data.message;
             form.insertBefore(successAlert, form.firstChild);
             
-            // Redirect after success
+            
             setTimeout(() => {
                 window.location.href = '/';
             }, 1500);
         } else {
-            // Create error alert
+           
             const errorAlert = document.createElement('div');
             errorAlert.className = 'alert alert-danger';
             errorAlert.textContent = data.message;
@@ -183,7 +183,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .catch(error => {
         console.error('Error:', error);
-        // Create error alert
+        
         const errorAlert = document.createElement('div');
         errorAlert.className = 'alert alert-danger';
         errorAlert.textContent = 'Erro ao fazer login. Tente novamente.';
