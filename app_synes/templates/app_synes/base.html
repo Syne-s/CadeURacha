@@ -697,7 +697,6 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: #34327B;">
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
-                <i class="fas fa-basketball-ball"></i>
                 <span><span style="color: #E5C03E;">cadê</span><span style="color: #EB7A42;">UR</span><span style="color: #E5C03E;">acha</span></span>
             </a>
             
@@ -730,10 +729,10 @@
                             {% endif %}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'listar_jogos' %}"><i class="fas fa-basketball-ball"></i>Meus Jogos</a></li>
-                            <li><a class="dropdown-item" href="{% url 'edit_profile' %}"><i class="fas fa-user-edit"></i>Editar Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar_jogos' %}">Meus Jogos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Editar Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item logout-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Sair</a></li>
+                            <li><a class="dropdown-item logout-link" href="{% url 'logout' %}">Sair</a></li>
                         </ul>
                     </div>
                 {% else %}
@@ -761,7 +760,7 @@
         <div class="footer-content">
             <div class="footer-left">
                 <div class="footer-logo">
-                    <img src="{% static 'app_synes/images/synes.png' %}" alt="cadêURacha Logo">
+                    <img src="{% static 'app_synes/images/logo.png' %}" alt="cadêURacha Logo">
                 </div>
                 <div class="footer-text">
                     <p>cadêURacha - Conectando jogadores de basquete em Fortaleza.</p>
