@@ -116,7 +116,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app_synes/static'),
-    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Diretório onde os arquivos estáticos serão coletados

@@ -221,31 +221,6 @@
             transform: translateY(-2px);
         }
 
-        .notification-icon {
-            position: relative;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid white;
-            animation: pulse 2s infinite;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -259,7 +234,6 @@
         }
 
         .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
-        .nav-item.dropdown.show .nav-link.nav-icon .fa-bell,
         .nav-item.dropdown.show .nav-link.nav-icon i {
             color: var(--text-color);
         }
@@ -451,23 +425,13 @@
             color: var(--hover-color);
         }
 
-        .notification-icon {
-            position: relative;
-            color: inherit;
-            font-size: 1.2rem;
-        }
-
         .nav-item.dropdown.show .nav-link.nav-icon,
-        .nav-item.dropdown.show .nav-link.nav-icon .notification-icon,
-        .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
-        .nav-item.dropdown.show .nav-link.nav-icon .fa-bell {
+        .nav-item.dropdown.show .nav-link.nav-icon .fa-user {
             color: var(--primary-color);
         }
 
         .nav-item.dropdown.show .nav-link.nav-icon:hover,
-        .nav-item.dropdown.show .nav-link.nav-icon:hover .notification-icon,
-        .nav-item.dropdown.show .nav-link.nav-icon:hover .fa-user,
-        .nav-item.dropdown.show .nav-link.nav-icon:hover .fa-bell {
+        .nav-item.dropdown.show .nav-link.nav-icon:hover .fa-user {
             color: var(--hover-color);
         }
 
@@ -521,36 +485,10 @@
             opacity: 0.8;
         }
 
-        /* Estilização específica para notificações */
-        #notificationDropdown + .dropdown-menu .dropdown-item {
-            white-space: normal;
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem;
-        }
-
-        #notificationDropdown + .dropdown-menu .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
         /* Estilização para notificações não lidas */
         .dropdown-item.unread {
             background-color: var(--background-color);
             font-weight: 500;
-        }
-
-        /* Estilização para mensagem de nenhuma notificação */
-        .dropdown-item.no-notifications {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: #666;
-            padding: 0.75rem 1rem;
-            font-style: italic;
-        }
-
-        .dropdown-item.no-notifications i {
-            font-size: 1rem;
-            color: #666;
         }
 
         /* Responsividade para telas menores */
@@ -756,7 +694,7 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: #34327B;">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: #34327B;">
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
                 <i class="fas fa-basketball-ball"></i>
@@ -782,22 +720,6 @@
             </div>
             <div class="nav-right">
                 {% if user.is_authenticated %}
-                    <!-- Remove map icon and keep only notifications and profile -->
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-icon" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="notification-icon">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                            <li>
-                                <div class="dropdown-item no-notifications">
-                                    <i class="fas fa-bell-slash"></i>
-                                    <span>Sem Notificações</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                     <!-- Ícone/Menu do usuário -->
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -835,7 +757,7 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="footer">
+    <footer id="footer" class="footer">
         <div class="footer-content">
             <div class="footer-left">
                 <div class="footer-logo">
@@ -853,79 +775,33 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-    let timeoutId;
+// Only keep universal.js functionality
+document.addEventListener("click", (event) => {
+    const toggleButton = event.target.closest("[data-bs-toggle='collapse']");
+    if (toggleButton) {
+        const targetId = toggleButton.getAttribute("data-bs-target");
+        document.querySelectorAll(".collapse.show").forEach((collapse) => {
+            if (collapse.id !== targetId.substring(1)) {
+                new bootstrap.Collapse(collapse).hide();
+            }
+        });
+    }
+});
 
-    searchInput.addEventListener('input', function() {
-        clearTimeout(timeoutId);
-        
-        const query = this.value.trim();
-        if (query.length < 2) {
-            searchResults.style.display = 'none';
-            return;
-        }
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".arrow").forEach(arrow => {
+        arrow.addEventListener("click", function () {
+            let agrupador = this.closest("#Agrupador");
+            let container = agrupador.querySelector(".container .row");
+            let scrollAmount = 100;
 
-        timeoutId = setTimeout(() => {
-            fetch(`/search/?q=${encodeURIComponent(query)}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                searchResults.innerHTML = '';
-                
-                // Quadras
-                data.arenas.forEach(arena => {
-                    const div = document.createElement('div');
-                    div.className = 'search-result-item';
-                    div.innerHTML = `
-                        <span class="result-type result-type-arena">Quadra</span>
-                        <div class="result-title">${arena.nome}</div>
-                        <div class="result-info">${arena.endereco}</div>
-                    `;
-                    div.addEventListener('click', () => {
-                        window.location.href = `/map?arena_id=${arena.id}`;
-                    });
-                    searchResults.appendChild(div);
-                });
-
-                // Jogos
-                data.jogos.forEach(jogo => {
-                    const div = document.createElement('div');
-                    div.className = 'search-result-item';
-                    div.innerHTML = `
-                        <span class="result-type result-type-jogo">Jogo</span>
-                        <div class="result-title">${jogo.titulo}</div>
-                        <div class="result-info"><strong>${jogo.arena}</strong></div>
-                        <div class="result-info">${jogo.data} às ${jogo.horario}</div>
-                    `;
-                    div.addEventListener('click', () => {
-                        window.location.href = `listar_todos_jogos`;
-                    });
-                    searchResults.appendChild(div);
-                });
-
-                if (data.arenas.length === 0 && data.jogos.length === 0) {
-                    const div = document.createElement('div');
-                    div.className = 'search-result-item';
-                    div.innerHTML = '<div class="result-info">Nenhum resultado encontrado</div>';
-                    searchResults.appendChild(div);
-                }
-
-                searchResults.style.display = 'block';
-            });
-        }, 150);
-    });
-
-    document.addEventListener('click', function(e) {
-        if (!searchResults.contains(e.target) && e.target !== searchInput) {
-            searchResults.style.display = 'none';
-        }
+            if (this.classList.contains("bx-chevron-left")) {
+                container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+            }
+        });
     });
 });
 </script>
