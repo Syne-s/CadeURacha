@@ -13,8 +13,10 @@
             --primary-color: #EB7A42;
             --secondary-color: #d35023;
             --accent-color: #e1672e;
-            --background-color: #fdf6ef;
-            --text-color: #2D3748;
+            --darker-lilac: #34327B;
+            --cream: #FEFAEE; 
+            --dark-purple: #1C1829;
+            --lilac: #9F84F9;
             --border-color: #E2E8F0;
             --hover-color: #e78750;
             --active-color: #8c3220;
@@ -23,17 +25,16 @@
         }
 
         body {
-            font-family: 'Syne', sans-serif;
-            background-color: var(--background-color);
-            color: var (--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             margin: 0;
+            padding: 0;
+            font-family: 'Syne', sans-serif !important;
+            color: var (--dark-purple);
+            background-color: var(--cream);
+            overflow-x: hidden !important;
         }
 
         .top-nav {
-            background-color: #34327B;
+            background-color: var(--darker-lilac);
             border-bottom: 1px solid var(--border-color);
             padding: 0.75rem 1.5rem;
             display: flex;
@@ -63,7 +64,7 @@
         }
 
         .menu-icon:hover {
-            background-color: var(--background-color);
+            background-color: var(--cream);
         }
 
         .logo {
@@ -116,7 +117,7 @@
             outline: none;
             font-size: 0.95rem;
             background-color: white;
-            color: var(--text-color);
+            color: var(--dark-purple);
             transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
@@ -138,7 +139,7 @@
         .search-bar:disabled {
             background-color: var(--disabled-color);
             border-color: var(--border-color);
-            color: var(--text-color);
+            color: var(--dark-purple);
         }
 
         .search-icon {
@@ -158,7 +159,7 @@
         }
 
         .btn-outline-secondary {
-            color: var(--text-color);
+            color: var(--dark-purple);
             border-color: var(--border-color);
             transition: color 0.3s, border-color 0.3s, background-color 0.3s;
         }
@@ -166,19 +167,19 @@
         .btn-outline-secondary:hover {
             color: var(--hover-color);
             border-color: var(--hover-color);
-            background-color: var(--background-color);
+            background-color: var(--cream);
         }
 
         .btn-outline-secondary:focus, .btn-outline-secondary:active {
             color: var(--active-color);
             border-color: var(--active-color);
-            background-color: var(--background-color);
+            background-color: var(--cream);
         }
 
         .btn-outline-secondary:disabled {
             color: var(--disabled-color);
             border-color: var (--border-color);
-            background-color: var(--background-color);
+            background-color: var(--cream);
         }
 
         .nav-right {
@@ -235,12 +236,12 @@
 
         .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
         .nav-item.dropdown.show .nav-link.nav-icon i {
-            color: var(--text-color);
+            color: var(--dark-purple);
         }
 
         .nav-item.dropdown.show .dropdown-toggle::after {
             display: inline-block;
-            border-top-color: var(--text-color);
+            border-top-color: var(--dark-purple);
         }
 
         .search-results {
@@ -255,7 +256,7 @@
         .results-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: var(--text-color);
+            color: var(--dark-purple);
             margin-bottom: 1rem;
         }
 
@@ -284,10 +285,12 @@
         }
 
         .footer {
-            position: relative;
-            background-color: #34327B;
+            background-color: var(--darker-lilac);
+            height: 73px !important;
+            color: var(--lilac);
             padding: 1rem 1rem;
             margin-top: auto;
+            position: relative;
         }
 
         .footer-logo img {
@@ -315,7 +318,7 @@
             margin: 0;
             padding: 0;
             display: block;
-            color: #9F84F9;
+            color: var(--lilac);
         }
 
         .footer-content {
@@ -340,12 +343,12 @@
         }
 
         .footer-contact {
-            color: #9F84F9;
+            color: var(--lilac);
             display: none;
         }
 
         .footer-contact a {
-            color: #9F84F9;
+            color: var(--lilac);
             text-decoration: underline;
             transition: color 0.3s;
         }
@@ -452,7 +455,7 @@
         /* Estilização dos itens do dropdown */
         .dropdown-item {
             padding: 0.75rem 1rem;
-            color: var(--text-color);
+            color: var(--dark-purple);
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -470,7 +473,7 @@
 
         /* Hover estado dos itens */
         .dropdown-item:hover {
-            background-color: var(--background-color);
+            background-color: var(--cream);
             color: var(--primary-color);
         }
 
@@ -487,7 +490,7 @@
 
         /* Estilização para notificações não lidas */
         .dropdown-item.unread {
-            background-color: var(--background-color);
+            background-color: var(--cream);
             font-weight: 500;
         }
 
@@ -627,7 +630,7 @@
         }
 
         .search-result-item:hover {
-            background-color: var(--background-color);
+            background-color: var(--cream);
         }
 
         .result-title {
@@ -637,7 +640,7 @@
         }
 
         .result-info {
-            color: var (--text-color);
+            color: var (--dark-purple);
             font-size: 0.9rem;
         }
 
@@ -694,7 +697,7 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: #34327B;">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: var(--darker-lilac);">
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
                 <span><span style="color: #E5C03E;">cadê</span><span style="color: #EB7A42;">UR</span><span style="color: #E5C03E;">acha</span></span>
