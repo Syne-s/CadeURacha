@@ -2,117 +2,120 @@
 {% block title %}CadêURacha - Encontre seu jogo{% endblock %}
 
 {% block content %}
-<section class="hero-section">
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">Bem-vindo ao CadêURacha!</h1>
-        <p class="lead mb-4">Encontre jogos de basquete próximos a você e conecte-se com outros jogadores.</p>
+<div class="test mt-8 d-flex justify-content-center align-items-center">
+    <div class="fundo shadow d-flex justify-content-center flex-wrap align-items-center">
+        <h2 id="TextoRacha" class="w-75 text-center texts">
+            Para quem tá <br> <b>afim de uma partidinha</b> <br> 
+            <i class='bx bxs-basketball translate'></i>
+        </h2>
+        <a href="{% url 'cadastrar_jogo' %}" class="w-75">
+            <button id="MarcarRacha" class="border-0 w-100"><b>Marcar Racha</b></button>
+        </a>
     </div>
-</section>
 
-<div class="container mt-5">
-    <div class="row">
-        <!-- Card 1: Localize Quadras -->
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'map' %}" class="card-link">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-map-marked-alt fa-3x mb-3"></i>
-                        <h3 class="card-title">Localize Quadras</h3>
-                        <p class="card-text">Encontre as melhores quadras de basquete perto de você.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
-        <!-- Card 2: Criar Jogo -->
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'cadastrar_jogo' %}" class="card-link">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-plus-circle fa-3x mb-3"></i>
-                        <h3 class="card-title">Criar Jogo</h3>
-                        <p class="card-text">Organize seu próprio jogo e convide outros jogadores.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
-        
-        <!-- Card 4: Ver Jogos Marcados -->
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'listar_todos_jogos' %}" class="card-link">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-list-alt fa-3x mb-3"></i>
-                        <h3 class="card-title">Ver Jogos Marcados</h3>
-                        <p class="card-text">Confira todos os jogos marcados na plataforma.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
+    <div class="fundo shadow d-flex justify-content-center flex-wrap align-items-center">
+        <h2 id="TextoExplorar" class="w-75 text-center texts">
+            Para quem quer <br> só <b>dar uma espiadinha</b> <br>
+            <i class='bx bxs-binoculars translate'></i>
+        </h2>
+        <a href="{% url 'listar_todos_jogos' %}" class="w-75">
+            <button id="ExplorarRacha" class="border-0 w-100"><b>Explorar Jogos</b></button>
+        </a>
     </div>
 </div>
 
 <style>
-.hero-section {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    padding: 2rem;
-}
+    .mt-8 {
+        margin-top: 0rem;
+    }
 
-.hero-section h1 {
-    color: var(--primary-color);
-    margin-top: 24px;
-}
+    .test {
+        gap: 7rem;
+        padding: 2rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.hero-section p {
-    color: var(--text-color);
-    margin-bottom: 32px;
-}
+    .fundo {
+        width: 409px;
+        height: 386px;
+        border-radius: 30px;
+    }
 
-.card {
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: white;
-    transition: all 0.3s ease;
-    height: 100%;
-}
+    .fundo button {
+        border-radius: 15px;
+        height: 60px;
+        font-size: 30px;
+    }
 
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
-    padding: 2rem;
-    color: var(--text-color);
-}
+    .fundo .texts {
+        font-size: 40px;
+    }
 
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    height: 100%;
-}
+    .translate {
+        transform: translateY(2rem);
+    }
 
-.card-link:hover {
-    text-decoration: none;
-    color: inherit;
-}
+    #TextoRacha,
+    #ExplorarRacha {
+        color: var(--cream);
+        background-color: var(--true-orange);
+    }
 
-.card-link:hover .card {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+    #MarcarRacha,
+    #TextoExplorar {
+        color: var(--true-orange);
+        background-color: var(--cream);
+    }
 
-.card i {
-    color: var(--primary-color);
-}
+    .fundo:first-child {
+        background-color: var(--true-orange);
+    }
 
-.card-title {
-    color: var(--primary-color);
-    margin: 1rem 0;
-}
+    @media (max-width:1000.98px) {
+        .fundo {
+            width: 309px;
+            height: 286px;
+            border-radius: 30px;
+        }
+
+        .translate {
+            transform: translateY(1rem);
+        }
+
+        .fundo button {
+            font-size: 22px;
+        }
+
+        .fundo .texts {
+            font-size: 32px;
+        }
+    }
+
+    @media (max-width:799.98px) {
+        .fundo {
+            width: 309px;
+            height: 286px;
+            border-radius: 30px;
+        }
+
+        .mt-8 {
+            margin-top: 16rem;
+        }
+    }
+
+    @media (max-width:500.98px) {
+        .fundo {
+            width: 309px;
+            height: 286px;
+            border-radius: 30px;
+        }
+
+        .mt-8 {
+            margin-top: 18rem;
+        }
+    }
 </style>
 {% endblock %}

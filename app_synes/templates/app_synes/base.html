@@ -3,12 +3,13 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <metae name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}cadêURacha{% endblock %}</title>
         <link rel="icon" type="image/png" href="{% static 'app_synes/images/logo-ur.png' %}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" r rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
         <link rel="stylesheet" href="{% static 'node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         input[type="search"]::-webkit-search-decoration,
@@ -19,6 +20,7 @@
         }
         :root {
             --true-orange: #EB7A42;
+            --true-orange-hover: #FFA07A;
             --darker-lilac: #34327B;
             --cream: #FEFAEE; 
             --dark-purple: #1C1829;
@@ -30,10 +32,10 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Syne', sans-serif !important;
+            font-family: "Syne", sans-serif !important;
             color: var(--dark-purple);
-            background-color: var(--cream);
             overflow-x: hidden !important;
+            background-color: var(--cream);
         }
 
         .top-nav {
@@ -67,12 +69,6 @@
             transition: color 0.3s;
         }
 
-        .logo:hover, 
-        .logo:hover i, 
-        .logo:hover span {
-            color: var(--hover-color);
-        }
-
         .logo:active, 
         .logo:active i, 
         .logo:active span {
@@ -90,67 +86,6 @@
             max-width: 600px;
             margin: 0 2rem;
             position: relative;
-        }
-
-        .search-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        .search-bar {
-            /* Encurta a barra configurando uma largura fixa e ajusta o padding interno */
-            width: 400px;
-            padding: 0.5rem 2.5rem 0.5rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            outline: none;
-            font-size: 0.95rem;
-            background-color: var(--cream);
-            color: var(--true-orange);
-            transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
-        }
-
-        .search-bar:focus {
-            border-color: var(--true-orange);
-            background-color: white;
-            box-shadow: 0 0 0 0.2rem var(--focus-shadow-color);
-        }
-
-        .search-bar::placeholder {
-            color: var(--true-orange);
-            opacity: 0.6;
-        }
-
-        .search-bar:hover {
-            border-color: var(--hover-color);
-        }
-
-        .search-bar:disabled {
-            background-color: var(--disabled-color);
-            border-color: var(--border-color);
-            color: var(--dark-purple);
-        }
-
-        .search-icon {
-            background-color: transparent !important;
-            border: none !important;
-            font-size: 24px;
-            color: var(--true-orange);
-            position: absolute;
-            right: 220px; /* Modificado para posicionar o ícone dentro da barra de pesquisa */
-            cursor: pointer;
-            transition: color 0.3s;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-        }
-
-        .search-container:hover .search-bar,
-        .search-container:hover .search-icon {
-            border-color: var(--hover-color);
-            color: var(--hover-color);
         }
 
         .nav-right {
@@ -175,7 +110,7 @@
         }
         
         .nav-icon:hover {
-            color: var(--hover-color);
+            color: var(--dark-purple);
         }
 
         .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
@@ -186,6 +121,26 @@
         .nav-item.dropdown.show .dropdown-toggle::after {
             display: inline-block;
             border-top-color: var(--dark-purple);
+        }
+
+        #SearchBar {
+            display: block;
+            width: 100% !important;
+        }
+
+        #SearchBar,
+        #SearchBar::placeholder {
+            color: var(--true-orange);
+            background-color: var(--cream);
+        }
+
+        
+        #SearchButton {
+            background-color: transparent !important;
+            border: none !important;
+            font-size: 24px;
+            color: var(--true-orange);
+            transform: translate(-3.2rem, .2rem);
         }
 
         .dropdown-menu {
@@ -206,33 +161,6 @@
             gap: 0.75rem;
             transition: all 0.5s ease;
             font-size: 0.95rem;
-        }
-
-        .dropdown-item i {
-            color: var(--true-orange);
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .dropdown-item:hover {
-            background-color: var(--cream);
-            color: var(--true-orange);
-        }
-
-        .dropdown-item:hover i {
-            color: var(--hover-color);
-        }
-
-        .dropdown-divider {
-            margin: 0.5rem 0;
-            border-top: 1px solid var(--border-color);
-            opacity: 0.8;
-        }
-
-        .dropdown-item.unread {
-            background-color: var(--cream);
-            font-weight: 500;
         }
 
         .main-content {
@@ -293,7 +221,7 @@
 
         .footer-contact {
             color: var(--lilac);
-            display: none;
+            display: block;
         }
 
         .footer-contact a {
@@ -306,47 +234,6 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        @media (min-width: 640px) {
-            .footer-text {
-                align-items: flex-start;
-            }
-            .footer-contact {
-                display: flex;
-                align-items: center;
-                gap: 0.3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navbar-toggler {
-                display: block;
-            }
-            .top-nav {
-                flex-wrap: wrap;
-            }
-            .nav-center {
-                margin: 0 1rem;
-            }
-            .results-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            .nav-right {
-                gap: 1rem;
-            }
-            .nav-icon {
-                width: 36px;
-                height: 36px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .nav-center {
-                display: none;
-            }
-            .dropdown-menu {
-                min-width: 280px;
-            }
-        }
 
         .nav-map-link {
             display: flex;
@@ -361,8 +248,7 @@
         }
 
         .nav-map-link:hover {
-            color: var(--hover-color);
-            opacity: 0.6;
+            color: var(--true-orange-hover);
         }
 
         .nav-map-link i {
@@ -376,140 +262,239 @@
             letter-spacing: 0.5px;
         }
 
-        @media (max-width: 768px) {
-            .nav-map-link span {
-                display: none;
+        @media (max-width:1200px) {
+            .ml-15 {
+                margin: 0;
+                text-align: center;
+            }
+        
+            .margin {
+                margin-top: 8rem !important;
             }
         }
-
-        .search-results {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 5px;
-            z-index: 1000;
-            max-height: 400px;
-            overflow-y: auto;
+        
+        
+        @media (max-width:559.98px) {
+            .navbar {
+                height: 10rem !important;
+                padding: 2rem;
+            }
+        
+            #footer {
+                width: 100%;
+                padding: 5rem;
+            }
+        
+            #SearchBar {
+                display: block;
+                width: 7rem !important;
+            }
+        
+            footer {
+                height: 7rem !important;
+            }
+        
+            footer p {
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .mt-7 {
+                margin-top: 11rem !important;
+            }
+        }
+        
+        @media (max-width:390.98px) {
+        
+            footer p {
+                font-size: 9px;
+            }
+        
         }
 
-        .search-result-item {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: background-color 0.2s ease;
+        .navbar {
+            background-color: var(--darker-lilac);
+            height: 73px !important;
         }
 
-        .search-result-item:last-child {
-            border-bottom: none;
+        .nav-link {
+            transition: all .5s ease;
         }
 
-        .search-result-item:hover {
-            background-color: var(--cream);
+        .nav-link:hover {
+            color: var(--true-orange) !important;
         }
 
-        .result-title {
+        .map-link,
+        .map-link:visited,
+        .map-link:active {
+            color: var(--true-orange) !important;
+            transition: all .75s ease-in;
+        }
+
+        .map-link:hover {
+            opacity: 60%;
+        }
+
+        #Logo {
+            cursor: default;
+            color: var(--yellow);
+        }
+
+        #Logo span {
             color: var(--true-orange);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
         }
 
-        .result-info {
-            color: var(--dark-purple);
-            font-size: 0.9rem;
+        #MapIcon {
+            padding-left: .2rem;
+            font-size: 30px;
         }
 
-        .result-type {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
+        /* Profile styles */
+        .profile {
+            border: none !important;
+            background-color: transparent !important;
         }
 
-        .result-type-arena {
-            background-color: #e3f2fd;
-            color: #1976d2;
+        .profile img {
+            width: 46.8px;
+            height: 46.8px;
+            border-radius: 50%;
+            transition: all .75s ease-in;
         }
 
-        .result-type-jogo {
-            background-color: #fbe9e7;
-            color: #d84315;
+        .opacity-image img:hover {
+            opacity: 60%;
         }
 
-        /* Estilos adaptados para a barra de pesquisa (#search-input) */
-        #search-input,
-        #search-input::placeholder {
-            color: var(--true-orange);
-            background-color: var(--cream);
+        /* Offcanvas styles */
+        .offcanvas {
+            z-index: 500 !important;
+        }
+
+        .off-1,
+        .off-1 .close,
+        .off-1 .nav-link,
+        .off-1 .nav-link:visited {
+            background-color: var(--darker-lilac);
+            color: var(--cream);
+        }
+
+        .close {
+            font-size: 70px;
+            border: none;
+            background-color: transparent;
+            transition: 1s all ease;
+        }
+
+        .close:hover {
+            opacity: 60%;
         }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: var(--darker-lilac);">
-        <div class="container-fluid">
-            <a class="navbar-brand logo" href="{% url 'index' %}">
-                <img src="{% static 'app_synes/images/logo-ur.png' %}" alt="Logomarca" style="width:40px; height:auto; margin-right: 0.5rem;">
-                <span><span style="color: #E5C03E;">cadê</span><span style="color: var(--true-orange);">UR</span><span style="color: #E5C03E;">acha</span></span>
+    <!-- Início Navbar -->
+    <nav class="navbar navbar-lg fixed-top">
+        <div class="container-fluid d-flex align-items-center">
+            <a id="Logo" class="navbar-brand" href="{% url 'index' %}">
+                cadê<span>UR</span>acha
             </a>
             
-            <!-- Add map link here -->
-            <a class="nav-map-link" href="{% url 'map' %}">
-                <span>MAPA</span>
-                <i class="fas fa-map"></i>
+            <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'map' %}">
+                <b>MAPA</b>
+                <i id="MapIcon" class='bx bxs-map-alt'></i>
             </a>
-
-            <div class="nav-center">
-                <div class="search-container">
-                    <input type="text" 
-                           class="form-control search-bar" 
-                           id="search-input"
-                           placeholder="Busque quadras ou jogos agendados..."
-                           aria-label="Buscar">
-                    <i class="fas fa-search search-icon"></i>
-                    <div id="search-results" class="search-results"></div>
+            
+            <form class="d-flex w-25" role="search">
+                <input id="SearchBar" class="form-control me-2 rounded-3 border-0" type="search" placeholder="Buscar..." aria-label="Search">
+                <button id="SearchButton" type="submit"><i class='bx bx-search'></i></button>
+            </form>
+    
+            {% if user.is_authenticated %}
+                <!-- Usuário logado -->
+                <div class="profile_container d-flex">
+                    <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        {% if user.foto_perfil %}
+                            <img class="ratio ratio-1x1" src="{{ user.foto_perfil.url }}" alt="Foto do Usuário">
+                        {% else %}
+                            <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                        {% endif %}
+                    </button>
                 </div>
-            </div>
-            <div class="nav-right">
-                {% if user.is_authenticated %}
-                    <!-- Ícone/Menu do usuário -->
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    
+                <!-- Navbar Colapsado do Perfil -->
+                <div class="collapse navbar-collapse offcanvas offcanvas-end p-5 off-1" id="navbarNavDropdownProfile">
+                    <div class="container w-100">
+                        <div class="d-flex justify-content-between align-items-center profile mb-5">
                             {% if user.foto_perfil %}
-                                <img src="{{ user.foto_perfil.url }}" alt="Foto de Perfil" class="profile" style="width: 46.8px; height: 46.8px; border-radius: 50%; transition: all .75s ease-in;">
+                                <img class="ratio ratio-1x1" src="{{ user.foto_perfil.url }}" alt="">
                             {% else %}
-                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto de Perfil Padrão" class="profile" style="width: 46.8px; height: 46.8px; border-radius: 50%; transition: all .75s ease-in;">
+                                <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="">
                             {% endif %}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'listar_jogos' %}">Meus Jogos</a></li>
-                            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Editar Perfil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item logout-link" href="{% url 'logout' %}">Sair</a></li>
+                            <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNavDropdownProfile">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+    
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <h3>{{ user.username }}</h3>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Jogos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'edit_profile' %}">Editar Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                            </li>
                         </ul>
                     </div>
+                </div>
                 {% else %}
-                    <!-- Botões para usuários não autenticados -->
-                    <div class="auth-buttons">
-                        <a href="{% url 'login' %}" class="login-btn">
-                            <i class="fas fa-sign-in-alt"></i>
-                            <span>Entrar</span>
-                        </a>
-                        <a href="{% url 'register' %}" class="register-btn">
-                            <i class="fas fa-user-plus"></i>
-                            <span>Cadastrar</span>
-                        </a>
+                <!-- Usuário não logado -->
+                <div class="profile_container d-flex">
+                    <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                    </button>
+                </div>
+            
+                <!-- Navbar Colapsado do Perfil -->
+                <div class="collapse navbar-collapse offcanvas offcanvas-end p-5 off-1" id="navbarNavDropdownProfile">
+                    <div class="container w-100">
+                        <div class="d-flex justify-content-between align-items-center profile mb-5">
+                            <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                            <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNavDropdownProfile">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+            
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <h3>Perfil</h3>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Cadastro</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                        </ul>
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </nav>
+    <!-- Fim Navbar -->
 
     <main class="main-content">
         {% block content %}{% endblock %}
