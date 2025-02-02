@@ -1,141 +1,126 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Login{% endblock %}
+{% load static %}
+{% block title %}cadêURacha - Login{% endblock %}
 {% block content %}
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2>Bem-vindo de volta!</h2>
-            <p>Entre para continuar no CadêURacha</p>
+<div class="container d-flex justify-content-center align-items-center min-vh-60">
+    <div class="row rounded-5 bg-white shadow box-area mt-5 mb-5 w-75">
+        <!-- Left Box -->
+        <div id="ImgBehind" class="col-md-6 rounded-start-5 d-flex justify-content-center align-items-center flex-column left-box text-bg-dark">
+            <div id="ContainerTextos" class="header-text pb-3">
+                <h2 id="Texto" class="Texto h2-texto fw-bold mt-5">cadêURacha</h2>
+                <p id="Texto" class="text-center mb-2 mt-4">
+                    Seja bem-vindo ao sistema, antes de qualquer coisa, que tal realizar o login?
+                </p>
+                <p class="text-center mb-2">
+                    Ainda não tem uma conta? Faça seu <a href="{% url 'register' %}" style="color: white;">Cadastro</a>
+                </p>
+            </div>
         </div>
-        <form id="loginForm" method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    <input type="text" class="form-control" id="login" name="login" placeholder="Usuário ou E-mail" required>
+
+        <!-- Right Box -->
+        <div class="col-md-6 right-box d-flex align-items-center">
+            <div class="row d-flex align-items-center">
+                <div class="header-text text-center mb-4">
+                    <h2>LOGIN</h2>
                 </div>
+                <form id="loginForm" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="mb-6">
+                        <label for="login" class="form-label">Nome de Usuário ou Email*</label>
+                        <input type="text" class="form-control form-control-lg bg-light rounded-3 fs-6" 
+                               id="login" name="login" placeholder="Email ou Nome de Usuário" required>
+                        <div class="input-group mb-1">
+                            <label for="password" class="form-label w-100">Senha*</label>
+                            <input type="password" id="password" name="password" 
+                                   class="form-control form-control-lg bg-light rounded-3 fs-6" 
+                                   placeholder="Senha" required>
+                        </div>
+                    </div>
+                    <div class="input-group mb-4 justify-content-center">
+                        <button id="LoginBtn" type="submit" class="btn btn-lg w-75 rounded-3 fs-6"><b>LOGIN</b></button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
-                </div>
-            </div>
-            <button type="submit" class="auth-button">Entrar</button>
-        </form>
-        <div class="auth-footer">
-            <p>Ainda não tem uma conta? <a href="{% url 'register' %}" class="auth-link">Cadastre-se</a></p>
         </div>
     </div>
 </div>
 
 <style>
-.auth-container {
-    min-height: calc(100vh - 120px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    .container {
+        min-height: calc(100vh - 146px); /* Subtract navbar (73px) and footer (73px) heights */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 73px; /* Height of navbar */
+        margin-bottom: 73px; /* Height of footer */
+    }
+
+    .box-area {
+        height: 73vh;
+        width: 60vh;
+        max-width: 900px;
+        border-radius: 4rem;
+        margin: 0 auto !important;
+        position: relative;
+    }
+
+.right-box {
+    padding: 40px 30px 40px 40px;
 }
 
-.auth-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-    max-width: 400px;
+#ImgBehind {
+    background-image: linear-gradient(0deg, rgba(28, 24, 41, 0.25), rgba(28, 24, 41, 0.25)), 
+                      linear-gradient(180deg, rgba(159, 132, 249, 0.5) 0%, rgba(235, 122, 66, 0.5) 100%),
+                      url('{% static "app_synes/images/quadra1.jpeg" %}');
+    background-size: cover;
+    background-position: center;
+    border-radius: 40px 0px 0px 40px;
 }
 
-.auth-header {
-    text-align: center;
-    margin-bottom: 2rem;
+.h2-texto {
+    margin-top: 20vh;  
+    margin-bottom: 16vh;
+    margin-left: 2.5rem;
+    font-size: 3vw;    
 }
 
-.auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+.p-texto {
+    font-size: 2vw;    
+    margin-top: 5vh;    
 }
 
-.auth-header h2 {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
+@media (max-width: 768px) {
+    .box-area {
+        width: 90vw;   
+        height: auto;  
+    }
+
+    #ImgBehind {
+        width: 90vw;   
+        height: auto;  
+    }
+
+    .h2-texto {
+        font-size: 4vw;   
+        margin-top: 10vh;  
+    }
+
+    .p-texto {
+        font-size: 8vw;   
+        margin-top: 4vh;  
+    }
 }
 
-.auth-header p {
-    color: #666;
-    margin-bottom: 0;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.input-group-text {
-    background-color: white;
-    border-right: none;
-    color: #666;
-    transition: border-color 0.2s ease;
-}
-
-.form-control {
-    border-left: none;
-    padding: 0.75rem;
-    transition: border-color 0.2s ease;
-}
-
-
-.form-control:focus {
-    box-shadow: none;
-    border-color: var(--primary-color);
-}
-
-
-.form-control:focus ~ .input-group-text {
-    border-color: var(--primary-color);
-}
-
-
-.input-group:focus-within .input-group-text {
-    border-color: var(--primary-color);
-}
-
-.input-group:focus-within .form-control {
-    border-color: var(--primary-color);
-}
-
-.auth-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary-color);
-    color: white;
+#LoginBtn {
+    background-color: #EB7A42;
+    border-radius: 40px;
     border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    color: #FFFFFF;
+    margin-top: 2rem; /* Added margin */
 }
 
-.auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
-}
-
-.auth-footer {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.auth-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.auth-link:hover {
-    color: var(--hover-color);
+#Texto {
+    color: #FFFFFF;
 }
 </style>
 
