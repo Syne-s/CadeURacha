@@ -2,15 +2,17 @@
 {% load static %}
 {% block title %}cadêURacha - Login{% endblock %}
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center min-vh-60">
+<div class="container-login d-flex justify-content-center align-items-center">
     <div class="row rounded-5 bg-white shadow box-area mt-5 mb-5 w-75">
         <!-- Left Box -->
         <div id="ImgBehind" class="col-md-6 rounded-start-5 d-flex justify-content-center align-items-center flex-column left-box text-bg-dark">
             <div id="ContainerTextos" class="header-text pb-3">
                 <h2 id="Texto" class="Texto h2-texto fw-bold mt-5">cadêURacha</h2>
-                <p id="Texto" class="text-center mb-2 mt-4">
-                    Seja bem-vindo ao sistema, antes de qualquer coisa, que tal realizar o login?
-                </p>
+                <div class="d-flex justify-content-center ajustador-subtitle">
+                    <p id="Texto" class="text-center subtitle mb-2 mt-4">
+                        Seja bem-vindo ao sistema, antes de qualquer coisa, que tal realizar o <br><b>login</b>?
+                    </p>
+                </div>
                 <p class="text-center mb-2">
                     Ainda não tem uma conta? Faça seu <a href="{% url 'register' %}" style="color: white;">Cadastro</a>
                 </p>
@@ -21,23 +23,23 @@
         <div class="col-md-6 right-box d-flex align-items-center">
             <div class="row d-flex align-items-center">
                 <div class="header-text text-center mb-4">
-                    <h2>LOGIN</h2>
+                    <h2>Login</h2>
                 </div>
                 <form id="loginForm" method="POST" action="">
                     {% csrf_token %}
                     <div class="mb-6">
                         <label for="login" class="form-label">Nome de Usuário ou Email*</label>
                         <input type="text" class="form-control form-control-lg bg-light rounded-3 fs-6" 
-                               id="login" name="login" placeholder="Email ou Nome de Usuário" required>
+                               id="login" name="login" required>
                         <div class="input-group mb-1">
                             <label for="password" class="form-label w-100">Senha*</label>
                             <input type="password" id="password" name="password" 
                                    class="form-control form-control-lg bg-light rounded-3 fs-6" 
-                                   placeholder="Senha" required>
+                                    required>
                         </div>
                     </div>
                     <div class="input-group mb-4 justify-content-center">
-                        <button id="LoginBtn" type="submit" class="btn btn-lg w-75 rounded-3 fs-6"><b>LOGIN</b></button>
+                        <button id="LoginBtn" type="submit" class="btn btn-lg w-75 rounded-3 fs-6"><b>ENTRAR</b></button>
                     </div>
                 </form>
             </div>
@@ -46,13 +48,22 @@
 </div>
 
 <style>
-    .container {
-        min-height: calc(100vh - 146px); /* Subtract navbar (73px) and footer (73px) heights */
+    .container-login {
+        height: 53.2vh;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 73px; /* Height of navbar */
         margin-bottom: 73px; /* Height of footer */
+    }
+
+
+    .ajustador-subtitle{
+        transform: translateY(-5rem);
+    }
+
+    .subtitle{
+        width: 70%;
     }
 
     .box-area {

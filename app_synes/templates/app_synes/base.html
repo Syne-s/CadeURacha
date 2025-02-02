@@ -382,6 +382,26 @@
             color: var(--cream);
         }
 
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+
+        .container{
+            z-index: 5000;
+        }
+
+        .footer{
+            z-index: 0;
+        }
+        
+
         .close {
             font-size: 70px;
             border: none;
@@ -501,7 +521,7 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer id="footer" class="footer">
+    <footer id="footer" class="footer fixed-bottom">
         <div class="footer-content">
             <div class="footer-left">
                 <div class="footer-logo">
