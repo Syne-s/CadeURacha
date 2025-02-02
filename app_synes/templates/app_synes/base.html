@@ -1,40 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <metae name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}cadêURacha{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"r rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <metae name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}cadêURacha{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{% static 'app_synes/images/logo-ur.png' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" r rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #EB7A42;
-            --secondary-color: #d35023;
-            --accent-color: #e1672e;
+            --true-orange: #EB7A42;
             --darker-lilac: #34327B;
             --cream: #FEFAEE; 
             --dark-purple: #1C1829;
             --lilac: #9F84F9;
-            --border-color: #E2E8F0;
-            --hover-color: #e78750;
-            --active-color: #8c3220;
-            --disabled-color: #fbe9d9;
-            --focus-shadow-color: rgba(191, 66, 34, 0.25);
         }
 
         body {
             margin: 0;
             padding: 0;
             font-family: 'Syne', sans-serif !important;
-            color: var (--dark-purple);
+            color: var(--dark-purple);
             background-color: var(--cream);
             overflow-x: hidden !important;
         }
 
         .top-nav {
             background-color: var(--darker-lilac);
+            height: 73px !important;
             border-bottom: 1px solid var(--border-color);
             padding: 0.75rem 1.5rem;
             display: flex;
@@ -43,55 +38,41 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 2000; /* Aumentar para ficar acima do mapa */
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .menu-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: background-color 0.2s;
-        }
-
-        .menu-icon:hover {
-            background-color: var(--cream);
+            z-index: 2000;
         }
 
         .logo {
             font-size: 1.25rem;
             font-weight: 600;
-            color: var(--primary-color);
+            color: #E5C03E;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             transition: color 0.3s;
+            cursor: default;
         }
 
         .logo i, .logo span {
-            color: var(--primary-color);
+            color: var(--true-orange);
             transition: color 0.3s;
         }
 
-        .logo:hover, .logo:hover i, .logo:hover span {
+        .logo:hover, 
+        .logo:hover i, 
+        .logo:hover span {
             color: var(--hover-color);
         }
 
-        .logo:active, .logo:active i, .logo:active span {
+        .logo:active, 
+        .logo:active i, 
+        .logo:active span {
             color: var(--active-color);
         }
 
-        .logo:disabled, .logo:disabled i, .logo:disabled span {
+        .logo:disabled, 
+        .logo:disabled i, 
+        .logo:disabled span {
             color: var(--disabled-color);
         }
 
@@ -113,22 +94,22 @@
             flex: 1;
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
-            border-radius: 8px; /* Increased from 4px */
+            border-radius: 8px;
             outline: none;
             font-size: 0.95rem;
-            background-color: white;
-            color: var(--dark-purple);
+            background-color: var(--cream);
+            color: var(--true-orange);
             transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
         .search-bar:focus {
-            border-color: var(--primary-color);
+            border-color: var(--true-orange);
             background-color: white;
             box-shadow: 0 0 0 0.2rem var(--focus-shadow-color);
         }
 
         .search-bar::placeholder {
-            color: #999;
+            color: var(--true-orange);
             opacity: 0.6;
         }
 
@@ -146,8 +127,11 @@
             position: absolute;
             right: 10px;
             top: 50%;
-            transform: translateY(-50%);
-            color: #666;
+            transform: translateY(-50%) translate(-3.2rem, .2rem);
+            background-color: transparent !important;
+            border: none !important;
+            font-size: 24px;
+            color: var(--true-orange);
             cursor: pointer;
             transition: color 0.3s;
         }
@@ -156,30 +140,6 @@
         .search-container:hover .search-icon {
             border-color: var(--hover-color);
             color: var(--hover-color);
-        }
-
-        .btn-outline-secondary {
-            color: var(--dark-purple);
-            border-color: var(--border-color);
-            transition: color 0.3s, border-color 0.3s, background-color 0.3s;
-        }
-
-        .btn-outline-secondary:hover {
-            color: var(--hover-color);
-            border-color: var(--hover-color);
-            background-color: var(--cream);
-        }
-
-        .btn-outline-secondary:focus, .btn-outline-secondary:active {
-            color: var(--active-color);
-            border-color: var(--active-color);
-            background-color: var(--cream);
-        }
-
-        .btn-outline-secondary:disabled {
-            color: var(--disabled-color);
-            border-color: var (--border-color);
-            background-color: var(--cream);
         }
 
         .nav-right {
@@ -196,42 +156,15 @@
             justify-content: center;
             cursor: pointer;
             border-radius: 50%;
-            transition: color 0.2s ease;
-            color: var(--primary-color);
+            transition: all 0.2s ease;
+            color: var(--true-orange);
             background-color: transparent;
             border: 2px solid transparent;
             position: relative;
         }
-
+        
         .nav-icon:hover {
             color: var(--hover-color);
-        }
-
-        .profile-picture {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid var(--primary-color);
-            transition: all 0.2s ease;
-        }
-
-        .profile-picture:hover {
-            border-color: var(--hover-color);
-            transform: translateY(-2px);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
         }
 
         .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
@@ -244,38 +177,51 @@
             border-top-color: var(--dark-purple);
         }
 
-        .search-results {
-            margin-top: 1rem;
-            padding: 1rem;
-        }
-
-        .results-section {
-            margin-bottom: 2rem;
-        }
-
-        .results-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark-purple);
-            margin-bottom: 1rem;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .result-card {
-            background: white;
+        .dropdown-menu {
+            padding: 0.5rem 0;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 1rem;
-            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 240px;
+            margin-top: 0.5rem;
+            background: white;
         }
 
-        .result-card:hover {
-            transform: translateY(-2px);
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            color: var(--dark-purple);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.5s ease;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-item i {
+            color: var(--true-orange);
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--cream);
+            color: var(--true-orange);
+        }
+
+        .dropdown-item:hover i {
+            color: var(--hover-color);
+        }
+
+        .dropdown-divider {
+            margin: 0.5rem 0;
+            border-top: 1px solid var(--border-color);
+            opacity: 0.8;
+        }
+
+        .dropdown-item.unread {
+            background-color: var(--cream);
+            font-weight: 500;
         }
 
         .main-content {
@@ -294,10 +240,9 @@
         }
 
         .footer-logo img {
-            width: 46.8px;
-            height: 46.8px;
-            position: relative;
-            opacity: 1;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
 
         .footer-text {
@@ -317,7 +262,6 @@
         .footer-text p {
             margin: 0;
             padding: 0;
-            display: block;
             color: var(--lilac);
         }
 
@@ -334,12 +278,6 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-        }
-
-        .footer-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
         }
 
         .footer-contact {
@@ -359,11 +297,8 @@
 
         @media (min-width: 640px) {
             .footer-text {
-                flex-direction: column;
                 align-items: flex-start;
-                gap: 4px;
             }
-            
             .footer-contact {
                 display: flex;
                 align-items: center;
@@ -375,29 +310,19 @@
             .navbar-toggler {
                 display: block;
             }
-            
             .top-nav {
                 flex-wrap: wrap;
             }
-
             .nav-center {
                 margin: 0 1rem;
             }
-
             .results-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
-
             .nav-right {
                 gap: 1rem;
             }
-            
             .nav-icon {
-                width: 36px;
-                height: 36px;
-            }
-            
-            .profile-picture {
                 width: 36px;
                 height: 36px;
             }
@@ -407,199 +332,43 @@
             .nav-center {
                 display: none;
             }
-        }
-
-        .nav-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: all 0.2s ease;
-            color: var(--primary-color);
-            background-color: transparent;
-            border: 2px solid transparent;
-            position: relative;
-        }
-
-        .nav-icon:hover {
-            color: var(--hover-color);
-        }
-
-        .nav-item.dropdown.show .nav-link.nav-icon,
-        .nav-item.dropdown.show .nav-link.nav-icon .fa-user {
-            color: var(--primary-color);
-        }
-
-        .nav-item.dropdown.show .nav-link.nav-icon:hover,
-        .nav-item.dropdown.show .nav-link.nav-icon:hover .fa-user {
-            color: var(--hover-color);
-        }
-
-        .dropdown-toggle::after {
-            display: none;
-        }
-
-        .dropdown-menu {
-            padding: 0.5rem 0;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            min-width: 240px;
-            margin-top: 0.5rem;
-            background: white;
-        }
-
-        /* Estilização dos itens do dropdown */
-        .dropdown-item {
-            padding: 0.75rem 1rem;
-            color: var(--dark-purple);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-
-        /* Ícones para os itens do dropdown */
-        .dropdown-item i {
-            color: var(--primary-color);
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Hover estado dos itens */
-        .dropdown-item:hover {
-            background-color: var(--cream);
-            color: var(--primary-color);
-        }
-
-        .dropdown-item:hover i {
-            color: var(--hover-color);
-        }
-
-        /* Divider estilizado */
-        .dropdown-divider {
-            margin: 0.5rem 0;
-            border-top: 1px solid var(--border-color);
-            opacity: 0.8;
-        }
-
-        /* Estilização para notificações não lidas */
-        .dropdown-item.unread {
-            background-color: var(--cream);
-            font-weight: 500;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 576px) {
             .dropdown-menu {
                 min-width: 280px;
             }
         }
 
-        /* Estilização específica para o botão de logout */
-        .logout-link {
-            color: var(--primary-color);
+        .nav-map-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--true-orange);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            margin-right: 1rem;
+        }
+
+        .nav-map-link:hover {
+            color: var(--hover-color);
+            opacity: 0.6;
+        }
+
+        .nav-map-link i {
+            font-size: 30px;
+            padding-left: 0.2rem;
+        }
+
+        .nav-map-link span {
             font-weight: 600;
-            transition: color 0.2s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
 
-        .logout-link:hover {
-            color: var(--hover-color);
-        }
-
-        .auth-buttons {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-button {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            background-color: var(--primary-color);
-            border: none;
-        }
-
-        .nav-button:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-2px);
-        }
-
-        .nav-button i {
-            font-size: 1rem;
-        }
-
-        /* Login button style */
-        .auth-buttons .login-btn {
-            color: var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            border: 2px solid var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .auth-buttons .login-btn:hover {
-            color: var(--hover-color);
-            border-color: var(--hover-color);
-            transform: translateY(-2px);
-        }
-
-        /* Register button style */
-        .auth-buttons .register-btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .auth-buttons .register-btn:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-2px);
-        }
-
-        /* Icon styles */
-        .auth-buttons i {
-            font-size: 1rem;
-        }
-
-        @media (max-width: 576px) {
-            .auth-buttons {
-                gap: 0.5rem;
+        @media (max-width: 768px) {
+            .nav-map-link span {
+                display: none;
             }
-            
-            .auth-buttons .login-btn,
-            .auth-buttons .register-btn {
-                padding: 0.4rem 0.8rem;
-            }
-        }
-
-        #map-container {
-            height: calc(100vh - 56px - 2rem);
-            display: flex;
-            flex-direction: row;
-            margin-top: 65px; /* Ajustar para não ficar atrás do header */
         }
 
         .search-results {
@@ -634,13 +403,13 @@
         }
 
         .result-title {
-            color: var(--primary-color);
+            color: var(--true-orange);
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
         .result-info {
-            color: var (--dark-purple);
+            color: var(--dark-purple);
             font-size: 0.9rem;
         }
 
@@ -661,38 +430,6 @@
             background-color: #fbe9e7;
             color: #d84315;
         }
-
-        .nav-map-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            margin-right: 1rem;
-        }
-
-        .nav-map-link:hover {
-            color: var(--hover-color);
-        }
-
-        .nav-map-link i {
-            font-size: 1.2rem;
-        }
-
-        .nav-map-link span {
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-map-link span {
-                display: none;
-            }
-        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
@@ -700,7 +437,8 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark top-nav" style="background-color: var(--darker-lilac);">
         <div class="container-fluid">
             <a class="navbar-brand logo" href="{% url 'index' %}">
-                <span><span style="color: #E5C03E;">cadê</span><span style="color: #EB7A42;">UR</span><span style="color: #E5C03E;">acha</span></span>
+                <img src="{% static 'app_synes/images/logo-ur.png' %}" alt="Logomarca" style="width:40px; height:auto; margin-right: 0.5rem;">
+                <span><span style="color: #E5C03E;">cadê</span><span style="color: var(--true-orange);">UR</span><span style="color: #E5C03E;">acha</span></span>
             </a>
             
             <!-- Add map link here -->
@@ -726,9 +464,9 @@
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {% if user.foto_perfil %}
-                                <img src="{{ user.foto_perfil.url }}" alt="Foto de Perfil" style="width: 40px; height: 40px; border-radius: 50%;">
+                                <img src="{{ user.foto_perfil.url }}" alt="Foto de Perfil" class="profile" style="width: 46.8px; height: 46.8px; border-radius: 50%; transition: all .75s ease-in;">
                             {% else %}
-                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto de Perfil Padrão" style="width: 40px; height: 40px; border-radius: 50%;">
+                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto de Perfil Padrão" class="profile" style="width: 46.8px; height: 46.8px; border-radius: 50%; transition: all .75s ease-in;">
                             {% endif %}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
