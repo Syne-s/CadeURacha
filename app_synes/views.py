@@ -218,21 +218,18 @@ def search(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         query = request.GET.get('q', '').strip()
         if len(query) >= 2:
-            # Primeiro pesquisar arenas
             arenas = Arena.objects.filter(
                 Q(nome__icontains=query) |
                 Q(bairro__icontains=query)
-            )[:5]  # Limit results
+            )[:5]
 
-            # IDs das arenas encontradas
             arena_ids = [arena.id for arena in arenas]
 
-            # Pesquisar jogos relacionados à query ou às arenas encontradas
             jogos = Jogo.objects.filter(
                 Q(titulo__icontains=query) |
                 Q(descricao__icontains=query) |
                 Q(arena_id__in=arena_ids)
-            ).select_related('arena')[:5]  # Limit results and optimize query
+            ).select_related('arena')[:5]
 
             results = {
                 'arenas': [
@@ -250,6 +247,7 @@ def search(request):
                         'arena': jogo.arena.nome,
                         'data': jogo.data.strftime('%d/%m/%Y'),
                         'horario': str(jogo.horario),
+                        'descricao': str(jogo.descricao),  # Convert to string explicitly
                         'tipo': 'jogo'
                     } for jogo in jogos
                 ]
