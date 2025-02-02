@@ -8,9 +8,11 @@
         <div id="ImgBehind" class="col-md-6 rounded-start-5 d-flex justify-content-center align-items-center flex-column left-box text-bg-dark">
             <div id="ContainerTextos" class="header-text pb-3">
                 <h2 id="Texto" class="Texto h2-texto fw-bold mt-5">cadêURacha</h2>
-                <p id="Texto" class="text-center mb-2 mt-4">
-                    Seja bem-vindo ao sistema, antes de qualquer coisa, que tal realizar o login?
-                </p>
+                <div class="d-flex justify-content-center ajustador-subtitle">
+                    <p id="Texto" class="text-center subtitle mb-2 mt-4">
+                        Seja bem-vindo ao sistema, antes de qualquer coisa, que tal realizar o <br><b>login</b>?
+                    </p>
+                </div>
                 <p class="text-center mb-2">
                     Ainda não tem uma conta? Faça seu <a href="{% url 'register' %}" style="color: white;">Cadastro</a>
                 </p>
@@ -53,6 +55,15 @@
         justify-content: center;
         margin-top: 73px; /* Height of navbar */
         margin-bottom: 73px; /* Height of footer */
+    }
+
+
+    .ajustador-subtitle{
+        transform: translateY(-5rem);
+    }
+
+    .subtitle{
+        width: 70%;
     }
 
     .box-area {
