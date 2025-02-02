@@ -3,11 +3,6 @@
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
-        <div class="auth-header">
-            <i class="fas fa-user-edit auth-icon"></i>
-            <h2 class="text-center mb-0">Editar Perfil</h2>
-            <p class="text-center">Atualize suas informações pessoais</p>
-        </div>
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }} text-center">
@@ -19,58 +14,72 @@
             <div class="left-column">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="form-group text-center">
-                        <input type="file" id="id_foto_perfil" name="foto_perfil" style="display: none;">
-                        {% if profile_form.instance.foto_perfil %}
-                            <div class="profile-pic" onclick="document.getElementById('id_foto_perfil').click()">
-                                <img src="{{ profile_form.instance.foto_perfil.url }}" alt="Foto de Perfil" style="width: 100px; height: 100px; border-radius: 50%;">
+                    <div class="form-group">
+                        <label for="id_foto_perfil" class="form-label">Foto de Perfil</label>
+                        <div class="form-group text-center">
+                            <input type="file" id="id_foto_perfil" name="foto_perfil" style="display: none;">
+                            <div class="image-card" onclick="document.getElementById('id_foto_perfil').click()">
+                                {% if profile_form.instance.foto_perfil %}
+                                    <img src="{{ profile_form.instance.foto_perfil.url }}" alt="Foto de Perfil">
+                                {% endif %}
+                                <div class="overlay">
+                                    <i class="bi bi-camera"></i>
+                                </div>
                             </div>
-                        {% endif %}
+                        </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_username" class="form-label">Nome de Usuário</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                             {{ profile_form.username }}
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_email" class="form-label">E-mail</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                             {{ profile_form.email }}
                         </div>
                     </div>
-                    <button type="submit" class="auth-button">Salvar Alterações</button>
                 </form>
             </div>
             <div class="vertical-bar"></div> 
             <div class="right-column">
-                <h3 class="text-center mt-4">Alterar Senha</h3>
                 <form method="post">
                     {% csrf_token %}
                     <div class="form-group">
+                        <label for="id_old_password" class="form-label">Senha Antiga</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
                             {{ password_form.old_password }}
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_new_password1" class="form-label">Nova Senha</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
                             {{ password_form.new_password1 }}
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="id_new_password2" class="form-label">Confirmar Nova Senha</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="fas fa-lock"></i></span>
                             {{ password_form.new_password2 }}
                         </div>
                     </div>
-                    <button type="submit" class="auth-button">Alterar Senha</button>
-                </form>
-                <hr class="my-4">
-                <form method="get" action="{% url 'confirm_delete_account' %}">
-                    <button type="submit" class="btn btn-danger w-100">Excluir Conta</button>
-                </form>
+                    <div class="d-flex flex-column align-items-center">
+                        <button type="submit" class="auth-button btn btn-primary w-75 mb-3" style="background-color: #EB7A42; border-radius: 10px; border: none !important; color: #FFFFFF !important; font-weight: bold;">
+                            Salvar
+                        </button>
+                        </form>
+                        <form method="get" action="{% url 'confirm_delete_account' %}" class="w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-danger w-75" id="Excluir" style="border-radius: 10px; color: #EB7A42; border-color: #EB7A42; background-color: transparent; white-space: nowrap; font-weight: bold;">
+                                Excluir Conta
+                            </button>
+                        </form>
+                    </div>
             </div>
         </div>
     </div>
@@ -241,6 +250,67 @@
 }
 .profile-pic:hover img {
     opacity: 0.7;
+}
+
+/* Atualizado para alinhar a borda direita do input de foto com os demais */
+.image-card {
+    width: 100%;           /* Ocupa toda a largura disponível na coluna */
+    max-width: 350px;      /* Limite máximo para manter o design */
+    height: 100px; 
+    background-color: #f8f9fa; 
+    border: 1px solid #ced4da; 
+    border-radius: 6px !important; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;        /* Centraliza horizontalmente */
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.image-card img, 
+.image-card .custom-file-upload {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; 
+}
+
+.custom-file-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+.overlay i {
+    color: #fff;
+    font-size: 3rem; /* Aumenta o tamanho do ícone da câmera */
+}
+
+.form-label {
+    margin-bottom: 0.5rem; /* Ajuste conforme necessário */
 }
 </style>
 {% endblock %}
