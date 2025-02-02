@@ -1,0 +1,252 @@
+{% extends 'app_synes/base.html' %}
+{% load static %}
+{% block title %}CadêURacha - Detalhes Quadra{% endblock %}
+{% block content %}
+
+<div class="container-jogo w-75">
+    <div class="fundo shadow">
+      <div class="row g-0">
+        <div class="col-md-4 d-flex justify-content-center align-items-center flex-wrap">
+          <img src="{% static 'app_synes/images/quadra.jpeg' %}" class="img-fluid mb-4" alt="Imagem do Quadra">
+          <button id="BtnAvaliar" class="w-60 py-2 rounded-3"><b>Deixar Avaliação</b></button>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h1 class="card-title text-truncate">Detalhes de <b><span>Quadra X</span></b></h1>
+            <h4 class="mb-1"><strong>Quadra 1 - Rua Abacate 123</strong></h4>
+            
+            
+            
+            <h5>Jogos:</h5>
+            <div class="agrupador">
+
+              <div class="ajustador w-100 d-flex justify-content-center flex-wrap">
+
+
+                <div class="container rounded-5 w-75 cream">
+                  <div class="row d-flex flex-nowrap overflow-auto w-100">
+  
+                    <!-- Cards -->
+  
+                    <a href="detalhes_jogo.html">
+  
+                      <div class="card border-0 text-bg-dark ratio ratio-1x1">
+                        <img src="{% static 'app_synes/images/jam.jpg' %}" class="card-img" alt="Imagem de promoção de Jogo">
+                        <div class="card-img-overlay">
+                          <i class='bx bxs-basketball'></i>
+                          <div class="texts">
+                            <h5 class="card-title text-center"><b>27/01/2025</b></h5>
+                            <p class="card-title text-center"><b>20:00 - 22:00</b></p>
+                          </div>
+                        </div>
+                      </div>
+  
+                    </a>
+  
+                  </div>
+                </div>
+  
+                <button id="MarcarRacha" class=" mt-4 rounded border-0 h-50 p-2"><b>Marcar Racha</b><i
+                  class="bi bi-plus-circle"></i></button>
+  
+              </div>
+
+            </div>
+            
+
+
+
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+
+
+
+
+<style>
+    :root {
+        --darker-lilac: #34327B;
+        --dark-purple: #1C1829;
+        --lilac: #9F84F9;
+        --true-orange: #EB7A42;
+        --cream: #FEFAEE;
+        --yellow: #E5C03E;
+        --input-color: rgba(#2C6DA5, 0.1)
+    }
+
+    .cream a{
+        transition: all .8s ease;
+    }
+
+    .cream a:hover{
+        opacity: 80%;
+    }
+    
+    .container-jogo{
+        margin: auto;
+        height: 40vh;
+    }
+
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+    }
+    
+    h4 strong i{
+        color: var(--true-orange);
+    }
+    
+    .cream{
+        background-color: transparent;
+        padding: 1rem;
+        border: 2px solid var(--true-orange);
+    }
+    
+    .row a{
+        width: fit-content;
+    }
+    
+    .no-style{
+        color: var(--dark-purple);
+    }
+    
+    
+    .translate{
+        transform: translateY(.1rem);
+    }
+    
+    .agrupador{
+        transform: translateX(-7rem);
+    }
+    
+    .ajustador .container {
+        margin: 0; 
+    }
+    
+    
+    .card-img-overlay .texts,  .card-img-overlay h5{
+        font-size: 12px;
+    }
+    
+    .card-img-overlay .texts{
+        transform: translateY(3rem);
+    }
+    
+    .card-img-overlay i {
+        position: absolute;
+        font-size: 25px;
+        top: 10px;
+        right: 0;
+        transform: translateX(-.6rem);
+    }
+    
+    
+    .card img {
+        border-radius: 20px !important;
+        object-fit: cover;
+        filter: blur(1px) brightness(0.7) saturate(0.8) contrast(0.5);
+        width: 100%;
+        height: 100%;
+        mix-blend-mode: overlay;
+    }
+    
+    .card {
+        border-radius: 20px !important;
+        width: 120px !important;
+        height: 120px !important;
+        background: linear-gradient(180deg, #9f84f9BB, #fdc4a89f);
+        cursor: pointer;
+    }
+    
+    .w-60{
+        width: 60% !important;
+    }
+    
+    .img-fluid{
+        border-radius: 20px;
+        height: 60% !important;
+        object-fit: cover;
+        width: 70%;
+        aspect-ratio: 16/9;
+        background-position: center;
+    }
+
+    button{
+        transition: all .8s ease;
+    }
+
+    button:hover{
+        opacity: 50%;
+    }
+    
+    .organizador .pad{
+        padding: .3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 15rem;
+        border-radius: 10px;
+        background-color: var(--darker-lilac);
+    }
+    
+    .pad h4{
+        color: var(--cream);
+        transform: translateY(0.2rem);
+    }
+    
+    .card-title b span{
+        color: var(--true-orange);
+    }
+    
+    .fundo{
+        padding: 6rem 0rem 6rem 0rem;
+        border-radius: 20px;
+    }
+    
+    .botoes button{
+        border-radius: 10px;
+        width: 15rem;
+        padding: .3rem;
+    }
+    
+    #BtnAvaliar{
+        color: var(--true-orange);
+        border: 2px solid var(--true-orange);
+        background-color: var(--cream);
+    }
+    
+    #BtnExcluir{
+        border: 2px solid var(--true-orange);
+        background-color: var(--cream);
+        color: var(--true-orange);
+    }
+    
+    #BtnEditar{
+        border: 2px solid var(--true-orange);
+        background-color: var(--true-orange);
+        color: var(--cream);
+    }
+    
+    #MarcarRacha,
+    #MarcarRacha i,
+    #MarcarRacha b {
+        width: 286px;
+        height: 52px;
+        background-color: var(--true-orange);
+        font-size: 22px;
+        color: var(--cream);
+    }
+    
+    #MarcarRacha b {
+        margin-right: 1rem;
+    }
+</style>
+{% endblock %}

@@ -352,3 +352,9 @@ def levar_bola(request, jogo_id):
         request.user.save()
 
     return redirect('listar_todos_jogos')
+
+def teste(request):
+    return render(request, 'app_synes/detalhes_quadra.html')  # Especifique o caminho completo
+
+def todos(request):
+    return render(request, 'app_synes/todos.html')  # Especifique o caminho completo
