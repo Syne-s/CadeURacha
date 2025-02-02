@@ -192,18 +192,16 @@ def cadastrar_jogo(request):
 @login_required
 def listar_jogos(request):
     hoje = date.today()
-
     # Excluir jogos expirados
     Jogo.objects.filter(data__lt=hoje).delete()
 
-    # Filtrar apenas jogos criados pelo usuário logado
-    jogos = Jogo.objects.filter(usuario=request.user)
+    jogos_criados = Jogo.objects.filter(usuario=request.user)
+    jogos_confirmados = Jogo.objects.filter(participantes=request.user).exclude(criador_jogo=request.user)
 
-    # Mostrar mensagens relativas a essa página
-    for message in get_messages(request):
-        print(f"Mensagem: {message}")
-
-    return render(request, 'app_synes/listar_jogos.html', {'jogos': jogos})
+    return render(request, 'app_synes/listar_jogos.html', {
+        'jogos_criados': jogos_criados,
+        'jogos_confirmados': jogos_confirmados
+    })
 
 def listar_todos_jogos(request):
     hoje = date.today()

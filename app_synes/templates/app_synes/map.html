@@ -6,15 +6,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
     main.main-content {
-        padding-top: 0px; 
+        padding-top: 73px; /* Add navbar height as padding */
         padding-bottom: 2rem; 
     }
+
     #map-container {
-        height: calc(100vh - 56px - 2rem);
+        height: calc(100vh - 146px); /* Subtract navbar (73px) + footer (73px) */
         display: flex;
         flex-direction: row;
-        padding-bottom: 2rem; 
+        padding-bottom: 2rem;
     }
+
     #map {
         flex: 1;
         min-height: 400px;
@@ -74,7 +76,7 @@
         transition: border-color 0.3s, box-shadow 0.3s;
     }
     .form-select:focus {
-        border-color: var(--primary-color);
+        border-color: var(--true-orange-hover);
         box-shadow: 0 0 0 0.2rem var(--focus-shadow-color);
     }
     .arena-list {
@@ -111,19 +113,21 @@
     }
     .slider-label {
         font-size: 1rem;
-        color: var(--text-color);
+        color: var(--true-orange);
         margin-bottom: 0.5rem;
     }
     .slider {
         width: 100%;
         -webkit-appearance: none;
         appearance: none;
-        height: 8px;
-        background: var(--border-color);
+        height: 8px; 
+        background: #e0e0e0;
+        border-radius: 4px;
         outline: none;
-        opacity: 0.7;
+        opacity: 0.9;
         transition: opacity 0.2s;
     }
+    
     .slider:hover {
         opacity: 1;
     }
@@ -132,19 +136,25 @@
         appearance: none;
         width: 20px;
         height: 20px;
-        background: var(--primary-color);
+        background: #fa6920;  /* Update color */
         cursor: pointer;
         border-radius: 50%;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
     }
+    
     .slider::-moz-range-thumb {
         width: 20px;
         height: 20px;
-        background: var(--primary-color);
+        background: #fa6920;  /* Update color */ 
         cursor: pointer;
         border-radius: 50%;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
     }
     @media (max-width: 768px) {
         #map-container {
+            margin-top: 73px;
             flex-direction: column;
             height: auto;
             gap: 1rem;
@@ -327,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var currentLocationIcon = L.divIcon({
                 className: 'current-location-icon',
-                html: '<i class="fa-solid fa-circle" style="color: var(--primary-color); font-size: 20px;"></i>',
+                html: '<i class="fa-solid fa-circle" style="color: #fa6920;; font-size: 20px;"></i>',
                 iconSize: [20, 20],
                 iconAnchor: [10, 10]
             });
