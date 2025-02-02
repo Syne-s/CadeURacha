@@ -412,6 +412,99 @@
         .close:hover {
             opacity: 60%;
         }
+
+        /* Adicione transições ao elemento .collapse para suavizar o recolhimento */
+        .collapse {
+            transition: height 0.3s ease, opacity 0.3s ease;
+        }
+
+        #search-results {
+            max-height: 300px; /* Limite a altura máxima dos resultados */
+            overflow-y: auto; /* Adicione rolagem vertical se necessário */
+        }
+
+        #search-results .result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #ddd;
+            color: var(--dark-purple);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        #search-results .result-item:hover {
+            background-color: var(--cream);
+        }
+
+        #search-results .result-item strong {
+            color: var(--true-orange);
+        }
+
+        #search-results {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 100%; /* Position directly below search bar */
+            left: 0;
+            right: 3rem; /* Match search bar width accounting for button */
+            background: white;
+            margin-top: 2px;
+        }
+
+        #search-results .result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #ddd;
+            color: var(--dark-purple);
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        #search-results .result-item:last-child {
+            border-bottom: none;
+        }
+
+        #search-results .result-item:hover {
+            background-color: var(--cream);
+            cursor: pointer;
+        }
+
+        #search-results .result-item strong {
+            color: var(--true-orange);
+            margin-right: 0.5rem;
+        }
+
+        #search-results .result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #ddd;
+            color: var (--dark-purple);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .result-item .label-quadra {
+            color: var(--lilac);
+            font-weight: bold;
+        }
+
+        .result-item .label-jogo {
+            color: var(--true-orange);
+            font-weight: bold;
+        }
+
+        .result-item .description {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
@@ -428,9 +521,10 @@
                 <i id="MapIcon" class='bx bxs-map-alt'></i>
             </a>
             
-            <form class="d-flex w-25" role="search">
+            <form class="d-flex w-25 position-relative" role="search">
                 <input id="SearchBar" class="form-control me-2 rounded-3 border-0" type="search" placeholder="Buscar..." aria-label="Search">
                 <button id="SearchButton" type="submit"><i class='bx bx-search'></i></button>
+                <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none; z-index: 1000;"></div>
             </form>
     
             {% if user.is_authenticated %}
@@ -568,6 +662,59 @@ document.addEventListener("DOMContentLoaded", function () {
                 container.scrollBy({ left: scrollAmount, behavior: "smooth" });
             }
         });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchBar = document.getElementById('SearchBar');
+    const searchResults = document.getElementById('search-results');
+
+    searchBar.addEventListener('input', function() {
+        const query = searchBar.value.trim();
+        if (query.length >= 2) {
+            fetch(`/search/?q=${query}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                searchResults.innerHTML = '';
+                if (data.arenas.length || data.jogos.length) {
+                    data.arenas.forEach(arena => {
+                        const item = document.createElement('div');
+                        item.classList.add('result-item');
+                        item.innerHTML = `
+                            <div><span class="label-quadra">Quadra:</span> ${arena.nome}</div>
+                            <div>${arena.endereco}</div>
+                        `;
+                        searchResults.appendChild(item);
+                    });
+                    data.jogos.forEach(jogo => {
+                        const item = document.createElement('div');
+                        item.classList.add('result-item');
+                        console.log('Jogo description:', jogo.descricao); // Debug log
+                        item.innerHTML = `
+                            <div><span class="label-jogo">Jogo:</span> ${jogo.titulo}</div>
+                            <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
+                            <div class="description">${jogo.descricao || 'Sem descrição'}</div>
+                        `;
+                        searchResults.appendChild(item);
+                    });
+                } else {
+                    searchResults.innerHTML = '<div class="result-item">Nenhum resultado encontrado</div>';
+                }
+                searchResults.style.display = 'block';
+            });
+        } else {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!searchBar.contains(event.target) && !searchResults.contains(event.target)) {
+            searchResults.style.display = 'none';
+        }
     });
 });
 </script>

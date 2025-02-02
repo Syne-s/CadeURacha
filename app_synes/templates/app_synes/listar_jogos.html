@@ -1,4 +1,3 @@
-<!-- filepath: /e:/Users/jerbc/Documents/DJANGO/synes/app_synes/templates/app_synes/listar_jogos.html -->
 {% extends 'app_synes/base.html' %}
 {% load static %}
 {% block title %}CadêURacha - Meus Jogos{% endblock %}
@@ -130,6 +129,8 @@ h2 b span {
     width: 1000px;  /* ajuste o valor conforme necessário */
     height: 250px; /* ajuste o valor conforme necessário */
     overflow: hidden; /* garante que o conteúdo não afete o tamanho */
+    position: relative;
+    z-index: 0; /* Garante que fique atrás do menu e navbar */
 }
 
 /* Adicione essa regra para impedir a quebra de linha da data */
@@ -216,7 +217,7 @@ h2 b span {
                           <b>{{ jogo.data|date:"d/m/Y" }}</b>
                         </h5>
                         <p class="card-title text-center">
-                          <b>{{ jogo.horario }}</b>
+                          <b class="jogo-horario">{{ jogo.horario }}</b>
                         </p>
                       </div>
                     </div>
