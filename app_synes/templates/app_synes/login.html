@@ -21,23 +21,23 @@
         <div class="col-md-6 right-box d-flex align-items-center">
             <div class="row d-flex align-items-center">
                 <div class="header-text text-center mb-4">
-                    <h2>LOGIN</h2>
+                    <h2>Login</h2>
                 </div>
                 <form id="loginForm" method="POST" action="">
                     {% csrf_token %}
                     <div class="mb-6">
                         <label for="login" class="form-label">Nome de Usuário ou Email*</label>
                         <input type="text" class="form-control form-control-lg bg-light rounded-3 fs-6" 
-                               id="login" name="login" placeholder="Email ou Nome de Usuário" required>
+                               id="login" name="login" required>
                         <div class="input-group mb-1">
                             <label for="password" class="form-label w-100">Senha*</label>
                             <input type="password" id="password" name="password" 
                                    class="form-control form-control-lg bg-light rounded-3 fs-6" 
-                                   placeholder="Senha" required>
+                                    required>
                         </div>
                     </div>
                     <div class="input-group mb-4 justify-content-center">
-                        <button id="LoginBtn" type="submit" class="btn btn-lg w-75 rounded-3 fs-6"><b>LOGIN</b></button>
+                        <button id="LoginBtn" type="submit" class="btn btn-lg w-75 rounded-3 fs-6"><b>ENTRAR</b></button>
                     </div>
                 </form>
             </div>
