@@ -8,14 +8,23 @@
         <link rel="icon" type="image/png" href="{% static 'app_synes/images/logo-ur.png' %}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" r rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
         <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration {
+            display: none;
+        }
         :root {
             --true-orange: #EB7A42;
             --darker-lilac: #34327B;
             --cream: #FEFAEE; 
             --dark-purple: #1C1829;
             --lilac: #9F84F9;
+            --yellow: #E5C03E;
+            --input-color: rgba(#2C6DA5, 0.1);
         }
 
         body {
@@ -30,7 +39,7 @@
         .top-nav {
             background-color: var(--darker-lilac);
             height: 73px !important;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--dark-purple);
             padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
@@ -91,8 +100,9 @@
         }
 
         .search-bar {
-            flex: 1;
-            padding: 0.5rem 1rem;
+            /* Encurta a barra configurando uma largura fixa e ajusta o padding interno */
+            width: 400px;
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             outline: none;
@@ -124,16 +134,17 @@
         }
 
         .search-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%) translate(-3.2rem, .2rem);
             background-color: transparent !important;
             border: none !important;
             font-size: 24px;
             color: var(--true-orange);
+            position: absolute;
+            right: 220px; /* Modificado para posicionar o ícone dentro da barra de pesquisa */
             cursor: pointer;
             transition: color 0.3s;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
         }
 
         .search-container:hover .search-bar,
@@ -429,6 +440,13 @@
         .result-type-jogo {
             background-color: #fbe9e7;
             color: #d84315;
+        }
+
+        /* Estilos adaptados para a barra de pesquisa (#search-input) */
+        #search-input,
+        #search-input::placeholder {
+            color: var(--true-orange);
+            background-color: var(--cream);
         }
     </style>
     {% block extra_head %}{% endblock %}
