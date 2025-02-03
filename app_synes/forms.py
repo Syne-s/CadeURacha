@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
@@ -74,8 +75,28 @@ class JogoForm(forms.ModelForm):
         arena = cleaned_data.get('arena')
 
         if data and horario and arena:
-            # Verificar se já existe um jogo com a mesma data, horário e arena
-            conflito = Jogo.objects.filter(data=data, horario=horario, arena=arena).exists()
-            if conflito:
-                raise forms.ValidationError("Já existe um jogo marcado para esta data, horário e quadra.")
+            # Convert horario to a time object if it's a string
+            if isinstance(horario, str):
+                try:
+                    horario_obj = datetime.datetime.strptime(horario, "%H:%M").time()
+                except ValueError:
+                    raise forms.ValidationError("Formato de hora inválido, use HH:MM.")
+            else:
+                horario_obj = horario
+
+            new_start = datetime.datetime.combine(data, horario_obj)
+            new_end = new_start + datetime.timedelta(hours=2)
+
+            # Buscar jogos na mesma quadra e data
+            conflitos = Jogo.objects.filter(data=data, arena=arena)
+            for jogo in conflitos:
+                existing_start = datetime.datetime.combine(
+                    jogo.data,
+                    datetime.datetime.strptime(jogo.horario, "%H:%M").time()
+                )
+                existing_end = existing_start + datetime.timedelta(hours=2)
+                if new_start < existing_end and new_end > existing_start:
+                    raise forms.ValidationError(
+                        f"Já existe um jogo marcado na quadra '{arena.nome}' no horário selecionado ({horario_obj.strftime('%H:%M')})."
+                    )
         return cleaned_data

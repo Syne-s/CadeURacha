@@ -171,7 +171,7 @@ python manage.py runserver
 | RF014  | Cadastrar Jogo                                             | ✅ Concluído    |
 | RF015  | Editar Jogo                                                | ⏳ Em andamento |
 | RF016  | Excluir Jogo                                               | ⏳ Em andamento |
-| RF017  | Verificar Disponibilidade de Quadra                        | ⏳ Em andamento |
+| RF017  | Verificar Disponibilidade de Quadra                        | ✅ Concluído    |
 | RF018  | Confirmar Participação em Jogo (Racha)                     | ✅ Concluído    |
 | RF019  | Cancelar Presença em Jogo                                  | ✅ Concluído    |
 | RF020  | Visualizar Lista de Participantes de um Jogo               | ✅ Concluído    |
