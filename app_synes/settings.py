@@ -16,6 +16,13 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['cade-u-racha.up.railway.app', 'localhost', '127.0.0.1']
 
+ALLOWED_HOSTS = [
+    "web-production-c439.up.railway.app",  
+    "localhost",
+    "127.0.0.1"
+]
+
+
 CSRF_TRUSTED_ORIGINS = ['https://cade-u-racha.up.railway.app']
 
 CORS_ALLOWED_ORIGINS = ['https://cade-u-racha.up.railway.app']
