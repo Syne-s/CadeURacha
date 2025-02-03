@@ -139,31 +139,64 @@ python manage.py runserver
    - O endereço padrão é: http://127.0.0.1:8000/
 
 ---
+
+<div align="center">
+  
 <a id="requisitos-funcionais"></a>
 ## 📑 Requisitos Funcionais: 
 
-<div align="center">
+
+
 
 
 <br>
 
-| Código | Descrição                              | Status |
-|--------|----------------------------------------|:------:|
-| RF001  | Cadastrar Usuário                      |   ✓    |
-| RF002  | Autenticar Usuário                     |   ✓    |
-| RF003  | Cadastrar Jogo                         |   ✓    |
-| RF004  | Filtrar Bairro                         |   ✓    |
-| RF005  | Buscar Rachas                          |   ✕    |
-| RF006  | Editar Dados do Usuário                |   ✓    |
-| RF007  | Editar Jogo                            |   ✕    |
-| RF008  | Cancelar Presença em Jogo              |   ✓    |
-| RF009  | Verificar Disponibilidade de Quadra    |   ✕    |
-| RF010  | Avaliar Quadra                         |   ✕    |
-| RF011  | Confirmar Participação em Jogo (Racha) |   ✓    |
-| RF012  | Sair do Sistema                        |   ✓    |
-| RF013  | Excluir Conta                          |   ✓    |
-| RF014  | Excluir Jogo                           |   ✓    |
-| RF015  | Levar Bola                             |   ✓    |
+
+
+| **ID** | **Requisito Funcional**                                  | **Status**     | 
+|--------|-----------------------------------------------------------|----------------|
+| RF001  | Cadastrar Usuário                                         | ✅ Concluído    |
+| RF002  | Autenticar Usuário                                         | ✅ Concluído    |
+| RF003  | Editar Dados do Usuário                                    | ✅ Concluído    |
+| RF004  | Alterar Foto de Perfil                                     | ✅ Concluído    |
+| RF005  | Exibir Foto de Perfil                                      | ✅ Concluído    |
+| RF006  | Excluir Conta                                              | ✅ Concluído    |
+| RF007  | Sair do Sistema                                            | ✅ Concluído    |
+| RF008  | Filtrar Quadras por Bairro                                 | ✅ Concluído    |
+| RF009  | Pegar Localização Atual do Usuário                         | ⏳ Em andamento |
+| RF010  | Filtrar Quadras por Raio                                   | ⏳ Em andamento |
+| RF011  | Buscar Quadras                                             | ✅ Concluído    |
+| RF012  | Editar Quadra                                              | ⏳ Em andamento |
+| RF013  | Visualizar Detalhes de Quadras                             | ⏳ Em andamento |
+| RF014  | Cadastrar Jogo                                             | ✅ Concluído    |
+| RF015  | Editar Jogo                                                | ✅ Concluído    |
+| RF016  | Excluir Jogo                                               | ✅ Concluído    |
+| RF017  | Verificar Disponibilidade de Quadra                        | ✅ Concluído    |
+| RF018  | Confirmar Participação em Jogo (Racha)                     | ✅ Concluído    |
+| RF019  | Cancelar Presença em Jogo                                  | ✅ Concluído    |
+| RF020  | Visualizar Lista de Participantes de um Jogo               | ✅ Concluído    |
+| RF021  | Visualizar Detalhes de Jogos                               | ⏳ Em andamento |
+| RF022  | Levar Bola                                                 | ✅ Concluído    |
+| RF023  | Visualizar Mapa                                            | ✅ Concluído    |
+| RF024  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
+
+---
+<a id="requisitos-desejaveis"></a>
+## 📑 Requisitos Desejáveis: 
+<div align="center">
+
+<br>
+
+| **ID** | **Requisito Desejável**                                  | **Status**     |
+|--------|-----------------------------------------------------------|----------------|
+| RD001  | Notificação para jogadores sobre a criação de novos jogos | 🛑 Não iniciado |
+| RD002  | Funcionalidade de chat entre usuários                     | 🛑 Não iniciado |
+| RD003  | Sistema de níveis para classificar e recompensar usuários | 🛑 Não iniciado |
+| RD004  | Recomendação de jogos para iniciantes                     | 🛑 Não iniciado |
+| RD005  | Permitir o cadastro de quadras apenas para administradores | 🛑 Não iniciado |
+| RD006  | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
+| RD007  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
+
 
 </div>
 
