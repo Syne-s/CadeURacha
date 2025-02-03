@@ -163,15 +163,15 @@ python manage.py runserver
 | RF006  | Excluir Conta                                              | ✅ Concluído    |
 | RF007  | Sair do Sistema                                            | ✅ Concluído    |
 | RF008  | Filtrar Quadras por Bairro                                 | ✅ Concluído    |
-| RF009  | Pegar Localização Atual do Usuário                         | ⏳ Em andamento |
-| RF010  | Filtrar Quadras por Raio                                   | ⏳ Em andamento |
+| RF009  | Capturar Localização Atual do Usuário                      | ✅ Concluído    |
+| RF010  | Filtrar Quadras por Raio de Busca                          | ✅ Concluído    |
 | RF011  | Buscar Quadras                                             | ✅ Concluído    |
 | RF012  | Editar Quadra                                              | ⏳ Em andamento |
 | RF013  | Visualizar Detalhes de Quadras                             | ⏳ Em andamento |
 | RF014  | Cadastrar Jogo                                             | ✅ Concluído    |
-| RF015  | Editar Jogo                                                | ✅ Concluído    |
-| RF016  | Excluir Jogo                                               | ✅ Concluído    |
-| RF017  | Verificar Disponibilidade de Quadra                        | ✅ Concluído    |
+| RF015  | Editar Jogo                                                | ⏳ Em andamento |
+| RF016  | Excluir Jogo                                               | ⏳ Em andamento |
+| RF017  | Verificar Disponibilidade de Quadra                        | ⏳ Em andamento |
 | RF018  | Confirmar Participação em Jogo (Racha)                     | ✅ Concluído    |
 | RF019  | Cancelar Presença em Jogo                                  | ✅ Concluído    |
 | RF020  | Visualizar Lista de Participantes de um Jogo               | ✅ Concluído    |

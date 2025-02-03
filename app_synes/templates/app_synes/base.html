@@ -28,6 +28,8 @@
             --lilac: #9F84F9;
             --yellow: #E5C03E;
             --input-color: rgba(#2C6DA5, 0.1);
+            --negative-red: #D9534F;
+            --negative-red-hover: #C0392B;
         }
 
         body {
@@ -423,8 +425,18 @@
         }
 
         #search-results {
-            max-height: 300px; /* Limite a altura máxima dos resultados */
-            overflow-y: auto; /* Adicione rolagem vertical se necessário */
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 100%; /* Position directly below search bar */
+            left: 0;
+            right: 3rem; /* Match search bar width accounting for button */
+            background: white;
+            margin-top: 2px;
+            z-index: 5000; /* Ensure it overlays the map */
         }
 
         #search-results .result-item {
