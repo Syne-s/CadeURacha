@@ -355,4 +355,14 @@ def teste(request):
     return render(request, 'app_synes/detalhes_quadra.html')  # Especifique o caminho completo
 
 def todos(request):
-    return render(request, 'app_synes/todos.html')  # Especifique o caminho completo
+    quadras = Arena.objects.all()
+    jogos = Jogo.objects.all()
+    return render(request, 'app_synes/todos.html', {'quadras': quadras, 'jogos': jogos})
+
+def detalhes_quadra(request, id):
+    quadra = get_object_or_404(Arena, id=id)
+    return render(request, 'app_synes/detalhes_quadra.html', {'quadra': quadra})
+
+def detalhes_jogo(request, id):
+    jogo = get_object_or_404(Jogo, id=id)
+    return render(request, 'app_synes/detalhes_jogo.html', {'jogo': jogo})
