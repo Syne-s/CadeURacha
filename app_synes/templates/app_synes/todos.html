@@ -4,13 +4,16 @@
 {% block content %}
 
 <body>
-  <div class="text-center mb-3 w-100">
-    <h2><b>Todas as Quadras e Jogos:</b></h2>
-  </div>
+  
 
+
+  <div class="centralizador d-flex row justify-content-center align-items-center">
+    <div class="text-center mb-3 w-100">
+      <h2><b>Todas os Jogos e Quadras:</b></h2>
+    </div>
   <!-- Seção Quadras -->
   <div id="quadras-section">
-    <h3 class="w-100 text-center">Todas as Quadras:</h3>
+    <h3 class="w-100 text-center">Quadras:</h3>
     <div id="Agrupador" class="d-flex align-items-center w-85">
       <button class="no-style">
         <i class='bx bx-chevron-left arrow'></i>
@@ -31,7 +34,7 @@
                     <span id="Media">{{ quadra.rating|default:"N/A" }}</span>
                   </i>
                   <div class="texts quadra">
-                    <p class="card-title text-center mb-flex"><b>{{ quadra.nome }}</b></p>
+                    <p class="card-title text-center mb-flex text-truncate"><b>{{ quadra.nome }}</b></p>
                     <p class="card-title text-center">{{ quadra.bairro }}</p>
                   </div>
                 </div>
@@ -50,11 +53,11 @@
   </div>
 
   <!-- Adiciona um espaço entre as seções -->
-  <div class="my-5"></div>
+  <div class="my-2"></div>
 
   <!-- Seção Jogos -->
   <div id="jogos-section">
-    <h3 class="w-100 text-center">Todos os Jogos:</h3>
+    <h3 class="w-100 text-center">Jogos:</h3>
     <div id="Agrupador" class="d-flex align-items-center w-85">
       <button class="no-style">
         <i class='bx bx-chevron-left arrow'></i>
@@ -94,6 +97,7 @@
       </button>
     </div>
   </div>
+</div>
 </body>
 
 <style>
@@ -105,6 +109,18 @@
       --cream: #FEFAEE;
       --yellow: #E5C03E;
       --input-color: rgba(44, 109, 165, 0.1);
+  }
+
+
+  #Agrupador{
+    width: 100% !important;
+    margin:0;
+    padding:0;
+  }
+
+  .row{
+    padding: 0;
+    margin: 0;
   }
 
   .translate {
@@ -207,7 +223,7 @@
   }
 
   .row {
-      gap: 38px !important;
+      gap: 41px !important;
       scroll-behavior: smooth;
   }
 

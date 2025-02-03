@@ -64,7 +64,6 @@
             align-items: center;
             gap: 0.5rem;
             transition: color 0.3s;
-            cursor: default;
         }
 
         .logo i, .logo span {
@@ -341,8 +340,13 @@
         }
 
         #Logo {
-            cursor: default;
+            cursor: pointer;
             color: var(--yellow);
+            transition: all .5s ease; 
+        }
+
+        #Logo:hover{
+            opacity: 70%;
         }
 
         #Logo span {
