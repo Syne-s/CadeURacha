@@ -14,14 +14,11 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-m7nz^1020$)xzc1y6r9r5z890@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-#ALLOWED_HOSTS = ['cade-u-racha.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['cade-u-racha.up.railway.app', 'localhost', '127.0.0.1']
 
-#CSRF_TRUSTED_ORIGINS = ['https://cade-u-racha.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://cade-u-racha.up.railway.app']
 
-#CORS_ALLOWED_ORIGINS = ['https://cade-u-racha.up.railway.app']
-#EXTREMAMENTE TEMPORÁRIO
-ALLOWED_HOSTS = ['web-production-c439.up.railway.app', 'localhost', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://web-production-c439.up.railway.app']
+CORS_ALLOWED_ORIGINS = ['https://cade-u-racha.up.railway.app']
 
 
 # Application definition
