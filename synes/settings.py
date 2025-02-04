@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-m7nz^1020$)xzc1y6r9r5z890@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['cade-u-racha.up.railway.app', 'localhost', '127.0.0.1', 'cadeuracha.up.railway.app']
+ALLOWED_HOSTS = ['cadeuracha.up.railway.app', 'localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://cadeuracha.up.railway.app/']
 
