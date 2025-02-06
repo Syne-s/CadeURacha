@@ -1,6 +1,43 @@
+:root {
+    --darker-lilac: #34327B;
+    --dark-purple: #1C1829;
+    --lilac: #9F84F9;
+    --true-orange: #EB7A42;
+    --cream: #FEFAEE;
+    --yellow: #E5C03E;
+    --input-color: rgba(44, 109, 165, 0.1);
+}
+
+
+#Agrupador{
+  width: 100% !important;
+  margin:0;
+  padding:0;
+}
+
+.row{
+  padding: 0;
+  margin: 0;
+}
+
+.translate {
+    transform: translateX(-1rem);
+}
+
+#Agrupador .container {
+    z-index: 2;
+}
+
+.w-85 {
+    width: 85% !important;
+}
 
 h2 b span {
     color: var(--true-orange);
+}
+
+.ml-15 {
+    margin-left: 15%;
 }
 
 .container .row {
@@ -10,10 +47,28 @@ h2 b span {
 
 .container .row::-webkit-scrollbar {
     display: none;
-}a
+}
 
 .card-img-overlay .texts {
-    transform: translateY(4rem);
+    transform: translateY(3.5rem);
+    max-height: 100px; /* Ajuste conforme necessário */
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+.card-img-overlay .texts::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.row a {
+    transition: all .8s ease;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: fit-content;
+}
+
+.row a:hover {
+    opacity: 80%;
 }
 
 .card-img-overlay i {
@@ -22,6 +77,11 @@ h2 b span {
     top: 6;
     right: 0;
     transform: translateX(-.6rem);
+}
+
+i span {
+    font-family: "Syne", sans-serif !important;
+    transform: translateY(-.2rem) !important;
 }
 
 .card img {
@@ -34,7 +94,7 @@ h2 b span {
 }
 
 .cream {
-    padding: 3rem !important;
+    padding: 1.5rem 3rem;
     background-color: var(--cream);
 }
 
@@ -42,6 +102,8 @@ h2 b span {
     border-radius: 20px !important;
     width: 160px !important;
     height: 160px !important;
+    min-width: 160px;
+    min-height: 160px;
     background: linear-gradient(180deg, #9f84f9BB, #fdc4a89f);
     cursor: pointer;
 }
@@ -58,38 +120,33 @@ h2 b span {
 }
 
 .row {
-    gap: 38px !important;
+    gap: 41px !important;
     scroll-behavior: smooth;
 }
 
-.row a {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: fit-content;
+@media (max-width:1200px) {
+    .ml-15 {
+        margin: 0;
+        text-align: center;
+    }
 }
-
-#MarcarRacha{
-    background-color: var(--true-orange);
-    font-size: 22px;
-    color: var(--cream);
-    margin: 30px;
-    display: flex;
-    align-items: center;
-}
-
-#MarcarRacha b {
-    margin-right: 1rem;
-}
-
-#MarcarRacha i {
-    font-size: 24px;
-}
-
 
 @media (max-width: 500px) {
-
     h2 {
         font-size: 22px !important;
+    }
+
+    .card-img-overlay i {
+        font-size: 18px;
+    }
+
+    i span {
+        font-size: 16px;
+        transform: translateY(-.05rem) !important;
+    }
+
+    .card-img-overlay .texts {
+        transform: translateY(3rem);
     }
 
     .row {
@@ -113,19 +170,17 @@ h2 b span {
     .card {
         width: 120px !important;
         height: 120px !important;
+        min-width: 120px;
+        min-height: 120px;
+    }
+
+    .card img {
+        filter: blur(0.5px) brightness(0.7) saturate(0.8) contrast(0.5);
     }
 
     #Agrupador {
         width: 100% !important;
     }
-}
-
-.container.shadow.rounded-5.cream {
-    width: 1000px;  /* ajuste o valor conforme necessário */
-    height: 250px; /* ajuste o valor conforme necessário */
-    overflow: hidden; /* garante que o conteúdo não afete o tamanho */
-    position: relative;
-    z-index: 0; /* Garante que fique atrás do menu e navbar */
 }
 
 /* Adicione essa regra para impedir a quebra de linha da data */

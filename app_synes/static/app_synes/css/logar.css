@@ -1,0 +1,85 @@
+.container-login {
+    height: 53.2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 73px; /* Height of navbar */
+    margin-bottom: 73px; /* Height of footer */
+}
+
+
+.ajustador-subtitle{
+    transform: translateY(-5rem);
+}
+
+.subtitle{
+    width: 70%;
+}
+
+.box-area {
+    height: 73vh;
+    width: 60vh;
+    max-width: 900px;
+    border-radius: 4rem;
+    margin: 0 auto !important;
+    position: relative;
+}
+
+.right-box {
+padding: 40px 30px 40px 40px;
+}
+
+#ImgBehind {
+background-image: linear-gradient(0deg, rgba(28, 24, 41, 0.25), rgba(28, 24, 41, 0.25)), 
+                  linear-gradient(180deg, rgba(159, 132, 249, 0.5) 0%, rgba(235, 122, 66, 0.5) 100%),
+                  url('{% static "app_synes/images/quadra1.jpeg" %}');
+background-size: cover;
+background-position: center;
+border-radius: 40px 0px 0px 40px;
+}
+
+.h2-texto {
+margin-top: 20vh;  
+margin-bottom: 16vh;
+margin-left: 2.5rem;
+font-size: 3vw;    
+}
+
+.p-texto {
+font-size: 2vw;    
+margin-top: 5vh;    
+}
+
+@media (max-width: 768px) {
+.box-area {
+    width: 90vw;   
+    height: auto;  
+}
+
+#ImgBehind {
+    width: 90vw;   
+    height: auto;  
+}
+
+.h2-texto {
+    font-size: 4vw;   
+    margin-top: 10vh;  
+}
+
+.p-texto {
+    font-size: 8vw;   
+    margin-top: 4vh;  
+}
+}
+
+#LoginBtn {
+background-color: #EB7A42;
+border-radius: 40px;
+border: none;
+color: #FFFFFF;
+margin-top: 2rem; /* Added margin */
+}
+
+#Texto {
+color: #FFFFFF;
+}
