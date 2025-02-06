@@ -365,7 +365,7 @@ def detalhes_quadra(request, id):
 
 def detalhes_jogo(request, id):
     jogo = get_object_or_404(Jogo, id=id)
-    return render(request, 'app_synes/detalhes_jogo.html', {'jogo': jogo})
+    return render(request, 'app_synes/detalhes_racha.html', {'jogo': jogo})
 
 def test_jogo(request):
-    return render(request, 'app_synes/detalhes_jogo.html')
+    return render(request, 'app_synes/detalhes_racha.html')
