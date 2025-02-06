@@ -296,8 +296,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if ({{ user.is_authenticated|yesno:"true,false" }}) {
         map.on('click', function(e) {
-            if(confirm('Deseja cadastrar uma nova arena neste local?')) {
-                window.location.href = "{% url 'cadastrar_arena' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
+            if(confirm('Deseja cadastrar uma nova quadra neste local?')) {
+                window.location.href = "{% url 'cadastrar_quadra' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
             }
         });
     }
