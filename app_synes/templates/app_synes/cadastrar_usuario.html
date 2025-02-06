@@ -1,6 +1,10 @@
 {% extends 'app_synes/base.html' %}
+{% load static %}
 {% block title %}CadêURacha - Cadastro{% endblock %}
 {% block content %}
+<head>
+    <link href="{% static 'app_synes/css/cadastrar_usuario.css' %}" rel="stylesheet">
+</head>
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
@@ -51,114 +55,7 @@
     </div>
 </div>
 
-<style>
-.auth-container {
-    min-height: calc(100vh - 120px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-}
 
-.auth-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-    max-width: 400px;
-}
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.auth-header h2 {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-.auth-header p {
-    color: #666;
-    margin-bottom: 0;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.input-group-text {
-    background-color: white;
-    border-right: none;
-    color: #666;
-    transition: border-color 0.2s ease;
-}
-
-.form-control {
-    border-left: none;
-    padding: 0.75rem;
-    transition: border-color 0.2s ease;
-}
-
-/* Remove outline padrão do Bootstrap */
-.form-control:focus {
-    box-shadow: none;
-    border-color: var(--primary-color);
-}
-
-/* Quando o input está em foco, estiliza também o span adjacente */
-.form-control:focus ~ .input-group-text {
-    border-color: var(--primary-color);
-}
-
-/* Quando o span está em foco, estiliza também o input */
-.input-group:focus-within .input-group-text {
-    border-color: var(--primary-color);
-}
-
-.input-group:focus-within .form-control {
-    border-color: var(--primary-color);
-}
-
-.auth-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
-}
-
-.auth-footer {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.auth-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.auth-link:hover {
-    color: var(--hover-color);
-}
-</style>
 
 <script>
 document.getElementById('registerForm').addEventListener('submit', function(event) {

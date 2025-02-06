@@ -1,0 +1,93 @@
+.auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--color-primary);
+    color: var(--color-text-primary);
+}
+.auth-card {
+    background: var(--color-background-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px var(--shadow-light);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.auth-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+.auth-header h2 {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+.auth-header p {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.input-group-text {
+    background-color: var(--color-background-light);
+    border-right: none;
+    color: var(--color-text-muted);
+    transition: border-color 0.2s ease;
+}
+.form-control {
+    border-left: none;
+    padding: 0.75rem;
+    transition: border-color 0.2s ease;
+    background-color: var(--color-background-default);
+    color: var(--color-text-primary);
+}
+/* Remove outline padrão do Bootstrap */
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--color-primary);
+}
+/* Quando o input está em foco, estiliza também o span adjacente */
+.form-control:focus ~ .input-group-text {
+    border-color: var(--color-primary);
+}
+/* Quando o span está em foco, estiliza também o input */
+.input-group:focus-within .input-group-text {
+    border-color: var(--color-primary);
+}
+.input-group:focus-within .form-control {
+    border-color: var(--color-primary);
+}
+.auth-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.auth-button:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-2px);
+}
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+}
+.auth-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+.auth-link:hover {
+    color: var(--color-primary-hover);
+}

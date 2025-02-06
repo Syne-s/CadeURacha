@@ -1,0 +1,186 @@
+:root {
+    --darker-lilac: #34327B;
+    --dark-purple: #1C1829;
+    --lilac: #9F84F9;
+    --true-orange: #EB7A42;
+    --cream: #FEFAEE;
+    --yellow: #E5C03E;
+    --input-color: rgba(#2C6DA5, 0.1)
+}
+
+.cream a{
+    transition: all .8s ease;
+}
+
+/* Temporário */
+
+.pai{
+    display: table-cell;
+    vertical-align: middle;
+    height: 78vh;
+}
+
+.cream a:hover{
+    opacity: 80%;
+}
+
+body {
+    display: flex;
+    height: 100vh !important;
+    align-items: center;
+    background-color: #34327B;
+}
+
+h4 strong i{
+    color: var(--true-orange);
+}
+
+.cream{
+    background-color: transparent;
+    padding: 1rem;
+    border: 2px solid var(--true-orange);
+}
+
+.row a{
+    width: fit-content;
+}
+
+.no-style{
+    color: var(--dark-purple);
+}
+
+
+.translate{
+    transform: translateY(.1rem);
+}
+
+.agrupador{
+    transform: translateX(-7rem);
+}
+
+.ajustador .container {
+    margin: 0; 
+}
+
+
+.card-img-overlay .texts,  .card-img-overlay h5{
+    font-size: 12px;
+}
+
+.card-img-overlay .texts{
+    transform: translateY(3rem);
+}
+
+.card-img-overlay i {
+    position: absolute;
+    font-size: 25px;
+    top: 10px;
+    right: 0;
+    transform: translateX(-.6rem);
+}
+
+
+.card img {
+    border-radius: 20px !important;
+    object-fit: cover;
+    filter: blur(1px) brightness(0.7) saturate(0.8) contrast(0.5);
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: overlay;
+}
+
+.card {
+    border-radius: 20px !important;
+    width: 120px !important;
+    height: 120px !important;
+    background: linear-gradient(180deg, #9f84f9BB, #fdc4a89f);
+    cursor: pointer;
+}
+
+.w-60{
+    width: 60% !important;
+}
+
+.img-fluid{
+    border-radius: 20px;
+    height: 60% !important;
+    object-fit: cover;
+    width: 70%;
+    aspect-ratio: 16/9;
+    background-position: center;
+}
+
+button{
+    transition: all .8s ease;
+}
+
+button:hover{
+    opacity: 50%;
+}
+
+.organizador .pad{
+    padding: .3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15rem;
+    border-radius: 10px;
+    background-color: var(--darker-lilac);
+}
+
+.pad h4{
+    color: var(--cream);
+    transform: translateY(0.2rem);
+}
+
+.card-title b span{
+    color: var(--true-orange);
+}
+
+.fundo{
+    padding: 6rem 0rem 6rem 0rem;
+    border-radius: 20px;
+    display: flex;
+    height: fit-content !important;
+    flex-direction: column;
+    background-color: #9F84F9;
+    margin: auto;
+}
+
+.botoes button{
+    border-radius: 10px;
+    width: 15rem;
+    padding: .3rem;
+}
+
+#BtnAvaliar{
+    color: var(--true-orange);
+    border: 2px solid var(--true-orange);
+    background-color: var(--cream);
+}
+
+#BtnExcluir{
+    border: 2px solid var(--true-orange);
+    background-color: var(--cream);
+    color: var(--true-orange);
+}
+
+#BtnEditar{
+    border: 2px solid var(--true-orange);
+    background-color: var(--true-orange);
+    color: var(--cream);
+}
+
+#MarcarRacha,
+#MarcarRacha i,
+#MarcarRacha b {
+    width: 286px;
+    height: 52px;
+    background-color: var(--true-orange);
+    font-size: 22px;
+    color: var(--cream);
+}
+
+#MarcarRacha b {
+    margin-right: 1rem;
+}
