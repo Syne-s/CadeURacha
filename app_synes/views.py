@@ -93,7 +93,7 @@ def map_view(request):
     return render(request, 'app_synes/map.html', {'arenas': arenas, 'neighborhoods': neighborhoods})
 
 @login_required
-def cadastrar_arena(request):
+def cadastrar_quadra(request):
     if request.method == 'POST':
         form = ArenaForm(request.POST)
         if form.is_valid():
@@ -101,7 +101,7 @@ def cadastrar_arena(request):
             return redirect('app_synes/map.html')
     else:
         form = ArenaForm()
-    return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
+    return render(request, 'app_synes/cadastrar_quadra.html', {'form': form})
 
 @login_required
 def edit_profile(request):
@@ -144,8 +144,8 @@ def edit_profile(request):
     })
 
 @login_required
-def confirm_delete_account(request):
-    return render(request, 'app_synes/confirm_delete_account.html')
+def confirma_exclusao_usuario(request):
+    return render(request, 'app_synes/confirma_exclusao_usuario.html')
 
 @login_required
 def delete_account(request):
@@ -155,7 +155,7 @@ def delete_account(request):
         user.save()
         messages.success(request, 'Sua conta foi desativada com sucesso.')
         return redirect('index')
-    return redirect('confirm_delete_account')
+    return redirect('confirma_exclusao_usuario')
 
 def criar_jogo(request):
     if request.method == 'POST':
@@ -168,7 +168,7 @@ def criar_jogo(request):
     return render(request, 'app_synes/criar_jogo.html', {'form': form})
 
 @login_required
-def cadastrar_jogo(request):
+def cadastrar_racha(request):
     if request.method == 'POST':
         form = JogoForm(request.POST)
         if form.is_valid():
@@ -187,7 +187,7 @@ def cadastrar_jogo(request):
             messages.error(request, "Erro ao criar jogo. Verifique os dados informados.")
     else:
         form = JogoForm()
-    return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
+    return render(request, 'app_synes/cadastrar_racha.html', {'form': form})
 
 @login_required
 def listar_jogos(request):

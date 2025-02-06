@@ -1,12 +1,12 @@
 {% extends 'app_synes/base.html' %}
 {% load static %}
-{% block title %}Cadastrar Nova Arena{% endblock %}
+{% block title %}Cadastrar Nova Quadra{% endblock %}
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
             <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2 class="text-center mb-0">Cadastrar Nova Arena</h2>
+            <h2 class="text-center mb-0">Cadastrar Nova Quadra</h2>
         </div>
         <form method="post">
             {% csrf_token %}
@@ -31,7 +31,7 @@
             <input type="hidden" name="regiao" id="id_regiao">
             <input type="hidden" name="cep" id="id_cep">
             <input type="hidden" name="pais" id="id_pais">
-            <button type="submit" class="auth-button">Cadastrar Arena</button>
+            <button type="submit" class="auth-button">Cadastrar Quadra</button>
         </form>
     </div>
 </div>

@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
         marker.bindPopup(`
                 <b>${arena.name}</b><br>
                 ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
-                <a href="{% url 'cadastrar_jogo' %}?arena_id=${arena.id}">Cadastrar Jogo</a> 
+                <a href="{% url 'cadastrar_racha' %}?arena_id=${arena.id}">Cadastrar Racha</a> 
             `);
         markers[arena.id] = marker;
 

@@ -1,13 +1,13 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Criar Jogo{% endblock %}
+{% block title %}CadêURacha - Criar Racha{% endblock %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
             <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2 class="text-center mb-0">Criar Jogo</h2>
-            <p class="text-center">Preencha os detalhes do jogo abaixo</p>
+            <h2 class="text-center mb-0">Criar Racha</h2>
+            <p class="text-center">Preencha os detalhes do racha abaixo</p>
         </div>
         {% if messages %}
             {% for message in messages %}
@@ -36,13 +36,13 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-heading"></i></span>
-                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" placeholder="Título do Jogo" required>
+                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" placeholder="Título do Racha" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição do Jogo" required></textarea>
+                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição do Racha" required></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -73,7 +73,7 @@
                 {{ form.bolas }}
                
             </div>
-            <button type="submit" class="auth-button">Criar Jogo</button>
+            <button type="submit" class="auth-button">Criar Racha</button>
         </form>
     </div>
 </div>

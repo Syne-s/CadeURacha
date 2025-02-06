@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import cadastrar_jogo, listar_jogos
+from .views import cadastrar_racha, listar_jogos
 
 urlpatterns = [
     path('cadastrar_usuario/', views.cadastrar_usuario, name='cadastrar_usuario'),
@@ -14,15 +14,15 @@ urlpatterns = [
     path('todos/', views.todos, name='todos'),
     path('', views.index, name='index'),
     path('map/', views.map_view, name='map'),
-    path('cadastrar_arena/', views.cadastrar_arena, name='cadastrar_arena'),
+    path('cadastrar_quadra/', views.cadastrar_quadra, name='cadastrar_quadra'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
-    path('confirm_delete_account/', views.confirm_delete_account, name='confirm_delete_account'),
+    path('confirma_exclusao_usuario/', views.confirma_exclusao_usuario, name='confirma_exclusao_usuario'),
     path('delete_account/', views.delete_account, name='delete_account'),
-    path('cadastrar_jogo/', cadastrar_jogo, name='cadastrar_jogo'),  # Adicionada
+    path('cadastrar_racha/', cadastrar_racha, name='cadastrar_racha'),  # Adicionada
     path('jogos/', listar_jogos, name='listar_jogos'),
     path('jogos/editar/<int:id>/', views.editar_jogo, name='editar_jogo'),  # Adicionada
     path('jogos/excluir/<int:id>/', views.excluir_jogo, name='excluir_jogo'),  # Adicionada

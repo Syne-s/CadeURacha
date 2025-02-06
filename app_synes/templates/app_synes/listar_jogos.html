@@ -1,6 +1,6 @@
 {% extends 'app_synes/base.html' %}
 {% load static %}
-{% block title %}CadêURacha - Meus Jogos{% endblock %}
+{% block title %}CadêURacha - Meus Rachas{% endblock %}
 {% block content %}
 <style>
 
@@ -151,9 +151,9 @@ h2 b span {
         </a>
       </div>
 
-    <!-- Jogos que Criei -->
+    <!-- Rachas que Criei -->
     <div class="d-flex justify-content-center flex-wrap mb-4">
-      <h3 class="w-100 text-center">Jogos que <b>Criei:</b></h3>
+      <h3 class="w-100 text-center">Rachas que <b>Criei:</b></h3>
       <div id="Agrupador" class="d-flex align-items-center w-85">
 
         <button class="no-style">
@@ -165,7 +165,7 @@ h2 b span {
             {% for jogo in jogos_criados %}
               <a href="#">
                 <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                  <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de promoção de Jogo">
+                  <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de promoção do Racha">
                   <div class="card-img-overlay">
                     <i class='bx bxs-basketball'></i>
                     <div class="texts">
@@ -182,7 +182,7 @@ h2 b span {
                 </div>
               </a>
             {% empty %}
-              <p class="text-center">Nenhum jogo criado.</p>
+              <p class="text-center">Nenhum racha criado.</p>
             {% endfor %}
           </div>
         </div>
@@ -194,9 +194,9 @@ h2 b span {
       </div>
     </div>
 
-    <!-- Jogos que Confirmei Presença -->
+    <!-- Rachas que Confirmei Presença -->
     <div class="d-flex justify-content-center flex-wrap">
-      <h3 class="w-100 text-center">Jogos que <b>Confirmei Presença:</b></h3>
+      <h3 class="w-100 text-center">Rachas que <b>Confirmei Presença:</b></h3>
       <div id="Agrupador" class="d-flex align-items-center w-85">
 
         <button class="no-style">
@@ -209,7 +209,7 @@ h2 b span {
               {% if request.user in jogo.participantes.all and jogo.criador_jogo != request.user %}
                 <a href="#">
                   <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                    <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de promoção de Jogo">
+                    <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de promoção do Racha">
                     <div class="card-img-overlay">
                       <i class='bx bxs-basketball'></i>
                       <div class="texts">
@@ -225,7 +225,7 @@ h2 b span {
                 </a>
               {% endif %}
             {% empty %}
-              <p class="text-center">Nenhum jogo com presença confirmada.</p>
+              <p class="text-center">Nenhum racha com presença confirmada.</p>
             {% endfor %}
           </div>
         </div>

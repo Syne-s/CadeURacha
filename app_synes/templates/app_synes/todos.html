@@ -11,7 +11,7 @@
   
   
     <div class="text-center mb-3 w-100">
-      <h2><b>Todas os Jogos e Quadras:</b></h2>
+      <h2><b>Todos os Rachas e Quadras:</b></h2>
     </div>
     <div class="my-5"></div>
   <!-- Seção Quadras -->
@@ -58,9 +58,9 @@
   <!-- Adiciona um espaço entre as seções -->
   <div class="my-5"></div>
 
-  <!-- Seção Jogos -->
+  <!-- Seção Rachas -->
   <div id="jogos-section">
-    <h3 class="w-100 text-center">Jogos:</h3>
+    <h3 class="w-100 text-center">Rachas:</h3>
     <div id="Agrupador" class="d-flex align-items-center w-85">
       <button class="no-style">
         <i class='bx bx-chevron-left arrow'></i>
@@ -74,7 +74,7 @@
                 {% if jogo.imagem %}
                   <img src="{{ jogo.imagem.url }}" class="card-img" alt="Imagem de {{ jogo.titulo }}">
                 {% else %}
-                  <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de jogo">
+                  <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem do racha">
                 {% endif %}
                 <div class="card-img-overlay">
                   <i class='bx bxs-basketball'></i>
@@ -90,7 +90,7 @@
               </div>
             </a>
           {% empty %}
-            <p class="no-data">Nenhum jogo cadastrado.</p>
+            <p class="no-data">Nenhum racha cadastrado.</p>
           {% endfor %}
         </div>
       </div>

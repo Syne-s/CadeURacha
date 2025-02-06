@@ -68,7 +68,7 @@
                                 <h3>{{ user.username }}</h3>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Jogos</a>
+                                <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Rachas</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'edit_profile' %}">Editar Perfil</a>
@@ -200,9 +200,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     data.jogos.forEach(jogo => {
                         const item = document.createElement('div');
                         item.classList.add('result-item');
-                        console.log('Jogo description:', jogo.descricao); // Debug log
+                        console.log('Descrição do Racha:', jogo.descricao); // Debug log
                         item.innerHTML = `
-                            <div><span class="label-jogo">Jogo:</span> ${jogo.titulo}</div>
+                            <div><span class="label-jogo">Racha:</span> ${jogo.titulo}</div>
                             <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
                             <div class="description">${jogo.descricao || 'Sem descrição'}</div>
                         `;
