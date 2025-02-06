@@ -1,0 +1,94 @@
+.mt-8 {
+    margin-top: 0rem;
+}
+
+.test {
+    gap: 7rem;
+    padding: 2rem;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.fundo {
+    width: 409px;
+    height: 386px;
+    border-radius: 30px;
+}
+
+.fundo button {
+    border-radius: 15px;
+    height: 60px;
+    font-size: 30px;
+}
+
+.fundo .texts {
+    font-size: 40px;
+}
+
+.translate {
+    transform: translateY(2rem);
+}
+
+#TextoRacha,
+#ExplorarRacha {
+    color: var(--color-primary);
+    background-color: var(--color-background-light);
+}
+
+#MarcarRacha,
+#TextoExplorar {
+    color: var(--color-background-light);
+    background-color: var(--color-primary);
+}
+
+.fundo:first-child {
+    background-color: var(--color-background-light);
+}
+
+@media (max-width:1000.98px) {
+    .fundo {
+        width: 309px;
+        height: 286px;
+        border-radius: 30px;
+    }
+
+    .translate {
+        transform: translateY(1rem);
+    }
+
+    .fundo button {
+        font-size: 22px;
+    }
+
+    .fundo .texts {
+        font-size: 32px;
+    }
+}
+
+@media (max-width:799.98px) {
+    .fundo {
+        width: 309px;
+        height: 286px;
+        border-radius: 30px;
+    }
+
+    .mt-8 {
+        margin-top: 16rem;
+    }
+}
+
+@media (max-width:500.98px) {
+    .fundo {
+        width: 309px;
+        height: 286px;
+        border-radius: 30px;
+    }
+
+    .mt-8 {
+        margin-top: 18rem;
+    }
+}
