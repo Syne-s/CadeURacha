@@ -4,7 +4,7 @@ from . import views
 from .views import cadastrar_jogo, listar_jogos
 
 urlpatterns = [
-    path('register/', views.register, name='register'),
+    path('cadastrar_usuario/', views.cadastrar_usuario, name='cadastrar_usuario'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('detalhes_quadra/', views.teste, name='detalhes_quadra'),

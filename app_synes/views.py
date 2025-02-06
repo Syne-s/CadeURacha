@@ -12,11 +12,11 @@ from django.utils import timezone
 from django.db.models import Q
 from django.contrib.messages import get_messages
 
-def register(request):
+def cadastrar_usuario(request):
     # Handle GET request - show registration form
     
     if request.method == 'GET':
-        return render(request, 'app_synes/register.html')
+        return render(request, 'app_synes/cadastrar_usuario.html')
     
     # Handle POST request
     if request.method == 'POST':
@@ -47,7 +47,7 @@ def register(request):
             return JsonResponse({'success': True, 'message': 'Cadastro realizado com sucesso!'})
         
         # Handle non-AJAX POST request
-        return render(request, 'app_synes/register.html')
+        return render(request, 'app_synes/cadastrar_usuario.html')
 
     # Handle other methods
     return HttpResponseNotAllowed(['GET', 'POST'])
