@@ -38,12 +38,11 @@
         align-items: center;
     }
 
-   
-
     .fundo {
         width: 409px;
         height: 386px;
         border-radius: 30px;
+        background-color: var(--cor-card-principal);
     }
 
     .fundo button {
@@ -54,26 +53,35 @@
 
     .fundo .texts {
         font-size: 40px;
+        color: var(--cor-texto-principal);
     }
 
     .translate {
         transform: translateY(2rem);
     }
 
-    #TextoRacha,
-    #ExplorarRacha {
-        color: var(--color-primary);
-        background-color: var(--color-background-light);
+    #TextoRacha {
+        background-color: var(--cor-botao-texto);
+    }
+
+    #TextoExplorar,
+    #TextoRacha, {
+        background-color: var(--cor-botao-texto);
     }
 
     #MarcarRacha,
-    #TextoExplorar {
-        color: var(--color-background-light);
-        background-color: var(--color-primary);
+    #ExplorarRacha {
+        background-color: var(--cor-botao-principal);
+        color: var(--cor-botao-texto);
+    }
+
+    #MarcarRacha:hover,
+    #ExplorarRacha:hover {
+        background-color: var(--cor-botao-hover);
     }
 
     .fundo:first-child {
-        background-color: var(--color-background-light);
+        background-color: var(--cor-card-principal);
     }
 
     @media (max-width:1000.98px) {
