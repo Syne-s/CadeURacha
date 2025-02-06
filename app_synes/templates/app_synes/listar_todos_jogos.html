@@ -1,6 +1,6 @@
 {% extends 'app_synes/base.html' %}
 {% load static %}
-{% block title %}CadêURacha - Todos os Jogos{% endblock %}
+{% block title %}CadêURacha - Todos os Rachas{% endblock %}
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
@@ -13,8 +13,8 @@
         {% endif %}
         <div class="auth-header">
             <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2>Todos os Jogos Marcados</h2>
-            <p>Veja todos os jogos marcados no sistema!</p>
+            <h2>Todos os Rachas Marcados</h2>
+            <p>Veja todos os Rachas marcados no sistema!</p>
         </div>
         <div class="jogos-list">
             {% for jogo in jogos %}
@@ -70,12 +70,12 @@
                             <p>Não há participantes confirmados ainda.</p>
                         {% endif %}
                     {% else %}
-                        <p><a href="{% url 'login' %}">Faça login</a> para participar deste jogo.</p>
+                        <p><a href="{% url 'logar' %}">Faça login</a> para participar deste racha.</p>
                     {% endif %}
                 </div>
             {% empty %}
                 <div class="no-jogos">
-                    <p>Não há jogos marcados no momento.</p>
+                    <p>Não há rachas marcados no momento.</p>
                 </div>
             {% endfor %}
         </div>

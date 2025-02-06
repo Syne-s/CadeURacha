@@ -1,5 +1,5 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Encontre seu jogo{% endblock %}
+{% block title %}CadêURacha - Encontre seu Racha{% endblock %}
 
 {% block content %}
 <div class="test mt-8 d-flex justify-content-center align-items-center">
@@ -8,7 +8,7 @@
             Para quem tá <br> <b>afim de uma partidinha</b> <br> 
             <i class='bx bxs-basketball translate'></i>
         </h2>
-        <a href="{% url 'cadastrar_jogo' %}" class="w-75">
+        <a href="{% url 'cadastrar_racha' %}" class="w-75">
             <button id="MarcarRacha" class="border-0 w-100"><b>Marcar Racha</b></button>
         </a>
     </div>
@@ -19,7 +19,7 @@
             <i class='bx bxs-binoculars translate'></i>
         </h2>
         <a href="{% url 'listar_todos_jogos' %}" class="w-75">
-            <button id="ExplorarRacha" class="border-0 w-100"><b>Explorar Jogos</b></button>
+            <button id="ExplorarRacha" class="border-0 w-100"><b>Explorar Rachas</b></button>
         </a>
     </div>
 </div>

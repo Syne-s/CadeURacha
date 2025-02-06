@@ -75,7 +75,7 @@ def login_view(request):
         else:
             return JsonResponse({'success': False, 'message': 'Usuário/E-mail ou senha inválidos.'})
     
-    return render(request, 'app_synes/login.html')
+    return render(request, 'app_synes/logar.html')
 
 def logout_view(request):
     logout(request)
@@ -87,24 +87,24 @@ def index(request):
     """
     return render(request, "app_synes/index.html")
 
-def map_view(request):
+def mapa_view(request):
     arenas = Arena.objects.all().order_by('nome')
     neighborhoods = Arena.objects.values_list('bairro', flat=True).distinct().order_by('bairro')
-    return render(request, 'app_synes/map.html', {'arenas': arenas, 'neighborhoods': neighborhoods})
+    return render(request, 'app_synes/mapa.html', {'arenas': arenas, 'neighborhoods': neighborhoods})
 
 @login_required
-def cadastrar_arena(request):
+def cadastrar_quadra(request):
     if request.method == 'POST':
         form = ArenaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('app_synes/map.html')
+            return redirect('app_synes/mapa.html')
     else:
         form = ArenaForm()
-    return render(request, 'app_synes/cadastrar_arena.html', {'form': form})
+    return render(request, 'app_synes/cadastrar_quadra.html', {'form': form})
 
 @login_required
-def edit_profile(request):
+def editar_perfil(request):
     if request.method == 'POST':
         profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user)  # Add request.FILES
         password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
@@ -133,19 +133,19 @@ def edit_profile(request):
                         else:
                             messages.error(request, error, extra_tags='danger')
         
-        return redirect('edit_profile')
+        return redirect('editar_perfil')
     else:
         profile_form = EditProfileForm(instance=request.user)
         password_form = CustomPasswordChangeForm(user=request.user)
     
-    return render(request, 'app_synes/edit_profile.html', {
+    return render(request, 'app_synes/editar_perfil.html', {
         'profile_form': profile_form,
         'password_form': password_form
     })
 
 @login_required
-def confirm_delete_account(request):
-    return render(request, 'app_synes/confirm_delete_account.html')
+def confirmar_exclusao_usuario(request):
+    return render(request, 'app_synes/confirmar_exclusao_usuario.html')
 
 @login_required
 def delete_account(request):
@@ -155,7 +155,7 @@ def delete_account(request):
         user.save()
         messages.success(request, 'Sua conta foi desativada com sucesso.')
         return redirect('index')
-    return redirect('confirm_delete_account')
+    return redirect('confirmar_exclusao_usuario')
 
 def criar_jogo(request):
     if request.method == 'POST':
@@ -168,7 +168,7 @@ def criar_jogo(request):
     return render(request, 'app_synes/criar_jogo.html', {'form': form})
 
 @login_required
-def cadastrar_jogo(request):
+def cadastrar_racha(request):
     if request.method == 'POST':
         form = JogoForm(request.POST)
         if form.is_valid():
@@ -187,7 +187,7 @@ def cadastrar_jogo(request):
             messages.error(request, "Erro ao criar jogo. Verifique os dados informados.")
     else:
         form = JogoForm()
-    return render(request, 'app_synes/cadastrar_jogo.html', {'form': form})
+    return render(request, 'app_synes/cadastrar_racha.html', {'form': form})
 
 @login_required
 def listar_jogos(request):

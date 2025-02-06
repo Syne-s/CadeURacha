@@ -23,7 +23,7 @@
                 <b>cadê<span>UR</span>acha</b>
             </a>
             
-            <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'map' %}">
+            <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'mapa' %}">
                 <b>MAPA</b>
                 <i id="MapIcon" class='bx bxs-map-alt'></i>
             </a>
@@ -68,10 +68,10 @@
                                 <h3>{{ user.username }}</h3>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Jogos</a>
+                                <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Rachas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'edit_profile' %}">Editar Perfil</a>
+                                <a class="nav-link" href="{% url 'editar_perfil' %}">Editar Perfil</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}">Sair</a>
@@ -108,7 +108,7 @@
                                 <a class="nav-link" href="{% url 'cadastrar_usuario' %}">Cadastro</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                                <a class="nav-link" href="{% url 'logar' %}">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -200,9 +200,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     data.jogos.forEach(jogo => {
                         const item = document.createElement('div');
                         item.classList.add('result-item');
-                        console.log('Jogo description:', jogo.descricao); // Debug log
+                        console.log('Descrição do Racha:', jogo.descricao); // Debug log
                         item.innerHTML = `
-                            <div><span class="label-jogo">Jogo:</span> ${jogo.titulo}</div>
+                            <div><span class="label-jogo">Racha:</span> ${jogo.titulo}</div>
                             <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
                             <div class="description">${jogo.descricao || 'Sem descrição'}</div>
                         `;

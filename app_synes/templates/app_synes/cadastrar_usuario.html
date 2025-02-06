@@ -50,7 +50,7 @@
             <button type="submit" class="auth-button">Cadastrar</button>
         </form>
         <div class="auth-footer">
-            <p>Já tem uma conta? <a href="{% url 'login' %}" class="auth-link">Entre aqui</a></p>
+            <p>Já tem uma conta? <a href="{% url 'logar' %}" class="auth-link">Entre aqui</a></p>
         </div>
     </div>
 </div>
@@ -81,7 +81,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     })
     .then(data => {
         if (data.success) {
-            window.location.href = '{% url "login" %}';
+            window.location.href = '{% url "logar" %}';
         } else {
             const alert = document.createElement('div');
             alert.className = 'alert alert-danger';

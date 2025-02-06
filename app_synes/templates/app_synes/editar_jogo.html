@@ -1,13 +1,13 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}CadêURacha - Editar Jogo{% endblock %}
+{% block title %}CadêURacha - Editar Racha{% endblock %}
 
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
             <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2 class="text-center mb-0">Editar Jogo</h2>
-            <p class="text-center">Atualize os detalhes do jogo abaixo</p>
+            <h2 class="text-center mb-0">Editar Racha</h2>
+            <p class="text-center">Atualize os detalhes do racha abaixo</p>
         </div>
         {% if messages %}
             {% for message in messages %}
@@ -35,34 +35,34 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-heading"></i></span>
-                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" value="{{ jogo.titulo }}" placeholder="Título">
+                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" value="{{ Racha.titulo }}" placeholder="Título">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição">{{ jogo.descricao }}</textarea>
+                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição">{{ Racha.descricao }}</textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ jogo.data|date:'Y-m-d' }}">
+                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ Racha.data|date:'Y-m-d' }}">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" value="{{ jogo.horario }}">
+                    <input type="time" class="form-control" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" value="{{ Racha.horario }}">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-users"></i></span>
-                    <input type="number" class="form-control" name="{{ form.max_jogadores.name }}" id="{{ form.max_jogadores.id_for_label }}" value="{{ jogo.max_jogadores }}" min="1">
+                    <input type="number" class="form-control" name="{{ form.max_jogadores.name }}" id="{{ form.max_jogadores.id_for_label }}" value="{{ Racha.max_jogadores }}" min="1">
                 </div>
             </div>
-            <button type="submit" class="auth-button">Atualizar Jogo</button>
+            <button type="submit" class="auth-button">Atualizar Racha</button>
         </form>
     </div>
 </div>
