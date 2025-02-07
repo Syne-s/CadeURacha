@@ -1,13 +1,13 @@
 <div align="center">
 
-# Synes - CadêURacha 🏀
+# Synes - cadêURacha 🏀
 
 </div>
 
 
 <div align="center">
 
-###### Palavras-Chave: Basquete • Projeto Integrado I • Sistemas e Mídias Digitais • CadêURacha
+###### Palavras-Chave: Basquete • Projeto Integrado I • Sistemas e Mídias Digitais • cadêURacha
 
 </div>
 
