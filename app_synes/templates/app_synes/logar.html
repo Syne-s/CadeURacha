@@ -54,12 +54,12 @@
 </div>
 
 <!-- Modal for updating username -->
-<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true">
+<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Removed btn-close to evitar fechamento sem atualização -->
             </div>
             <div class="modal-body">
                 <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>

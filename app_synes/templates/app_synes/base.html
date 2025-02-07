@@ -13,9 +13,74 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
+    {% if request.user.is_authenticated and request.invalid_username %}
+    <!-- Modal -->
+    <div class="modal fade" id="usernameUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualização Necessária</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Seu nome de usuário não atende aos padrões do sistema. Atualize-o seguindo as regras:</p>
+                    <ul>
+                        <li>Deve começar com uma letra</li>
+                        <li>Pode conter letras, números e sublinhados</li>
+                        <li>Não pode ter sublinhados consecutivos</li>
+                        <li>Não pode ter sublinhados no início/fim</li>
+                        <li>Deve ter entre 4 e 20 caracteres</li>
+                    </ul>
+                    <div class="form-group">
+                        <label for="newUsername">Novo nome de usuário:</label>
+                        <input type="text" class="form-control" id="newUsername" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show modal on page load if username is invalid
+        window.addEventListener('load', function() {
+            const modal = new bootstrap.Modal(document.getElementById('usernameUpdateModal'));
+            modal.show();
+        });
+
+        function updateUsername() {
+            const newUsername = document.getElementById('newUsername').value;
+            const pattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+            
+            if (!pattern.test(newUsername) || newUsername.length < 4 || newUsername.length > 20) {
+                alert('Nome de usuário inválido. Verifique os requisitos.');
+                return;
+            }
+
+            fetch('/update_username/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ username: newUsername })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+    </script>
+    {% endif %}
     <!-- Início Navbar -->
     <nav class="navbar navbar-lg fixed-top">
         <div class="container-fluid d-flex align-items-center">
@@ -224,7 +289,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+{% if request.user.is_authenticated %}
+<!-- Modal for updating username appears on every page -->
+<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
+            </div>
+            <div class="modal-body">
+                <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
+                <ul>
+                    <li>Deve começar com uma letra</li>
+                    <li>Pode conter letras, números e sublinhados</li>
+                    <li>Não pode ter sublinhados consecutivos</li>
+                    <li>Não pode ter sublinhados no início/fim</li>
+                    <li>Deve ter entre 4 e 20 caracteres</li>
+                </ul>
+                <div class="form-group">
+                    <label for="newUsername">Novo nome de usuário:</label>
+                    <input type="text" class="form-control" id="newUsername" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Use the username from the server context and check validity
+    const username = "{{ request.user.username|escapejs }}";
+    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+    if ( username.length < 4 || username.length > 20 || !usernamePattern.test(username) ) {
+        const modalEl = document.getElementById('usernameUpdateModal');
+        if (modalEl) {
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        }
+    }
+});
+
+function validateUsername(username) {
+    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+    return username.length >= 4 && username.length <= 20 && usernamePattern.test(username);
+}
+
+function updateUsername() {
+    const newUsername = document.getElementById('newUsername').value;
+    if (!validateUsername(newUsername)) {
+        alert('O novo nome de usuário não atende aos requisitos.');
+        return;
+    }
+    fetch('/update_username/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({ username: newUsername })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.reload();
+        } else {
+            alert(data.message);
+        }
+    });
+}
 </script>
+{% endif %}
+    </script>
     {% block extra_body %}{% endblock %}
 </body>
 </html>
