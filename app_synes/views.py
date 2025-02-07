@@ -11,6 +11,18 @@ from datetime import datetime, timezone, date
 from django.utils import timezone
 from django.db.models import Q
 from django.contrib.messages import get_messages
+from django.contrib.auth import get_user_model
+
+def check_username(request):
+    username = request.GET.get('username')
+    User = get_user_model()
+    
+    if User.objects.filter(username__iexact=username).exists():
+        return JsonResponse({
+            'exists': True,
+            'message': 'Este nome de usuário já existe (independente de maiúsculas/minúsculas).'
+        })
+    return JsonResponse({'exists': False})
 
 def cadastrar_usuario(request):
     # Handle GET request - show registration form
@@ -27,6 +39,14 @@ def cadastrar_usuario(request):
             password = request.POST.get("password")
             confirm_password = request.POST.get("confirm_password")
             levar_bola = request.POST.get("levar_bola", False)  # Add this line
+
+            User = get_user_model()
+            # Case insensitive check
+            if User.objects.filter(username__iexact=username).exists():
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Este nome de usuário já existe (independente de maiúsculas/minúsculas).'
+                })
 
             if password != confirm_password:
                 return JsonResponse({'success': False, 'message': 'As senhas não coincidem.'})

@@ -26,7 +26,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Nome de Usuário" required>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Nome de Usuário" maxlength="20" required>
                 </div>
             </div>
             <div class="form-group">
@@ -58,8 +58,57 @@
 
 
 <script>
+function validateUsername(username) {
+    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+    
+    if (username.length < 4 || username.length > 20) {
+        return "O nome de usuário deve ter entre 4 e 20 caracteres.";
+    }
+    
+    if (!usernamePattern.test(username)) {
+        return "Nome de usuário inválido. Deve começar com uma letra, pode conter letras, números e sublinhados (não consecutivos e não no início/fim).";
+    }
+    
+    return null;
+}
+
+document.getElementById('username').addEventListener('input', function(e) {
+    const username = e.target.value;
+    
+    fetch(`/check_username/?username=${username}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.exists) {
+                e.target.setCustomValidity(data.message);
+                const errorDiv = document.createElement('div');
+                errorDiv.id = 'username-error';
+                errorDiv.className = 'alert alert-danger mt-2';
+                errorDiv.textContent = data.message;
+                e.target.parentNode.appendChild(errorDiv);
+            } else {
+                e.target.setCustomValidity('');
+                const existingError = document.getElementById('username-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+        });
+});
+
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const error = validateUsername(username);
+    
+    if (error) {
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-danger';
+        alert.textContent = error;
+        form.insertBefore(alert, form.firstChild);
+        return;
+    }
+    
     const form = event.target;
     const formData = new FormData(form);
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;

@@ -7,6 +7,7 @@ from .models import Arena, Jogo
 from io import BytesIO
 from PIL import Image, ImageOps
 from django.core.files.base import ContentFile
+import re
 
 class ArenaForm(forms.ModelForm):
     class Meta:
@@ -100,3 +101,21 @@ class JogoForm(forms.ModelForm):
                         f"Já existe um jogo marcado na quadra '{arena.nome}' no horário selecionado ({horario_obj.strftime('%H:%M')})."
                     )
         return cleaned_data
+
+class CustomUserForm(forms.ModelForm):
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        pattern = re.compile(r'^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$')
+        
+        if len(username) < 4 or len(username) > 20:
+            raise forms.ValidationError(
+                "O nome de usuário deve ter entre 4 e 20 caracteres."
+            )
+            
+        if not pattern.match(username):
+            raise forms.ValidationError(
+                "Nome de usuário inválido. Deve começar com uma letra, pode conter letras, "
+                "números e sublinhados (não consecutivos e não no início/fim)."
+            )
+            
+        return username
