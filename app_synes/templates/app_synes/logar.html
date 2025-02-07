@@ -53,13 +53,50 @@
     </div>
 </div>
 
+<!-- Modal for updating username -->
+<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
+                <ul>
+                    <li>Deve começar com uma letra</li>
+                    <li>Pode conter letras, números e sublinhados</li>
+                    <li>Não pode ter sublinhados consecutivos</li>
+                    <li>Não pode ter sublinhados no início/fim</li>
+                    <li>Deve ter entre 4 e 20 caracteres</li>
+                </ul>
+                <div class="form-group">
+                    <label for="newUsername">Novo nome de usuário:</label>
+                    <input type="text" class="form-control" id="newUsername" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
+function validateUsername(username) {
+    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+    return username.length >= 4 && username.length <= 20 && usernamePattern.test(username);
+}
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Clear existing alerts
+    const existingAlerts = document.querySelectorAll('.alert');
+    existingAlerts.forEach(alert => alert.remove());
 
     fetch(form.action, {
         method: 'POST',
@@ -70,26 +107,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         },
         credentials: 'same-origin'
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            
-            const successAlert = document.createElement('div');
-            successAlert.className = 'alert alert-success';
-            successAlert.textContent = data.message;
-            form.insertBefore(successAlert, form.firstChild);
-            
-            
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1500);
+        if (data.needs_update) {
+            const modal = new bootstrap.Modal(document.getElementById('usernameUpdateModal'));
+            modal.show();
+        } else if (data.success) {
+            window.location.href = '/';
         } else {
-           
             const errorAlert = document.createElement('div');
             errorAlert.className = 'alert alert-danger';
             errorAlert.textContent = data.message;
@@ -98,12 +123,37 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .catch(error => {
         console.error('Error:', error);
-        
         const errorAlert = document.createElement('div');
         errorAlert.className = 'alert alert-danger';
         errorAlert.textContent = 'Erro ao fazer login. Tente novamente.';
         form.insertBefore(errorAlert, form.firstChild);
     });
 });
+
+function updateUsername() {
+    const newUsername = document.getElementById('newUsername').value;
+    
+    if (!validateUsername(newUsername)) {
+        alert('O novo nome de usuário não atende aos requisitos.');
+        return;
+    }
+
+    fetch('/update_username/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({ username: newUsername })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/';  // Redirect to home page
+        } else {
+            alert(data.message);
+        }
+    });
+}
 </script>
 {% endblock %}

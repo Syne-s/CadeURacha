@@ -12,6 +12,8 @@ from django.utils import timezone
 from django.db.models import Q
 from django.contrib.messages import get_messages
 from django.contrib.auth import get_user_model
+import json
+import re
 
 def check_username(request):
     username = request.GET.get('username')
@@ -72,6 +74,10 @@ def cadastrar_usuario(request):
     # Handle other methods
     return HttpResponseNotAllowed(['GET', 'POST'])
 
+def check_invalid_username(username):
+    pattern = re.compile(r'^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$')
+    return not pattern.match(username)
+
 def login_view(request):
     if request.method == 'POST':
         login_input = request.POST['login']
@@ -90,11 +96,17 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
+            if check_invalid_username(user.username):
+                login(request, user)  # Log the user in to allow username update
+                return JsonResponse({
+                    'success': False,
+                    'needs_update': True,
+                    'message': 'Seu nome de usuário precisa ser atualizado.'
+                })
             login(request, user)
-            return JsonResponse({'success': True, 'message': 'Login efetuado com sucesso!'})
+            return JsonResponse({'success': True})
         else:
-            return JsonResponse({'success': False, 'message': 'Usuário/E-mail ou senha inválidos.'})
-    
+            return JsonResponse({'success': False, 'message': 'Usuário ou senha inválidos.'})
     return render(request, 'app_synes/logar.html')
 
 def logout_view(request):
@@ -370,6 +382,32 @@ def levar_bola(request, jogo_id):
         request.user.save()
 
     return redirect('listar_todos_jogos')
+
+def update_username(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_username = data.get('username')
+        
+        if not re.match(r'^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$', new_username):
+            return JsonResponse({
+                'success': False,
+                'message': 'Nome de usuário inválido'
+            })
+            
+        try:
+            request.user.username = new_username
+            request.user.save()
+            return JsonResponse({
+                'success': True,
+                'message': 'Nome de usuário atualizado com sucesso'
+            })
+        except:
+            return JsonResponse({
+                'success': False,
+                'message': 'Erro ao atualizar nome de usuário'
+            })
+    
+    return JsonResponse({'success': False, 'message': 'Método não permitido'})
 
 def teste(request):
     return render(request, 'app_synes/detalhes_quadra.html')  # Especifique o caminho completo

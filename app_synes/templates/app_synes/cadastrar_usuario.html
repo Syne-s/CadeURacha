@@ -55,7 +55,34 @@
     </div>
 </div>
 
-
+<!-- Add modal to logar.html -->
+<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
+                <ul>
+                    <li>Deve começar com uma letra</li>
+                    <li>Pode conter letras, números e sublinhados</li>
+                    <li>Não pode ter sublinhados consecutivos</li>
+                    <li>Não pode ter sublinhados no início/fim</li>
+                    <li>Deve ter entre 4 e 20 caracteres</li>
+                </ul>
+                <div class="form-group">
+                    <label for="newUsername">Novo nome de usuário:</label>
+                    <input type="text" class="form-control" id="newUsername" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 function validateUsername(username) {
@@ -146,5 +173,46 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         form.insertBefore(alert, form.firstChild);
     });
 });
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const username = formData.get('login');
+
+    if (!validateUsername(username)) {
+        const modal = new bootstrap.Modal(document.getElementById('usernameUpdateModal'));
+        modal.show();
+        return;
+    }
+
+    // Existing login code...
+});
+
+function updateUsername() {
+    const newUsername = document.getElementById('newUsername').value;
+    
+    if (!validateUsername(newUsername)) {
+        alert('O novo nome de usuário não atende aos requisitos.');
+        return;
+    }
+
+    fetch('/update_username/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({ username: newUsername })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/';  // Redirect to home page
+        } else {
+            alert(data.message);
+        }
+    });
+}
 </script>
 {% endblock %}
