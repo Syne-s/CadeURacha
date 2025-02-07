@@ -101,6 +101,28 @@ function validateUsername(username) {
 
 document.getElementById('username').addEventListener('input', function(e) {
     const username = e.target.value;
+    const error = validateUsername(username);
+    
+    // Remove existing error message if any
+    const existingError = document.getElementById('username-error');
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    if (error) {
+        const errorDiv = document.createElement('div');
+        errorDiv.id = 'username-error';
+        errorDiv.className = 'alert alert-danger mt-2';
+        errorDiv.textContent = error;
+        e.target.parentNode.appendChild(errorDiv);
+        e.target.setCustomValidity(error);
+    } else {
+        e.target.setCustomValidity('');
+    }
+});
+
+document.getElementById('username').addEventListener('input', function(e) {
+    const username = e.target.value;
     
     fetch(`/check_username/?username=${username}`)
         .then(response => response.json())
