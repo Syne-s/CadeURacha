@@ -7,12 +7,11 @@
     margin-bottom: 73px; /* Height of footer */
 }
 
-
-.ajustador-subtitle{
+.ajustador-subtitle {
     transform: translateY(-5rem);
 }
 
-.subtitle{
+.subtitle {
     width: 70%;
 }
 
@@ -26,60 +25,101 @@
 }
 
 .right-box {
-padding: 40px 30px 40px 40px;
+    padding: 40px 30px 40px 40px;
 }
 
 #ImgBehind {
-background-image: linear-gradient(0deg, rgba(28, 24, 41, 0.25), rgba(28, 24, 41, 0.25)), 
-                  linear-gradient(180deg, rgba(159, 132, 249, 0.5) 0%, rgba(235, 122, 66, 0.5) 100%),
-                  url('{% static "app_synes/images/quadra1.jpeg" %}');
-background-size: cover;
-background-position: center;
-border-radius: 40px 0px 0px 40px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 40px 0px 0px 40px;
 }
 
-.h2-texto {
-margin-top: 20vh;  
-margin-bottom: 16vh;
-margin-left: 2.5rem;
-font-size: 3vw;    
+.h2-texto {  
+    margin-top: 2vh;  /* Adjusted from 5vh */
+    font-size: 3vw;    
 }
 
-.p-texto {
-font-size: 2vw;    
-margin-top: 5vh;    
+.ajustador-subtitle {
+    margin-top: 1vh;  /* Adjusted from 4vh */
+}
+
+.subtitle {
+    width: 70%;
+}
+
+.text-center.mb-2 {
+    margin-top: 1vh;  /* Adjusted from 2vh */
 }
 
 @media (max-width: 768px) {
-.box-area {
-    width: 90vw;   
-    height: auto;  
-}
+    .box-area {
+        width: 90vw;   
+        height: auto;  
+    }
 
-#ImgBehind {
-    width: 90vw;   
-    height: auto;  
-}
+    #ImgBehind {
+        width: 90vw;   
+        height: auto;  
+    }
 
-.h2-texto {
-    font-size: 4vw;   
-    margin-top: 10vh;  
-}
+    .h2-texto {
+        font-size: 4vw;   
+        margin-top: 3vh;  /* Adjusted from 10vh */
+    }
 
-.p-texto {
-    font-size: 8vw;   
-    margin-top: 4vh;  
-}
+    .ajustador-subtitle {
+        margin-top: 2vh;  /* Adjusted from 4vh */
+    }
+
+    .text-center.mb-2 {
+        margin-top: 2vh;  /* Adjusted from 4vh */
+    }
 }
 
 #LoginBtn {
-background-color: #EB7A42;
-border-radius: 40px;
-border: none;
-color: #FFFFFF;
-margin-top: 2rem; /* Added margin */
+    background-color: #EB7A42;
+    border-radius: 40px;
+    border: none;
+    color: #FFFFFF;
+    margin-top: 2rem;
+    width: calc(100% - 60px) !important;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
 }
 
 #Texto {
-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+#loginForm {
+    padding: 0 30px;
+}
+
+.form-control {
+    width: calc(100% - 60px);
+    margin: 0 auto;
+}
+
+.form-control-lg {
+    width: calc(100% - 60px) !important;
+    margin: 0 auto !important;
+}
+
+.mb-6 {
+    padding: 0;
+}
+
+.form-label {
+    padding-left: 30px;
+}
+
+.input-group {
+    padding: 0;
+    width: 100%;
+}
+
+#password.form-control-lg {
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+    width: calc(100% - 60px) !important;
 }
