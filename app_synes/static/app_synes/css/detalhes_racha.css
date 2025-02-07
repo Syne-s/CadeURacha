@@ -1,13 +1,3 @@
-:root {
-    --darker-lilac: #34327B;
-    --dark-purple: #1C1829;
-    --lilac: #9F84F9;
-    --true-orange: #EB7A42;
-    --cream: #FEFAEE;
-    --yellow: #E5C03E;
-    --input-color: rgba(#2C6DA5, 0.1)
-}
-
 .cream a{
     transition: all .8s ease;
 }
