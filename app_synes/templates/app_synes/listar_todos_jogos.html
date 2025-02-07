@@ -2,6 +2,10 @@
 {% load static %}
 {% block title %}cadêURacha - Todos os Rachas{% endblock %}
 {% block content %}
+<head>
+    <link href="{% static 'app_synes/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'app_synes/css/listar_jogos.css' %}" rel="stylesheet">
+</head>
 <div class="auth-container">
     <div class="auth-card">
         {% if messages %}
@@ -81,119 +85,9 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
-<style>
-
-.btn-excluir-presenca{
-    width: 30%;
-    padding: 0.55rem;
-    background-color: var(--negative-red);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 300;
-    transition: all 0.2s ease;
-}
-
-.btn-excluir-presenca:hover {
-    background-color: var(--negative-red-hover);
-    transform: translateY(-2px);
-}
-.btn-confirmar-presenca {
-    width: 30%;
-    padding: 0.55rem;
-    background-color: var(--true-orange);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 300;
-    transition: all 0.2s ease;
-}
-.btn-confirmar-presenca:hover {
-    background-color:  var(--true-orange-hover);
-    transform: translateY(-2px);
-}
-
-.auth-container {
-    min-height: calc(100vh - 120px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-}
-
-.auth-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-    max-width: 600px;
-}
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.auth-icon {
-    font-size: 2.5rem;
-    color: var(--true-orange);
-    margin-bottom: 1rem;
-}
-
-.auth-header h2 {
-    color: var(--true-orange);
-    margin-bottom: 0.5rem;
-}
-
-.auth-header p {
-    color: #666;
-    margin-bottom: 0;
-}
-
-.jogos-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.jogo-item {
-    background: white;
-    border: 1px solid var(--true-orange);
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-.jogo-titulo {
-    color: var(--true-orange);
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.jogo-info {
-    color: var(--dark-purple);
-    margin-bottom: 0;
-    font-size: 0.95rem;
-}
-
-.jogo-descricao {
-    color: #666;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    font-style: italic;
-}
-
-.no-jogos {
-    text-align: center;
-    color: #666;
-    padding: 2rem;
-    background: var(--darker-lilac);
-    border-radius: 8px;
-}
-</style>
-
+{% block scripts %}
 <script>
     
 document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
