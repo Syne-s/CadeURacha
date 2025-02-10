@@ -140,7 +140,6 @@ python manage.py runserver
 
 ---
 
-<div align="center">
   
 <a id="requisitos-funcionais"></a>
 ## 📑 Requisitos Funcionais: 
@@ -151,6 +150,7 @@ python manage.py runserver
 
 <br>
 
+<div align="center">
 
 
 | **ID** | **Requisito Funcional**                                  | **Status**     | 
@@ -183,10 +183,10 @@ python manage.py runserver
 ---
 <a id="requisitos-desejaveis"></a>
 ## 📑 Requisitos Desejáveis: 
-<div align="center">
 
 <br>
 
+<div align="center">
 | **ID** | **Requisito Desejável**                                  | **Status**     |
 |--------|-----------------------------------------------------------|----------------|
 | RD001  | Notificação para jogadores sobre a criação de novos jogos | 🛑 Não iniciado |
