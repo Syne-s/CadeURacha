@@ -196,6 +196,7 @@ python manage.py runserver
 | RD005  | Permitir o cadastro de quadras apenas para administradores | 🛑 Não iniciado |
 | RD006  | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
 | RD007  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
+| RD008  | Avaliar Quadra                                            | 🛑 Não iniciado |
 
 
 </div>
