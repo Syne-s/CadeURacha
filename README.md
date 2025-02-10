@@ -186,9 +186,9 @@ python manage.py runserver
 <a id="requisitos-desejaveis"></a>
 ## 📑 Requisitos Desejáveis: 
 
+<div align="center">
 <br>
 
-<div align="center">
 
   
 | **ID** | **Requisito Desejável**                                  | **Status**     |
