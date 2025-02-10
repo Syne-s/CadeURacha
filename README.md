@@ -189,6 +189,8 @@ python manage.py runserver
 <br>
 
 <div align="center">
+
+  
 | **ID** | **Requisito Desejável**                                  | **Status**     |
 |--------|-----------------------------------------------------------|----------------|
 | RD001  | Notificação para jogadores sobre a criação de novos jogos | 🛑 Não iniciado |
