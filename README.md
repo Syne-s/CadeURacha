@@ -181,6 +181,8 @@ python manage.py runserver
 | RF024  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
 
 ---
+
+</div>
 <a id="requisitos-desejaveis"></a>
 ## 📑 Requisitos Desejáveis: 
 
