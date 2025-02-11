@@ -140,7 +140,6 @@ python manage.py runserver
 
 ---
 
-<div align="center">
   
 <a id="requisitos-funcionais"></a>
 ## 📑 Requisitos Funcionais: 
@@ -151,6 +150,7 @@ python manage.py runserver
 
 <br>
 
+<div align="center">
 
 
 | **ID** | **Requisito Funcional**                                  | **Status**     | 
@@ -181,12 +181,18 @@ python manage.py runserver
 | RF024  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
 
 ---
+
+</div>
+
+
 <a id="requisitos-desejaveis"></a>
 ## 📑 Requisitos Desejáveis: 
-<div align="center">
 
+<div align="center">
 <br>
 
+
+  
 | **ID** | **Requisito Desejável**                                  | **Status**     |
 |--------|-----------------------------------------------------------|----------------|
 | RD001  | Notificação para jogadores sobre a criação de novos jogos | 🛑 Não iniciado |
@@ -196,6 +202,7 @@ python manage.py runserver
 | RD005  | Permitir o cadastro de quadras apenas para administradores | 🛑 Não iniciado |
 | RD006  | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
 | RD007  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
+| RD008  | Avaliar Quadra                                            | 🛑 Não iniciado |
 
 
 </div>
