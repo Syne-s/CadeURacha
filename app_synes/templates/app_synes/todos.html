@@ -33,12 +33,9 @@
                   <img src="{% static 'app_synes/images/quadra.jpeg' %}" class="card-img" alt="Imagem de quadra">
                 {% endif %}
                 <div class="card-img-overlay">
-                  <i class='bx bxs-star d-flex align-items-center'>
-                    <span id="Media">{{ quadra.rating|default:"N/A" }}</span>
-                  </i>
                   <div class="texts quadra">
                     <p class="card-title text-center mb-flex text-truncate"><b>{{ quadra.nome }}</b></p>
-                    <p class="card-title text-center">{{ quadra.bairro }}</p>
+                    <p class="card-title text-center text-truncate">{{ quadra.bairro }}</p>
                   </div>
                 </div>
               </div>
@@ -105,6 +102,23 @@
 
 
 <script>
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".arrow").forEach(arrow => {
+        arrow.addEventListener("click", function () {
+            let agrupador = this.closest("#Agrupador");
+            let container = agrupador.querySelector(".container .row");
+            let scrollAmount = 100;
+
+            if (this.classList.contains("bx-chevron-left")) {
+                container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+            }
+        });
+    });
+});
 // Para cada elemento de horário, calcula o horário final 2 horas à frente
 document.querySelectorAll('.jogo-horario').forEach(function(elem) {
     let start = elem.textContent.trim();

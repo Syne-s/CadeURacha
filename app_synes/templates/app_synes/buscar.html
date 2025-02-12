@@ -1,0 +1,157 @@
+{% extends 'app_synes/base.html' %} {% load static %} {% block title
+%}cadêURacha - Todos{% endblock %} {% block extra_head %}
+<head>
+  <link href="{% static 'app_synes/css/listar_jogos.css' %}" rel="stylesheet" />
+</head>
+{% endblock %} {% block content %}
+<body>
+  <div class="text-center mb-3 w-100">
+    <h2>Resultados para<b>"<span>Sapiranga</span>"</b></h2>
+  </div>
+  <div class="my-5"></div>
+  <!-- Seção Quadras -->
+  <div id="quadras-section">
+    <h3 class="w-100 text-center">Quadras:</h3>
+    <div id="Agrupador" class="d-flex align-items-center w-85">
+      <button class="no-style">
+        <i class="bx bx-chevron-left arrow"></i>
+      </button>
+
+      <div class="container shadow rounded-5 cream">
+        <div class="row d-flex flex-nowrap overflow-auto w-100">
+          {% for quadra in quadras %}
+          <a href="{% url 'detalhes_quadra' quadra.id %}">
+            <div class="card border-0 text-bg-dark ratio ratio-1x1">
+              {% if quadra.imagem %}
+              <img
+                src="{{ quadra.imagem.url }}"
+                class="card-img"
+                alt="Imagem de {{ quadra.nome }}"
+              />
+              {% else %}
+              <img
+                src="{% static 'app_synes/images/quadra.jpeg' %}"
+                class="card-img"
+                alt="Imagem de quadra"
+              />
+              {% endif %}
+              <div class="card-img-overlay">
+                <div class="texts quadra">
+                  <p class="card-title text-center mb-flex text-truncate">
+                    <b>{{ quadra.nome }}</b>
+                  </p>
+                  <p class="card-title text-center text-truncate">
+                    {{ quadra.bairro }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% empty %}
+          <p class="no-data">Nenhuma quadra cadastrada.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="no-style">
+        <i class="bx bx-chevron-right arrow"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Adiciona um espaço entre as seções -->
+  <div class="my-5"></div>
+
+  <!-- Seção Rachas -->
+  <div id="jogos-section">
+    <h3 class="w-100 text-center">Rachas:</h3>
+    <div id="Agrupador" class="d-flex align-items-center w-85">
+      <button class="no-style">
+        <i class="bx bx-chevron-left arrow"></i>
+      </button>
+
+      <div class="container shadow rounded-5 cream">
+        <div class="row d-flex flex-nowrap overflow-auto w-100">
+          {% for jogo in jogos %}
+          <a href="{% url 'detalhes_jogo' jogo.id %}">
+            <div class="card border-0 text-bg-dark ratio ratio-1x1">
+              {% if jogo.imagem %}
+              <img
+                src="{{ jogo.imagem.url }}"
+                class="card-img"
+                alt="Imagem de {{ jogo.titulo }}"
+              />
+              {% else %}
+              <img
+                src="{% static 'app_synes/images/space.jpg' %}"
+                class="card-img"
+                alt="Imagem do racha"
+              />
+              {% endif %}
+              <div class="card-img-overlay">
+                <i class="bx bxs-basketball"></i>
+                <div class="texts">
+                  <h5 class="card-title text-center">
+                    <b>{{ jogo.data|date:"d/m/Y" }}</b>
+                  </h5>
+                  <p class="card-title text-center">
+                    <b class="jogo-horario">{{ jogo.horario }}</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% empty %}
+          <p class="no-data">Nenhum racha cadastrado.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="no-style">
+        <i class="bx bx-chevron-right arrow"></i>
+      </button>
+    </div>
+  </div>
+</body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".arrow").forEach((arrow) => {
+      arrow.addEventListener("click", function () {
+        let agrupador = this.closest("#Agrupador");
+        let container = agrupador.querySelector(".container .row");
+        let scrollAmount = 100;
+
+        if (this.classList.contains("bx-chevron-left")) {
+          container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+        } else {
+          container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+      });
+    });
+  });
+  // Para cada elemento de horário, calcula o horário final 2 horas à frente
+  document.querySelectorAll(".jogo-horario").forEach(function (elem) {
+    let start = elem.textContent.trim();
+    // Pressupõe o formato "HH:MM" (ex.: "20:00")
+    let parts = start.split(":");
+    if (parts.length === 2) {
+      let hours = parseInt(parts[0], 10);
+      let minutes = parseInt(parts[1], 10);
+      // Calcula o horário final adicionando 2 horas
+      let endHours = (hours + 2) % 24;
+      // Função para garantir 2 dígitos
+      let pad = (num) => (num < 10 ? "0" + num : num);
+      elem.textContent =
+        pad(hours) +
+        ":" +
+        pad(minutes) +
+        " - " +
+        pad(endHours) +
+        ":" +
+        pad(minutes);
+    }
+  });
+</script>
+
+{% endblock %}
