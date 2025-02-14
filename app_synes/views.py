@@ -22,7 +22,7 @@ def check_username(request):
     if User.objects.filter(username__iexact=username).exists():
         return JsonResponse({
             'exists': True,
-            'message': 'Este nome de usuário já existe (independente de maiúsculas/minúsculas).'
+            'message': 'Nome de usuário já em uso'
         })
     return JsonResponse({'exists': False})
 

@@ -35,6 +35,7 @@
                     <li id="req-no-underscores-start-end" class="text-danger">Não pode ter sublinhados no início/fim</li>
                     <li id="req-length" class="text-danger">Deve ter entre 4 e 20 caracteres</li>
                 </ul>
+                <div id="username-feedback" class="mt-2"></div>
             </div>
             <div class="form-group">
                 <div class="input-group">
@@ -117,29 +118,29 @@ document.getElementById('username').addEventListener('input', function(e) {
 
     const allValid = Object.values(requirements).every(Boolean);
     e.target.setCustomValidity(allValid ? '' : 'Nome de usuário inválido.');
-});
 
-document.getElementById('username').addEventListener('input', function(e) {
-    const username = e.target.value;
-    
-    fetch(`/check_username/?username=${username}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.exists) {
-                e.target.setCustomValidity(data.message);
-                const errorDiv = document.createElement('div');
-                errorDiv.id = 'username-error';
-                errorDiv.className = 'alert alert-danger mt-2';
-                errorDiv.textContent = data.message;
-                e.target.parentNode.appendChild(errorDiv);
-            } else {
-                e.target.setCustomValidity('');
-                const existingError = document.getElementById('username-error');
-                if (existingError) {
-                    existingError.remove();
+    // Check if username already exists only if it has at least 4 characters
+    if (username.length >= 4) {
+        fetch(`/check_username/?username=${username}`)
+            .then(response => response.json())
+            .then(data => {
+                const feedback = document.getElementById('username-feedback');
+                if (data.exists) {
+                    feedback.className = 'alert alert-danger';
+                    feedback.textContent = data.message;
+                    e.target.setCustomValidity(data.message);
+                } else {
+                    feedback.className = 'alert alert-success';
+                    feedback.textContent = 'Nome de usuário disponível';
+                    e.target.setCustomValidity('');
                 }
-            }
-        });
+            });
+    } else {
+        const feedback = document.getElementById('username-feedback');
+        feedback.className = '';
+        feedback.textContent = '';
+        e.target.setCustomValidity('Nome de usuário inválido.');
+    }
 });
 
 document.getElementById('registerForm').addEventListener('submit', function(event) {
