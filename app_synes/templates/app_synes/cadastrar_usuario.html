@@ -28,6 +28,13 @@
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Nome de Usuário" maxlength="20" required>
                 </div>
+                <ul id="username-requirements" class="list-unstyled mt-2">
+                    <li id="req-start-letter" class="text-danger">Deve começar com uma letra</li>
+                    <li id="req-valid-chars" class="text-danger">Pode conter letras, números e sublinhados</li>
+                    <li id="req-no-consecutive-underscores" class="text-danger">Não pode ter sublinhados consecutivos</li>
+                    <li id="req-no-underscores-start-end" class="text-danger">Não pode ter sublinhados no início/fim</li>
+                    <li id="req-length" class="text-danger">Deve ter entre 4 e 20 caracteres</li>
+                </ul>
             </div>
             <div class="form-group">
                 <div class="input-group">
@@ -87,38 +94,29 @@
 <script>
 function validateUsername(username) {
     const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+    const requirements = {
+        startLetter: /^[a-zA-Z]/.test(username),
+        validChars: /^[a-zA-Z0-9_]*$/.test(username),
+        noConsecutiveUnderscores: !/__/.test(username),
+        noUnderscoresStartEnd: !/^_|_$/.test(username),
+        length: username.length >= 4 && username.length <= 20
+    };
     
-    if (username.length < 4 || username.length > 20) {
-        return "O nome de usuário deve ter entre 4 e 20 caracteres.";
-    }
-    
-    if (!usernamePattern.test(username)) {
-        return "Nome de usuário inválido. Deve começar com uma letra, pode conter letras, números e sublinhados (não consecutivos e não no início/fim).";
-    }
-    
-    return null;
+    return requirements;
 }
 
 document.getElementById('username').addEventListener('input', function(e) {
     const username = e.target.value;
-    const error = validateUsername(username);
-    
-    // Remove existing error message if any
-    const existingError = document.getElementById('username-error');
-    if (existingError) {
-        existingError.remove();
-    }
-    
-    if (error) {
-        const errorDiv = document.createElement('div');
-        errorDiv.id = 'username-error';
-        errorDiv.className = 'alert alert-danger mt-2';
-        errorDiv.textContent = error;
-        e.target.parentNode.appendChild(errorDiv);
-        e.target.setCustomValidity(error);
-    } else {
-        e.target.setCustomValidity('');
-    }
+    const requirements = validateUsername(username);
+
+    document.getElementById('req-start-letter').className = requirements.startLetter ? 'text-success' : 'text-danger';
+    document.getElementById('req-valid-chars').className = requirements.validChars ? 'text-success' : 'text-danger';
+    document.getElementById('req-no-consecutive-underscores').className = requirements.noConsecutiveUnderscores ? 'text-success' : 'text-danger';
+    document.getElementById('req-no-underscores-start-end').className = requirements.noUnderscoresStartEnd ? 'text-success' : 'text-danger';
+    document.getElementById('req-length').className = requirements.length ? 'text-success' : 'text-danger';
+
+    const allValid = Object.values(requirements).every(Boolean);
+    e.target.setCustomValidity(allValid ? '' : 'Nome de usuário inválido.');
 });
 
 document.getElementById('username').addEventListener('input', function(e) {
