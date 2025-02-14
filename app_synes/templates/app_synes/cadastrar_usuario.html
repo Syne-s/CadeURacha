@@ -147,21 +147,20 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     event.preventDefault();
     
     const username = document.getElementById('username').value;
-    const error = validateUsername(username);
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
     
-    if (error) {
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-danger';
-        alert.textContent = error;
-        form.insertBefore(alert, form.firstChild);
+    // Validação básica
+    if (password !== confirmPassword) {
+        alert('As senhas não coincidem');
         return;
     }
     
-    const form = event.target;
-    const formData = new FormData(form);
+    const formData = new FormData(this);
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    fetch(form.action, {
+    fetch('', {
         method: 'POST',
         body: formData,
         headers: {
@@ -170,28 +169,18 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         },
         credentials: 'same-origin'
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = '{% url "logar" %}';
+            alert(data.message);
+            window.location.href = '/logar/';
         } else {
-            const alert = document.createElement('div');
-            alert.className = 'alert alert-danger';
-            alert.textContent = data.message || 'Erro ao processar o cadastro';
-            form.insertBefore(alert, form.firstChild);
+            alert(data.message);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-danger';
-        alert.textContent = 'Ocorreu um erro ao processar sua solicitação';
-        form.insertBefore(alert, form.firstChild);
+        alert('Ocorreu um erro ao processar o cadastro');
     });
 });
 

@@ -27,23 +27,18 @@ def check_username(request):
     return JsonResponse({'exists': False})
 
 def cadastrar_usuario(request):
-    # Handle GET request - show registration form
-    
     if request.method == 'GET':
         return render(request, 'app_synes/cadastrar_usuario.html')
     
-    # Handle POST request
     if request.method == 'POST':
-        # Check if request is AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             username = request.POST.get("username")
             email = request.POST.get("email")
             password = request.POST.get("password")
             confirm_password = request.POST.get("confirm_password")
-            levar_bola = request.POST.get("levar_bola", False)  # Add this line
+            levar_bola = request.POST.get("levar_bola", False)
 
             User = get_user_model()
-            # Case insensitive check
             if User.objects.filter(username__iexact=username).exists():
                 return JsonResponse({
                     'success': False,
@@ -63,15 +58,13 @@ def cadastrar_usuario(request):
                 username=username,
                 email=email,
                 password=password,
-                levar_bola=levar_bola  # Add this line
+                levar_bola=levar_bola
             )
 
             return JsonResponse({'success': True, 'message': 'Cadastro realizado com sucesso!'})
         
-        # Handle non-AJAX POST request
         return render(request, 'app_synes/cadastrar_usuario.html')
 
-    # Handle other methods
     return HttpResponseNotAllowed(['GET', 'POST'])
 
 def check_invalid_username(username):
