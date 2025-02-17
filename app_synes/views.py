@@ -26,11 +26,24 @@ def check_username(request):
         })
     return JsonResponse({'exists': False})
 
+def check_email(request):
+    email = request.GET.get('email')
+    if email and CustomUser.objects.filter(email__iexact=email).exists():
+        return JsonResponse({
+            'exists': True,
+            'message': 'E-mail já está registrado.'
+        })
+    return JsonResponse({'exists': False})
+
+# Expressão regular para validar o formato do e-mail
+EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+
 def cadastrar_usuario(request):
     if request.method == 'GET':
         return render(request, 'app_synes/cadastrar_usuario.html')
     
     if request.method == 'POST':
+        # Tratamento para requisição AJAX
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             username = request.POST.get("username")
             email = request.POST.get("email")
@@ -38,33 +51,33 @@ def cadastrar_usuario(request):
             confirm_password = request.POST.get("confirm_password")
             levar_bola = request.POST.get("levar_bola", False)
 
-            User = get_user_model()
-            if User.objects.filter(username__iexact=username).exists():
-                return JsonResponse({
-                    'success': False,
-                    'message': 'Este nome de usuário já existe (independente de maiúsculas/minúsculas).'
-                })
-
+            # Validação de formato de e-mail
+            if not re.match(EMAIL_REGEX, email):
+                return JsonResponse({'success': False, 'message': 'Digite um e-mail válido.'})
+            
+            # Verifica se o e-mail já está registrado (ignora case)
+            if CustomUser.objects.filter(email__iexact=email).exists():
+                return JsonResponse({'success': False, 'message': 'E-mail já está registrado.'})
+            
             if password != confirm_password:
                 return JsonResponse({'success': False, 'message': 'As senhas não coincidem.'})
-
+            
+            # Verifica se o nome de usuário já existe
             if CustomUser.objects.filter(username=username).exists():
                 return JsonResponse({'success': False, 'message': 'Nome de usuário já existe.'})
-
-            if CustomUser.objects.filter(email=email).exists():
-                return JsonResponse({'success': False, 'message': 'E-mail já está registrado.'})
-
+            
+            # Cria o novo usuário
             user = CustomUser.objects.create_user(
                 username=username,
                 email=email,
                 password=password,
                 levar_bola=levar_bola
             )
-
+            
             return JsonResponse({'success': True, 'message': 'Cadastro realizado com sucesso!'})
         
         return render(request, 'app_synes/cadastrar_usuario.html')
-
+    
     return HttpResponseNotAllowed(['GET', 'POST'])
 
 def check_invalid_username(username):

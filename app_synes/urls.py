@@ -33,4 +33,5 @@ urlpatterns = [
     path('jogo/<int:jogo_id>/levar_bola/', views.levar_bola, name='levar_bola'),
     path('check_username/', views.check_username, name='check_username'),
     path('update_username/', views.update_username, name='update_username'),
+    path('check_email/', views.check_email, name='check_email'),
 ]
