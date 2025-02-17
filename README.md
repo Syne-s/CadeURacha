@@ -14,7 +14,7 @@
 ## Sumário:
 - [Sobre](#sobre)
 - [Equipe](#equipe)
-- [Instalação](#instalacao)
+- [Instalação (Windows)](#instalacao)
 - [Requisitos Funcionais](#requisitos-funcionais)
 - [Relatório e Apresentação](#relatório-e-apresentação)
 
@@ -55,7 +55,7 @@ Para isso, optamos por utilizar a linguagem **Python** com o framework **Django*
 ---
 
 <a id="instalacao"></a>
-## 🚀 Instalação
+## 🚀 Instalação (Windows)
 
 ### Pré-requisitos
 
