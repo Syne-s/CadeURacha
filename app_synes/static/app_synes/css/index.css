@@ -46,6 +46,14 @@
     --color-background-muted: var(--color-background-light);
 }
 
+body{
+    background-image: url(img/fundo.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+}
+
 
 .mt-8 {
     margin-top: 0rem;
@@ -59,12 +67,6 @@
     justify-content: center;
     align-items: center;
 }
-
-#TextoPrincipal{
-    color: var(--color-background-default);
-    font-size: 45px;
-}
-
 
 
 .fundo {
@@ -90,18 +92,27 @@
 #TextoRacha,
 #ExplorarRacha {
     color: var(--color-primary);
+}
+
+#ExplorarRacha{
     background-color: var(--color-background-light);
+}
+
+#TextoPrincipal{
+    color: var(--color-background-light);
+    background-color: transparent;
+    font-size: 45px;
 }
 
 #MarcarRacha,
 #TextoExplorar {
     color: var(--color-background-light);
+}
+
+#MarcarRacha{
     background-color: var(--color-primary);
 }
 
-.fundo:first-child {
-    background-color: var(--color-background-light);
-}
 
 @media (max-width:1000.98px) {
     .fundo {
