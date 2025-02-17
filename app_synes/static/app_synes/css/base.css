@@ -212,7 +212,7 @@ input[type="search"]::-webkit-search-decoration,
         }
         
         .footer-text {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 14px;
             font-weight: 400;
             line-height: 16.94px;
@@ -315,16 +315,12 @@ input[type="search"]::-webkit-search-decoration,
         
         #Logo {
             cursor: pointer;
-            color: var(--color-accent);
+            color: var(--color-primary);
             transition: all .5s ease;
         }
         
         #Logo:hover {
             opacity: 70%;
-        }
-        
-        #Logo span {
-            color: var(--color-primary);
         }
         
         #MapIcon {
