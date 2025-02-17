@@ -2,11 +2,9 @@
 {% load static %}
 {% block title %}cadêURacha - Todos os Rachas{% endblock %}
 {% block content %}
-<head>
-    <link href="{% static 'app_synes/css/listar_jogos.css' %}" rel="stylesheet">
-</head>
 <div class="auth-container">
     <div class="auth-card">
+        {% csrf_token %}
         {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }} text-center">
@@ -21,7 +19,6 @@
         </div>
         <div class="jogos-list">
             {% for jogo in jogos %}
-            {% csrf_token %}
                 <div class="jogo-item">
                     <h4 class="jogo-titulo">{{ jogo.titulo }}</h4>
                     <p class="jogo-info"><strong>{{ jogo.arena.nome }}</strong></p>
@@ -31,12 +28,19 @@
                     {% if user.is_authenticated %}
                         <div id="jogo-{{ jogo.id }}">
                             {% if user in jogo.participantes.all %}
-                                
-                                <button class="btn-excluir-presenca" data-jogo-id="{{ jogo.id }}" data-acao="cancelar-presenca">Cancelar Presença</button>
-                                
+                                <button type="button" 
+                                        class="btn btn-danger btn-excluir-presenca" 
+                                        data-jogo-id="{{ jogo.id }}" 
+                                        data-acao="cancelar-presenca">
+                                    Cancelar Presença
+                                </button>
                             {% else %}
-                                
-                                <button class="btn-confirmar-presenca" data-jogo-id="{{ jogo.id }}"data-acao="confirmar-presenca">Confirmar Presença</button>
+                                <button type="button" 
+                                        class="btn btn-success btn-confirmar-presenca" 
+                                        data-jogo-id="{{ jogo.id }}" 
+                                        data-acao="confirmar-presenca">
+                                    Confirmar Presença
+                                </button>
                             {% endif %}
                         </div>
                         <br>
@@ -87,100 +91,66 @@
 {% endblock %}
 
 {% block scripts %}
+{{ block.super }}  {# Important: Include parent template scripts #}
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Script carregado');
     
-document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
-    button.addEventListener('click', function() {
-        const jogoId = this.getAttribute('data-jogo-id');
-        const url = `/confirmar-presenca/${jogoId}/`;
+    // Handle confirm presence buttons
+    document.querySelectorAll('.btn-confirmar-presenca').forEach(button => {
+        button.addEventListener('click', handlePresenca);
+    });
+
+    // Handle cancel presence buttons
+    document.querySelectorAll('.btn-excluir-presenca').forEach(button => {
+        button.addEventListener('click', handlePresenca);
+    });
+
+    function handlePresenca(e) {
+        e.preventDefault();
+        console.log('Botão clicado');
         
-        let acao = this.dataset.acao;  
-        let btn = this;
-        
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken(), 
-            },
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Erro ao confirmar presença');
-            }
-        })
-        .then(data => {
+        const button = e.currentTarget;
+        const jogoId = button.getAttribute('data-jogo-id');
+        const acao = button.getAttribute('data-acao');
+        const url = acao === 'confirmar-presenca' 
+            ? `/confirmar-presenca/${jogoId}/`
+            : `/excluir-presenca/${jogoId}/`;
             
-            if(data.status==="sucess"){
-                alert(data.message);
-                btn.textContent = data.texto_cancelar_presenca;
-                btn.dataset.acao = data.acao_cancelar_presenca;
-                btn.classList.toggle('btn-success');
-                btn.classList.toggle('btn-danger');
-            } else{
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert('Ocorreu um erro ao confirmar a presença.');
-        });
-    });
-});
-
-
-function getCSRFToken() {
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    return csrfToken;
-}
-
-document.querySelectorAll('.btn-excluir-presenca').forEach(button => {
-    button.addEventListener('click', function() {
-        const jogoId = this.getAttribute('data-jogo-id');
-        const url = `/excluir-presenca/${jogoId}/`;
-
-        let acao = this.dataset.acao;  
-        let btn = this;
-
+        console.log('URL:', url);
+        
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        console.log('CSRF Token:', csrfToken);
         
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken(), 
+                'X-CSRFToken': csrfToken,
             },
+            credentials: 'same-origin'
         })
         .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Erro ao cancelar presença');
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+            return response.json();
         })
         .then(data => {
-            if(data.status==="sucess"){
+            console.log('Dados recebidos:', data);
+            if(data.status === "success") {
                 alert(data.message);
-                btn.textContent = data.texto_confirmar_presenca;  
-                btn.dataset.acao = data.acao_confirmar_presenca;  
-                btn.classList.toggle('btn-success');  
-                btn.classList.toggle('btn-danger');
-            } else{
-                alert(data.message);
+                window.location.reload();
+            } else {
+                alert(data.message || 'Erro ao processar solicitação');
             }
         })
         .catch(error => {
-            console.error(error);
-            alert('Ocorreu um erro ao cancelar a presença.');
+            console.error('Erro:', error);
+            alert('Erro ao processar solicitação');
         });
-    });
+    }
 });
-
-
-function getCSRFToken() {
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    return csrfToken;
-}
 </script>
 {% endblock %}

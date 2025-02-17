@@ -8,7 +8,6 @@
         <link rel="icon" type="image/png" href="{% static 'app_synes/images/logo-ur.png' %}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" r rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-        <link rel="stylesheet" href="{% static 'node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
         <link href="{% static 'app_synes/css/base.css' %}" rel="stylesheet">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +15,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     {% block extra_head %}{% endblock %}
 </head>
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script>
+    console.log('Template base carregado');
+</script>
+{% endblock %}
 <body>
     {% if request.user.is_authenticated and request.invalid_username %}
     <!-- Modal -->
@@ -368,3 +371,4 @@ function updateUsername() {
 {% endif %}
 </body>
 </html>
+``` 
