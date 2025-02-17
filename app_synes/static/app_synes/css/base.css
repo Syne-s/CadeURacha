@@ -55,13 +55,18 @@ input[type="search"]::-webkit-search-decoration,
         body {
             margin: 0;
             padding: 0;
-            font-family: "Syne", sans-serif !important;
+            font-family: "Poppins", sans-serif !important;
             overflow-x: hidden !important;
-            background-color: var(--cor-fundo-principal);
+            background-image: url(img/fundo.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            object-fit: cover;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+
         
         .top-nav {
             height: 73px !important;
@@ -148,19 +153,19 @@ input[type="search"]::-webkit-search-decoration,
         #SearchBar {
             display: block;
             width: 100% !important;
-            color: var(--color-primary);
+            color: var(--color-secondary);
             background-color: var(--color-background-default);
         }
         
         #SearchBar::placeholder {
-            color: var(--color-primary);
+            color: var(--color-secondary);
         }
         
         #SearchButton {
             background-color: transparent !important;
             border: none !important;
             font-size: 24px;
-            color: var(--color-primary);
+            color: var(--color-secondary);
             transform: translate(-3.2rem, .2rem);
         }
         

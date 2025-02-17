@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="{% static 'node_modules/bootstrap-icons/font/bootstrap-icons.css' %}">
         <link href="{% static 'app_synes/css/base.css' %}" rel="stylesheet">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     {% block extra_head %}{% endblock %}
@@ -90,8 +90,8 @@
             </a>
             
             <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'mapa' %}">
-                <b>MAPA</b>
-                <i id="MapIcon" class='bx bxs-map-alt'></i>
+                <i id="MapIcon" class='bx bxs-map-alt pe-2'></i>
+                Mapa
             </a>
             
             <form class="d-flex w-25 position-relative" role="search">
@@ -99,6 +99,11 @@
                 <button id="SearchButton" type="submit"><i class='bx bx-search'></i></button>
                 <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none; z-index: 1000;"></div>
             </form>
+
+            <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'mapa' %}">
+                <i id="MapIcon" class='bx bxs-basketball pe-2'></i>
+                Rachas 	&#38; Quadras
+            </a>
     
             {% if user.is_authenticated %}
                 <!-- Usuário logado -->
