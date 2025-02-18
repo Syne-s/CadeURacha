@@ -3,7 +3,7 @@
 {% block title %}cadêURacha - {{ quadra.nome }}{% endblock %}
 {% block content %}
 <head>
-    <link href="{% static 'app_synes/css/detalhes_quadra.css' %}" rel="stylesheet">
+    <link href="{% static 'app_synes/css/detalhes_quadra.css' %}?v={{ timestamp }}" rel="stylesheet">
 </head>
 <div class="pai">
     <div class="fundo shadow" style="width: 926px; height: 379px;">

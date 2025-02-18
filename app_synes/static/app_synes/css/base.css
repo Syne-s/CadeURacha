@@ -12,6 +12,7 @@ input[type="search"]::-webkit-search-decoration,
             --cor-botao-principal: #F0F0F1;
             --cor-botao-hover: #F8F7F8;
             --cor-botao-texto: #C55204;
+            --cor-fundo-pesquisa: #E5E5E5;
 
             /* Cores Primárias */
             --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
@@ -60,6 +61,7 @@ input[type="search"]::-webkit-search-decoration,
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: var(--cor-botao-principal) !important;
         }
 
         
@@ -149,7 +151,7 @@ input[type="search"]::-webkit-search-decoration,
             display: block;
             width: 100% !important;
             color: var(--color-secondary);
-            background-color: var(--color-background-default);
+            background-color: var(--cor-fundo-pesquisa);
         }
         
         #SearchBar::placeholder {
@@ -191,7 +193,7 @@ input[type="search"]::-webkit-search-decoration,
         }
         
         .footer {
-            background-color: var(--color-background-light);
+            background-color: var(--cor-texto-principal);
             height: 73px !important;
             color: var(--color-text-muted);
             padding: 1rem 1rem;
@@ -284,7 +286,7 @@ input[type="search"]::-webkit-search-decoration,
         }
 
         .navbar {
-            background-color: var(--color-background-light);
+            background-color: var(--cor-texto-principal);
             height: 73px !important;
             z-index: 20;
         }

@@ -68,6 +68,7 @@ body {
     display: flex;
     height: 100vh !important;
     align-items: center;
+    background-color: var(--cor-botao-principal);
 }
 
 
