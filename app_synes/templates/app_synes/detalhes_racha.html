@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="pai">
-    <div class="fundo shadow w-75">
+    <div class="fundo shadow" style="width: 926px; height: 379px;">
       <div class="row g-0">
         <div class="col-md-4 d-flex justify-content-center align-items-center flex-wrap">
           {% if jogo.imagem %}
@@ -42,18 +42,18 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h1 class="card-title text-truncate">Detalhes de <b><span>{{ jogo.titulo }}</span></b></h1>
-            <div class="infos d-flex justify-content-between align-items-center w-75">
-              <h4 class="mb-1"><strong>{{ jogo.arena.nome }} - {{ jogo.arena.endereco }}</strong></h4>
-              <h4 class="mb-1"><strong>Racha com <i class='bx bxs-basketball'></i></strong></h4>
+            <p class="card-title text-truncate w-75" style="font-size: 30px; font-weight: 550">Detalhes de <b><span>{{ jogo.titulo }}</span></b></p>
+            <div class="infos d-flex justify-content-between w-100">
+              <p class="mb-1 text-truncate w-50" style="font-size: 22px">{{ jogo.arena.nome }} - {{ jogo.arena.endereco }}</p>
+              <p class="mb-1 w-50" style="font-size: 22px">Racha com <i class='bx bxs-basketball'></i></p>
             </div>
 
             <div class="d-flex gap-3 my-3 organizador justify-content-between w-75">
               <div class="pad">
-                <h4 class="text-center">{{ jogo.horario }}</h4>
+                <p class="text-center" style="font-size: 22px">{{ jogo.horario }}</p>
               </div>
               <div class="pad">
-                <h4 class="text-center">{{ jogo.data|date:"d/m/Y" }}</h4>
+                <p class="text-center" style="font-size: 22px">{{ jogo.data|date:"d/m/Y" }}</p>
               </div>
             </div>
             <p class="text-truncate">{{ jogo.descricao }}</p>
