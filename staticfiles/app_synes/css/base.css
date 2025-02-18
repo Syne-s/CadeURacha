@@ -1,0 +1,499 @@
+input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration {
+            display: none;
+        }
+        :root {
+            /* NOVA PALETA */
+            --cor-fundo-principal: #F0F0F1;
+            --cor-card-principal: #CF5204;
+            --cor-texto-principal: #F8F7F8;
+            --cor-botao-principal: #F0F0F1;
+            --cor-botao-hover: #F8F7F8;
+            --cor-botao-texto: #C55204;
+
+            /* Cores Primárias */
+            --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+            --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+            --color-accent: #e5c03d; /* Usada para destaques e ícones */
+        
+            /* Cores Secundárias */
+            --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+            --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+            --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+            --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+            --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+        
+            /* Estados de Botões */
+            --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+            --button-primary-text: #FFFFFF; /* Texto do botão primário */
+            --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+            --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+            --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+            --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+            --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+        
+            /* Cores de Feedback */
+            --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+            --color-error: #ba2121; /* Vermelho para erros */
+            --color-warning: #FF9800; /* Laranja para avisos */
+        
+            /* Cores de Mapa */
+            --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+            --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+        
+            /* Outras Cores */
+            --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+            --border-default: #E0E0E0; /* Cor de borda padrão */
+
+            /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+            --border-color: var(--border-default);
+            --color-background-muted: var(--color-background-light);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif !important;
+            overflow-x: hidden !important;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        
+        .top-nav {
+            height: 73px !important;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2000;
+        }
+        
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .logo i, .logo span {
+            color: var(--color-primary);
+            transition: color 0.3s;
+        }
+        
+        .logo:active, 
+        .logo:active i, 
+        .logo:active span {
+            color: var(--button-hover-bg);
+        }
+        
+        .logo:disabled, 
+        .logo:disabled i, 
+        .logo:disabled span {
+            color: var(--button-disabled-bg);
+        }
+        
+        .nav-center {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 2rem;
+            position: relative;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            color: var(--color-primary);
+            background-color: transparent;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .nav-icon:hover {
+            color: var(--color-secondary);
+        }
+        
+        .nav-item.dropdown.show .nav-link.nav-icon .fa-user,
+        .nav-item.dropdown.show .nav-link.nav-icon i {
+            color: var(--color-secondary);
+        }
+        
+        .nav-item.dropdown.show .dropdown-toggle::after {
+            display: inline-block;
+            border-top-color: var(--color-secondary);
+        }
+        
+        #SearchBar {
+            display: block;
+            width: 100% !important;
+            color: var(--color-secondary);
+            background-color: var(--color-background-default);
+        }
+        
+        #SearchBar::placeholder {
+            color: var(--color-secondary);
+        }
+        
+        #SearchButton {
+            background-color: transparent !important;
+            border: none !important;
+            font-size: 24px;
+            color: var(--color-secondary);
+            transform: translate(-3.2rem, .2rem);
+        }
+        
+        .dropdown-menu {
+            padding: 0.5rem 0;
+            border: 1px solid var(--border-default);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-light);
+            min-width: 240px;
+            margin-top: 0.5rem;
+            background: var(--color-background-default);
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.5s ease;
+            font-size: 0.95rem;
+        }
+        
+        .main-content {
+            margin-top: 65px;
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .footer {
+            background-color: var(--color-background-light);
+            height: 73px !important;
+            color: var(--color-text-muted);
+            padding: 1rem 1rem;
+            margin-top: auto;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .footer-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .footer-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16.94px;
+            text-align: left;
+            position: relative;
+            left: 15px;
+            width: 586px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .footer-text p {
+            margin: 0;
+            padding: 0;
+            color: var(--color-text-muted);
+        }
+        
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--color-text-primary);
+        }
+        
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .footer-contact {
+            color: var(--color-text-muted);
+            display: block;
+        }
+        
+        .footer-contact a {
+            color: var(--color-text-muted);
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+        
+        .footer-contact a:hover {
+            color: var(--color-text-primary);
+        }
+        
+        .nav-map-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            margin-right: 1rem;
+        }
+        
+        .nav-map-link:hover {
+            color: var(--button-hover-bg);
+        }
+        
+        .nav-map-link i {
+            font-size: 30px;
+            padding-left: 0.2rem;
+        }
+        
+        .nav-map-link span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar {
+            background-color: var(--color-background-light);
+            height: 73px !important;
+            z-index: 20;
+        }
+        
+        .nav-link {
+            transition: all .5s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--color-primary) !important;
+        }
+        
+        .map-link,
+        .map-link:visited,
+        .map-link:active {
+            color: var(--color-primary) !important;
+            transition: all .75s ease-in;
+        }
+        
+        .map-link:hover {
+            opacity: 60%;
+        }
+        
+        #Logo {
+            cursor: pointer;
+            color: var(--color-primary);
+            transition: all .5s ease;
+        }
+        
+        #Logo:hover {
+            opacity: 70%;
+        }
+        
+        #MapIcon {
+            padding-left: .2rem;
+            font-size: 30px;
+        }
+        
+        /* Profile styles */
+        .profile {
+            border: none !important;
+            background-color: transparent !important;
+        }
+        
+        .profile img {
+            width: 46.8px;
+            height: 46.8px;
+            border-radius: 50%;
+            transition: all .75s ease-in;
+        }
+        
+        .opacity-image img:hover {
+            opacity: 60%;
+        }
+        
+        /* Offcanvas styles */
+        .offcanvas {
+            z-index: 500 !important;
+        }
+        
+        .off-1,
+        .off-1 .close,
+        .off-1 .nav-link,
+        .off-1 .nav-link:visited {
+            background-color: var(--color-background-light);
+            color: var (--color-text-primary);
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        .container {
+            z-index: 5000;
+        }
+        
+        .footer {
+            z-index: 20;
+        }
+        
+        .navbar {
+            z-index: 20;
+        }
+        
+        .close {
+            font-size: 70px;
+            border: none;
+            background-color: transparent;
+            transition: 1s all ease;
+        }
+        
+        .close:hover {
+            opacity: 60%;
+        }
+        
+        /* Add transitions to the .collapse element for smooth collapsing */
+        .collapse {
+            transition: height 0.3s ease, opacity 0.3s ease;
+        }
+        
+        #search-results {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 100%; /* Position directly below search bar */
+            left: 0;
+            right: 3rem; /* Match search bar width accounting for button */
+            background: var(--color-background-default);
+            margin-top: 2px;
+            z-index: 5000; /* Ensure it overlays the map */
+        }
+        
+        #search-results .result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        #search-results .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        #search-results .result-item:hover {
+            background-color: var(--color-background-muted);
+            cursor: pointer;
+        }
+        
+        #search-results .result-item strong {
+            color: var(--color-primary);
+            margin-right: 0.5rem;
+        }
+        
+        .result-item .label-quadra {
+            color: var (--color-text-muted);
+            font-weight: bold;
+        }
+        
+        .result-item .label-jogo {
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+        
+        .result-item .description {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width:1200px) {
+            .ml-15 {
+                margin: 0;
+                text-align: center;
+            }
+        
+            .margin {
+                margin-top: 8rem !important;
+            }
+        }
+        
+        
+        @media (max-width:559.98px) {
+            .navbar {
+                height: 10rem !important;
+                padding: 2rem;
+            }
+        
+            #footer {
+                width: 100%;
+                padding: 5rem;
+            }
+        
+            #SearchBar {
+                display: block;
+                width: 7rem !important;
+            }
+        
+            footer {
+                height: 7rem !important;
+            }
+        
+            footer p {
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .mt-7 {
+                margin-top: 11rem !important;
+            }
+        }
+        
+        @media (max-width:390.98px) {
+        
+            footer p {
+                font-size: 9px;
+            }
+        
+        }

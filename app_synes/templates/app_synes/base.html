@@ -97,16 +97,17 @@
                 Mapa
             </a>
             
+            <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'todos' %}">
+                <i id="MapIcon" class='bx bxs-basketball pe-2'></i>
+                Rachas 	&#38; Quadras
+            </a>
+            
             <form class="d-flex w-25 position-relative" role="search">
                 <input id="SearchBar" class="form-control me-2 rounded-3 border-0" type="search" placeholder="Buscar..." aria-label="Search">
                 <button id="SearchButton" type="submit"><i class='bx bx-search'></i></button>
                 <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none; z-index: 1000;"></div>
             </form>
 
-            <a class="navbar-brand d-flex align-items-center map-link" href="{% url 'mapa' %}">
-                <i id="MapIcon" class='bx bxs-basketball pe-2'></i>
-                Rachas 	&#38; Quadras
-            </a>
     
             {% if user.is_authenticated %}
                 <!-- Usuário logado -->
@@ -197,8 +198,8 @@
     </main>
 
     <footer id="footer" class="footer fixed-bottom w-100">
-        <div class="footer-content">
-            <div class="footer-left">
+        <div class="w-100 d-flex justify-content-between pe-3 pw-3">
+            <div class="d-flex align-items-center">
                 <div class="footer-logo">
                     <img src="{% static 'app_synes/images/logo.png' %}" alt="cadêURacha Logo">
                 </div>
