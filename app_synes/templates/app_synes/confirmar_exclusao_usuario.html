@@ -14,9 +14,9 @@
         </div>
         <form method="post" action="{% url 'delete_account' %}">
             {% csrf_token %}
-            <button type="submit" class="auth-button btn-danger mb-3">Confirmar Exclusão</button>
+            <button type="submit" class="auth-button btn-danger">Confirmar Exclusão</button>
         </form>
-        <a href="{% url 'edit_profile' %}" class="auth-button btn-secondary">Cancelar</a>
+        <a href="{% url 'editar_perfil' %}" class="auth-button btn-secondary">Cancelar</a>
     </div>
 </div>
 
