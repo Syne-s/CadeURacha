@@ -53,6 +53,9 @@
   padding:0;
 }
 
+.transform{
+    transform: translateY(2rem);
+}
 
 
 .pai{
@@ -61,6 +64,7 @@
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
+    text-align: center;
     height: 78vh;
 }
 
