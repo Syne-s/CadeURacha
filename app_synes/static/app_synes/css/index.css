@@ -75,10 +75,7 @@ button{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 271px !important;
-    height: 149px !important;
     gap: 10px; 
-    background-color: #E0E0E0 !important;
 }
 
 .fundo button {

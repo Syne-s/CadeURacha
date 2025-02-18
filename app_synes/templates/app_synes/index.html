@@ -9,28 +9,28 @@
 
 <p id="TextoPrincipal" class="text-center"><b>Encontre a quadra. Monte seu <br> racha. Jogue sem <br> complicação!</b></p>
 <div class="test d-flex justify-content-center align-items-center">
-    <div class="fundo">
-        <p id="TextoRacha" class="w-100 text-center texts">
+    <div class="fundo" style="width: 271px; height: 149px;">
+        <p id="TextoRacha" class="w-100 text-center texts" style="font-size:25px">
             Para quem tá <b>afim<br> de uma partidinha</b>
         </p>
         {% if user.is_authenticated %}
             <a href="{% url 'cadastrar_racha' %}">
-                <button id="MarcarRacha" class="border-0"><b>Marcar Racha</b></button>
+                <button id="MarcarRacha" class="border-0 w-100"><b>Marcar Racha</b></button>
             </a>
         {% else %}
             <a href="{% url 'logar' %}">
-                <button id="MarcarRacha" class="border-0"><b>Marcar Racha</b></button>
+                <button id="MarcarRacha" class="border-0 w-100"><b>Marcar Racha</b></button>
             </a>
 
         {% endif %}
     </div>
 
-    <div class="fundo">
-        <p id="TextoExplorar" class="w-100 text-center texts">
+    <div class="fundo" style="width: 271px; height: 149px;">
+        <p id="TextoExplorar" class="w-100 text-center texts" style="font-size:25px">
             Para quem quer só <br><b>dar uma espiadinha</b>
         </p>
         <a href="{% url 'todos' %}">
-            <button id="ExplorarRacha" class="border-0"><b>Explorar Rachas</b></button>
+            <button id="ExplorarRacha" class="border-0 w-100"><b>Explorar Rachas</b></button>
         </a>
     </div>
 </div>
