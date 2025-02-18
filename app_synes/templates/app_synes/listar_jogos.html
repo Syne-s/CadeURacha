@@ -3,14 +3,14 @@
 {% block title %}cadêURacha - Meus Rachas{% endblock %}
 {% block content %}
 <head>
-    <link href="{% static 'app_synes/css/listar_jogos.css' %}" rel="stylesheet">
+    <link href="{% static 'app_synes/css/listar_jogos.css' %}?v={{ timestamp }}" rel="stylesheet">
 </head>
 
 <div class="group w-100">
 
     <div class="d-flex mt-7 mb-3 justify-content-center w-100">
         <a href="{% url 'cadastrar_racha' %}" class="text-decoration-none">
-          <button id="MarcarRacha" class="rounded border-0 h-50 p-2" aria-label="Marcar Racha">
+          <button id="MarcarRacha" class="rounded border-0 p-2" aria-label="Marcar Racha">
             <b>Marcar Racha</b>
             <i class="bi bi-plus-circle"></i>
           </button>

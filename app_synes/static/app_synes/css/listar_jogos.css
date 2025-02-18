@@ -98,6 +98,20 @@ h2 b span {
     display: none; /* Chrome, Safari, Opera */
 }
 
+#MarcarRacha,
+#MarcarRacha i,
+#MarcarRacha b {
+    width: 286px;
+    height: 52px;
+    background-color: var(--color-primary);
+    font-size: 22px;
+    color: var(--color-background-light);
+}
+
+#MarcarRacha b {
+    margin-right: 1rem;
+}
+
 .row a {
     transition: all .8s ease;
     margin: 0 !important;
