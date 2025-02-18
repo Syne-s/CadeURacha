@@ -62,9 +62,8 @@ button{
 }
 
 .test {
-    gap: 7rem;
+    gap: 2rem;
     padding: 2rem;
-    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
