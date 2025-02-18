@@ -507,3 +507,26 @@ def toggle_levar_bola(request):
         return JsonResponse({'success': False, 'message': 'Você precisa confirmar presença primeiro!'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
+
+def buscar(request):
+    query = request.GET.get('q', '')
+    
+    quadras = Arena.objects.filter(
+        Q(nome__icontains=query) |
+        Q(bairro__icontains=query) |
+        Q(cidade__icontains=query)
+    )
+    
+    jogos = Jogo.objects.filter(
+        Q(titulo__icontains=query) |
+        Q(arena__nome__icontains=query) |
+        Q(arena__bairro__icontains=query)
+    )
+    
+    context = {
+        'query': query,  # Esta é a linha importante
+        'quadras': quadras,
+        'jogos': jogos,
+    }
+    
+    return render(request, 'app_synes/buscar.html', context)

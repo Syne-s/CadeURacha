@@ -21,8 +21,10 @@
 
     class SearchHandler {
         constructor() {
+            this.searchForm = document.getElementById('searchForm');
             this.searchBar = document.getElementById('SearchBar');
             this.searchResults = document.getElementById('search-results');
+            this.searchButton = document.getElementById('SearchButton');
             this.quadrasResults = document.getElementById('quadras-results');
             this.rachasResults = document.getElementById('rachas-results');
             this.searchTimeout = null;
@@ -30,13 +32,24 @@
         }
 
         initializeEventListeners() {
-            // Search input handler with debounce
+            // Pesquisa em tempo real
             this.searchBar.addEventListener('input', () => {
                 clearTimeout(this.searchTimeout);
-                this.searchTimeout = setTimeout(() => this.handleSearch(), 300);
+                this.searchTimeout = setTimeout(() => this.handleLiveSearch(), 300);
             });
 
-            // Close results when clicking outside
+            // Lidar com envio do formulário
+            this.searchForm.addEventListener('submit', (e) => {
+                const query = this.searchBar.value.trim();
+                if (!query) {
+                    e.preventDefault();
+                    return;
+                }
+                // Esconde resultados ao submeter
+                this.searchResults.style.display = 'none';
+            });
+
+            // Fechar resultados ao clicar fora
             document.addEventListener('click', (event) => {
                 if (!this.searchBar.contains(event.target) && 
                     !this.searchResults.contains(event.target)) {
@@ -44,11 +57,18 @@
                 }
             });
 
-            // Prevent form submission
-            this.searchBar.closest('form').addEventListener('submit', (e) => e.preventDefault());
+            // Tecla Enter
+            this.searchBar.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const query = this.searchBar.value.trim();
+                    if (query) {
+                        this.searchForm.submit();
+                    }
+                }
+            });
         }
 
-        async handleSearch() {
+        async handleLiveSearch() {
             const query = this.searchBar.value.trim();
             
             if (query.length >= 2) {
@@ -201,15 +221,16 @@
                 Rachas 	&#38; Quadras
             </a>
             
-            <!-- Replace the existing search form with this updated version -->
-            <form class="d-flex w-25 position-relative" role="search" onsubmit="return false;">
+            <!-- Modifique o formulário de busca -->
+            <form class="d-flex w-25 position-relative" role="search" action="{% url 'buscar' %}" method="GET" id="searchForm">
                 <input id="SearchBar" 
-                    class="form-control me-2 rounded-3 border-0" 
-                    type="search" 
-                    placeholder="Buscar quadras e rachas..." 
-                    aria-label="Search"
-                    autocomplete="off">
-                <button id="SearchButton" type="button">
+                       name="q"
+                       class="form-control me-2 rounded-3 border-0" 
+                       type="search" 
+                       placeholder="Buscar quadras e rachas..." 
+                       aria-label="Search"
+                       autocomplete="off">
+                <button id="SearchButton" type="submit">
                     <i class='bx bx-search'></i>
                 </button>
                 <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none;">
