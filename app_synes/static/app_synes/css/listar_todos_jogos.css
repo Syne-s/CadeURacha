@@ -1,3 +1,52 @@
+:root {
+    /* NOVA PALETA */
+    --cor-fundo-principal: #F0F0F1;
+    --cor-card-principal: #CF5204;
+    --cor-texto-principal: #F8F7F8;
+    --cor-botao-principal: #F0F0F1;
+    --cor-botao-hover: #F8F7F8;
+    --cor-botao-texto: #C55204;
+
+    /* Cores Primárias */
+    --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+    --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+    --color-accent: #e5c03d; /* Usada para destaques e ícones */
+
+    /* Cores Secundárias */
+    --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+    --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+    --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+    --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+    --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+
+    /* Estados de Botões */
+    --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+    --button-primary-text: #FFFFFF; /* Texto do botão primário */
+    --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+    --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+    --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+    --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+    --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+
+    /* Cores de Feedback */
+    --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+    --color-error: #ba2121; /* Vermelho para erros */
+    --color-warning: #FF9800; /* Laranja para avisos */
+
+    /* Cores de Mapa */
+    --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+    --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+
+    /* Outras Cores */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+    --border-default: #E0E0E0; /* Cor de borda padrão */
+
+    /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+    --border-color: var(--border-default);
+    --color-background-muted: var(--color-background-light);
+}
+
+
 #Agrupador{
   width: 100% !important;
   margin:0;
