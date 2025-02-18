@@ -77,7 +77,7 @@
                 this.quadrasResults.innerHTML = `
                     <h6 class="search-section-title">Quadras</h6>
                     ${data.arenas.map(arena => `
-                        <a href="/quadra/${arena.id}" class="result-item">
+                        <a href="/detalhes_quadra/${arena.id}" class="result-item">
                             <div>
                                 <span class="label-quadra">Quadra:</span> ${arena.nome}
                                 <div class="result-subtitle">${arena.endereco}</div>
@@ -92,7 +92,7 @@
                 this.rachasResults.innerHTML = `
                     <h6 class="search-section-title">Rachas</h6>
                     ${data.jogos.map(jogo => `
-                        <a href="/jogo/${jogo.id}" class="result-item">
+                        <a href="/detalhes_racha/${jogo.id}" class="result-item">
                             <div>
                                 <span class="label-jogo">Racha:</span> ${jogo.titulo}
                                 <div class="result-subtitle">${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
@@ -103,8 +103,16 @@
                 `;
             }
 
-            // Show or hide the results container
-            this.searchResults.style.display = data.arenas.length || data.jogos.length ? 'block' : 'none';
+            // No results message
+            if (!data.arenas.length && !data.jogos.length) {
+                this.searchResults.innerHTML = `
+                    <div class="result-item no-results">
+                        Nenhum resultado encontrado
+                    </div>
+                `;
+            }
+
+            this.searchResults.style.display = 'block';
         }
     }
 
