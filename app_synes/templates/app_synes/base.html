@@ -18,6 +18,97 @@
 {% block scripts %}
 <script>
     console.log('Template base carregado');
+
+    class SearchHandler {
+        constructor() {
+            this.searchBar = document.getElementById('SearchBar');
+            this.searchResults = document.getElementById('search-results');
+            this.quadrasResults = document.getElementById('quadras-results');
+            this.rachasResults = document.getElementById('rachas-results');
+            this.searchTimeout = null;
+            this.initializeEventListeners();
+        }
+
+        initializeEventListeners() {
+            // Search input handler with debounce
+            this.searchBar.addEventListener('input', () => {
+                clearTimeout(this.searchTimeout);
+                this.searchTimeout = setTimeout(() => this.handleSearch(), 300);
+            });
+
+            // Close results when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!this.searchBar.contains(event.target) && 
+                    !this.searchResults.contains(event.target)) {
+                    this.searchResults.style.display = 'none';
+                }
+            });
+
+            // Prevent form submission
+            this.searchBar.closest('form').addEventListener('submit', (e) => e.preventDefault());
+        }
+
+        async handleSearch() {
+            const query = this.searchBar.value.trim();
+            
+            if (query.length >= 2) {
+                try {
+                    const response = await fetch(`/search/?q=${query}`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+                    const data = await response.json();
+                    this.displayResults(data);
+                } catch (error) {
+                    console.error('Erro na busca:', error);
+                }
+            } else {
+                this.searchResults.style.display = 'none';
+            }
+        }
+
+        displayResults(data) {
+            this.quadrasResults.innerHTML = '';
+            this.rachasResults.innerHTML = '';
+            
+            // Display arenas (quadras)
+            if (data.arenas.length > 0) {
+                this.quadrasResults.innerHTML = `
+                    <h6 class="search-section-title">Quadras</h6>
+                    ${data.arenas.map(arena => `
+                        <a href="/quadra/${arena.id}" class="result-item">
+                            <div>
+                                <span class="label-quadra">Quadra:</span> ${arena.nome}
+                                <div class="result-subtitle">${arena.endereco}</div>
+                            </div>
+                        </a>
+                    `).join('')}
+                `;
+            }
+
+            // Display jogos (rachas)
+            if (data.jogos.length > 0) {
+                this.rachasResults.innerHTML = `
+                    <h6 class="search-section-title">Rachas</h6>
+                    ${data.jogos.map(jogo => `
+                        <a href="/jogo/${jogo.id}" class="result-item">
+                            <div>
+                                <span class="label-jogo">Racha:</span> ${jogo.titulo}
+                                <div class="result-subtitle">${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
+                                ${jogo.descricao ? `<div class="result-description">${jogo.descricao}</div>` : ''}
+                            </div>
+                        </a>
+                    `).join('')}
+                `;
+            }
+
+            // Show or hide the results container
+            this.searchResults.style.display = data.arenas.length || data.jogos.length ? 'block' : 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => new SearchHandler());
 </script>
 {% endblock %}
 <body>
@@ -102,10 +193,21 @@
                 Rachas 	&#38; Quadras
             </a>
             
-            <form class="d-flex w-25 position-relative" role="search">
-                <input id="SearchBar" class="form-control me-2 rounded-3 border-0" type="search" placeholder="Buscar..." aria-label="Search">
-                <button id="SearchButton" type="submit"><i class='bx bx-search'></i></button>
-                <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none; z-index: 1000;"></div>
+            <!-- Replace the existing search form with this updated version -->
+            <form class="d-flex w-25 position-relative" role="search" onsubmit="return false;">
+                <input id="SearchBar" 
+                    class="form-control me-2 rounded-3 border-0" 
+                    type="search" 
+                    placeholder="Buscar quadras e rachas..." 
+                    aria-label="Search"
+                    autocomplete="off">
+                <button id="SearchButton" type="button">
+                    <i class='bx bx-search'></i>
+                </button>
+                <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none;">
+                    <div id="quadras-results" class="search-section"></div>
+                    <div id="rachas-results" class="search-section"></div>
+                </div>
             </form>
 
     
