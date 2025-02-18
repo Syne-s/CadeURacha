@@ -72,46 +72,39 @@ body{
 .fundo {
     width: 409px;
     height: 386px;
-    border-radius: 30px;
 }
 
 .fundo button {
-    border-radius: 15px;
+    border-radius: 10px;
     height: 60px;
-    font-size: 30px;
+    font-size: 22px;
 }
 
 .fundo .texts {
-    font-size: 40px;
+    font-size: 26px;
 }
 
 .translate {
     transform: translateY(2rem);
 }
 
-#TextoRacha,
-#ExplorarRacha {
-    color: var(--color-primary);
-}
 
-#ExplorarRacha{
-    background-color: var(--color-background-light);
+#ExplorarRacha,
+#MarcarRacha {
+    color: var(--color-primary);
+    background-color: var(--color-background-light)
 }
 
 #TextoPrincipal{
-    color: var(--color-background-light);
-    background-color: transparent;
     font-size: 45px;
 }
 
-#MarcarRacha,
-#TextoExplorar {
+#TextoPrincipal,
+#TextoExplorar,
+#TextoRacha {
     color: var(--color-background-light);
 }
 
-#MarcarRacha{
-    background-color: var(--color-primary);
-}
 
 
 @media (max-width:1000.98px) {
