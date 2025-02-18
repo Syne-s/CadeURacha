@@ -14,6 +14,7 @@ from django.contrib.messages import get_messages
 from django.contrib.auth import get_user_model
 import json
 import re
+from django.views.decorators.http import require_POST
 
 def check_username(request):
     username = request.GET.get('username')
@@ -424,12 +425,85 @@ def todos(request):
     return render(request, 'app_synes/todos.html', {'quadras': quadras, 'jogos': jogos})
 
 def detalhes_quadra(request, id):
+    # Busca a quadra específica ou retorna 404 se não encontrar
     quadra = get_object_or_404(Arena, id=id)
-    return render(request, 'app_synes/detalhes_quadra.html', {'quadra': quadra})
+    
+    # Busca todos os jogos relacionados a esta quadra
+    jogos_quadra = Jogo.objects.filter(arena=quadra)
+    
+    context = {
+        'quadra': quadra,
+        'jogos_quadra': jogos_quadra,
+    }
+    return render(request, 'app_synes/detalhes_quadra.html', context)
 
 def detalhes_jogo(request, id):
+    # Busca o jogo específico
     jogo = get_object_or_404(Jogo, id=id)
-    return render(request, 'app_synes/detalhes_racha.html', {'jogo': jogo})
+    
+    # Busca os participantes do jogo usando o campo correto
+    participantes = jogo.participantes.all()
+    
+    context = {
+        'jogo': jogo,
+        'jogadores': participantes  # Mantemos 'jogadores' no template para não precisar alterar o HTML
+    }
+    return render(request, 'app_synes/detalhes_racha.html', context)
 
 def test_jogo(request):
     return render(request, 'app_synes/detalhes_racha.html')
+
+@require_POST
+def toggle_presenca(request):
+    try:
+        data = json.loads(request.body)
+        jogo_id = data.get('jogo_id')
+        confirmar = data.get('confirmar')
+        
+        jogo = get_object_or_404(Jogo, id=jogo_id)
+        
+        if confirmar:
+            # Adiciona o usuário aos participantes
+            jogo.participantes.add(request.user)
+            mensagem = "Presença confirmada com sucesso!"
+        else:
+            # Remove o usuário dos participantes
+            jogo.participantes.remove(request.user)
+            # Se o usuário estava levando bola, decrementa o contador
+            if request.user.levar_bola:
+                jogo.bolas = max(0, jogo.bolas - 1)
+                request.user.levar_bola = False
+                request.user.save()
+            jogo.save()
+            mensagem = "Presença cancelada com sucesso!"
+        
+        return JsonResponse({'success': True, 'message': mensagem})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+
+@require_POST
+def toggle_levar_bola(request):
+    try:
+        data = json.loads(request.body)
+        levar_bola = data.get('levar_bola')
+        
+        # Atualiza o status de levar_bola do usuário
+        request.user.levar_bola = levar_bola
+        request.user.save()
+        
+        # Encontra o jogo em que o usuário está participando
+        jogo = Jogo.objects.filter(participantes=request.user).first()
+        if jogo:
+            if levar_bola:
+                jogo.bolas += 1
+                mensagem = "Você confirmou que levará uma bola!"
+            else:
+                jogo.bolas = max(0, jogo.bolas - 1)
+                mensagem = "Você cancelou sua bolinha."
+            jogo.save()
+            
+            return JsonResponse({'success': True, 'message': mensagem})
+        
+        return JsonResponse({'success': False, 'message': 'Você precisa confirmar presença primeiro!'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})

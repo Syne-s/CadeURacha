@@ -58,6 +58,7 @@ class Jogo(models.Model):
     participantes = models.ManyToManyField(CustomUser, related_name="jogos_participando",blank=True)
     criador_jogo = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='jogos_criados')
     bolas = models.IntegerField(default=0,verbose_name="Quantidade de bolas de basquete disponíveis")
+    jogadores = models.ManyToManyField('CustomUser', related_name='jogos', blank=True)
     
     def __str__(self):
         return self.titulo

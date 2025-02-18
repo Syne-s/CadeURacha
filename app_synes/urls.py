@@ -34,4 +34,6 @@ urlpatterns = [
     path('check_username/', views.check_username, name='check_username'),
     path('update_username/', views.update_username, name='update_username'),
     path('check_email/', views.check_email, name='check_email'),
+    path('toggle_presenca/', views.toggle_presenca, name='toggle_presenca'),
+    path('toggle_levar_bola/', views.toggle_levar_bola, name='toggle_levar_bola'),
 ]

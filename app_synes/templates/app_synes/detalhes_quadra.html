@@ -1,6 +1,6 @@
 {% extends 'app_synes/base.html' %}
 {% load static %}
-{% block title %}cadêURacha - Detalhes Quadra{% endblock %}
+{% block title %}cadêURacha - {{ quadra.nome }}{% endblock %}
 {% block content %}
 <head>
     <link href="{% static 'app_synes/css/detalhes_quadra.css' %}" rel="stylesheet">
@@ -9,59 +9,53 @@
     <div class="fundo shadow">
       <div class="row g-0">
         <div class="col-md-4 d-flex justify-content-center align-items-center flex-wrap">
-          <img src="{% static 'app_synes/images/quadra.jpeg' %}" class="img-fluid mb-4" alt="Imagem do Quadra">
+          {% if quadra.imagem %}
+            <img src="{{ quadra.imagem.url }}" class="img-fluid mb-4" alt="Imagem da {{ quadra.nome }}">
+          {% else %}
+            <img src="{% static 'app_synes/images/quadra.jpeg' %}" class="img-fluid mb-4" alt="Imagem padrão">
+          {% endif %}
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h1 class="card-title text-truncate">Detalhes de <b><span>Quadra X</span></b></h1>
-            <h4 class="mb-1"><strong>Quadra 1 - Rua Abacate 123</strong></h4>
-            
-            
+            <h1 class="card-title text-truncate">Detalhes de <b><span>{{ quadra.nome }}</span></b></h1>
+            <h4 class="mb-1"><strong>{{ quadra.nome }} - {{ quadra.endereco }}</strong></h4>
             
             <h5>Rachas:</h5>
             <div class="agrupador">
-
               <div class="ajustador w-100 d-flex justify-content-center flex-wrap">
-
-
                 <div class="container rounded-5 w-75 cream">
                   <div class="row d-flex flex-nowrap overflow-auto w-100">
-  
-                    <!-- Cards -->
-  
-                    <a href="detalhes_jogo.html">
-  
-                      <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                        <img src="{% static 'app_synes/images/jam.jpg' %}" class="card-img" alt="Imagem de promoção do Racha">
-                        <div class="card-img-overlay">
-                          <i class='bx bxs-basketball'></i>
-                          <div class="texts">
-                            <h5 class="card-title text-center"><b>27/01/2025</b></h5>
-                            <p class="card-title text-center"><b>20:00 - 22:00</b></p>
+                    {% for jogo in jogos_quadra %}
+                      <a href="{% url 'detalhes_jogo' jogo.id %}">
+                        <div class="card border-0 text-bg-dark ratio ratio-1x1">
+                          {% if jogo.imagem %}
+                            <img src="{{ jogo.imagem.url }}" class="card-img" alt="Imagem do Racha">
+                          {% else %}
+                            <img src="{% static 'app_synes/images/jam.jpg' %}" class="card-img" alt="Imagem padrão do Racha">
+                          {% endif %}
+                          <div class="card-img-overlay">
+                            <i class='bx bxs-basketball'></i>
+                            <div class="texts">
+                              <h5 class="card-title text-center"><b>{{ jogo.data|date:"d/m/Y" }}</b></h5>
+                              <p class="card-title text-center"><b>{{ jogo.horario }}</b></p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-  
-                    </a>
-  
+                      </a>
+                    {% empty %}
+                      <p>Nenhum racha marcado nesta quadra.</p>
+                    {% endfor %}
                   </div>
                 </div>
-  
-                <button id="MarcarRacha" class=" mt-4 rounded border-0 h-50 p-2"><b>Marcar Racha</b><i
-                  class="bi bi-plus-circle"></i></button>
-  
+
+                <button id="MarcarRacha" class="mt-4 rounded border-0 h-50 p-2">
+                  <b>Marcar Racha</b><i class="bi bi-plus-circle"></i>
+                </button>
               </div>
-
             </div>
-            
-
-
-
-
-            
           </div>
         </div>
       </div>
     </div>
-</body>
+</div>
 {% endblock %}
