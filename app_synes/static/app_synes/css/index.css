@@ -56,14 +56,13 @@ body{
 
 
 button{
-    width: 219.81px;
-    height: 37px;
     font-size: 22px !important;
 }
 
 .test {
-    gap: 2rem;
+    gap: 7rem;
     padding: 2rem;
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
