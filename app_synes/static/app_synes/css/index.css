@@ -55,8 +55,10 @@ body{
 }
 
 
-.mt-8 {
-    margin-top: 0rem;
+button{
+    width: 219.81px;
+    height: 37px;
+    font-size: 22px !important;
 }
 
 .test {
@@ -70,8 +72,13 @@ body{
 
 
 .fundo {
-    width: 409px;
-    height: 386px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 271px !important;
+    height: 149px !important;
+    gap: 10px; 
+    background-color: #E0E0E0 !important;
 }
 
 .fundo button {
@@ -84,15 +91,12 @@ body{
     font-size: 26px;
 }
 
-.translate {
-    transform: translateY(2rem);
-}
-
 
 #ExplorarRacha,
 #MarcarRacha {
     color: var(--color-primary);
-    background-color: var(--color-background-light)
+    background-color: var(--color-background-light);
+    font-size: 22px !important;
 }
 
 #TextoPrincipal{
@@ -106,47 +110,7 @@ body{
 }
 
 
-
-@media (max-width:1000.98px) {
-    .fundo {
-        width: 309px;
-        height: 286px;
-        border-radius: 30px;
-    }
-
-    .translate {
-        transform: translateY(1rem);
-    }
-
-    .fundo button {
-        font-size: 22px;
-    }
-
-    .fundo .texts {
-        font-size: 32px;
-    }
-}
-
-@media (max-width:799.98px) {
-    .fundo {
-        width: 309px;
-        height: 286px;
-        border-radius: 30px;
-    }
-
-    .mt-8 {
-        margin-top: 16rem;
-    }
-}
-
-@media (max-width:500.98px) {
-    .fundo {
-        width: 309px;
-        height: 286px;
-        border-radius: 30px;
-    }
-
-    .mt-8 {
-        margin-top: 18rem;
-    }
+#TextoRacha, #TextoExplorar {
+    margin: 0;
+    padding: 0;
 }
