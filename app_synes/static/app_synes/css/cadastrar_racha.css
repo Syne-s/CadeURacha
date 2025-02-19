@@ -11,8 +11,8 @@
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    width: 100rem;
-    max-width: 400px;
+    width: 800px;  /* Definindo largura fixa igual ao editar_perfil */
+    min-width: 800px; /* Garantindo largura mínima */
 }
 
 .auth-header {
@@ -21,8 +21,8 @@
 }
 
 .auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
+    font-size: 2rem;
+    color: var(--color-primary);
     margin-bottom: 1rem;
 }
 
@@ -41,21 +41,24 @@
 }
 
 .input-group-text {
-    background-color: white;
+    background-color: var(--color-background-light);
+    border: 1px solid var(--border-color);
     border-right: none;
     color: #666;
     transition: border-color 0.2s ease;
 }
 
 .form-control {
-    border-left: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     padding: 0.75rem;
-    transition: border-color 0.2s ease;
+    padding-left: 2.5rem;
+    transition: all 0.3s ease;
 }
 
 .form-control:focus {
-    box-shadow: none;
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
 }
 
 .form-control:focus ~ .input-group-text {
@@ -72,18 +75,20 @@
 
 .auth-button {
     width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary-color);
+    padding: 0.8rem;
+    background-color: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
 .auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
 }
 
 .alert-success {
@@ -118,4 +123,106 @@
     background-color: #dc3545 !important; 
     border-color: #000000 !important;
     color: white;
+}
+
+/* Ajustes adicionais para o novo layout */
+.form-check {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-background-light);
+}
+
+.form-check-input:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.form-check-label {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.form-check-label i {
+    color: var(--color-primary);
+    margin-right: 0.5rem;
+}
+
+.border-end {
+    border-right: 1px solid var(--border-color) !important;
+}
+
+.custom-checkbox {
+    background-color: var(--color-background-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+.form-label {
+    color: var(--color-text);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    z-index: 2;
+}
+
+/* Image upload styling */
+.image-upload-container {
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+}
+
+.upload-label i {
+    font-size: 2rem;
+}
+
+.current-image-preview {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+}
+
+.remove-image {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }

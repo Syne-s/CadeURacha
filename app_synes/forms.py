@@ -48,26 +48,14 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirme a Nova Senha'}))
 
 class JogoForm(forms.ModelForm):
-    horario = forms.CharField(
-        max_length=5,
-        validators=[RegexValidator(regex=r'^\d{2}:\d{2}$', message="Formato de hora inválido, use HH:MM")],
-        widget=forms.TimeInput(attrs={
-            'type': 'time',
-            'class': 'form-control',
-            'required': True
-        })
-    )
-    bolas = forms.IntegerField(
-        widget=forms.HiddenInput(attrs={
-            'id': 'qtd-bolas',  # Você pode manter o ID se precisar acessá-lo no front-end
-        }),
-        initial=0,
-        required=True
-    )
-
     class Meta:
         model = Jogo
-        fields = ['titulo', 'descricao', 'data', 'horario', 'max_jogadores', 'arena','bolas']
+        fields = ['titulo', 'descricao', 'arena', 'data', 'horario', 'bolas', 'imagem']  # Removido max_jogadores
+        widgets = {
+            'data': forms.DateInput(attrs={'type': 'date'}),
+            'horario': forms.TimeInput(attrs={'type': 'time'}),
+            'bolas': forms.HiddenInput(attrs={'id': 'qtd-bolas'})
+        }
 
     def clean(self):
         cleaned_data = super().clean()

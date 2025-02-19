@@ -209,23 +209,28 @@ def criar_jogo(request):
 @login_required
 def cadastrar_racha(request):
     if request.method == 'POST':
-        form = JogoForm(request.POST)
+        form = JogoForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 jogo = form.save(commit=False)
                 jogo.usuario = request.user
                 jogo.criador_jogo = request.user
+                jogo.bolas = int(request.POST.get('bolas', 0))
                 jogo.save()
                 jogo.participantes.add(request.user)
-                messages.success(request, 'Jogo criado com sucesso!')
-                return redirect('listar_todos_jogos')
+                messages.success(request, 'Racha criado com sucesso!')
+                # Alterando o redirecionamento para detalhes_racha com o ID do racha criado
+                return redirect('detalhes_jogo', jogo.id)
             except Exception as e:
                 print(f"Erro ao salvar jogo: {e}")
-                messages.error(request, 'Erro ao salvar o jogo.')
+                messages.error(request, f'Erro ao salvar o racha: {str(e)}')
         else:
-            messages.error(request, "Erro ao criar jogo. Verifique os dados informados.")
+            print("Form errors:", form.errors)
+            for field, errors in form.errors.items():
+                messages.error(request, f'Erro no campo {field}: {", ".join(errors)}')
     else:
         form = JogoForm()
+    
     return render(request, 'app_synes/cadastrar_racha.html', {'form': form})
 
 @login_required

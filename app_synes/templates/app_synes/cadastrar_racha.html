@@ -1,5 +1,5 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}cadêURacha - Criar Jogo{% endblock %}
+{% block title %}cadêURacha - Criar Racha{% endblock %}
 {% load static %}
 {% block content %}
 <head>
@@ -7,85 +7,159 @@
 </head>
 <div class="auth-container">
     <div class="auth-card">
-        <div class="auth-header">
-            <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2 class="text-center mb-0">Criar Racha</h2>
-            <p class="text-center">Preencha os detalhes do racha abaixo</p>
-        </div>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} text-center">
-                    <p>{{ message }}</p>
-                </div>
-            {% endfor %}
-        {% endif %}
-        
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                    <select class="form-control" name="{{ form.arena.name }}" id="{{ form.arena.id_for_label }}">
-                        {% for choice in form.arena.field.choices %}
-                            {% if choice.0 %}
-                                <option value="{{ choice.0 }}" {% if form.arena.value == choice.0 %}selected{% endif %}>
-                                    {{ choice.1 }}
-                                </option>
-                            {% endif %}
+            
+            <div class="row">
+                <!-- Coluna Esquerda -->
+                <div class="col-md-6 pe-4 border-end">
+                    <div class="auth-header mb-4">
+                        <h2 class="text-center mb-0">Cadastrar Racha</h2>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} text-center">
+                                <p>{{ message }}</p>
+                            </div>
                         {% endfor %}
-                    </select>
+                    {% endif %}
+
+                    <!-- Título -->
+                    <div class="form-group">
+                        <label for="{{ form.titulo.id_for_label }}" class="form-label">Título do Racha</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                                   class="form-control ps-5" 
+                                   name="{{ form.titulo.name }}" 
+                                   id="{{ form.titulo.id_for_label }}" 
+                                   placeholder="Digite o título do racha" 
+                                   required>
+                            <i class="fas fa-heading input-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Imagem -->
+                    <div class="form-group">
+                        <label class="form-label">Imagem do Racha</label>
+                        <div class="image-upload-container">
+                            <div class="current-image-preview" id="imagePreview" style="display: none;">
+                                <img src="" alt="Preview" class="preview-img">
+                                <button type="button" class="remove-image" onclick="removeImage()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <label for="{{ form.imagem.id_for_label }}" class="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Clique para fazer upload</span>
+                            </label>
+                            <input type="file" 
+                                   name="{{ form.imagem.name }}" 
+                                   id="{{ form.imagem.id_for_label }}"
+                                   accept="image/*"
+                                   hidden>
+                        </div>
+                    </div>
+
+                    <!-- Descrição -->
+                    <div class="form-group">
+                        <label for="{{ form.descricao.id_for_label }}" class="form-label">Descrição</label>
+                        <div class="input-wrapper">
+                            <textarea class="form-control ps-5" 
+                                      name="{{ form.descricao.name }}" 
+                                      id="{{ form.descricao.id_for_label }}" 
+                                      placeholder="Descreva os detalhes do racha" 
+                                      rows="4"
+                                      required></textarea>
+                            <i class="fas fa-align-left input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita -->
+                <div class="col-md-6 ps-4">
+                    
+                    <!-- Quadra -->
+                    <div class="form-group">
+                        <label for="{{ form.arena.id_for_label }}" class="form-label">Quadra</label>
+                        <div class="input-wrapper">
+                            <select class="form-control ps-5" 
+                                    name="{{ form.arena.name }}" 
+                                    id="{{ form.arena.id_for_label }}"
+                                    required>
+                                <option value="">Selecione uma quadra</option>
+                                {% for choice in form.arena.field.choices %}
+                                    {% if choice.0 %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Data -->
+                    <div class="form-group">
+                        <label for="{{ form.data.id_for_label }}" class="form-label">Data</label>
+                        <div class="input-wrapper">
+                            <input type="date" 
+                                   class="form-control ps-5" 
+                                   name="{{ form.data.name }}" 
+                                   id="{{ form.data.id_for_label }}" 
+                                   required>
+                            <i class="fas fa-calendar-alt input-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Horário -->
+                    <div class="form-group">
+                        <label for="{{ form.horario.id_for_label }}" class="form-label">Horário</label>
+                        <div class="input-wrapper">
+                            <input type="time" 
+                                   class="form-control ps-5" 
+                                   name="{{ form.horario.name }}" 
+                                   id="{{ form.horario.id_for_label }}" 
+                                   required>
+                            <i class="fas fa-clock input-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Checkbox Levar Bola -->
+                    <div class="form-group mb-4">
+                        <div class="form-check custom-checkbox">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="levar-bola"
+                                   onchange="atualizarBolas(this.checked)">
+                            <label class="form-check-label" for="levar-bola">
+                                <i class="fas fa-basketball-ball"></i> Vou levar bola
+                            </label>
+                        </div>
+                        <input type="hidden" 
+                               name="{{ form.bolas.name }}" 
+                               id="qtd-bolas" 
+                               value="0">
+                    </div>
+
+                    <!-- Botão Criar -->
+                    <button type="submit" class="auth-button w-100">CRIAR RACHA</button>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-heading"></i></span>
-                    <input type="text" class="form-control" name="{{ form.titulo.name }}" id="{{ form.titulo.id_for_label }}" placeholder="Título do Racha" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                    <textarea class="form-control" name="{{ form.descricao.name }}" id="{{ form.descricao.id_for_label }}" placeholder="Descrição do Racha" required></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    <input type="date" class="form-control" name="{{ form.data.name }}" id="{{ form.data.id_for_label }}" value="{{ form.data.value|default:'' }}" min="{{ today }}" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <input type="time" class="form-control" name="{{ form.horario.name }}" id="{{ form.horario.id_for_label }}" value="{{ form.horario.value|default:'' }}" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
-                    <input type="number" class="form-control" name="{{ form.max_jogadores.name }}" id="{{ form.max_jogadores.id_for_label }}" placeholder="Quantidade máxima de jogadores" min="1" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="id_qtd_bolas">Você vai levar uma bola de basquete para o racha?</label>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success" id="btn-sim">Sim</button>
-                    <button type="button" class="btn btn-danger" id="btn-nao">Não</button>
-                </div>
-                
-                {{ form.bolas }}
-               
-            </div>
-            <button type="submit" class="auth-button">Criar Racha</button>
         </form>
     </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Configurar data mínima (amanhã)
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    const tomorrow = today.toISOString().split('T')[0];
+    document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
+
+    // Pré-selecionar quadra se vier da URL
     const urlParams = new URLSearchParams(window.location.search);
     const arenaId = urlParams.get('arena_id');
-    
     if (arenaId) {
         const arenaSelect = document.querySelector('select[name="{{ form.arena.name }}"]');
         const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
@@ -93,35 +167,75 @@ document.addEventListener('DOMContentLoaded', function() {
             option.selected = true;
         }
     }
-
-    
-    const today = new Date();
-    today.setDate(today.getDate() + 1);
-    const tomorrow = today.toISOString().split('T')[0];
-    document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const btnSim = document.getElementById('btn-sim');
-    const btnNao = document.getElementById('btn-nao');
-    const bolasInput = document.getElementById('qtd-bolas');
+function atualizarBolas(checked) {
+    document.getElementById('qtd-bolas').value = checked ? '1' : '0';
+}
 
-    btnSim.addEventListener('click', function () {
-        bolasInput.value = 1; 
-        btnSim.classList.add('active'); 
-        btnNao.classList.remove('active'); 
-        
-    });
+// Adicione o código para preview da imagem
+document.getElementById('{{ form.imagem.id_for_label }}').addEventListener('change', function(e) {
+    const preview = document.getElementById('imagePreview');
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-    btnNao.addEventListener('click', function () {
-        bolasInput.value = 0; 
-        btnNao.classList.add('active'); 
-        btnSim.classList.remove('active'); 
-        
-    });
+    reader.onload = function(e) {
+        preview.querySelector('img').src = e.target.result;
+        preview.style.display = 'block';
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+        preview.style.display = 'block';
+    } else {
+        preview.style.display = 'none';
+    }
+});
+
+function removeImage() {
+    const fileInput = document.getElementById('{{ form.imagem.id_for_label }}');
+    const preview = document.getElementById('imagePreview');
+    fileInput.value = '';
+    preview.style.display = 'none';
+}
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const titulo = document.getElementById('{{ form.titulo.id_for_label }}').value.trim();
+    const descricao = document.getElementById('{{ form.descricao.id_for_label }}').value.trim();
+    const arena = document.getElementById('{{ form.arena.id_for_label }}').value;
+    const data = document.getElementById('{{ form.data.id_for_label }}').value;
+    const horario = document.getElementById('{{ form.horario.id_for_label }}').value;
+
+    let isValid = true;
+    let errorMessage = '';
+
+    if (!titulo) {
+        errorMessage += 'Título é obrigatório.\n';
+        isValid = false;
+    }
+    if (!descricao) {
+        errorMessage += 'Descrição é obrigatória.\n';
+        isValid = false;
+    }
+    if (!arena) {
+        errorMessage += 'Selecione uma quadra.\n';
+        isValid = false;
+    }
+    if (!data) {
+        errorMessage += 'Data é obrigatória.\n';
+        isValid = false;
+    }
+    if (!horario) {
+        errorMessage += 'Horário é obrigatório.\n';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        e.preventDefault();
+        alert('Por favor, corrija os seguintes erros:\n' + errorMessage);
+    }
 });
 </script>
-
-
 
 {% endblock %}
