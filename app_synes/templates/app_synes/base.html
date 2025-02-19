@@ -255,9 +255,9 @@
                 </div>
     
                 <!-- Navbar Colapsado do Perfil -->
-                <div class="collapse navbar-collapse offcanvas offcanvas-end p-5 off-1" id="navbarNavDropdownProfile">
+                <div class="collapse navbar-collapse offcanvas offcanvas-custom offcanvas-end p-5 off-1 border-0 shadow" style="max-width: 311px !important;" id="navbarNavDropdownProfile">
                     <div class="container w-100">
-                        <div class="d-flex justify-content-between align-items-center profile mb-5">
+                        <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
                             {% if user.foto_perfil %}
                                 <img class="ratio ratio-1x1" src="{{ user.foto_perfil.url }}" alt="">
                             {% else %}
@@ -298,7 +298,7 @@
                 <!-- Navbar Colapsado do Perfil -->
                 <div class="collapse navbar-collapse offcanvas offcanvas-end p-5 off-1" id="navbarNavDropdownProfile">
                     <div class="container w-100">
-                        <div class="d-flex justify-content-between align-items-center profile mb-5">
+                        <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
                             <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
                             <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNavDropdownProfile">

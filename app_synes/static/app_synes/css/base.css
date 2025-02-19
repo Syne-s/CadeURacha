@@ -63,7 +63,6 @@ input[type="search"]::-webkit-search-decoration,
             min-height: 100vh;
             background-color: var(--cor-botao-principal) !important;
         }
-
         
         .top-nav {
             height: 73px !important;
@@ -205,7 +204,7 @@ input[type="search"]::-webkit-search-decoration,
             padding: 1rem 1rem;
             margin-top: auto;
             position: relative;
-            z-index: 20;
+            z-index: 1;
         }
         
         .footer-logo img {
@@ -336,6 +335,12 @@ input[type="search"]::-webkit-search-decoration,
             border: none !important;
             background-color: transparent !important;
         }
+
+        .profile-collapse img{
+            width: 73.6px !important;
+            height: 73.6px !important;
+            border-radius: 50%;
+        }
         
         .profile img {
             width: 46.8px;
@@ -384,7 +389,7 @@ input[type="search"]::-webkit-search-decoration,
         }
         
         .close {
-            font-size: 70px;
+            font-size: 50px !important;
             border: none;
             background-color: transparent;
             transition: 1s all ease;
