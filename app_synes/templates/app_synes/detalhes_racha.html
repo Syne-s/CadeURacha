@@ -4,6 +4,7 @@
 {% block content %}
 <head>
     <link href="{% static 'app_synes/css/detalhes_racha.css' %}?v={{ timestamp }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="pai">
@@ -61,6 +62,7 @@
                 {% if user.is_authenticated %}
                     <div class="col-auto">
                         {% if user in jogo.participantes.all %}
+                        
                             <button class="btn btn-danger" onclick="togglePresenca({{ jogo.id }}, false)">
                                 <i class="bi bi-x-circle"></i> Cancelar Presença
                             </button>
@@ -93,6 +95,24 @@
     </div>
     </div>
     <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".text-truncate").forEach(function (el) {
+              el.setAttribute("title", el.textContent.trim()); // Define o tooltip com o texto do próprio elemento
+              el.setAttribute("data-bs-toggle", "tooltip"); // Garante que o tooltip do Bootstrap seja ativado
+            });
+          
+            // Ativar os tooltips do Bootstrap
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+              return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+          });
+          
+          
+
+
+
         document.addEventListener('DOMContentLoaded', function() {
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

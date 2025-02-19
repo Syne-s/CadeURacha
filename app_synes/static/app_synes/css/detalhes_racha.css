@@ -68,7 +68,15 @@ body {
     align-items: center;
 }
 
-h4 strong i{
+.tooltip-inner {
+    font-size: 14px; 
+    max-width: 300px; 
+    padding: 8px 12px; 
+    font-family: "Poppins", sans-serif !important;
+  }
+  
+
+p i{
     color: var(--color-primary);
 }
 
@@ -211,9 +219,9 @@ button:hover{
 #MarcarRacha b {
     width: 286px;
     height: 52px;
-    background-color: var(--true-orange);
+    background-color: var(--color-primary);
     font-size: 22px;
-    color: var(--cream);
+    color: var(--cor-texto-principal);
 }
 
 #MarcarRacha b {
