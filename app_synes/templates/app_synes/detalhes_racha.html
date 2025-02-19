@@ -37,7 +37,7 @@
                      data-bs-placement="top">
               {% endif %}
             {% empty %}
-              <p>Nenhum jogador confirmado</p>
+              <p class="text-center">Nenhum jogador confirmado</p>
             {% endfor %}
           </div>
         </div>
@@ -58,36 +58,41 @@
               </div>
             </div>
             <p class="w-75">{{ jogo.descricao }}</p>
-            <div class="row d-flex gap-3 mt-4 w-75 botoes">
-                {% if user.is_authenticated %}
-                    <div class="col-auto">
-                        {% if user in jogo.participantes.all %}
-                        
-                            <button class="btn btn-danger" onclick="togglePresenca({{ jogo.id }}, false)">
-                                <i class="bi bi-x-circle"></i> Cancelar Presença
-                            </button>
-                        {% else %}
-                            <button class="btn btn-success" onclick="togglePresenca({{ jogo.id }}, true)">
-                                <i class="bi bi-check-circle"></i> Confirmar Presença
-                            </button>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="col-auto">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="levarBola" 
-                                   {% if user.levar_bola %}checked{% endif %}
-                                   onchange="toggleLevarBola(this.checked)">
-                            <label class="form-check-label" for="levarBola">
-                                <i class="bx bxs-basketball"></i> Vou Levar Bola
-                            </label>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="col-12">
-                        <p>Para confirmar presença, faça <a href="{% url 'logar' %}">login</a> ou <a href="{% url 'cadastrar_usuario' %}">cadastre-se</a>.</p>
-                    </div>
-                {% endif %}
+            <div class="row d-flex gap-3 mt-4 w-75 botoes flex-wrap">
+              {% if user.is_authenticated %}
+              <div class="col-auto w-100">
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="confirmarPresenca" 
+                             {% if user in jogo.participantes.all %}checked{% endif %}
+                             onchange="togglePresenca(this.checked, {{ jogo.id }})">
+                      <label class="form-check-label" for="confirmarPresenca">
+                           Confirmar Presença 
+                           <i class='bx bx-info-circle' 
+                              data-bs-toggle="tooltip"
+                              data-bs-html="true"
+                              title="Marcando essa caixa, tu tá confirmando a tua presença pra esse racha."></i>
+                      </label>
+                  </div>
+              </div>
+              <div class="col-auto w-100" id="levarBolaContainer" style="display: {% if user in jogo.participantes.all %}block{% else %}none{% endif %};">
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="levarBola" 
+                             {% if user.levar_bola %}checked{% endif %}
+                             onchange="toggleLevarBola(this.checked)">
+                      <label class="form-check-label" for="levarBola">
+                           Vou Levar Bola 
+                           <i class='bx bx-info-circle' 
+                              data-bs-toggle="tooltip"
+                              data-bs-html="true"
+                              title="Marcando essa caixa, tu precisa levar a bola de basquete pra o racha."></i>
+                      </label>
+                  </div>
+              </div>
+          {% else %}
+              <div class="col-12">
+                  <p>Para confirmar presença, faça <a href="{% url 'logar' %}">login</a> ou <a href="{% url 'cadastrar_usuario' %}">cadastre-se</a>.</p>
+              </div>
+          {% endif %}
             </div>
           </div>
         </div>
@@ -96,85 +101,75 @@
     </div>
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".text-truncate").forEach(function (el) {
-              el.setAttribute("title", el.textContent.trim()); // Define o tooltip com o texto do próprio elemento
-              el.setAttribute("data-bs-toggle", "tooltip"); // Garante que o tooltip do Bootstrap seja ativado
-            });
-          
-            // Ativar os tooltips do Bootstrap
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-              return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
 
-            // Função para calcular o horário de término dos jogos
-            let horarioElement = document.querySelector('.pad h4');
-            if (horarioElement) {
-                let start = horarioElement.textContent.trim();
-                // Pressupõe o formato "HH:MM" (ex.: "20:00")
-                let parts = start.split(':');
-                if (parts.length === 2) {
-                    let hours = parseInt(parts[0], 10);
-                    let minutes = parseInt(parts[1], 10);
-                    // Calcula o horário final adicionando 2 horas
-                    let endHours = (hours + 2) % 24;
-                    // Função para garantir 2 dígitos
-                    let pad = num => (num < 10 ? '0' + num : num);
-                    horarioElement.textContent = pad(hours) + ':' + pad(minutes) + ' - ' + pad(endHours) + ':' + pad(minutes);
-                }
-            }
-          });
-          
-        document.addEventListener('DOMContentLoaded', function() {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
-            })
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, {
+                customClass: 'custom-tooltip',
+                html: true
+            });
         });
+    });
 
-        function togglePresenca(jogoId, confirmar) {
-            fetch('/toggle_presenca/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({
-                    jogo_id: jogoId,
-                    confirmar: confirmar
-                })
+      function togglePresenca(checked, jogoId) {
+        // Armazena no sessionStorage que a página precisa esperar a atualização antes de exibir os dados
+        sessionStorage.setItem('esperandoAtualizacao', 'true');
+    
+        // Recarrega a página imediatamente
+        window.location.reload();
+    
+        // Envia a requisição para atualizar a presença no backend
+        fetch('/toggle_presenca/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                jogo_id: jogoId,
+                confirmar: checked
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.reload();
-                } else {
-                    alert(data.message);
-                }
-            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove a flag de espera e recarrega novamente para garantir que os dados foram atualizados
+                sessionStorage.removeItem('esperandoAtualizacao');
+                window.location.reload();
+            } else {
+                alert("Erro ao atualizar presença: " + data.message);
+            }
+        })
+        .catch(error => console.error('Erro ao atualizar presença:', error));
+    }
+    
+    // Esconde a checkbox de "Levar Bola" se a presença não estiver confirmada ao carregar a página
+    document.addEventListener("DOMContentLoaded", function () {
+        let confirmarPresenca = document.getElementById('confirmarPresenca');
+        let levarBola = document.getElementById('levarBola').parentElement;
+    
+        if (!confirmarPresenca.checked) {
+            levarBola.style.display = 'none';
         }
-
-        function toggleLevarBola(checked) {
-            fetch('/toggle_levar_bola/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({
-                    levar_bola: checked
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.reload();
-                } else {
-                    alert(data.message);
-                }
-            });
+    
+        confirmarPresenca.addEventListener('change', function () {
+            levarBola.style.display = this.checked ? 'block' : 'none';
+        });
+    
+        // Se estivermos esperando a atualização do backend, mostramos um loader e esperamos antes de exibir os dados
+        if (sessionStorage.getItem('esperandoAtualizacao') === 'true') {
+            document.body.style.opacity = "0.5"; // Deixa a página semi-transparente para indicar carregamento
+            setTimeout(() => {
+                sessionStorage.removeItem('esperandoAtualizacao');
+                document.body.style.opacity = "1"; // Volta ao normal
+            }, 1000); // Espera 1s antes de liberar a interação, tempo suficiente para o backend processar
         }
+    });
+    
+    
+    
     </script>
 </body>
 {% endblock %}
