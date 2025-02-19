@@ -58,6 +58,13 @@
     height: 78vh;
 }
 
+.tooltip-inner {
+    font-size: 14px; 
+    max-width: 300px; 
+    padding: 8px 12px; 
+    font-family: "Poppins", sans-serif !important;
+  }
+
 
 
 .cream a:hover{
@@ -172,7 +179,7 @@ button:hover{
 }
 
 .fundo{
-    padding: 6rem 0rem 6rem 0rem;
+    padding: 4rem 6rem 4rem 6rem !important;
     border-radius: 20px;
     display: flex;
     height: fit-content !important;

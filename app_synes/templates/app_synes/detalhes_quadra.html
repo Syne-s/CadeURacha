@@ -3,6 +3,7 @@
 {% block title %}cadêURacha - {{ quadra.nome }}{% endblock %}
 {% block content %}
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="{% static 'app_synes/css/detalhes_quadra.css' %}?v={{ timestamp }}" rel="stylesheet">
 </head>
 <div class="pai">
@@ -59,5 +60,20 @@
       </div>
     </div>
 </div>
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".text-truncate").forEach(function (el) {
+        el.setAttribute("title", el.textContent.trim()); // Define o tooltip com o texto do próprio elemento
+        el.setAttribute("data-bs-toggle", "tooltip"); // Garante que o tooltip do Bootstrap seja ativado
+      });
+    
+      // Ativar os tooltips do Bootstrap
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+</script>
 
 {% endblock %}
