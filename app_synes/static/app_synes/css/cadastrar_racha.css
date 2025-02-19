@@ -49,14 +49,16 @@
 }
 
 .form-control {
-    border-left: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     padding: 0.75rem;
-    transition: border-color 0.2s ease;
+    padding-left: 2.5rem;
+    transition: all 0.3s ease;
 }
 
 .form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
 }
 
 .form-control:focus ~ .input-group-text {
@@ -154,4 +156,73 @@
     padding: 1rem;
     border-radius: 0.5rem;
     margin-top: 1rem;
+}
+
+.form-label {
+    color: var(--color-text);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    z-index: 2;
+}
+
+/* Image upload styling */
+.image-upload-container {
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+}
+
+.upload-label i {
+    font-size: 2rem;
+}
+
+.current-image-preview {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+}
+
+.remove-image {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }

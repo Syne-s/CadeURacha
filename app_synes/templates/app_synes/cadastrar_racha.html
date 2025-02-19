@@ -27,43 +27,51 @@
 
                     <!-- Título -->
                     <div class="form-group">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fas fa-heading"></i></span>
+                        <label for="{{ form.titulo.id_for_label }}" class="form-label">Título do Racha</label>
+                        <div class="input-wrapper">
                             <input type="text" 
-                                   class="form-control" 
+                                   class="form-control ps-5" 
                                    name="{{ form.titulo.name }}" 
                                    id="{{ form.titulo.id_for_label }}" 
-                                   placeholder="Título do Racha" 
+                                   placeholder="Digite o título do racha" 
                                    required>
+                            <i class="fas fa-heading input-icon"></i>
                         </div>
                     </div>
 
                     <!-- Imagem -->
                     <div class="form-group">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                        <label class="form-label">Imagem do Racha</label>
+                        <div class="image-upload-container">
+                            <div class="current-image-preview" id="imagePreview" style="display: none;">
+                                <img src="" alt="Preview" class="preview-img">
+                                <button type="button" class="remove-image" onclick="removeImage()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <label for="{{ form.imagem.id_for_label }}" class="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Clique para fazer upload</span>
+                            </label>
                             <input type="file" 
-                                   class="form-control" 
                                    name="{{ form.imagem.name }}" 
                                    id="{{ form.imagem.id_for_label }}"
-                                   accept="image/*">
-                        </div>
-                        <!-- Preview da imagem -->
-                        <div id="imagePreview" class="text-center mt-2 mb-3" style="display: none;">
-                            <img src="" alt="Preview" class="img-fluid rounded" style="max-height: 200px;">
+                                   accept="image/*"
+                                   hidden>
                         </div>
                     </div>
 
                     <!-- Descrição -->
                     <div class="form-group">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fas fa-align-left"></i></span>
-                            <textarea class="form-control" 
-                                     name="{{ form.descricao.name }}" 
-                                     id="{{ form.descricao.id_for_label }}" 
-                                     placeholder="Descrição do Racha" 
-                                     rows="4"
-                                     required></textarea>
+                        <label for="{{ form.descricao.id_for_label }}" class="form-label">Descrição</label>
+                        <div class="input-wrapper">
+                            <textarea class="form-control ps-5" 
+                                      name="{{ form.descricao.name }}" 
+                                      id="{{ form.descricao.id_for_label }}" 
+                                      placeholder="Descreva os detalhes do racha" 
+                                      rows="4"
+                                      required></textarea>
+                            <i class="fas fa-align-left input-icon"></i>
                         </div>
                     </div>
                 </div>
@@ -73,41 +81,46 @@
                     
                     <!-- Quadra -->
                     <div class="form-group">
-                        <div class="input-group mb-4">
-                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <select class="form-control" 
+                        <label for="{{ form.arena.id_for_label }}" class="form-label">Quadra</label>
+                        <div class="input-wrapper">
+                            <select class="form-control ps-5" 
                                     name="{{ form.arena.name }}" 
                                     id="{{ form.arena.id_for_label }}"
                                     required>
                                 <option value="">Selecione uma quadra</option>
                                 {% for choice in form.arena.field.choices %}
                                     {% if choice.0 %}
-                                        <option value="{{ choice.0 }}" {% if form.arena.value == choice.0 %}selected{% endif %}>
-                                            {{ choice.1 }}
-                                        </option>
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
+                            <i class="fas fa-map-marker-alt input-icon"></i>
                         </div>
                     </div>
 
-                    <!-- Data e Horário -->
-                    <div class="form-group mb-4">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    <!-- Data -->
+                    <div class="form-group">
+                        <label for="{{ form.data.id_for_label }}" class="form-label">Data</label>
+                        <div class="input-wrapper">
                             <input type="date" 
-                                   class="form-control" 
+                                   class="form-control ps-5" 
                                    name="{{ form.data.name }}" 
                                    id="{{ form.data.id_for_label }}" 
                                    required>
+                            <i class="fas fa-calendar-alt input-icon"></i>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                    </div>
+
+                    <!-- Horário -->
+                    <div class="form-group">
+                        <label for="{{ form.horario.id_for_label }}" class="form-label">Horário</label>
+                        <div class="input-wrapper">
                             <input type="time" 
-                                   class="form-control" 
+                                   class="form-control ps-5" 
                                    name="{{ form.horario.name }}" 
                                    id="{{ form.horario.id_for_label }}" 
                                    required>
+                            <i class="fas fa-clock input-icon"></i>
                         </div>
                     </div>
 
@@ -178,6 +191,13 @@ document.getElementById('{{ form.imagem.id_for_label }}').addEventListener('chan
         preview.style.display = 'none';
     }
 });
+
+function removeImage() {
+    const fileInput = document.getElementById('{{ form.imagem.id_for_label }}');
+    const preview = document.getElementById('imagePreview');
+    fileInput.value = '';
+    preview.style.display = 'none';
+}
 
 // Form validation
 document.querySelector('form').addEventListener('submit', function(e) {
