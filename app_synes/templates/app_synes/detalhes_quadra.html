@@ -80,7 +80,7 @@
               let endHours = (hours + 2) % 24;
               // Função para garantir 2 dígitos
               let pad = num => (num < 10 ? '0' + num : num);
-              elem.textContent = pad(hours) + ':' + pad(minutes) + ' - ' + pad(endHours) + ':' + pad(minutes);
+              elem.innerHTML = `<b>${pad(hours)}:${pad(minutes)} - ${pad(endHours)}:${pad(minutes)}</b>`;
           }
       });
 
