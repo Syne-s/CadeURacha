@@ -6,23 +6,24 @@
     <link href="{% static 'app_synes/css/listar_jogos.css' %}?v={{ timestamp }}" rel="stylesheet">
 </head>
 
+<div class="d-flex justify-content-center w-100">
+  <a href="{% url 'cadastrar_racha' %}" class="text-decoration-none">
+    <button id="MarcarRacha" class="rounded border-0 p-2" aria-label="Marcar Racha">
+      <b>Marcar Racha</b>
+      <i class="bi bi-plus-circle"></i>
+    </button>
+  </a>
+</div>
 
-  <div class="pai w-75">
+  <div class="pai w-75 mt-5">
 
     
 
-    <div class="d-flex mt-7 mb-3 justify-content-center w-100">
-        <a href="{% url 'cadastrar_racha' %}" class="text-decoration-none">
-          <button id="MarcarRacha" class="rounded border-0 p-2" aria-label="Marcar Racha">
-            <b>Marcar Racha</b>
-            <i class="bi bi-plus-circle"></i>
-          </button>
-        </a>
-      </div>
+    
 
     <!-- Rachas que Criei -->
     <div class="d-flex justify-content-center flex-wrap mb-4">
-      <h3 class="w-100 text-center">Rachas que <b>Criei:</b></h3>
+      <h3 class="w-100 text-center" style="font-size: 22px">Rachas que <b>Criei:</b></h3>
       <div id="Agrupador" class="d-flex align-items-center">
 
         <button class="no-style">
@@ -65,7 +66,7 @@
 
     <!-- Rachas que Confirmei Presença -->
     <div class="d-flex justify-content-center flex-wrap">
-      <h3 class="w-100 text-center">Rachas que <b>Confirmei Presença:</b></h3>
+      <h3 class="w-100 text-center" style="font-size: 22px">Rachas que <b>Confirmei Presença:</b></h3>
       <div id="Agrupador" class="d-flex align-items-center">
 
         <button class="no-style">
