@@ -3,7 +3,7 @@
 {% block title %}cadêURacha - {{ jogo.titulo }}{% endblock %}
 {% block content %}
 <head>
-    <link href="{% static 'app_synes/css/detalhes_racha.css' %}" rel="stylesheet">
+    <link href="{% static 'app_synes/css/detalhes_racha.css' %}?v={{ timestamp }}" rel="stylesheet">
 </head>
 <body>
     <div class="pai">
@@ -50,13 +50,13 @@
 
             <div class="d-flex gap-3 my-3 organizador justify-content-between w-75">
               <div class="pad">
-                <p class="text-center" style="font-size: 22px">{{ jogo.horario }}</p>
+                <h4 class="text-center" style="font-size: 22px">{{ jogo.horario }}</h4>
               </div>
               <div class="pad">
-                <p class="text-center" style="font-size: 22px">{{ jogo.data|date:"d/m/Y" }}</p>
+                <h4 class="text-center" style="font-size: 22px">{{ jogo.data|date:"d/m/Y" }}</h4>
               </div>
             </div>
-            <p class="text-truncate">{{ jogo.descricao }}</p>
+            <p class="text-truncate w-75">{{ jogo.descricao }}</p>
             <div class="row d-flex gap-3 mt-4 w-75 botoes">
                 {% if user.is_authenticated %}
                     <div class="col-auto">

@@ -172,7 +172,7 @@ button:hover{
 }
 
 .fundo{
-    padding: 6rem;
+    padding: 6rem 0rem 6rem 0rem;
     border-radius: 20px;
     display: flex;
     height: fit-content !important;

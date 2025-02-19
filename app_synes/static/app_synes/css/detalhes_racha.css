@@ -66,17 +66,16 @@ body {
     display: flex;
     height: 100vh !important;
     align-items: center;
-    background-color: #34327B;
 }
 
 h4 strong i{
-    color: var(--true-orange);
+    color: var(--color-primary);
 }
 
 .cream{
     background-color: transparent;
     padding: 1rem;
-    border: 2px solid var(--true-orange);
+    border: 2px solid var(--color-primary);
 }
 
 .row a{
@@ -84,7 +83,7 @@ h4 strong i{
 }
 
 .no-style{
-    color: var(--dark-purple);
+    color: var(--color-secondary);
 }
 
 
@@ -163,16 +162,18 @@ button:hover{
     justify-content: center;
     width: 15rem;
     border-radius: 10px;
-    background-color: var(--darker-lilac);
+    background-color: var(--color-secondary);
 }
 
+
 .pad h4{
-    color: var(--cream);
+    color: var(--cor-texto-principal);
     transform: translateY(0.2rem);
+    font-weight: 400;
 }
 
 .card-title b span{
-    color: var(--true-orange);
+    color: var(--color-primary);
 }
 
 .fundo{
@@ -181,7 +182,7 @@ button:hover{
     display: flex;
     height: fit-content !important;
     flex-direction: column;
-    background-color: #9F84F9;
+    background-color: var(--cor-texto-principal);
     margin: auto;
 }
 
@@ -191,22 +192,18 @@ button:hover{
     padding: .3rem;
 }
 
-#BtnAvaliar{
-    color: var(--true-orange);
-    border: 2px solid var(--true-orange);
-    background-color: var(--cream);
-}
+
 
 #BtnExcluir{
-    border: 2px solid var(--true-orange);
-    background-color: var(--cream);
-    color: var(--true-orange);
+    border: 2px solid var(--color-primary);
+    background-color: var(--cor-texto-principal);
+    color: var(--color-primary);
 }
 
 #BtnEditar{
-    border: 2px solid var(--true-orange);
-    background-color: var(--true-orange);
-    color: var(--cream);
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--cor-texto-principal);
 }
 
 #MarcarRacha,
