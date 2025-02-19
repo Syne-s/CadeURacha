@@ -43,9 +43,9 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <p class="card-title text-truncate w-75" style="font-size: 30px; font-weight: 550"><b><span>{{ jogo.titulo }}</span></b></p>
+            <p class="card-title" style="font-size: 30px; font-weight: 550"><b><span>{{ jogo.titulo }}</span></b></p>
             <div class="infos d-flex justify-content-between w-100">
-              <p class="mb-1 text-truncate w-50" style="font-size: 22px">{{ jogo.arena.nome }} - {{ jogo.arena.endereco }}</p>
+              <p class="mb-1" style="font-size: 22px">{{ jogo.arena.nome }} - {{ jogo.arena.logradouro }}, {{ jogo.arena.bairro }}</p>
               <p class="mb-1 w-50" style="font-size: 22px">Racha com <i class='bx bxs-basketball'></i></p>
             </div>
 
@@ -57,7 +57,7 @@
                 <h4 class="text-center" style="font-size: 22px">{{ jogo.data|date:"d/m/Y" }}</h4>
               </div>
             </div>
-            <p class="text-truncate w-75">{{ jogo.descricao }}</p>
+            <p class="w-75">{{ jogo.descricao }}</p>
             <div class="row d-flex gap-3 mt-4 w-75 botoes">
                 {% if user.is_authenticated %}
                     <div class="col-auto">
