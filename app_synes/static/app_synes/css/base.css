@@ -146,6 +146,12 @@ input[type="search"]::-webkit-search-decoration,
             display: inline-block;
             border-top-color: var(--color-secondary);
         }
+
+        .change_format{
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
         
         #SearchBar {
             display: block;

@@ -1,0 +1,273 @@
+:root {
+    /* NOVA PALETA */
+    --cor-fundo-principal: #F0F0F1;
+    --cor-card-principal: #CF5204;
+    --cor-texto-principal: #F8F7F8;
+    --cor-botao-principal: #F0F0F1;
+    --cor-botao-hover: #F8F7F8;
+    --cor-botao-texto: #C55204;
+
+    /* Cores Primárias */
+    --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+    --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+    --color-accent: #e5c03d; /* Usada para destaques e ícones */
+    --color-accent-light: #eacd64; /* Usada para destaques e ícones */
+
+    /* Cores Secundárias */
+    --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+    --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+    --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+    --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+    --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+
+    /* Estados de Botões */
+    --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+    --button-primary-text: #FFFFFF; /* Texto do botão primário */
+    --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+    --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+    --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+    --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+    --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+
+    /* Cores de Feedback */
+    --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+    --color-error: #ba2121; /* Vermelho para erros */
+    --color-warning: #FF9800; /* Laranja para avisos */
+
+    /* Cores de Mapa */
+    --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+    --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+
+    /* Outras Cores */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+    --border-default: #E0E0E0; /* Cor de borda padrão */
+
+    /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+    --border-color: var(--border-default);
+    --color-background-muted: var(--color-background-light);
+}
+
+
+#Agrupador{
+  width: 975px;
+  margin:0;
+  padding:0;
+}
+
+.transform{
+    transform: translateY(2rem);
+}
+
+
+.pai{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    text-align: center;
+    height: 78vh;
+}
+
+.row{
+  padding: 0;
+  margin: 0;
+}
+
+.translate {
+    transform: translateX(-1rem);
+}
+
+#Agrupador .container {
+    z-index: 2;
+}
+
+.w-85 {
+    width: 85% !important;
+}
+
+.rachas_format{
+    background-color: var(--color-accent-light);
+}
+
+p b span {
+    color: var(--color-primary);
+}
+
+.ml-15 {
+    margin-left: 15%;
+}
+
+.container .row {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.container .row::-webkit-scrollbar {
+    display: none;
+}
+
+.card-img-overlay .texts {
+    transform: translateY(3.5rem);
+    max-height: 100px; /* Ajuste conforme necessário */
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+.card-img-overlay .texts::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+#MarcarRacha,
+#MarcarRacha i,
+#MarcarRacha b {
+    width: 286px;
+    height: 52px;
+    background-color: var(--color-primary);
+    font-size: 22px;
+    color: var(--color-background-light);
+}
+
+#MarcarRacha b {
+    margin-right: 1rem;
+}
+
+.row a {
+    transition: all .8s ease;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: fit-content;
+}
+
+.row a:hover {
+    opacity: 80%;
+}
+
+.card-img-overlay i {
+    position: absolute;
+    font-size: 25px;
+    top: 6;
+    right: 0;
+    transform: translateX(-.6rem);
+}
+
+i span {
+    font-family: "Syne", sans-serif !important;
+    transform: translateY(-.2rem) !important;
+}
+
+.card img {
+    border-radius: 20px !important;
+    object-fit: cover;
+    filter: blur(1px) brightness(0.7) saturate(0.8) contrast(0.5);
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: overlay;
+}
+
+.cream {
+    padding: 1.5rem 3rem;
+    background-color: var(--cor-texto-principal);
+}
+
+.card {
+    border-radius: 20px !important;
+    width: 160px !important;
+    height: 160px !important;
+    min-width: 160px;
+    min-height: 160px;
+    background: linear-gradient(180deg, #9f84f9BB, #fdc4a89f);
+    cursor: pointer;
+}
+
+.no-style {
+    background: transparent;
+    border: 0;
+}
+
+.arrow {
+    font-size: 70px;
+    color: var(--color-primary) !important;
+    cursor: pointer;
+}
+
+.row {
+    gap: 41px !important;
+    scroll-behavior: smooth;
+}
+
+
+@media (max-width:1700px) {
+    .pai{
+        height: 65vh;
+        transform: translateY(-.5rem);
+    }
+    .transform{
+        transform: translateY(-.5rem);
+    }
+}
+
+@media (max-width:1200px) {
+    .ml-15 {
+        margin: 0;
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    h2 {
+        font-size: 22px !important;
+    }
+
+    .card-img-overlay i {
+        font-size: 18px;
+    }
+
+    i span {
+        font-size: 16px;
+        transform: translateY(-.05rem) !important;
+    }
+
+    .card-img-overlay .texts {
+        transform: translateY(3rem);
+    }
+
+    .row {
+        gap: 10px;
+    }
+
+    .card h5 {
+        font-size: 13px !important;
+    }
+
+    .card p {
+        font-size: 10px !important;
+        transform: translateY(-.4rem);
+    }
+
+    .container {
+        width: 975px !important;
+        padding: 2rem !important;
+    }
+
+    .card {
+        width: 120px !important;
+        height: 120px !important;
+        min-width: 120px;
+        min-height: 120px;
+    }
+
+    .card img {
+        filter: blur(0.5px) brightness(0.7) saturate(0.8) contrast(0.5);
+    }
+
+    #Agrupador {
+        width: 100% !important;
+    }
+}
+
+/* Adicione essa regra para impedir a quebra de linha da data */
+.card-img-overlay .texts h5,
+.card-img-overlay .texts h5 b {
+    white-space: nowrap;
+}
