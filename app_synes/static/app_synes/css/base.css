@@ -336,6 +336,15 @@ input[type="search"]::-webkit-search-decoration,
             background-color: transparent !important;
         }
 
+        .navbar-img img{
+            width: 46.8px;
+            height: 46.8px;
+            border-radius: 50%;
+            object-fit: contain;
+            padding: 5px;
+            background-position: center;
+        }
+
         .profile-collapse img{
             width: 73.6px !important;
             height: 73.6px !important;
