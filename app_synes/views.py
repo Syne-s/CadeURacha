@@ -456,7 +456,7 @@ def detalhes_jogo(request, id):
     return render(request, 'app_synes/detalhes_racha.html', context)
 
 def test_jogo(request):
-    return render(request, 'app_synes/detalhes_racha.html')
+    return render(request, 'app_synes/detalhes_racha_user.html')
 
 @require_POST
 def toggle_presenca(request):
