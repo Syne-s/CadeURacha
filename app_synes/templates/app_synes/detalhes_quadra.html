@@ -37,7 +37,7 @@
                             <i class='bx bxs-basketball'></i>
                             <div class="texts">
                               <h5 class="card-title text-center"><b>{{ jogo.data|date:"d/m/Y" }}</b></h5>
-                              <p class="card-title text-center"><b>{{ jogo.horario }}</b></p>
+                              <p class="card-title text-center jogo-horario"><b>{{ jogo.horario }}</b></p>
                             </div>
                           </div>
                         </div>
@@ -67,7 +67,23 @@
         el.setAttribute("title", el.textContent.trim()); // Define o tooltip com o texto do próprio elemento
         el.setAttribute("data-bs-toggle", "tooltip"); // Garante que o tooltip do Bootstrap seja ativado
       });
-    
+
+      // Função para calcular o horário de término dos jogos
+      document.querySelectorAll('.jogo-horario').forEach(function(elem) {
+          let start = elem.textContent.trim();
+          // Pressupõe o formato "HH:MM" (ex.: "20:00")
+          let parts = start.split(':');
+          if (parts.length === 2) {
+              let hours = parseInt(parts[0], 10);
+              let minutes = parseInt(parts[1], 10);
+              // Calcula o horário final adicionando 2 horas
+              let endHours = (hours + 2) % 24;
+              // Função para garantir 2 dígitos
+              let pad = num => (num < 10 ? '0' + num : num);
+              elem.textContent = pad(hours) + ':' + pad(minutes) + ' - ' + pad(endHours) + ':' + pad(minutes);
+          }
+      });
+
       // Ativar os tooltips do Bootstrap
       var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
