@@ -107,12 +107,25 @@
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
               return new bootstrap.Tooltip(tooltipTriggerEl);
             });
+
+            // Função para calcular o horário de término dos jogos
+            let horarioElement = document.querySelector('.pad h4');
+            if (horarioElement) {
+                let start = horarioElement.textContent.trim();
+                // Pressupõe o formato "HH:MM" (ex.: "20:00")
+                let parts = start.split(':');
+                if (parts.length === 2) {
+                    let hours = parseInt(parts[0], 10);
+                    let minutes = parseInt(parts[1], 10);
+                    // Calcula o horário final adicionando 2 horas
+                    let endHours = (hours + 2) % 24;
+                    // Função para garantir 2 dígitos
+                    let pad = num => (num < 10 ? '0' + num : num);
+                    horarioElement.textContent = pad(hours) + ':' + pad(minutes) + ' - ' + pad(endHours) + ':' + pad(minutes);
+                }
+            }
           });
           
-          
-
-
-
         document.addEventListener('DOMContentLoaded', function() {
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
