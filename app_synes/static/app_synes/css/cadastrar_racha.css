@@ -191,7 +191,7 @@
 
 .form-check-input:checked {
     background-color: var(--color-primary);
-    border-color: var(--color-primary);
+    border-color: var(--color-primary) !important;
 }
 
 .form-check-label {
