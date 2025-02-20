@@ -1,5 +1,5 @@
 {% extends 'app_synes/base.html' %}
-{% block title %}cadêURacha - Criar Racha{% endblock %}
+{% block title %}cadêURacha - Criar Racha{% endblock %}
 {% load static %}
 {% block content %}
 <head>
@@ -14,7 +14,7 @@
                 <!-- Coluna Esquerda -->
                 <div class="col-md-6 pe-4 border-end">
                     <div class="auth-header mb-4">
-                        <h2 class="text-center mb-0">Cadastrar Racha</h2>
+                        <h2 class="text-center mb-0" style="margin-left: -4rem;">Cadastrar Racha</h2>
                     </div>
 
                     {% if messages %}
@@ -25,29 +25,29 @@
                         {% endfor %}
                     {% endif %}
 
-                    <!-- Título -->
+                    <!-- Título -->
                     <div class="form-group">
-                        <label for="{{ form.titulo.id_for_label }}" class="form-label">Título do Racha</label>
+                        <label for="{{ form.titulo.id_for_label }}" class="form-label" >Título</label>
                         <div class="input-wrapper">
                             <input type="text" 
-                                   class="form-control ps-5" 
+                                   class="form-control form-control-lg bg-light rounded-3 fs-6" 
                                    name="{{ form.titulo.name }}" 
                                    id="{{ form.titulo.id_for_label }}" 
-                                   placeholder="Digite o título do racha" 
+                                   style="padding-left: 1rem;"
+                                   placeholder="Digite o título do racha" 
                                    required>
-                            <i class="fas fa-heading input-icon"></i>
                         </div>
                     </div>
 
                     <!-- Imagem -->
                     <div class="form-group">
-                        <label for="{{ form.imagem.id_for_label }}" class="form-label">Imagem do Racha</label>
+                        <label for="{{ form.imagem.id_for_label }}" class="form-label">Imagem</label>
                         <div class="image-card">
                             <img id="imagePreview" src="#" alt="Preview" style="display: none;">
                             <label for="{{ form.imagem.id_for_label }}" class="custom-file-upload">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <span>Clique para fazer upload</span>
-                            </label>
+                                <div class="overlay">
+                                    <i class="bi bi-camera"></i>
+                                </div>                            </label>
                             <input type="file" 
                                    id="{{ form.imagem.id_for_label }}"
                                    name="{{ form.imagem.name }}"
@@ -56,17 +56,16 @@
                         </div>
                     </div>
 
-                    <!-- Descrição -->
+                    <!-- Descrição -->
                     <div class="form-group">
-                        <label for="{{ form.descricao.id_for_label }}" class="form-label">Descrição</label>
+                        <label for="{{ form.descricao.id_for_label }}" class="form-label">Descrição</label>
                         <div class="input-wrapper">
-                            <textarea class="form-control ps-5" 
+                            <textarea class="form-control form-control-lg bg-light rounded-3 fs-26w-100 custom-textarea" style="padding: 1rem; font-size: 16px;"
                                       name="{{ form.descricao.name }}" 
                                       id="{{ form.descricao.id_for_label }}" 
-                                      placeholder="Descreva os detalhes do racha" 
+                                      placeholder="Descreva os detalhes/observações do racha" 
                                       rows="4"
                                       required></textarea>
-                            <i class="fas fa-align-left input-icon"></i>
                         </div>
                     </div>
                 </div>
@@ -76,9 +75,9 @@
                     
                     <!-- Quadra -->
                     <div class="form-group">
-                        <label for="{{ form.arena.id_for_label }}" class="form-label">Quadra</label>
+                        <label for="{{ form.arena.id_for_label }}" class="form-label" style="margin-top: 3.5rem;">Quadra</label>
                         <div class="input-wrapper">
-                            <select class="form-control ps-5" 
+                            <select class="form-control ps-5 bg-light" style="margin-bottom: 1rem;" 
                                     name="{{ form.arena.name }}" 
                                     id="{{ form.arena.id_for_label }}"
                                     required>
@@ -95,10 +94,10 @@
 
                     <!-- Data -->
                     <div class="form-group">
-                        <label for="{{ form.data.id_for_label }}" class="form-label">Data</label>
+                        <label for="{{ form.data.id_for_label }}" class="form-label" style="margin-top: 0.3rem;">Data</label>
                         <div class="input-wrapper">
                             <input type="date" 
-                                   class="form-control ps-5" 
+                                   class="form-control ps-5 bg-light" 
                                    name="{{ form.data.name }}" 
                                    id="{{ form.data.id_for_label }}" 
                                    required>
@@ -106,12 +105,12 @@
                         </div>
                     </div>
 
-                    <!-- Horário -->
+                    <!-- Horário -->
                     <div class="form-group">
-                        <label for="{{ form.horario.id_for_label }}" class="form-label">Horário</label>
+                        <label for="{{ form.horario.id_for_label }}" class="form-label" >Horário</label>
                         <div class="input-wrapper">
                             <input type="time" 
-                                   class="form-control ps-5" 
+                                   class="form-control ps-5 bg-light" 
                                    name="{{ form.horario.name }}" 
                                    id="{{ form.horario.id_for_label }}" 
                                    required>
@@ -119,25 +118,30 @@
                         </div>
                     </div>
 
-                    <!-- Checkbox Levar Bola -->
-                    <div class="form-group mb-4">
-                        <div class="form-check custom-checkbox">
-                            <input type="checkbox" 
-                                   class="form-check-input" 
-                                   id="levar-bola"
-                                   onchange="atualizarBolas(this.checked)">
-                            <label class="form-check-label" for="levar-bola">
-                                <i class="fas fa-basketball-ball"></i> Vou levar bola
-                            </label>
-                        </div>
-                        <input type="hidden" 
-                               name="{{ form.bolas.name }}" 
-                               id="qtd-bolas" 
-                               value="0">
-                    </div>
+                   <!-- Checkbox Levar Bola -->
+<div class="form-group mb-4">
+    <div class="form-check custom-checkbox">
+        <input type="checkbox" 
+               class="form-check-input" 
+               id="levar-bola"
+               onchange="atualizarBolas(this.checked)">
+            <label class="form-check-label" for="levarBola">
+                Vou Levar Bola 
+                <i class='bx bx-info-circle' 
+                   data-bs-toggle="tooltip"
+                   data-bs-html="true"
+                   title="Marcando essa caixa, tu precisa levar a bola de basquete pra o racha."></i>
+           </label>
+    </div>
+    <input type="hidden" 
+           name="{{ form.bolas.name }}" 
+           id="qtd-bolas" 
+           value="0">
+</div>
 
-                    <!-- Botão Criar -->
-                    <button type="submit" class="auth-button w-100">CRIAR RACHA</button>
+
+                    <!-- Botão Criar -->
+                    <button type="submit" class="auth-button w-100" style="margin-top: -1.1rem;">CRIAR RACHA</button>
                 </div>
             </div>
         </form>
@@ -145,19 +149,33 @@
 </div>
 
 <script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, {
+                customClass: 'custom-tooltip',
+                html: true
+            });
+        });
+    });
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurar data mínima (amanhã)
+    // Configurar data mínima (amanhã)
     const today = new Date();
     today.setDate(today.getDate() + 1);
     const tomorrow = today.toISOString().split('T')[0];
     document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
 
-    // Pré-selecionar quadra se vier da URL
+    // Pré-selecionar quadra se vier da URL
     const urlParams = new URLSearchParams(window.location.search);
     const arenaId = urlParams.get('arena_id');
     if (arenaId) {
         const arenaSelect = document.querySelector('select[name="{{ form.arena.name }}"]');
-        const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
+        const option = arenaSelect.querySelector(option[value="${arenaId}"]);
         if (option) {
             option.selected = true;
         }
@@ -168,7 +186,7 @@ function atualizarBolas(checked) {
     document.getElementById('qtd-bolas').value = checked ? '1' : '0';
 }
 
-// Adicione o código para preview da imagem
+// Adicione o código para preview da imagem
 document.getElementById('{{ form.imagem.id_for_label }}').addEventListener('change', function(e) {
     const preview = document.getElementById('imagePreview');
     const file = e.target.files[0];
@@ -204,11 +222,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
     let errorMessage = '';
 
     if (!titulo) {
-        errorMessage += 'Título é obrigatório.\n';
+        errorMessage += 'Título é obrigatório.\n';
         isValid = false;
     }
     if (!descricao) {
-        errorMessage += 'Descrição é obrigatória.\n';
+        errorMessage += 'Descrição é obrigatória.\n';
         isValid = false;
     }
     if (!arena) {
@@ -216,11 +234,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
         isValid = false;
     }
     if (!data) {
-        errorMessage += 'Data é obrigatória.\n';
+        errorMessage += 'Data é obrigatória.\n';
         isValid = false;
     }
     if (!horario) {
-        errorMessage += 'Horário é obrigatório.\n';
+        errorMessage += 'Horário é obrigatório.\n';
         isValid = false;
     }
 
