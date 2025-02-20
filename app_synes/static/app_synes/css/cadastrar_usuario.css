@@ -1,106 +1,252 @@
-.auth-container {
-    min-height: calc(100vh - 120px);
+:root {
+    /* NOVA PALETA */
+    --cor-fundo-principal: #F0F0F1;
+    --cor-card-principal: #CF5204;
+    --cor-texto-principal: #F8F7F8;
+    --cor-botao-principal: #F0F0F1;
+    --cor-botao-hover: #F8F7F8;
+    --cor-botao-texto: #C55204;
+    --cor-fundo-pesquisa: #E5E5E5;
+
+    /* Cores Primárias */
+    --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+    --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+    --color-accent: #e5c03d; /* Usada para destaques e ícones */
+
+    /* Cores Secundárias */
+    --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+    --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+    --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+    --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+    --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+
+    /* Estados de Botões */
+    --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+    --button-primary-text: #FFFFFF; /* Texto do botão primário */
+    --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+    --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+    --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+    --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+    --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+
+    /* Cores de Feedback */
+    --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+    --color-error: #ba2121; /* Vermelho para erros */
+    --color-warning: #FF9800; /* Laranja para avisos */
+
+    /* Cores de Mapa */
+    --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+    --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+
+    /* Outras Cores */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+    --border-default: #E0E0E0; /* Cor de borda padrão */
+
+    /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+    --border-color: var(--border-default);
+    --color-background-muted: var(--color-background-light);
+}
+
+.container-login {
+    height: 53.2vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    margin-top: 73px; 
+    margin-bottom: 73px; 
 }
 
-.auth-card {
-    background: black;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-    max-width: 400px;
+#ImgBehind {
+    background-image: linear-gradient(0deg, rgba(28, 24, 41, 0.25), rgba(28, 24, 41, 0.25)), 
+                      linear-gradient(180deg, rgba(159, 132, 249, 0.5) 0%, rgba(235, 122, 66, 0.5) 100%), 
+                      url('/static/app_synes/images/quadra1.jpeg');
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 40px 0px 0px 40px;
 }
 
-.auth-header {
-    text-align: center;
-    margin-bottom: 2rem;
+.ajustador-subtitle {
+    transform: translateY(-5rem);
 }
 
-.auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+.subtitle {
+    width: 70%;
 }
 
-.auth-header h2 {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
+.box-area {
+    height: 73vh;
+    width: 60vh;
+    max-width: 900px;
+    border-radius: 4rem;
+    margin: 0 auto !important;
+    position: relative;
+    background-color: var(--color-background-default); /* Fundo principal do card */
 }
 
-.auth-header p {
-    color: #666;
-    margin-bottom: 0;
+.right-box {
+    padding: 40px 30px 40px 40px;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
+.h2-texto {  
+    margin-top: 2vh;  
+    font-size: 3vw;    
 }
 
-.input-group-text {
-    background-color: white;
-    border-right: none;
-    color: #666;
-    transition: border-color 0.2s ease;
+.text-center.mb-2 {
+    margin-top: 1vh;  
+}
+
+@media (max-width: 768px) {
+    .box-area {
+        width: 90vw;   
+        height: auto;  
+    }
+
+    #ImgBehind {
+        width: 90vw;   
+        height: auto;  
+    }
+
+    .h2-texto {
+        font-size: 4vw;   
+        margin-top: 3vh;  
+    }
+
+    .ajustador-subtitle {
+        margin-top: 2vh;  
+    }
+
+    .text-center.mb-2 {
+        margin-top: 2vh;  
+    }
+}
+
+#cadastroBtn {
+    background-color: var(--color-primary); /* Cor do botão primário */
+    border-radius: 40px;
+    border: none;
+    color: var(--button-primary-text);
+    margin-top: 1rem;
+    width: calc(100% - 60px) !important;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+}
+
+#Texto {
+    color: var(--cor-texto-principal); /* Cor do texto */
+}
+
+#cadastro_usuarioForm {
+    padding: 0 30px;
 }
 
 .form-control {
-    border-left: none;
-    padding: 0.75rem;
-    transition: border-color 0.2s ease;
+    width: calc(100% - 60px);
+    margin: 0 auto;
 }
 
-/* Remove outline padrão do Bootstrap */
-.form-control:focus {
-    box-shadow: none;
-    border-color: var(--primary-color);
+.form-control-lg {
+    width: calc(100% - 60px) !important;
+    margin: 0 auto !important;
 }
 
-/* Quando o input está em foco, estiliza também o span adjacente */
-.form-control:focus ~ .input-group-text {
-    border-color: var(--primary-color);
+.mb-6 {
+    padding: 0;
 }
 
-/* Quando o span está em foco, estiliza também o input */
-.input-group:focus-within .input-group-text {
-    border-color: var(--primary-color);
+.form-label {
+    padding-left: 30px;
 }
 
-.input-group:focus-within .form-control {
-    border-color: var(--primary-color);
-}
-
-.auth-button {
+.input-group {
+    padding: 0;
     width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary-color);
+}
+
+#password.form-control-lg {
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+    width: calc(100% - 60px) !important;
+}
+
+.bx-info-circle {
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-secondary); /* Cor do ícone */
+    vertical-align: justify;
+}
+
+.tooltip-content {
+    display: none;
+    position: absolute;
     color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    width: 300px;
+    left: 10px;
+    top: 100%;
+    white-space: nowrap;
+    z-index: 10;
+}
+.tooltip-inner {
+    font-size: 14px; 
+    max-width: 300px; 
+    padding: 8px 12px; 
+    font-family: "Poppins", sans-serif !important;
 }
 
-.auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: var(--border-default) !important;
 }
 
-.auth-footer {
-    text-align: center;
-    margin-top: 2rem;
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: var(--border-default) !important;
 }
 
-.auth-link {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: var(--border-default) !important;
 }
 
-.auth-link:hover {
-    color: var(--hover-color);
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: var(--border-default) !important;
+}
+
+.bi-info-circle {
+    position: relative;
+}
+
+.bi-info-circle:hover + .tooltip-content {
+    display: block;
+}
+
+#username-requirements {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+#username-requirements li {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--color-secondary);
+    padding-left: 20px;
+    position: relative;
+}
+
+#username-requirements li::before {
+    content: '\2022';
+    color: var(--color-primary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.text-danger {
+    color: var(--color-warning); /* Cor para mensagens de erro */
+    font-size: 12px;
 }

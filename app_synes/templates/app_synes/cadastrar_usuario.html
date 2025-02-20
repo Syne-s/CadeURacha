@@ -1,89 +1,92 @@
 {% extends 'app_synes/base.html' %}
 {% load static %}
-{% block title %}cadêURacha - Cadastro{% endblock %}
+{% block title %}cadêURacha - Cadastro{% endblock %}
 {% block content %}
 <head>
     <link href="{% static 'app_synes/css/cadastrar_usuario.css' %}" rel="stylesheet">
 </head>
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2>Crie sua conta</h2>
-            <p>Junte-se ao cadêURacha hoje!</p>
-        </div>
-        
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-info">
-                    <p>{{ message }}</p>
-                </div>
-            {% endfor %}
-        {% endif %}
 
-        <form id="registerForm" method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Nome de Usuário" maxlength="20" required>
-                </div>
-                <ul id="username-requirements" class="list-unstyled mt-2">
-                    <li id="req-start-letter" class="text-danger">Deve começar com uma letra</li>
-                    <li id="req-valid-chars" class="text-danger">Pode conter letras, números e sublinhados</li>
-                    <li id="req-no-consecutive-underscores" class="text-danger">Não pode ter sublinhados consecutivos</li>
-                    <li id="req-no-underscores-start-end" class="text-danger">Não pode ter sublinhados no início/fim</li>
-                    <li id="req-length" class="text-danger">Deve ter entre 4 e 20 caracteres</li>
-                </ul>
-                <div id="username-feedback" class="mt-2"></div>
+<div class="container-login d-flex justify-content-center align-items-center">
+    <div class="row rounded-5 bg-white shadow box-area mt-5 mb-5 w-75">
+        <!-- Left Box -->
+        <div id="ImgBehind" class="col-md-6 rounded-start-5 d-flex justify-content-between flex-column left-box text-bg-dark" 
+            style="background-image: linear-gradient(0deg, rgba(28, 24, 41, 0.25), rgba(28, 24, 41, 0.25)), 
+            linear-gradient(180deg, rgba(159, 132, 249, 0.5) 0%, rgba(235, 122, 66, 0.5) 100%),
+            url('{% static "app_synes/images/quadra1.jpeg" %}'); height: 100%;">
+            <div id="ContainerTextos" class="h-100 d-flex flex-column justify-content-between py-5">
+                <h2 id="Texto" class="text-center mb-0" style="transform: translateY(22px);"><b>cadêURacha</b></h2>
+                <p id="Texto" class="text-center mb-2 mt-4">
+                    Seja bem-vindo ao sistema, antes de qualquer coisa, que tal realizar o seu cadastro?
+                </p>
+                <p class="text-center mb-2">
+                    Já tem cadastro? Faça seu
+                    <br>
+                    <a href="{% url 'logar' %}" style="color: white;">Login</a>
+                </p>
             </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+        </div>
+
+        <!-- Right Box -->
+        <div class="col-md-6 right-box d-flex align-items-center">
+            <div class="row d-flex align-items-center">
+                <div class="header-text text-center mb-6">
+                    <h2>Cadastro</h2>
                 </div>
-                <!-- Elemento para feedback -->
-                <div id="email-feedback" class="mt-2"></div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                <form id="cadastro_usuarioForm" method="POST" action="">
+                    {% csrf_token %}
+                <div class="mb-6">
+                    <div class="form-group">
+                        <label for="username" style="margin-left: 30px;">Nome:</label>
+                        <button type="button" class="btn btn-link p-0" data-bs-toggle="tooltip" data-bs-html="true"
+                            title="<ul>
+                                      <li>Deve começar com uma letra;</li>
+                                      <li>Pode conter letras, números e sublinhados;</li>
+                                      <li>Não pode ter sublinhados consecutivos;</li>
+                                      <li>Não pode ter sublinhados no início/fim;</li>
+                                      <li>Deve ter entre 4 e 20 caracteres.</li>
+                                   </ul>">
+                                   <i class='bx bx-info-circle' style="cursor: pointer;"></i>
+                        </button>
+                        <input type="text" id="username" name="username" class="form-control form-control-lg bg-light rounded-3 fs-6 mb-4" required>
+                        <div id="usernameError" class="text-danger" style="display:none; margin-left: 30px;">O nome de usuário não é válido.</div>
+                    </div>
+                </div> 
+                               
+                <div class="mb-6">
+                    <label for="email" class="form-label">Email*</label>
+                    <input type="email" class="form-control form-control-lg bg-light rounded-3 fs-6 mb-4" id="email" name="email" required>         
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirmar Senha" required>
+                <div class="mb-6">
+                    <label for="password" class="form-label">Senha*</label>
+                    <input type="password" id="password" name="password" 
+                               class="form-control form-control-lg bg-light rounded-3 fs-6 mb-4" required>
                 </div>
+                <div class="mb-6">
+                    <label for="confirm_password" class="form-label">Confirmar Senha*</label>
+                    <input type="password" id="confirm_password" name="confirm_password" 
+                               class="form-control form-control-lg bg-light rounded-3 fs-6 mb-4" required>
+                </div>
+                <div class="input-group mb-4 justify-content-center">
+                    <button id="cadastroBtn" type="submit" class="btn btn-lg w-75 rounded-3 fs-6"><b>CADASTRAR</b></button>
+                </div>
+                </form>
             </div>
-            <button type="submit" class="auth-button">Cadastrar</button>
-        </form>
-        <div class="auth-footer">
-            <p>Já tem uma conta? <a href="{% url 'logar' %}" class="auth-link">Entre aqui</a></p>
         </div>
     </div>
 </div>
 
-<!-- Add modal to logar.html -->
-<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true">
+<!-- Modal for updating username -->
+<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
             </div>
             <div class="modal-body">
-                <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
-                <ul>
-                    <li>Deve começar com uma letra</li>
-                    <li>Pode conter letras, números e sublinhados</li>
-                    <li>Não pode ter sublinhados consecutivos</li>
-                    <li>Não pode ter sublinhados no início/fim</li>
-                    <li>Deve ter entre 4 e 20 caracteres</li>
-                </ul>
+                <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
+                
                 <div class="form-group">
-                    <label for="newUsername">Novo nome de usuário:</label>
+                    <label for="newUsername">Novo nome de usuário:</label>
                     <input type="text" class="form-control" id="newUsername" required>
                 </div>
             </div>
@@ -96,139 +99,40 @@
 
 <script>
 function validateUsername(username) {
-    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
-    const requirements = {
-        startLetter: /^[a-zA-Z]/.test(username),
-        validChars: /^[a-zA-Z0-9_]*$/.test(username),
-        noConsecutiveUnderscores: !/__/.test(username),
-        noUnderscoresStartEnd: !/^_|_$/.test(username),
-        length: username.length >= 4 && username.length <= 20
-    };
-    
-    return requirements;
+    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9_]{2,18}[a-zA-Z0-9]$/;
+    return usernamePattern.test(username);
 }
 
-document.getElementById('username').addEventListener('input', function(e) {
-    const username = e.target.value;
-    const requirements = validateUsername(username);
+document.getElementById('username').addEventListener('input', function() {
+    const username = this.value.trim();
+    const errorDiv = document.getElementById('usernameError');
 
-    document.getElementById('req-start-letter').className = requirements.startLetter ? 'text-success' : 'text-danger';
-    document.getElementById('req-valid-chars').className = requirements.validChars ? 'text-success' : 'text-danger';
-    document.getElementById('req-no-consecutive-underscores').className = requirements.noConsecutiveUnderscores ? 'text-success' : 'text-danger';
-    document.getElementById('req-no-underscores-start-end').className = requirements.noUnderscoresStartEnd ? 'text-success' : 'text-danger';
-    document.getElementById('req-length').className = requirements.length ? 'text-success' : 'text-danger';
-
-    const allValid = Object.values(requirements).every(Boolean);
-    e.target.setCustomValidity(allValid ? '' : 'Nome de usuário inválido.');
-
-    // Check if username already exists only if it has at least 4 characters
-    if (username.length >= 4) {
-        fetch(`/check_username/?username=${username}`)
-            .then(response => response.json())
-            .then(data => {
-                const feedback = document.getElementById('username-feedback');
-                if (data.exists) {
-                    feedback.className = 'alert alert-danger';
-                    feedback.textContent = data.message;
-                    e.target.setCustomValidity(data.message);
-                } else {
-                    feedback.className = 'alert alert-success';
-                    feedback.textContent = 'Nome de usuário disponível';
-                    e.target.setCustomValidity('');
-                }
-            });
+    if (validateUsername(username)) {
+        errorDiv.style.display = 'none';
     } else {
-        const feedback = document.getElementById('username-feedback');
-        feedback.className = '';
-        feedback.textContent = '';
-        e.target.setCustomValidity('Nome de usuário inválido.');
+        errorDiv.style.display = 'block';
     }
 });
 
-document.getElementById('email').addEventListener('blur', function(e) {
-    const email = e.target.value;
-    if (!email) return;
-    
-    fetch(`/check_email/?email=${encodeURIComponent(email)}`)
-        .then(response => response.json())
-        .then(data => {
-            const emailFeedback = document.getElementById('email-feedback');
-            if (data.exists) {
-                emailFeedback.className = 'alert alert-danger';
-                emailFeedback.textContent = data.message;
-                e.target.setCustomValidity(data.message);
-            } else {
-                emailFeedback.className = 'alert alert-success';
-                emailFeedback.textContent = 'E-mail disponível.';
-                e.target.setCustomValidity('');
-            }
-        })
-        .catch(error => {
-            console.error('Erro no fetch do e-mail:', error);
-        });
-});
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm_password').value;
-    
-    // Validação básica
-    if (password !== confirmPassword) {
-        alert('As senhas não coincidem');
-        return;
-    }
-    
-    const formData = new FormData(this);
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-    fetch('', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': csrftoken
-        },
-        credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            window.location.href = '/logar/';
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ocorreu um erro ao processar o cadastro');
-    });
-});
-
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    const username = formData.get('login');
+document.getElementById('cadastro_usuarioForm').addEventListener('submit', function(event) {
+    const username = document.getElementById('username').value.trim();
 
     if (!validateUsername(username)) {
-        const modal = new bootstrap.Modal(document.getElementById('usernameUpdateModal'));
-        modal.show();
+        event.preventDefault();
+        document.getElementById('usernameError').style.display = 'block';
         return;
+    } else {
+        document.getElementById('usernameError').style.display = 'none';
     }
 
-    // Existing login code...
 });
 
 function updateUsername() {
-    const newUsername = document.getElementById('newUsername').value;
+    const newUsername = document.getElementById('newUsername').value.trim();
     
     if (!validateUsername(newUsername)) {
-        alert('O novo nome de usuário não atende aos requisitos.');
+        alert('O novo nome de usuário não atende aos requisitos.');
         return;
     }
 
@@ -243,11 +147,19 @@ function updateUsername() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = '/';  // Redirect to home page
+            window.location.href = '/';  
         } else {
             alert(data.message);
         }
     });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+});
 </script>
+
 {% endblock %}
