@@ -319,10 +319,21 @@ input[type="search"]::-webkit-search-decoration,
             cursor: pointer;
             color: var(--color-primary);
             transition: all .5s ease;
+            display: flex;
+            align-items: center;
         }
         
         #Logo:hover {
             opacity: 70%;
+        }
+        
+        #Logo img {
+            margin-right: 0.5rem;
+        }
+
+        #Logo span span {
+            /* Style for the "UR" part */
+            color: var(--color-primary);
         }
         
         #MapIcon {

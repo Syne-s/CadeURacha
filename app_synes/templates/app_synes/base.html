@@ -209,10 +209,10 @@
         <div class="container-fluid d-flex align-items-center">
 
             <div class="d-flex align-items-center navbar-img">
-            <img class="ratio ratio-1x1 me-2" src="{% static 'app_synes/images/logo-ur.png' %}" alt="Logo do cadeURacha">  
-            <a id="Logo" class="navbar-brand" href="{% url 'index' %}">
-                cadê<span>UR</span>acha
-            </a>
+                <a id="Logo" class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                    <img class="ratio ratio-1x1 me-2" src="{% static 'app_synes/images/logo-ur.png' %}" alt="Logo do cadeURacha">
+                    <span>cadê<span>UR</span>acha</span>
+                </a>
             </div>
             
             <a class="navbar-brand d-flex align-items-center map-link change_format map_format" href="{% url 'mapa' %}">
