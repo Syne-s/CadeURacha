@@ -16,8 +16,6 @@ class Arena(models.Model):
     latitude = models.FloatField(verbose_name="Latitude")
     longitude = models.FloatField(verbose_name="Longitude")
     endereco = models.CharField(max_length=300, verbose_name="Endereço")
-    capacidade = models.IntegerField(blank=True, null=True, verbose_name="Capacidade")
-    tipo_esporte = models.CharField(max_length=100, verbose_name="Tipo de Esporte")
     
     # Campos para armazenar partes separadas do endereço
     logradouro = models.CharField(max_length=255, blank=True, null=True, verbose_name="Logradouro")

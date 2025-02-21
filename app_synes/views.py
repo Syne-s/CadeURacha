@@ -137,7 +137,9 @@ def cadastrar_quadra(request):
     if request.method == 'POST':
         form = ArenaForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            arena = form.save(commit=False)
+            arena.usuario = request.user
+            arena.save()
             return redirect('mapa')
     else:
         form = ArenaForm()

@@ -12,8 +12,30 @@ import re
 class ArenaForm(forms.ModelForm):
     class Meta:
         model = Arena
-        fields = ['nome', 'logradouro', 'bairro', 'cidade', 'estado', 
-                 'regiao', 'cep', 'pais', 'latitude', 'longitude', 'foto_quadra']
+        fields = ['nome', 'logradouro', 'bairro', 'cidade', 'estado',
+                 'cep', 'latitude', 'longitude', 'foto_quadra']
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        # Construir o endereço completo
+        endereco_parts = []
+        if self.cleaned_data.get('logradouro'): 
+            endereco_parts.append(self.cleaned_data['logradouro'])
+        if self.cleaned_data.get('bairro'):
+            endereco_parts.append(self.cleaned_data['bairro'])
+        if self.cleaned_data.get('cidade'):
+            endereco_parts.append(self.cleaned_data['cidade'])
+        if self.cleaned_data.get('estado'):
+            endereco_parts.append(self.cleaned_data['estado'])
+        if self.cleaned_data.get('cep'):
+            endereco_parts.append(self.cleaned_data['cep'])
+        
+        # Atualizar o campo endereço
+        instance.endereco = ', '.join(filter(None, endereco_parts))
+        
+        if commit:
+            instance.save()
+        return instance
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
