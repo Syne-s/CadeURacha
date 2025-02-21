@@ -12,7 +12,8 @@ import re
 class ArenaForm(forms.ModelForm):
     class Meta:
         model = Arena
-        fields = ['nome', 'endereco', 'latitude', 'longitude', 'logradouro', 'bairro', 'cidade', 'estado', 'regiao', 'cep', 'pais']
+        fields = ['nome', 'logradouro', 'bairro', 'cidade', 'estado', 
+                 'regiao', 'cep', 'pais', 'latitude', 'longitude', 'foto_quadra']
 
 class EditProfileForm(forms.ModelForm):
     class Meta:

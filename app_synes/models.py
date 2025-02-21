@@ -28,6 +28,8 @@ class Arena(models.Model):
     cep = models.CharField(max_length=20, blank=True, null=True, verbose_name="CEP")
     pais = models.CharField(max_length=255, blank=True, null=True, verbose_name="País")
     
+    foto_quadra = models.ImageField(upload_to='arenas/', null=True, blank=True)
+    
     # Relacionamento com usuário que cadastrou
     usuario = models.ForeignKey(
         get_user_model(), 
