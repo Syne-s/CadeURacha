@@ -5,46 +5,54 @@
 <head>
     <link href="{% static 'app_synes/css/cadastrar_quadra.css' %}" rel="stylesheet">
 </head>
-<div class="auth-container">
-    <div class="auth-card">
-        <div class="auth-header">
-            <i class="fas fa-basketball-ball auth-icon"></i>
-            <h2 class="text-center mb-0">Cadastrar Nova Quadra</h2>
+<body>
+    <div class="pai">
+        <div class="fundo shadow" style="width: 926px; height: 379px;">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h2 class="card-title text-center" style="font-size: 30px; font-weight: 550; margin-bottom: 2rem;"><b>Cadastrar Nova Quadra</b></h2>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_nome" class="form-label">Nome da Arena</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-basketball-ball"></i></span>
+                                    <input type="text" name="nome" id="id_nome" class="form-control" placeholder="Nome da Arena" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_endereco" class="form-label">Endereço</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" name="endereco" id="id_endereco" class="form-control" placeholder="Endereço" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_foto_quadra" class="form-label">Foto da Quadra</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                    <input type="file" name="foto_quadra" id="id_foto_quadra" class="form-control" accept="image/*">
+                                </div>
+                            </div>
+                            <!-- Hidden inputs -->
+                            <input type="hidden" name="latitude" id="id_latitude">
+                            <input type="hidden" name="longitude" id="id_longitude">
+                            <input type="hidden" name="logradouro" id="id_logradouro">
+                            <input type="hidden" name="bairro" id="id_bairro">
+                            <input type="hidden" name="cidade" id="id_cidade">
+                            <input type="hidden" name="estado" id="id_estado">
+                            <input type="hidden" name="regiao" id="id_regiao">
+                            <input type="hidden" name="cep" id="id_cep">
+                            <input type="hidden" name="pais" id="id_pais">
+                            <button type="submit" class="auth-button">Cadastrar Quadra</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-basketball-ball"></i></span>
-                    <input type="text" name="nome" id="id_nome" class="form-control" placeholder="Nome da Arena" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                    <input type="text" name="endereco" id="id_endereco" class="form-control" placeholder="Endereço" readonly>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-image"></i></span>
-                    <input type="file" name="foto_quadra" id="id_foto_quadra" class="form-control" accept="image/*">
-                </div>
-            </div>
-            <input type="hidden" name="latitude" id="id_latitude">
-            <input type="hidden" name="longitude" id="id_longitude">
-            <input type="hidden" name="logradouro" id="id_logradouro">
-            <input type="hidden" name="bairro" id="id_bairro">
-            <input type="hidden" name="cidade" id="id_cidade">
-            <input type="hidden" name="estado" id="id_estado">
-            <input type="hidden" name="regiao" id="id_regiao">
-            <input type="hidden" name="cep" id="id_cep">
-            <input type="hidden" name="pais" id="id_pais">
-            <button type="submit" class="auth-button">Cadastrar Quadra</button>
-        </form>
     </div>
-</div>
-
+</body>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Recuperar coordenadas da URL
