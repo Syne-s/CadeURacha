@@ -30,9 +30,13 @@
         <div class="container shadow rounded-5 cream">
           <div class="row d-flex flex-nowrap overflow-auto w-100">
             {% for jogo in jogos_criados %}
-              <a href="#">
+              <a href="{% url 'detalhes_jogo' jogo.id %}">
                 <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                  <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de promoção do Racha">
+                  {% if jogo.imagem %}
+                    <img src="{{ jogo.imagem.url }}" class="card-img" alt="Imagem de {{ jogo.titulo }}">
+                  {% else %}
+                    <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem do racha">
+                  {% endif %}
                   <div class="card-img-overlay">
                     <i class='bx bxs-basketball'></i>
                     <div class="texts">
@@ -74,9 +78,13 @@
           <div class="row d-flex flex-nowrap overflow-auto w-100">
             {% for jogo in jogos_confirmados %}
               {% if request.user in jogo.participantes.all and jogo.criador_jogo != request.user %}
-                <a href="#">
+                <a href="{% url 'detalhes_jogo' jogo.id %}">
                   <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                    <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem de promoção do Racha">
+                    {% if jogo.imagem %}
+                      <img src="{{ jogo.imagem.url }}" class="card-img" alt="Imagem de {{ jogo.titulo }}">
+                    {% else %}
+                      <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem do racha">
+                    {% endif %}
                     <div class="card-img-overlay">
                       <i class='bx bxs-basketball'></i>
                       <div class="texts">
@@ -108,20 +116,22 @@
 
 {% block scripts %}
 <script>
-// Para cada elemento de horário, calcula o horário final 2 horas à frente
-document.querySelectorAll('.jogo-horario').forEach(function(elem) {
-    let start = elem.textContent.trim();
-    // Pressupõe o formato "HH:MM" (ex.: "20:00")
-    let parts = start.split(':');
-    if (parts.length === 2) {
-        let hours = parseInt(parts[0], 10);
-        let minutes = parseInt(parts[1], 10);
-        // Calcula o horário final adicionando 2 horas
-        let endHours = (hours + 2) % 24;
-        // Função para garantir 2 dígitos
-        let pad = num => (num < 10 ? '0' + num : num);
-        elem.textContent = pad(hours) + ':' + pad(minutes) + ' - ' + pad(endHours) + ':' + pad(minutes);
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    // Para cada elemento de horário, calcula o horário final 2 horas à frente
+    document.querySelectorAll('.jogo-horario').forEach(function(elem) {
+        let start = elem.textContent.trim();
+        // Pressupõe o formato "HH:MM" (ex.: "20:00")
+        let parts = start.split(':');
+        if (parts.length === 2) {
+            let hours = parseInt(parts[0], 10);
+            let minutes = parseInt(parts[1], 10);
+            // Calcula o horário final adicionando 2 horas
+            let endHours = (hours + 2) % 24;
+            // Função para garantir 2 dígitos
+            let pad = num => (num < 10 ? '0' + num : num);
+            elem.textContent = `${pad(hours)}:${pad(minutes)} - ${pad(endHours)}:${pad(minutes)}`;
+        }
+    });
 });
 </script>
 {% endblock %}
