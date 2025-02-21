@@ -428,16 +428,62 @@ def teste(request):
     return render(request, 'app_synes/detalhes_quadra.html')  # Especifique o caminho completo
 
 def todos(request):
+    # Obtém o timezone de Brasília
+    tz_brasil = ZoneInfo("America/Sao_Paulo")
+    agora = timezone.now().astimezone(tz_brasil)
+
+    # Obtém todas as quadras
     quadras = Arena.objects.all()
-    jogos = Jogo.objects.all()
-    return render(request, 'app_synes/todos.html', {'quadras': quadras, 'jogos': jogos})
+
+    # Obtém os jogos e converte para lista para ordenar
+    jogos = list(Jogo.objects.all())
+
+    # Função auxiliar para ordenação
+    def get_datetime_jogo(jogo):
+        data = jogo.data
+        horario = datetime.strptime(jogo.horario, '%H:%M').time()
+        return timezone.make_aware(
+            datetime.combine(data, horario),
+            timezone=tz_brasil
+        )
+
+    # Ordena os jogos por data e horário
+    jogos.sort(key=lambda x: get_datetime_jogo(x))
+
+    # Remove jogos que já passaram
+    jogos = [j for j in jogos if get_datetime_jogo(j) >= agora]
+
+    return render(request, 'app_synes/todos.html', {
+        'quadras': quadras,
+        'jogos': jogos,
+        'timestamp': timezone.now().timestamp(),
+    })
 
 def detalhes_quadra(request, id):
+    # Obtém o timezone de Brasília
+    tz_brasil = ZoneInfo("America/Sao_Paulo")
+    agora = timezone.now().astimezone(tz_brasil)
+
     # Busca a quadra específica ou retorna 404 se não encontrar
     quadra = get_object_or_404(Arena, id=id)
     
-    # Busca todos os jogos relacionados a esta quadra
-    jogos_quadra = Jogo.objects.filter(arena=quadra)
+    # Busca todos os jogos relacionados a esta quadra e converte para lista
+    jogos_quadra = list(Jogo.objects.filter(arena=quadra))
+
+    # Função auxiliar para ordenação
+    def get_datetime_jogo(jogo):
+        data = jogo.data
+        horario = datetime.strptime(jogo.horario, '%H:%M').time()
+        return timezone.make_aware(
+            datetime.combine(data, horario),
+            timezone=tz_brasil
+        )
+
+    # Ordena os jogos por data e horário
+    jogos_quadra.sort(key=lambda x: get_datetime_jogo(x))
+
+    # Remove jogos que já passaram
+    jogos_quadra = [j for j in jogos_quadra if get_datetime_jogo(j) >= agora]
     
     context = {
         'quadra': quadra,
