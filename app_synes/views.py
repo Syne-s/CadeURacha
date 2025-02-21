@@ -137,7 +137,7 @@ def cadastrar_quadra(request):
         form = ArenaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('app_synes/mapa.html')
+            return redirect('mapa')
     else:
         form = ArenaForm()
     return render(request, 'app_synes/cadastrar_quadra.html', {'form': form})
