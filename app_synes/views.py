@@ -209,6 +209,9 @@ def criar_jogo(request):
 
 @login_required
 def cadastrar_racha(request):
+    # Get the arena_id from URL parameters
+    arena_id = request.GET.get('arena_id')
+    
     if request.method == 'POST':
         form = JogoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -220,7 +223,6 @@ def cadastrar_racha(request):
                 jogo.save()
                 jogo.participantes.add(request.user)
                 messages.success(request, 'Racha criado com sucesso!')
-                # Alterando o redirecionamento para detalhes_racha com o ID do racha criado
                 return redirect('detalhes_jogo', jogo.id)
             except Exception as e:
                 print(f"Erro ao salvar jogo: {e}")
@@ -230,7 +232,16 @@ def cadastrar_racha(request):
             for field, errors in form.errors.items():
                 messages.error(request, f'Erro no campo {field}: {", ".join(errors)}')
     else:
-        form = JogoForm()
+        initial_data = {}
+        if arena_id:
+            try:
+                arena = Arena.objects.get(id=arena_id)
+                initial_data = {'arena': arena}
+                form = JogoForm(initial=initial_data)
+            except Arena.DoesNotExist:
+                form = JogoForm()
+        else:
+            form = JogoForm()
     
     return render(request, 'app_synes/cadastrar_racha.html', {'form': form})
 

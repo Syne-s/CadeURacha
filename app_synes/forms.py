@@ -49,6 +49,12 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirme a Nova Senha'}))
 
 class JogoForm(forms.ModelForm):
+    arena = forms.ModelChoiceField(
+        queryset=Arena.objects.all(),
+        empty_label="Selecione uma quadra",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Jogo
         fields = ['titulo', 'descricao', 'arena', 'data', 'horario', 'bolas', 'imagem']  # Removido max_jogadores
