@@ -36,7 +36,10 @@
                 {% endif %}
                 <div class="card-img-overlay">
                   <div class="texts quadra">
-                    <p class="card-title text-center mb-flex text-truncate"><b>{{ quadra.nome }}</b></p>
+                    <p class="card-title text-center mb-flex text-truncate" 
+                       data-bs-toggle="tooltip" 
+                       data-bs-placement="top" 
+                       title="{{ quadra.nome }}"><b>{{ quadra.nome }}</b></p>
                     <p class="card-title text-center text-truncate">{{ quadra.bairro }}</p>
                   </div>
                 </div>
@@ -120,6 +123,10 @@
                 container.scrollBy({ left: scrollAmount, behavior: "smooth" });
             }
         });
+    });
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 });
 // Para cada elemento de horário, calcula o horário final 2 horas à frente

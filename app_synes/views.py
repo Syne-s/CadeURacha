@@ -444,7 +444,7 @@ def todos(request):
     agora = timezone.now().astimezone(tz_brasil)
 
     # Obtém todas as quadras
-    quadras = Arena.objects.all()
+    quadras = Arena.objects.all().order_by('bairro', 'nome')
 
     # Obtém os jogos e converte para lista para ordenar
     jogos = list(Jogo.objects.all())
