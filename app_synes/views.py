@@ -15,6 +15,7 @@ from django.contrib.auth import get_user_model
 import json
 import re
 from django.views.decorators.http import require_POST
+from zoneinfo import ZoneInfo
 
 def check_username(request):
     username = request.GET.get('username')
@@ -235,17 +236,37 @@ def cadastrar_racha(request):
 
 @login_required
 def listar_jogos(request):
-    hoje = date.today()
-    # Excluir jogos expirados
-    Jogo.objects.filter(data__lt=hoje).delete()
+    # Obtém o timezone de Brasília
+    tz_brasil = ZoneInfo("America/Sao_Paulo")
+    agora = timezone.now().astimezone(tz_brasil)
 
-    jogos_criados = Jogo.objects.filter(usuario=request.user)
-    jogos_confirmados = Jogo.objects.filter(participantes=request.user).exclude(criador_jogo=request.user)
+    # Obtém os jogos e converte para lista para poder ordenar
+    jogos_criados = list(Jogo.objects.filter(criador_jogo=request.user))
+    jogos_confirmados = list(Jogo.objects.filter(participantes=request.user).exclude(criador_jogo=request.user))
 
-    return render(request, 'app_synes/listar_jogos.html', {
+    # Função auxiliar para ordenação
+    def get_datetime_jogo(jogo):
+        data = jogo.data
+        horario = datetime.strptime(jogo.horario, '%H:%M').time()
+        return timezone.make_aware(
+            datetime.combine(data, horario),
+            timezone=tz_brasil
+        )
+
+    # Ordena os jogos por data e horário
+    jogos_criados.sort(key=lambda x: get_datetime_jogo(x))
+    jogos_confirmados.sort(key=lambda x: get_datetime_jogo(x))
+
+    # Remove jogos que já passaram
+    jogos_criados = [j for j in jogos_criados if get_datetime_jogo(j) >= agora]
+    jogos_confirmados = [j for j in jogos_confirmados if get_datetime_jogo(j) >= agora]
+
+    context = {
         'jogos_criados': jogos_criados,
-        'jogos_confirmados': jogos_confirmados
-    })
+        'jogos_confirmados': jogos_confirmados,
+        'timestamp': timezone.now().timestamp(),
+    }
+    return render(request, 'app_synes/listar_jogos.html', context)
 
 def listar_todos_jogos(request):
     hoje = date.today()
