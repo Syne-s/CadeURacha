@@ -16,50 +16,61 @@
           {% else %}
             <img src="{% static 'app_synes/images/space.jpg' %}" class="img-fluid mb-4" alt="Imagem do Racha">
           {% endif %}
-          <p class="text-center w-100"><strong>Jogadores:</strong></p>
-          <div class="d-flex flex-wrap gap-2 overflow-auto w-50 h-25 mb-4">
-            {% for jogador in jogadores %}
-              {% if jogador.foto_perfil %}
-                <img src="{{ jogador.foto_perfil.url }}" 
-                     class="rounded-circle d-inline-block" 
-                     style="width:30px; height:30px;" 
-                     alt="Foto de perfil de {{ jogador.username }}"
-                     title="{{ jogador.username }}"
-                     data-bs-toggle="tooltip"
-                     data-bs-placement="top">
-              {% else %}
-                <img src="{% static 'app_synes/images/user.jpg' %}" 
-                     class="rounded-circle d-inline-block" 
-                     style="width:30px; height:30px;"
-                     alt="Foto de perfil padrão de {{ jogador.username }}"
-                     title="{{ jogador.username }}"
-                     data-bs-toggle="tooltip"
-                     data-bs-placement="top">
-              {% endif %}
-            {% empty %}
-              <p class="text-center">Nenhum jogador confirmado</p>
-            {% endfor %}
+          
+          <!-- Seção de Participantes -->
+          <div class="participantes-section">
+              <p class="section-title"><strong>Participantes:</strong></p>
+              <div class="participantes-container mb-4">
+                  {% for jogador in jogadores %}
+                      {% if jogador.foto_perfil %}
+                          <img src="{{ jogador.foto_perfil.url }}" 
+                               class="rounded-circle d-inline-block" 
+                               style="width:30px; height:30px;" 
+                               alt="Foto de perfil de {{ jogador.username }}"
+                               title="{{ jogador.username }}"
+                               data-bs-toggle="tooltip"
+                               data-bs-placement="top">
+                      {% else %}
+                          <img src="{% static 'app_synes/images/user.jpg' %}" 
+                               class="rounded-circle d-inline-block" 
+                               style="width:30px; height:30px;"
+                               alt="Foto de perfil padrão de {{ jogador.username }}"
+                               title="{{ jogador.username }}"
+                               data-bs-toggle="tooltip"
+                               data-bs-placement="top">
+                      {% endif %}
+                  {% empty %}
+                      <p class="text-center">Nenhum jogador confirmado</p>
+                  {% endfor %}
+              </div>
+  
+              <!-- Seção de Bolas -->
+              <div class="bolas-section">
+                  <p class="section-title"><strong>Bolas confirmadas:</strong></p>
+                  <div class="bolas-container">
+                      {% for jogador in jogadores %}
+                          {% if jogador.levar_bola %}
+                              <i class='bx bxs-basketball' style="color: #ce4c00; font-size: 20px;" 
+                                 data-bs-toggle="tooltip" 
+                                 title="{{ jogador.username }} vai levar bola"></i>
+                          {% endif %}
+                      {% endfor %}
+                      {% if not tem_bolas %}
+                          <span class="text-muted">(Nenhuma bola confirmada)</span>
+                      {% endif %}
+                  </div>
+              </div>
           </div>
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <p class="card-title" style="font-size: 30px; font-weight: 550"><b><span>{{ jogo.titulo }}</span></b></p>
             <div class="infos d-flex justify-content-between w-100">
-              <p class="mb-1" style="font-size: 22px">{{ jogo.arena.nome }} - {{ jogo.arena.logradouro }}, {{ jogo.arena.bairro }}</p>
+              <div class="local-info">
+                <p class="quadra-nome mb-1">{{ jogo.arena.nome }}</p>
+                <p class="quadra-endereco mb-1">{{ jogo.arena.logradouro }}, {{ jogo.arena.bairro }}</p>
+              </div>
               <div class="bolas-container">
-                <p class="mb-1" style="font-size: 22px">Bolas confirmadas:</p>
-                <div class="d-flex gap-1 align-items-center">
-                    {% for jogador in jogadores %}
-                        {% if jogador.levar_bola %}
-                            <i class='bx bxs-basketball' style="color: #ce4c00; font-size: 20px;" 
-                               data-bs-toggle="tooltip" 
-                               title="{{ jogador.username }} vai levar bola"></i>
-                        {% endif %}
-                    {% endfor %}
-                    {% if not tem_bolas %}
-                        <span class="text-muted">(Nenhuma bola confirmada)</span>
-                    {% endif %}
-                </div>
               </div>
             </div>
 

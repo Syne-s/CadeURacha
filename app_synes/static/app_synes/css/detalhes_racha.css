@@ -50,9 +50,6 @@
     transition: all .8s ease;
 }
 
-
-
-
 /* Temporário */
 
 .pai{
@@ -78,7 +75,6 @@ body {
     font-family: "Poppins", sans-serif !important;
 }
   
-
 p i{
     color: var(--color-primary);
 }
@@ -97,7 +93,6 @@ p i{
     color: var(--color-secondary);
 }
 
-
 .translate{
     transform: translateY(.1rem);
 }
@@ -109,7 +104,6 @@ p i{
 .ajustador .container {
     margin: 0; 
 }
-
 
 .card-img-overlay .texts,  .card-img-overlay h5{
     font-size: 12px;
@@ -126,7 +120,6 @@ p i{
     right: 0;
     transform: translateX(-.6rem);
 }
-
 
 .card img {
     border-radius: 20px !important;
@@ -176,7 +169,6 @@ button:hover{
     background-color: var(--color-secondary);
 }
 
-
 .pad h4{
     color: var(--cor-texto-principal);
     transform: translateY(0.2rem);
@@ -208,8 +200,6 @@ button:hover{
     border-color: var(--color-primary);
 }
 
-
-
 #BtnExcluir{
     border: 2px solid var(--color-primary);
     background-color: var(--cor-texto-principal);
@@ -238,9 +228,13 @@ button:hover{
 
 .bolas-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    min-width: 200px;
+    flex-direction: row;  /* Garante que os ícones fiquem em linha */
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    min-height: 30px;
 }
 
 .bolas-container p {
@@ -253,4 +247,37 @@ button:hover{
 
 .bx-basketball:hover {
     transform: rotate(-20deg);
+}
+
+.participantes-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section-title {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.participantes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 70%;
+    margin-bottom: 1rem;  /* Reduz o espaço após os participantes */
+}
+
+.bolas-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -1rem;  /* Move a seção de bolas para cima */
 }
