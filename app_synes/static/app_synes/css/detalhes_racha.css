@@ -235,3 +235,22 @@ button:hover{
 #MarcarRacha b {
     margin-right: 1rem;
 }
+
+.bolas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 200px;
+}
+
+.bolas-container p {
+    margin-bottom: 0.25rem;
+}
+
+.bx-basketball {
+    transition: transform 0.2s;
+}
+
+.bx-basketball:hover {
+    transform: rotate(-20deg);
+}

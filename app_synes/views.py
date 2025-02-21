@@ -358,24 +358,6 @@ def excluir_presenca(request, id):
 
 @login_required
 def levar_bola(request, jogo_id):
-    if request.method == "POST" and request.user.is_authenticated:
-        jogo = get_object_or_404(Jogo, id=jogo_id)
-
-        if request.POST.get("acao") == "sim":
-            jogo.bolas += 1  # Adiciona 1 bola
-            jogo.save()
-            mensagem = "Obrigado por levar uma bola!"
-        elif request.POST.get("acao") == "nao":
-            mensagem = "Tudo bem! Vamos contar com outras bolas."
-        else:
-            mensagem = "Ação inválida."
-
-        return JsonResponse({"mensagem": mensagem, "bolas_atualizadas": jogo.bolas})
-    else:
-        return JsonResponse({"mensagem": "Requisição inválida ou usuário não autenticado."}, status=400)
-    
-@login_required
-def levar_bola(request, jogo_id):
     jogo = get_object_or_404(Jogo, id=jogo_id)
 
     if request.method == 'POST':
@@ -443,15 +425,14 @@ def detalhes_quadra(request, id):
     return render(request, 'app_synes/detalhes_quadra.html', context)
 
 def detalhes_jogo(request, id):
-    # Busca o jogo específico
     jogo = get_object_or_404(Jogo, id=id)
-    
-    # Busca os participantes do jogo usando o campo correto
     participantes = jogo.participantes.all()
+    tem_bolas = jogo.participantes.filter(levar_bola=True).exists()
     
     context = {
         'jogo': jogo,
-        'jogadores': participantes  # Mantemos 'jogadores' no template para não precisar alterar o HTML
+        'jogadores': participantes,
+        'tem_bolas': tem_bolas
     }
     return render(request, 'app_synes/detalhes_racha.html', context)
 
@@ -501,28 +482,27 @@ def toggle_presenca(request):
 def toggle_levar_bola(request):
     try:
         data = json.loads(request.body)
+        jogo_id = data.get('jogo_id')
         levar_bola = data.get('levar_bola')
         
-        # Atualiza o status de levar_bola do usuário
-        request.user.levar_bola = levar_bola
-        request.user.save()
+        jogo = get_object_or_404(Jogo, id=jogo_id)
+        user = request.user
         
-        # Encontra o jogo em que o usuário está participando
-        jogo = Jogo.objects.filter(participantes=request.user).first()
-        if jogo:
-            if levar_bola:
-                jogo.bolas += 1
-                mensagem = "Você confirmou que levará uma bola!"
-            else:
-                jogo.bolas = max(0, jogo.bolas - 1)
-                mensagem = "Você cancelou sua bolinha."
-            jogo.save()
+        if user in jogo.participantes.all():
+            user.levar_bola = levar_bola
+            user.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({
+                'success': False, 
+                'message': 'Você precisa confirmar presença primeiro'
+            })
             
-            return JsonResponse({'success': True, 'message': mensagem})
-        
-        return JsonResponse({'success': False, 'message': 'Você precisa confirmar presença primeiro!'})
     except Exception as e:
-        return JsonResponse({'success': False, 'message': str(e)})
+        return JsonResponse({
+            'success': False,
+            'message': str(e)
+        })
 
 def buscar(request):
     query = request.GET.get('q', '')
@@ -546,3 +526,4 @@ def buscar(request):
     }
     
     return render(request, 'app_synes/buscar.html', context)
+

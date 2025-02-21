@@ -46,7 +46,21 @@
             <p class="card-title" style="font-size: 30px; font-weight: 550"><b><span>{{ jogo.titulo }}</span></b></p>
             <div class="infos d-flex justify-content-between w-100">
               <p class="mb-1" style="font-size: 22px">{{ jogo.arena.nome }} - {{ jogo.arena.logradouro }}, {{ jogo.arena.bairro }}</p>
-              <p class="mb-1 w-50" style="font-size: 22px">Racha com <i class='bx bxs-basketball'></i></p>
+              <div class="bolas-container">
+                <p class="mb-1" style="font-size: 22px">Bolas confirmadas:</p>
+                <div class="d-flex gap-1 align-items-center">
+                    {% for jogador in jogadores %}
+                        {% if jogador.levar_bola %}
+                            <i class='bx bxs-basketball' style="color: #ce4c00; font-size: 20px;" 
+                               data-bs-toggle="tooltip" 
+                               title="{{ jogador.username }} vai levar bola"></i>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not tem_bolas %}
+                        <span class="text-muted">(Nenhuma bola confirmada)</span>
+                    {% endif %}
+                </div>
+              </div>
             </div>
 
             <div class="d-flex gap-3 my-3 organizador justify-content-between w-75">
@@ -168,7 +182,28 @@
         }
     });
     
-    
+    function toggleLevarBola(checked) {
+        fetch('/toggle_levar_bola/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                jogo_id: {{ jogo.id }},
+                levar_bola: checked
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.reload();
+            } else {
+                alert("Erro ao atualizar status de bola: " + data.message);
+            }
+        })
+        .catch(error => console.error('Erro ao atualizar status de bola:', error));
+    }
     
     </script>
 </body>
