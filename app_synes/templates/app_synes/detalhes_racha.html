@@ -76,7 +76,7 @@
 
             <div class="d-flex gap-3 my-3 organizador justify-content-between w-75">
               <div class="pad">
-                <h4 class="text-center" style="font-size: 22px">{{ jogo.horario }}</h4>
+                <h4 class="text-center jogo-horario" style="font-size: 22px">{{ jogo.horario }}</h4>
               </div>
               <div class="pad">
                 <h4 class="text-center" style="font-size: 22px">{{ jogo.data|date:"d/m/Y" }}</h4>
@@ -136,6 +136,23 @@
                 html: true
             });
         });
+
+        // Formata o horário para mostrar início e fim
+        let horarioElem = document.querySelector('.jogo-horario');
+        if (horarioElem) {
+            let start = horarioElem.textContent.trim();
+            // Pressupõe o formato "HH:MM"
+            let parts = start.split(':');
+            if (parts.length === 2) {
+                let hours = parseInt(parts[0], 10);
+                let minutes = parseInt(parts[1], 10);
+                // Calcula o horário final adicionando 2 horas
+                let endHours = (hours + 2) % 24;
+                // Função para garantir 2 dígitos
+                let pad = num => (num < 10 ? '0' + num : num);
+                horarioElem.textContent = `${pad(hours)}:${pad(minutes)} - ${pad(endHours)}:${pad(minutes)}`;
+            }
+        }
     });
 
       function togglePresenca(checked, jogoId) {
