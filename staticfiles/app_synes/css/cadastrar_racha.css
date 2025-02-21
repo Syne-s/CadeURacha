@@ -1,3 +1,52 @@
+:root {
+    /* NOVA PALETA */
+    --cor-fundo-principal: #F0F0F1;
+    --cor-card-principal: #CF5204;
+    --cor-texto-principal: #F8F7F8;
+    --cor-botao-principal: #F0F0F1;
+    --cor-botao-hover: #F8F7F8;
+    --cor-botao-texto: #C55204;
+    --cor-fundo-pesquisa: #E5E5E5;
+
+    /* Cores Primárias */
+    --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+    --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+    --color-accent: #e5c03d; /* Usada para destaques e ícones */
+
+    /* Cores Secundárias */
+    --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+    --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+    --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+    --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+    --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+
+    /* Estados de Botões */
+    --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+    --button-primary-text: #FFFFFF; /* Texto do botão primário */
+    --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+    --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+    --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+    --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+    --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+
+    /* Cores de Feedback */
+    --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+    --color-error: #ba2121; /* Vermelho para erros */
+    --color-warning: #FF9800; /* Laranja para avisos */
+
+    /* Cores de Mapa */
+    --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+    --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+
+    /* Outras Cores */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+    --border-default: #E0E0E0; /* Cor de borda padrão */
+
+    /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+    --border-color: var(--border-default);
+    --color-background-muted: var(--color-background-light);
+}
+
 .auth-container {
     min-height: calc(100vh - 120px);
     display: flex;
@@ -11,8 +60,8 @@
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    width: 100rem;
-    max-width: 400px;
+    width: 800px;  /* Definindo largura fixa igual ao editar_perfil */
+    min-width: 800px; /* Garantindo largura mínima */
 }
 
 .auth-header {
@@ -21,8 +70,8 @@
 }
 
 .auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
+    font-size: 2rem;
+    color: var(--color-primary);
     margin-bottom: 1rem;
 }
 
@@ -39,23 +88,30 @@
 .form-group {
     margin-bottom: 1.5rem;
 }
+.custom-file-upload i.bi-camera {
+    font-size: 3rem; 
+}
+
 
 .input-group-text {
-    background-color: white;
+    background-color: var(--color-background-light);
+    border: 1px solid var(--border-color);
     border-right: none;
     color: #666;
     transition: border-color 0.2s ease;
 }
 
 .form-control {
-    border-left: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     padding: 0.75rem;
-    transition: border-color 0.2s ease;
+    padding-left: 2.5rem;
+    transition: all 0.3s ease;
 }
 
 .form-control:focus {
-    box-shadow: none;
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
 }
 
 .form-control:focus ~ .input-group-text {
@@ -72,19 +128,18 @@
 
 .auth-button {
     width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary-color);
+    padding: 0.8rem;
+    background-color: var(--color-primary);
     color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-.auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
-}
+
 
 .alert-success {
     background-color: #d4edda;
@@ -118,4 +173,157 @@
     background-color: #dc3545 !important; 
     border-color: #000000 !important;
     color: white;
+}
+
+
+.tooltip-inner {
+    font-size: 14px; 
+    max-width: 300px; 
+    padding: 8px 12px; 
+    font-family: "Poppins", sans-serif !important;
+}
+
+/* Ajustes adicionais para o novo layout */
+.form-check {
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary) !important;
+}
+
+.form-check-label {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.form-check-label i {
+    margin-right: 0.5rem;
+}
+
+.border-end {
+    border-right: 1px solid var(--border-color) !important;
+}
+
+.custom-checkbox {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+.form-label {
+    color: var(--color-text);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    z-index: 2;
+}
+
+/* Remove or comment out the existing image upload styles */
+/* .image-upload-container,
+.upload-label,
+.current-image-preview,
+.preview-img,
+.remove-image { ... } */
+
+/* Add new image upload styles */
+.image-card {
+    width: 100%;
+    max-width: 350px;
+    height: 100px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 6px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-card img,
+.image-card .custom-file-upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Additional styles for the upload interface */
+.custom-file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(248, 249, 250, 0.9);
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: rgba(248, 249, 250, 0.95);
+}
+
+.custom-file-upload i {
+    font-size: 1.5rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.custom-file-upload span {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+
+.tooltip-icon {
+    position: relative;
+    cursor: pointer;
+    margin-left: 8px;
+    
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color:var(--border-default); /* Cor de borda padrão */
+    color: var(--color-secondary);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    font-size: 12px;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }

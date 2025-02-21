@@ -58,6 +58,13 @@
     height: 78vh;
 }
 
+.tooltip-inner {
+    font-size: 14px; 
+    max-width: 300px; 
+    padding: 8px 12px; 
+    font-family: "Poppins", sans-serif !important;
+  }
+
 
 
 .cream a:hover{
@@ -68,13 +75,14 @@ body {
     display: flex;
     height: 100vh !important;
     align-items: center;
+    background-color: var(--cor-botao-principal);
 }
 
 
 .cream{
     background-color: transparent;
     padding: 1rem;
-    border: 2px solid var(--true-orange);
+    border: 2px solid var(--color-primary);
 }
 
 .row a{
@@ -132,11 +140,15 @@ body {
     width: 60% !important;
 }
 
+.translate{
+    transform: translateX(-2.5rem);
+}
+
 .img-fluid{
     border-radius: 20px;
-    height: 60% !important;
     object-fit: cover;
-    width: 70%;
+    width: 241.12px;
+    height: 186.54px;
     aspect-ratio: 16/9;
     background-position: center;
 }
@@ -167,7 +179,7 @@ button:hover{
 }
 
 .fundo{
-    padding: 6rem 0rem 6rem 0rem;
+    padding: 4rem 6rem 4rem 6rem !important;
     border-radius: 20px;
     display: flex;
     height: fit-content !important;

@@ -12,6 +12,7 @@ input[type="search"]::-webkit-search-decoration,
             --cor-botao-principal: #F0F0F1;
             --cor-botao-hover: #F8F7F8;
             --cor-botao-texto: #C55204;
+            --cor-fundo-pesquisa: #E5E5E5;
 
             /* Cores Primárias */
             --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
@@ -60,8 +61,8 @@ input[type="search"]::-webkit-search-decoration,
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: var(--cor-botao-principal) !important;
         }
-
         
         .top-nav {
             height: 73px !important;
@@ -144,12 +145,18 @@ input[type="search"]::-webkit-search-decoration,
             display: inline-block;
             border-top-color: var(--color-secondary);
         }
+
+        .change_format{
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
         
         #SearchBar {
             display: block;
             width: 100% !important;
             color: var(--color-secondary);
-            background-color: var(--color-background-default);
+            background-color: var(--cor-fundo-pesquisa);
         }
         
         #SearchBar::placeholder {
@@ -191,13 +198,13 @@ input[type="search"]::-webkit-search-decoration,
         }
         
         .footer {
-            background-color: var(--color-background-light);
+            background-color: var(--cor-texto-principal);
             height: 73px !important;
             color: var(--color-text-muted);
             padding: 1rem 1rem;
             margin-top: auto;
             position: relative;
-            z-index: 20;
+            z-index: 1;
         }
         
         .footer-logo img {
@@ -284,7 +291,7 @@ input[type="search"]::-webkit-search-decoration,
         }
 
         .navbar {
-            background-color: var(--color-background-light);
+            background-color: var(--cor-texto-principal);
             height: 73px !important;
             z-index: 20;
         }
@@ -327,6 +334,21 @@ input[type="search"]::-webkit-search-decoration,
         .profile {
             border: none !important;
             background-color: transparent !important;
+        }
+
+        .navbar-img img{
+            width: 46.8px;
+            height: 46.8px;
+            border-radius: 50%;
+            object-fit: contain;
+            padding: 5px;
+            background-position: center;
+        }
+
+        .profile-collapse img{
+            width: 73.6px !important;
+            height: 73.6px !important;
+            border-radius: 50%;
         }
         
         .profile img {
@@ -376,7 +398,7 @@ input[type="search"]::-webkit-search-decoration,
         }
         
         .close {
-            font-size: 70px;
+            font-size: 50px !important;
             border: none;
             background-color: transparent;
             transition: 1s all ease;

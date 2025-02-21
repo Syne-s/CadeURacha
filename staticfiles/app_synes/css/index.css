@@ -56,15 +56,13 @@ body{
 
 
 button{
-    width: 219.81px;
-    height: 37px;
     font-size: 22px !important;
 }
 
 .test {
     gap: 7rem;
     padding: 2rem;
-    height: 70vh;
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,10 +73,7 @@ button{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 271px !important;
-    height: 149px !important;
     gap: 10px; 
-    background-color: #E0E0E0 !important;
 }
 
 .fundo button {
@@ -113,4 +108,16 @@ button{
 #TextoRacha, #TextoExplorar {
     margin: 0;
     padding: 0;
+}
+
+
+@media (max-width: 1700.97px){
+    .test {
+        gap: 7rem;
+        padding: 2rem;
+        margin-top: 4%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

@@ -1,3 +1,51 @@
+:root {
+    /* NOVA PALETA */
+    --cor-fundo-principal: #F0F0F1;
+    --cor-card-principal: #CF5204;
+    --cor-texto-principal: #F8F7F8;
+    --cor-botao-principal: #F0F0F1;
+    --cor-botao-hover: #F8F7F8;
+    --cor-botao-texto: #C55204;
+
+    /* Cores Primárias */
+    --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+    --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+    --color-accent: #e5c03d; /* Usada para destaques e ícones */
+
+    /* Cores Secundárias */
+    --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+    --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+    --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+    --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+    --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+
+    /* Estados de Botões */
+    --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+    --button-primary-text: #FFFFFF; /* Texto do botão primário */
+    --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+    --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+    --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+    --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+    --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+
+    /* Cores de Feedback */
+    --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+    --color-error: #ba2121; /* Vermelho para erros */
+    --color-warning: #FF9800; /* Laranja para avisos */
+
+    /* Cores de Mapa */
+    --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+    --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+
+    /* Outras Cores */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+    --border-default: #E0E0E0; /* Cor de borda padrão */
+
+    /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+    --border-color: var(--border-default);
+    --color-background-muted: var(--color-background-light);
+}
+
 .cream a{
     transition: all .8s ease;
 }
@@ -18,17 +66,23 @@ body {
     display: flex;
     height: 100vh !important;
     align-items: center;
-    background-color: #34327B;
 }
 
-h4 strong i{
-    color: var(--true-orange);
+.tooltip-inner {
+    font-size: 14px; 
+    max-width: 300px; 
+    padding: 8px 12px; 
+    font-family: "Poppins", sans-serif !important;
+}
+  
+p i{
+    color: var(--color-primary);
 }
 
 .cream{
     background-color: transparent;
     padding: 1rem;
-    border: 2px solid var(--true-orange);
+    border: 2px solid var(--color-primary);
 }
 
 .row a{
@@ -36,9 +90,8 @@ h4 strong i{
 }
 
 .no-style{
-    color: var(--dark-purple);
+    color: var(--color-secondary);
 }
-
 
 .translate{
     transform: translateY(.1rem);
@@ -51,7 +104,6 @@ h4 strong i{
 .ajustador .container {
     margin: 0; 
 }
-
 
 .card-img-overlay .texts,  .card-img-overlay h5{
     font-size: 12px;
@@ -68,7 +120,6 @@ h4 strong i{
     right: 0;
     transform: translateX(-.6rem);
 }
-
 
 .card img {
     border-radius: 20px !important;
@@ -115,16 +166,17 @@ button:hover{
     justify-content: center;
     width: 15rem;
     border-radius: 10px;
-    background-color: var(--darker-lilac);
+    background-color: var(--color-secondary);
 }
 
 .pad h4{
-    color: var(--cream);
+    color: var(--cor-texto-principal);
     transform: translateY(0.2rem);
+    font-weight: 400;
 }
 
 .card-title b span{
-    color: var(--true-orange);
+    color: var(--color-primary);
 }
 
 .fundo{
@@ -133,7 +185,7 @@ button:hover{
     display: flex;
     height: fit-content !important;
     flex-direction: column;
-    background-color: #9F84F9;
+    background-color: var(--cor-texto-principal);
     margin: auto;
 }
 
@@ -143,22 +195,21 @@ button:hover{
     padding: .3rem;
 }
 
-#BtnAvaliar{
-    color: var(--true-orange);
-    border: 2px solid var(--true-orange);
-    background-color: var(--cream);
+.form-check-input:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 #BtnExcluir{
-    border: 2px solid var(--true-orange);
-    background-color: var(--cream);
-    color: var(--true-orange);
+    border: 2px solid var(--color-primary);
+    background-color: var(--cor-texto-principal);
+    color: var(--color-primary);
 }
 
 #BtnEditar{
-    border: 2px solid var(--true-orange);
-    background-color: var(--true-orange);
-    color: var(--cream);
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--cor-texto-principal);
 }
 
 #MarcarRacha,
@@ -166,11 +217,67 @@ button:hover{
 #MarcarRacha b {
     width: 286px;
     height: 52px;
-    background-color: var(--true-orange);
+    background-color: var(--color-primary);
     font-size: 22px;
-    color: var(--cream);
+    color: var(--cor-texto-principal);
 }
 
 #MarcarRacha b {
     margin-right: 1rem;
+}
+
+.bolas-container {
+    display: flex;
+    flex-direction: row;  /* Garante que os ícones fiquem em linha */
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    min-height: 30px;
+}
+
+.bolas-container p {
+    margin-bottom: 0.25rem;
+}
+
+.bx-basketball {
+    transition: transform 0.2s;
+}
+
+.bx-basketball:hover {
+    transform: rotate(-20deg);
+}
+
+.participantes-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section-title {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.participantes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 70%;
+    margin-bottom: 1rem;  /* Reduz o espaço após os participantes */
+}
+
+.bolas-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -1rem;  /* Move a seção de bolas para cima */
 }

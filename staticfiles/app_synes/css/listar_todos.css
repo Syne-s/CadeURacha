@@ -11,6 +11,7 @@
     --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
     --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
     --color-accent: #e5c03d; /* Usada para destaques e ícones */
+    --color-accent-light: #eacd64; /* Usada para destaques e ícones */
 
     /* Cores Secundárias */
     --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
@@ -48,9 +49,24 @@
 
 
 #Agrupador{
-  width: 100% !important;
+  width: 975px;
   margin:0;
   padding:0;
+}
+
+.transform{
+    transform: translateY(2rem);
+}
+
+
+.pai{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    text-align: center;
+    height: 78vh;
 }
 
 .row{
@@ -70,8 +86,12 @@
     width: 85% !important;
 }
 
-h2 b span {
-    color: var(--true-orange);
+.rachas_format{
+    background-color: var(--color-accent-light);
+}
+
+p b span {
+    color: var(--color-primary);
 }
 
 .ml-15 {
@@ -96,6 +116,20 @@ h2 b span {
 
 .card-img-overlay .texts::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
+}
+
+#MarcarRacha,
+#MarcarRacha i,
+#MarcarRacha b {
+    width: 286px;
+    height: 52px;
+    background-color: var(--color-primary);
+    font-size: 22px;
+    color: var(--color-background-light);
+}
+
+#MarcarRacha b {
+    margin-right: 1rem;
 }
 
 .row a {
@@ -133,7 +167,7 @@ i span {
 
 .cream {
     padding: 1.5rem 3rem;
-    background-color: var(--cream);
+    background-color: var(--cor-texto-principal);
 }
 
 .card {
@@ -153,13 +187,24 @@ i span {
 
 .arrow {
     font-size: 70px;
-    color: var(--true-orange);
+    color: var(--color-primary) !important;
     cursor: pointer;
 }
 
 .row {
     gap: 41px !important;
     scroll-behavior: smooth;
+}
+
+
+@media (max-width:1700px) {
+    .pai{
+        height: 65vh;
+        transform: translateY(-.5rem);
+    }
+    .transform{
+        transform: translateY(-.5rem);
+    }
 }
 
 @media (max-width:1200px) {
@@ -201,7 +246,7 @@ i span {
     }
 
     .container {
-        width: 60% !important;
+        width: 975px !important;
         padding: 2rem !important;
     }
 
