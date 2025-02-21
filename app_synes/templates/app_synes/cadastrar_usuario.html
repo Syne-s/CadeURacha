@@ -116,16 +116,47 @@ document.getElementById('username').addEventListener('input', function() {
 
 
 document.getElementById('cadastro_usuarioForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previne envio padrão do form
+    
     const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
 
+    // Valida username
     if (!validateUsername(username)) {
-        event.preventDefault();
         document.getElementById('usernameError').style.display = 'block';
         return;
-    } else {
-        document.getElementById('usernameError').style.display = 'none';
     }
 
+    // Cria FormData com os dados do formulário
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email); 
+    formData.append('password', password);
+    formData.append('confirm_password', confirmPassword);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+    // Envia requisição AJAX
+    fetch('', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = "{% url 'logar' %}"; // Redireciona para a tela de login
+        } else {
+            alert(data.message); // Mostra mensagem de erro
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao tentar cadastrar. Tente novamente.');
+    });
 });
 
 function updateUsername() {
