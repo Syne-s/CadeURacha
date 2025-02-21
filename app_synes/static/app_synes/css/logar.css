@@ -126,7 +126,7 @@
 }
 
 #LoginBtn {
-    background-color: #EB7A42;
+    background-color: var(--color-primary);
     border-radius: 40px;
     border: none;
     color: #FFFFFF;
@@ -136,8 +136,13 @@
     margin-right: 30px !important;
 }
 
+#LoginBtn:hover {
+    background-color: var(--button-hover-bg);
+    box-shadow: 0 4px 8px var(--shadow-light); /* Sombra suave */
+}
+
 #Texto {
-    color: #FFFFFF;
+    color: var(--cor-texto-principal);
 }
 
 #loginForm {

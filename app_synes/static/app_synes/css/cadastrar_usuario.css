@@ -133,6 +133,11 @@
     margin-right: 30px !important;
 }
 
+#cadastroBtn:hover {
+    background-color: var(--button-hover-bg);
+    box-shadow: 0 4px 8px var(--shadow-light); /* Sombra suave */
+}
+
 #Texto {
     color: var(--cor-texto-principal); /* Cor do texto */
 }
