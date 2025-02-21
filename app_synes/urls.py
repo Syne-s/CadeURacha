@@ -11,6 +11,7 @@ urlpatterns = [
     path('detalhes_quadra/<int:id>/', views.detalhes_quadra, name='detalhes_quadra'),
     path('test_jogo/', views.test_jogo, name='detalhes_jogo'),
     path('detalhes_racha/<int:id>/', views.detalhes_jogo, name='detalhes_jogo'),
+    path('detalhes_racha_user/<int:id>/', views.detalhes_racha_user, name='detalhes_racha_user'),
     path('todos/', views.todos, name='todos'),
     path('', views.index, name='index'),
     path('mapa/', views.mapa_view, name='mapa'),

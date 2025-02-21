@@ -455,6 +455,17 @@ def detalhes_jogo(request, id):
     }
     return render(request, 'app_synes/detalhes_racha.html', context)
 
+@login_required
+def detalhes_racha_user(request, id):
+    jogo = get_object_or_404(Jogo, id=id)
+    participantes = jogo.participantes.all()
+    
+    context = {
+        'jogo': jogo,
+        'jogadores': participantes
+    }
+    return render(request, 'app_synes/detalhes_racha_user.html', context)
+
 def test_jogo(request):
     return render(request, 'app_synes/detalhes_racha_user.html')
 
