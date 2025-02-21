@@ -222,3 +222,20 @@ main.main-content {
         margin-bottom: 1rem;
     }
 }
+
+/* Adicione ao seu CSS */
+.popup-links {
+    margin-top: 8px;
+    display: flex;
+    gap: 10px;
+}
+
+.popup-links a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.popup-links a:hover {
+    text-decoration: underline;
+}

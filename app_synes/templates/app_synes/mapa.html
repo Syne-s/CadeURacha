@@ -92,12 +92,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function addMarker(arena) {
         var marker = L.marker([arena.lat, arena.lng]).addTo(map);
         marker.bindPopup(`
-                <b>${arena.name}</b><br>
-                ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
-                <a href="{% url 'cadastrar_racha' %}?arena_id=${arena.id}">Cadastrar Racha</a> 
-            `);
+            <b>${arena.name}</b><br>
+            ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
+            <div class="popup-links">
+                <a href="{% url 'cadastrar_racha' %}?arena_id=${arena.id}">Cadastrar Racha</a>
+                <span>|</span>
+                <a href="{% url 'detalhes_quadra' %}${arena.id}">Ver Detalhes</a>
+            </div>
+        `);
         markers[arena.id] = marker;
-
+    
         marker.on('click', function() {
             flyToArena(arena.lat, arena.lng);
             marker.openPopup();
