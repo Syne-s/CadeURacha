@@ -89,12 +89,14 @@
 
 .input-group-text {
     background-color: white;
+    border: 1px solid var(--border-default);  /* Adicionado border completo */
     border-right: none;
     color: #666;
     transition: border-color 0.2s ease;
 }
 
 .form-control {
+    border: 1px solid var(--border-default);  /* Adicionado border completo */
     border-left: none;
     padding: 0.75rem;
     transition: border-color 0.2s ease;
@@ -118,6 +120,15 @@
 
 .input-group:focus-within .form-control {
     border-color: var(--color-primary);
+}
+
+/* Simplificado os seletores para focus */
+.input-group:focus-within {
+    .input-group-text,
+    .form-control {
+        border-color: var(--color-primary);
+        box-shadow: none;
+    }
 }
 
 .auth-button {
