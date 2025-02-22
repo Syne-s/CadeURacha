@@ -50,6 +50,9 @@ class Arena(models.Model):
         verbose_name = "Arena"
         verbose_name_plural = "Arenas"
         ordering = ['-data_cadastro']
+        permissions = [
+            ("can_add_arena", "Can add new arena on map")
+        ]
 
 class Jogo(models.Model):
     titulo = models.CharField(max_length=200)

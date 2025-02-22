@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseNotAllowed
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import CustomUser, Arena, Jogo
 from .forms import ArenaForm, EditProfileForm, CustomPasswordChangeForm, JogoForm
 from django.contrib.auth import update_session_auth_hash
@@ -132,7 +132,7 @@ def mapa_view(request):
     neighborhoods = Arena.objects.values_list('bairro', flat=True).distinct().order_by('bairro')
     return render(request, 'app_synes/mapa.html', {'arenas': arenas, 'neighborhoods': neighborhoods})
 
-@login_required
+@permission_required('app_synes.can_add_arena', raise_exception=True)
 def cadastrar_quadra(request):
     if request.method == 'POST':
         form = ArenaForm(request.POST, request.FILES)

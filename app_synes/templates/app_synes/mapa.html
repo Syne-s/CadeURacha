@@ -132,13 +132,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     arenas.forEach(addMarker);
 
-    if ({{ user.is_authenticated|yesno:"true,false" }}) {
-        map.on('click', function(e) {
-            if(confirm('Deseja cadastrar uma nova quadra neste local?')) {
-                window.location.href = "{% url 'cadastrar_quadra' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
-            }
-        });
-    }
+    {% if user.is_authenticated and perms.app_synes.can_add_arena %}
+    map.on('click', function(e) {
+        if(confirm('Deseja cadastrar uma nova quadra neste local?')) {
+            window.location.href = "{% url 'cadastrar_quadra' %}?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng;
+        }
+    });
+    {% endif %}
 
     document.querySelectorAll('.arena-item').forEach(item => {
         item.addEventListener('click', function() {
