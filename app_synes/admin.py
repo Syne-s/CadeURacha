@@ -36,8 +36,8 @@ class ArenaAdmin(admin.ModelAdmin):
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     # Adicionando pode_cadastrar_quadra no list_display
-    list_display = ['username', 'email', 'is_staff', 'is_active', 'pode_cadastrar_quadra', 'foto_perfil']
-    list_filter = ['is_staff', 'is_active', 'groups', 'user_permissions']
+    list_display = ['username', 'email', 'is_staff', 'is_active', 'pode_cadastrar_quadra', 'is_superuser', 'foto_perfil']
+    list_filter = ['is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions']
     actions = ['dar_permissao_quadra', 'remover_permissao_quadra']
     
     # Método que verifica a permissão
@@ -53,7 +53,9 @@ class CustomUserAdmin(UserAdmin):
             content_type=arena_content_type,
         )
         for user in queryset:
+            user.is_staff = True  # Define como staff
             user.user_permissions.add(permission)
+            user.save()  # Salva as alterações
     dar_permissao_quadra.short_description = "Dar permissão para cadastrar quadras"
 
     def remover_permissao_quadra(self, request, queryset):
@@ -63,7 +65,9 @@ class CustomUserAdmin(UserAdmin):
             content_type=arena_content_type,
         )
         for user in queryset:
+            user.is_staff = False  # Remove status de staff
             user.user_permissions.remove(permission)
+            user.save()  # Salva as alterações
     remover_permissao_quadra.short_description = "Remover permissão para cadastrar quadras"
 
     fieldsets = UserAdmin.fieldsets + (
@@ -72,6 +76,28 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('foto_perfil',)}),
     )
+
+    def has_view_permission(self, request, obj=None):
+        # Permite visualização para staff e usuários com permissão de cadastrar quadra
+        return request.user.is_staff or request.user.has_perm('app_synes.can_add_arena')
+
+    def has_change_permission(self, request, obj=None):
+        # Apenas superuser pode editar
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        # Apenas superuser pode deletar
+        return request.user.is_superuser
+
+    def has_add_permission(self, request):
+        # Apenas superuser pode adicionar
+        return request.user.is_superuser
+
+    def get_readonly_fields(self, request, obj=None):
+        # Se não for superuser, todos os campos são somente leitura
+        if not request.user.is_superuser:
+            return [f.name for f in self.model._meta.fields]
+        return super().get_readonly_fields(request, obj)
 
     class Meta:
         verbose_name = 'Usuário'
