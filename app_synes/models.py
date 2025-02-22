@@ -11,6 +11,10 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+    class Meta:
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuários'
+
 class Arena(models.Model):
     nome = models.CharField(max_length=200, verbose_name="Nome da Arena")
     latitude = models.FloatField(verbose_name="Latitude")
@@ -68,3 +72,7 @@ class Jogo(models.Model):
     
     def __str__(self):
         return self.titulo
+
+    class Meta:
+        verbose_name = 'Racha'
+        verbose_name_plural = 'Rachas'

@@ -4,9 +4,18 @@ from .models import Jogo, CustomUser
 
 @admin.register(Jogo)
 class JogoAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'data', 'horario', 'max_jogadores', 'arena']
+    list_display = ['titulo', 'data', 'horario', 'arena']
     search_fields = ['titulo', 'descricao']
     list_filter = ['data', 'arena']
+
+    # Add verbose names for the model
+    def get_model_perms(self, request):
+        perms = super().get_model_perms(request)
+        return perms
+    
+    class Meta:
+        verbose_name = 'Racha'
+        verbose_name_plural = 'Rachas'
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -17,5 +26,9 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('foto_perfil',)}),
     )
+
+    class Meta:
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuários'
 
 admin.site.register(CustomUser, CustomUserAdmin)
