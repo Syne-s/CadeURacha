@@ -85,7 +85,19 @@
                     </div>
                 </form>
                 <form method="get" action="{% url 'confirmar_exclusao_usuario' %}" class="w-100 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-danger w-75" id="Excluir" style="border-radius: 10px; color: #ce4c00; border-color: #ce4c00; background-color: transparent; white-space: nowrap; font-weight: bold;">
+                    <button type="submit" 
+                            class="btn btn-danger w-75" 
+                            id="Excluir" 
+                            style="border-radius: 10px; 
+                                   color: #ce4c00; 
+                                   border: 2px solid #ce4c00; 
+                                   background-color: transparent; 
+                                   white-space: nowrap; 
+                                   font-weight: bold;
+                                   transition: all 0.2s ease;
+                                   cursor: pointer;"
+                            onmouseover="this.style.backgroundColor='#ce4c00'; this.style.color='white';"
+                            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ce4c00';">
                         Excluir Conta
                     </button>
                 </form>
