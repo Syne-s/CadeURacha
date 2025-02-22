@@ -19,6 +19,20 @@ class JogoAdmin(admin.ModelAdmin):
         verbose_name = 'Racha'
         verbose_name_plural = 'Rachas'
 
+@admin.register(Arena)
+class ArenaAdmin(admin.ModelAdmin):
+    list_display = ['nome', 'endereco', 'cidade', 'estado', 'pais', 'status']
+    search_fields = ['nome', 'endereco', 'cidade', 'estado', 'pais']
+    list_filter = ['status', 'cidade', 'estado', 'pais']
+    
+    def get_model_perms(self, request):
+        perms = super().get_model_perms(request)
+        return perms
+
+    class Meta:
+        verbose_name = 'Quadra'
+        verbose_name_plural = 'Quadras'
+
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     # Adicionando pode_cadastrar_quadra no list_display

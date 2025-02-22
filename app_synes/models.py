@@ -47,8 +47,8 @@ class Arena(models.Model):
         return self.nome
 
     class Meta:
-        verbose_name = "Arena"
-        verbose_name_plural = "Arenas"
+        verbose_name = "Quadra"
+        verbose_name_plural = "Quadras"
         ordering = ['-data_cadastro']
         permissions = [
             ("can_add_arena", "Can add new arena on map")
