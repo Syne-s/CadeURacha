@@ -228,14 +228,31 @@
     color: var(--color-text-primary);
 }
 
+/* Ajuste o form-layout para posicionamento relativo */
 .form-layout {
     display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
+    position: relative; /* Adicionado para a barra vertical */
 }
 
+/* Adicione a barra vertical */
+.form-layout::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: var(--border-default);
+    transform: translateX(-50%);
+}
+
+/* Ajuste as colunas para ter larguras iguais */
 .form-column {
     flex: 1;
+    width: 50%;
+    padding: 0 1rem;
 }
 
 .image-column {
@@ -276,9 +293,10 @@
     width: 100%;
 }
 
+/* Ajuste a altura do image-card */
 .image-card {
     width: 100%;
-    height: 200px;
+    height: 158px; /* Reduzido de 200px para 120px */
     background-color: var(--color-background-light);
     border: 1px solid var(--border-default);
     border-radius: 10px;
@@ -331,6 +349,10 @@
 @media (max-width: 768px) {
     .form-layout {
         flex-direction: column;
+    }
+
+    .form-layout::after {
+        display: none; /* Remove a barra vertical em telas pequenas */
     }
 
     .image-column {
