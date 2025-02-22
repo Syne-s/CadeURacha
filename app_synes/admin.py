@@ -99,6 +99,20 @@ class CustomUserAdmin(UserAdmin):
             return [f.name for f in self.model._meta.fields]
         return super().get_readonly_fields(request, obj)
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # Se não for superuser, oculta os superusers da listagem
+        if not request.user.is_superuser:
+            qs = qs.filter(is_superuser=False)
+        return qs
+
+    def get_list_display(self, request):
+        if request.user.is_superuser:
+            return ['username', 'email', 'is_staff', 'is_active', 'pode_cadastrar_quadra', 'is_superuser', 'foto_perfil']
+        else:
+            # Remove is_superuser, email e foto_perfil da listagem para não superusers
+            return ['username', 'is_staff', 'is_active', 'pode_cadastrar_quadra']
+
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
