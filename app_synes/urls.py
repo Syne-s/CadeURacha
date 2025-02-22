@@ -27,7 +27,6 @@ urlpatterns = [
     path('listar_jogos/', listar_jogos, name='listar_jogos'),
     path('jogos/editar/<int:id>/', views.editar_jogo, name='editar_jogo'),  # Adicionada
     path('jogos/excluir/<int:id>/', views.excluir_jogo, name='excluir_jogo'),  # Adicionada
-    path('listar_todos_jogos/', views.listar_todos_jogos, name='listar_todos_jogos'),
     path('search/', views.search, name='search'),
     path('confirmar-presenca/<int:id>/', views.confirmar_presenca, name='confirmar_presenca'),
     path('excluir-presenca/<int:id>/', views.excluir_presenca, name='excluir_presenca'),
@@ -38,5 +37,4 @@ urlpatterns = [
     path('toggle_presenca/', views.toggle_presenca, name='toggle_presenca'),
     path('toggle_levar_bola/', views.toggle_levar_bola, name='toggle_levar_bola'),
     path('buscar/', views.buscar, name='buscar'),
-    path('toggle_levar_bola/', views.toggle_levar_bola, name='toggle_levar_bola'),
 ]
