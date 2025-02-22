@@ -64,27 +64,6 @@
     max-width: 800px;
 }
 
-.auth-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.auth-header h2 {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-.auth-header p {
-    color: #666;
-    margin-bottom: 0;
-}
-
 .edit-profile-content {
     display: flex;
     align-items: stretch; /* Garante que as colunas tenham a mesma altura */
@@ -124,21 +103,21 @@
 /* Remove outline padrão do Bootstrap */
 .form-control:focus {
     box-shadow: none;
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 /* Quando o input está em foco, estiliza também o span adjacente */
 .form-control:focus ~ .input-group-text {
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 /* Quando o span está em foco, estiliza também o input */
 .input-group:focus-within .input-group-text {
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 .input-group:focus-within .form-control {
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 .auth-button {
@@ -163,7 +142,7 @@
 }
 
 .auth-link {
-    color: var(--primary-color);
+    color: var(--color-primary);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
