@@ -113,6 +113,13 @@ class CustomUserAdmin(UserAdmin):
             # Remove is_superuser, email e foto_perfil da listagem para não superusers
             return ['username', 'is_staff', 'is_active', 'pode_cadastrar_quadra']
 
+    def get_list_display_links(self, request, list_display):
+        # Se não for superuser, retorna None para remover todos os links
+        if not request.user.is_superuser:
+            return None
+        # Se for superuser, mantém o comportamento padrão
+        return super().get_list_display_links(request, list_display)
+
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
