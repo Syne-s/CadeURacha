@@ -162,14 +162,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const today = new Date();
     today.setDate(today.getDate() + 1);
     const tomorrow = today.toISOString().split('T')[0];
-    document.getElementById('{{ form.data.id_for_label }}').setAttribute('min', tomorrow);
+    
+    // Configurar data máxima (3 meses a partir de hoje)
+    const maxDate = new Date();
+    maxDate.setMonth(maxDate.getMonth() + 3);
+    const maxDateStr = maxDate.toISOString().split('T')[0];
+    
+    const dateInput = document.getElementById('{{ form.data.id_for_label }}');
+    dateInput.setAttribute('min', tomorrow);
+    dateInput.setAttribute('max', maxDateStr);
 
-    // Pré-selecionar quadra se vier da URL
+    // Resto do código existente...
     const urlParams = new URLSearchParams(window.location.search);
     const arenaId = urlParams.get('arena_id');
     if (arenaId) {
         const arenaSelect = document.querySelector('select[name="{{ form.arena.name }}"]');
-        const option = arenaSelect.querySelector(option[value="${arenaId}"]);
+        const option = arenaSelect.querySelector(`option[value="${arenaId}"]`);
         if (option) {
             option.selected = true;
         }
