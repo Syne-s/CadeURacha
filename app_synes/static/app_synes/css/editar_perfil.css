@@ -274,3 +274,14 @@
     margin-bottom: 0.5rem; /* Ajuste conforme necessário */
     font-weight: 500;
 }
+
+.btn-primary {
+    --bs-btn-bg: var(--color-primary);
+    --bs-btn-hover-bg: var(--button-hover-bg);
+    --bs-btn-active-bg: var(--button-hover-bg);
+    --bs-btn-border-color: var(--color-primary);
+    --bs-btn-hover-border-color: var(--button-hover-bg);
+    --bs-btn-active-border-color: var(--button-hover-bg);
+    --bs-btn-focus-shadow-rgb: 179, 66, 0; /* Ajuste a cor da sombra de foco se necessário */
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); /* Sombra interna para o estado ativo */
+}
