@@ -1,24 +1,29 @@
 {% extends 'app_synes/base.html' %}
 {% load static %}
-{% block title %}cadêURacha - Confirmar Exclusão de Conta{% endblock %}
+{% block title %}cadêURacha - Confirmar Exclusão{% endblock %}
 {% block content %}
 <head>
-    <link href="{% static 'app_synes/css/confirm_delete_account.css' %}" rel="stylesheet">
+    <link href="{% static 'app_synes/css/confirm_delete_account.css' %}?v={{ timestamp }}" rel="stylesheet">
 </head>
+
 <div class="auth-container">
     <div class="auth-card">
-        <div class="auth-header">
-            <i class="fas fa-user-times auth-icon"></i>
-            <h2 class="text-center mb-0">Confirmar Exclusão de Conta</h2>
-            <p class="text-center">Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
+        <div class="text-center mb-4">
+            <h2 class="mb-3">Excluir Conta</h2>
+            <p class="text-muted">Esta ação não pode ser desfeita. Tem certeza?</p>
         </div>
-        <form method="post" action="{% url 'delete_account' %}">
-            {% csrf_token %}
-            <button type="submit" class="auth-button btn-danger">Confirmar Exclusão</button>
-        </form>
-        <a href="{% url 'editar_perfil' %}" class="auth-button btn-secondary">Cancelar</a>
+        
+        <div class="d-flex flex-column align-items-center gap-3">
+            <form method="post" action="{% url 'delete_account' %}" class="w-75">
+                {% csrf_token %}
+                <button type="submit" class="auth-button btn btn-danger w-100">
+                    Confirmar Exclusão
+                </button>
+            </form>
+            <a href="{% url 'editar_perfil' %}" class="auth-button btn btn-outline-primary w-75">
+                Cancelar
+            </a>
+        </div>
     </div>
 </div>
-
-
 {% endblock %}

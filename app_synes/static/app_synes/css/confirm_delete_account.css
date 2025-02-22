@@ -6,11 +6,13 @@
     --cor-botao-principal: #F0F0F1;
     --cor-botao-hover: #F8F7F8;
     --cor-botao-texto: #C55204;
+    --cor-fundo-pesquisa: #E5E5E5;
 
     /* Cores Primárias */
     --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
     --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
     --color-accent: #e5c03d; /* Usada para destaques e ícones */
+    --color-danger: #dc3545;
 
     /* Cores Secundárias */
     --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
@@ -57,11 +59,11 @@
 
 .auth-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 40px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
 }
 
 .auth-header {
@@ -127,33 +129,61 @@
     padding: 0.75rem;
     color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: 500;
+    border-radius: 10px;
+    font-weight: bold;
     transition: all 0.2s ease;
     text-decoration: none;
     text-align: center;
     display: block;
 }
 
+
 .auth-button:hover {
-    transform: translateY(-2px);
     color: white;
 }
 
+.btn:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--primary-color);
+}
+
+/* Botão de Excluir */
 .btn-danger {
-    background-color: #dc3545;
+    background-color: var(--color-danger);
+    border: none;
+    color: white;
 }
 
 .btn-danger:hover {
-    background-color: #c82333;
+    background-color: #bb2d3b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.btn-danger:focus {
+    box-shadow: none;
+}
+
+/* Botão de Cancelar */
+.btn-outline-primary {
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-primary:focus {
+    box-shadow: none;
+}
+
+/* Remove a classe que não está sendo usada */
 .btn-secondary {
-    background-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
+    display: none;
 }
 
 .auth-footer {
