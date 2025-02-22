@@ -255,7 +255,7 @@ def listar_jogos(request):
 
     # Obtém os jogos e converte para lista para poder ordenar
     jogos_criados = list(Jogo.objects.filter(criador_jogo=request.user))
-    jogos_confirmados = list(Jogo.objects.filter(participantes=request.user).exclude(criador_jogo=request.user))
+    jogos_confirmados = list(Jogo.objects.filter(participantes=request.user))
 
     # Função auxiliar para ordenação
     def get_datetime_jogo(jogo):

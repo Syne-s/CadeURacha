@@ -77,13 +77,12 @@
         <div class="container shadow rounded-5 cream">
           <div class="row d-flex flex-nowrap overflow-auto w-100">
             {% for jogo in jogos_confirmados %}
-              {% if request.user in jogo.participantes.all and jogo.criador_jogo != request.user %}
                 <a href="{% url 'detalhes_jogo' jogo.id %}">
-                  <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                    {% if jogo.imagem %}
+                    <div class="card border-0 text-bg-dark ratio ratio-1x1">
+                      {% if jogo.imagem %}
                       <img src="{{ jogo.imagem.url }}" class="card-img" alt="Imagem de {{ jogo.titulo }}">
-                    {% else %}
-                      <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem do racha">
+                      {% else %}
+                      <img src="{% static 'app_synes/images/space.jpg' %}" class="card-img" alt="Imagem do Racha">
                     {% endif %}
                     <div class="card-img-overlay">
                       <i class='bx bxs-basketball'></i>
@@ -98,7 +97,6 @@
                     </div>
                   </div>
                 </a>
-              {% endif %}
             {% empty %}
               <p class="text-center">Nenhum racha com presença confirmada.</p>
             {% endfor %}
