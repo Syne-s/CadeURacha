@@ -66,6 +66,7 @@
     margin: 0 auto;
     text-align: center;
     height: 78vh;
+    width: 100%; /* Garante que ocupe toda a largura */
 }
 
 .row{
@@ -75,6 +76,16 @@
 
 .translate {
     transform: translateX(-1rem);
+}
+
+#Agrupador {
+    z-index: 2;
+    width: 975px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
 }
 
 #Agrupador .container {
@@ -91,6 +102,11 @@ p b span {
 
 .ml-15 {
     margin-left: 15%;
+}
+
+.container {
+    width: 975px !important;
+    padding: 2rem !important;
 }
 
 .container .row {
@@ -241,8 +257,7 @@ i span {
     }
 
     .container {
-        width: 975px !important;
-        padding: 2rem !important;
+        width: 100% !important;
     }
 
     .card {
