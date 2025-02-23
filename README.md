@@ -176,6 +176,8 @@ python manage.py runserver
 | RF019  | Levar Bola                                                 | ✅ Concluído    |
 | RF020  | Visualizar Mapa                                            | ✅ Concluído    |
 | RF021  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
+| RD022  | Permitir o cadastro de quadras apenas para administradores | ✅ Concluído   |
+
 
 ---
 
@@ -196,10 +198,9 @@ python manage.py runserver
 | RD002  | Funcionalidade de chat entre usuários                     | 🛑 Não iniciado |
 | RD003  | Sistema de níveis para classificar e recompensar usuários | 🛑 Não iniciado |
 | RD004  | Recomendação de jogos para iniciantes                     | 🛑 Não iniciado |
-| RD005  | Permitir o cadastro de quadras apenas para administradores | 🛑 Não iniciado |
-| RD006  | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
-| RD007  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
-| RD008  | Avaliar Quadra                                            | 🛑 Não iniciado |
+| RD005 | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
+| RD006  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
+| RD007  | Avaliar Quadra                                            | 🛑 Não iniciado |
 
 
 </div>
