@@ -166,19 +166,16 @@ python manage.py runserver
 | RF009  | Capturar Localização Atual do Usuário                      | ✅ Concluído    |
 | RF010  | Filtrar Quadras por Raio de Busca                          | ✅ Concluído    |
 | RF011  | Buscar Quadras                                             | ✅ Concluído    |
-| RF012  | Editar Quadra                                              | ⏳ Em andamento |
-| RF013  | Visualizar Detalhes de Quadras                             | ⏳ Em andamento |
-| RF014  | Cadastrar Jogo                                             | ✅ Concluído    |
-| RF015  | Editar Jogo                                                | ⏳ Em andamento |
-| RF016  | Excluir Jogo                                               | ⏳ Em andamento |
-| RF017  | Verificar Disponibilidade de Quadra                        | ✅ Concluído    |
-| RF018  | Confirmar Participação em Jogo (Racha)                     | ✅ Concluído    |
-| RF019  | Cancelar Presença em Jogo                                  | ✅ Concluído    |
-| RF020  | Visualizar Lista de Participantes de um Jogo               | ✅ Concluído    |
-| RF021  | Visualizar Detalhes de Jogos                               | ⏳ Em andamento |
-| RF022  | Levar Bola                                                 | ✅ Concluído    |
-| RF023  | Visualizar Mapa                                            | ✅ Concluído    |
-| RF024  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
+| RF012  | Visualizar Detalhes de Quadras                             | ✅ Concluído  |
+| RF013  | Cadastrar Jogo                                             | ✅ Concluído    |
+| RF014  | Verificar Disponibilidade de Quadra                        | ✅ Concluído    |
+| RF015  | Confirmar Participação em Jogo (Racha)                     | ✅ Concluído    |
+| RF016  | Cancelar Presença em Jogo                                  | ✅ Concluído    |
+| RF017  | Visualizar Lista de Participantes de um Jogo               | ✅ Concluído    |
+| RF018  | Visualizar Detalhes de Rachas                               | ✅ Concluído  |
+| RF019  | Levar Bola                                                 | ✅ Concluído    |
+| RF020  | Visualizar Mapa                                            | ✅ Concluído    |
+| RF021  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
 
 ---
 
