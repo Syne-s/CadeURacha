@@ -42,7 +42,7 @@ class CustomUserAdmin(UserAdmin):
     
     # Método que verifica a permissão
     def pode_cadastrar_quadra(self, obj):
-        return obj.has_perm('app_synes.can_add_arena')
+        return obj.is_superuser or obj.has_perm('app_synes.can_add_arena')
     pode_cadastrar_quadra.short_description = 'Pode cadastrar quadra'
     pode_cadastrar_quadra.boolean = True  # Isso fará aparecer como ícone de check
 
@@ -53,9 +53,10 @@ class CustomUserAdmin(UserAdmin):
             content_type=arena_content_type,
         )
         for user in queryset:
-            user.is_staff = True  # Define como staff
-            user.user_permissions.add(permission)
-            user.save()  # Salva as alterações
+            if not user.is_superuser:  # não altera superusers
+                user.is_staff = True
+                user.user_permissions.add(permission)
+                user.save()
     dar_permissao_quadra.short_description = "Dar permissão para cadastrar quadras"
 
     def remover_permissao_quadra(self, request, queryset):
@@ -65,9 +66,10 @@ class CustomUserAdmin(UserAdmin):
             content_type=arena_content_type,
         )
         for user in queryset:
-            user.is_staff = False  # Remove status de staff
-            user.user_permissions.remove(permission)
-            user.save()  # Salva as alterações
+            if not user.is_superuser:  # não altera superusers
+                user.is_staff = False
+                user.user_permissions.remove(permission)
+                user.save()
     remover_permissao_quadra.short_description = "Remover permissão para cadastrar quadras"
 
     fieldsets = UserAdmin.fieldsets + (
