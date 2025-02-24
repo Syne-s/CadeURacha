@@ -194,10 +194,10 @@ python manage.py runserver
   
 | **ID** | **Requisito Desejável**                                  | **Status**     |
 |--------|-----------------------------------------------------------|----------------|
-| RD001  | Notificação para jogadores sobre a criação de novos jogos | 🛑 Não iniciado |
+| RD001  | Notificar Novos Jogos | 🛑 Não iniciado |
 | RD002  | Funcionalidade de chat entre usuários                     | 🛑 Não iniciado |
-| RD003  | Sistema de níveis para classificar e recompensar usuários | 🛑 Não iniciado |
-| RD004  | Recomendação de jogos para iniciantes                     | 🛑 Não iniciado |
+| RD003  | Classificar e Recompensar usuários | 🛑 Não iniciado |
+| RD004  | Recomendar Jogos para Iniciantes                   | 🛑 Não iniciado |
 | RD005 | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
 | RD006  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
 | RD007  | Avaliar Quadra                                            | 🛑 Não iniciado |
