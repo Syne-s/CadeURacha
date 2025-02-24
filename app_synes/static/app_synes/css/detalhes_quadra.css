@@ -218,6 +218,7 @@ button:hover{
     height: fit-content !important;
     flex-direction: column;
     margin: auto;
+    background-color: var(--cor-texto-principal);
 }
 
 .botoes button{
