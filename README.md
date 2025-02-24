@@ -176,7 +176,7 @@ python manage.py runserver
 | RF019  | Levar Bola                                                 | ✅ Concluído    |
 | RF020  | Visualizar Mapa                                            | ✅ Concluído    |
 | RF021  | Visualizar Quadras no Mapa                                 | ✅ Concluído    |
-| RD022  | Permitir o cadastro de quadras apenas para administradores | ✅ Concluído   |
+| RD022  | Cadastrar Quadra (Administradores)                         | ✅ Concluído   |
 
 
 ---
