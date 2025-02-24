@@ -95,7 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <b>${arena.name}</b><br>
             ${arena.logradouro}, ${arena.bairro}, ${arena.cidade}, ${arena.estado}, ${arena.cep}<br>
             <div class="popup-links">
+                {% if user.is_authenticated %}
                 <a href="{% url 'cadastrar_racha' %}?arena_id=${arena.id}">Cadastrar Racha</a>
+                {% else %}
+                <a href="{% url 'logar' %}?arena_id=${arena.id}">Cadastrar Racha</a>
+                {% endif %}
                 <span>|</span>
                 <a href="{% url 'detalhes_quadra' %}${arena.id}">Ver Detalhes</a>
             </div>
