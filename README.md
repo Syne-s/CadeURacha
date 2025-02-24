@@ -201,6 +201,8 @@ python manage.py runserver
 | RD005 | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
 | RD006  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
 | RD007  | Avaliar Quadra                                            | 🛑 Não iniciado |
+| RD008  | Editar Racha                                            | 🛑 Não iniciado |
+| RD009  | Editar Quadra                                            | 🛑 Não iniciado |
 
 
 </div>
