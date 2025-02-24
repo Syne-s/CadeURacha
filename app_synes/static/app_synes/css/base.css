@@ -53,6 +53,7 @@ input[type="search"]::-webkit-search-decoration,
             --color-background-muted: var(--color-background-light);
         }
 
+        
         body {
             margin: 0;
             padding: 0;
@@ -76,6 +77,13 @@ input[type="search"]::-webkit-search-decoration,
             z-index: 2000;
         }
         
+        .tooltip-inner {
+            font-size: 14px; 
+            max-width: 300px; 
+            padding: 8px 12px; 
+            font-family: "Poppins", sans-serif !important;
+          }
+          
         .logo {
             font-size: 1.25rem;
             font-weight: 600;
