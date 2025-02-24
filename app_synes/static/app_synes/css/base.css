@@ -83,6 +83,15 @@ input[type="search"]::-webkit-search-decoration,
             padding: 8px 12px; 
             font-family: "Poppins", sans-serif !important;
           }
+
+        .arrow{
+            transition: all 1s ease;
+        }
+
+
+        .arrow:hover{
+            opacity: 50% !important;
+        }
           
         .logo {
             font-size: 1.25rem;
