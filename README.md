@@ -167,11 +167,11 @@ python manage.py runserver
 | RF010  | Filtrar Quadras por Raio de Busca                          | ✅ Concluído    |
 | RF011  | Buscar Quadras                                             | ✅ Concluído    |
 | RF012  | Visualizar Detalhes de Quadras                             | ✅ Concluído  |
-| RF013  | Cadastrar Jogo                                             | ✅ Concluído    |
+| RF013  | Cadastrar Racha                                             | ✅ Concluído    |
 | RF014  | Verificar Disponibilidade de Quadra                        | ✅ Concluído    |
-| RF015  | Confirmar Participação em Jogo (Racha)                     | ✅ Concluído    |
-| RF016  | Cancelar Presença em Jogo                                  | ✅ Concluído    |
-| RF017  | Visualizar Lista de Participantes de um Jogo               | ✅ Concluído    |
+| RF015  | Confirmar Participação em Racha                   | ✅ Concluído    |
+| RF016  | Cancelar Presença em Racha                                  | ✅ Concluído    |
+| RF017  | Visualizar Lista de Participantes de um Racha               | ✅ Concluído    |
 | RF018  | Visualizar Detalhes de Rachas                               | ✅ Concluído  |
 | RF019  | Levar Bola                                                 | ✅ Concluído    |
 | RF020  | Visualizar Mapa                                            | ✅ Concluído    |
@@ -194,10 +194,10 @@ python manage.py runserver
   
 | **ID** | **Requisito Desejável**                                  | **Status**     |
 |--------|-----------------------------------------------------------|----------------|
-| RD001  | Notificar Novos Jogos | 🛑 Não iniciado |
-| RD002  | Funcionalidade de chat entre usuários                     | 🛑 Não iniciado |
-| RD003  | Classificar e Recompensar usuários | 🛑 Não iniciado |
-| RD004  | Recomendar Jogos para Iniciantes                   | 🛑 Não iniciado |
+| RD001  | Notificar Novos Rachas | 🛑 Não iniciado |
+| RD002  | Chat para Jogadores                     | 🛑 Não iniciado |
+| RD003  | Classificar e Recompensar Usuários | 🛑 Não iniciado |
+| RD004  | Recomendar Rachas para Iniciantes                   | 🛑 Não iniciado |
 | RD005 | Visualizar Tela de Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
 | RD006  | Visualizar Tela de Feedback de Cadastro e Edição          | 🛑 Não iniciado |
 | RD007  | Avaliar Quadra                                            | 🛑 Não iniciado |
