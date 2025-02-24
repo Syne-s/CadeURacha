@@ -128,18 +128,19 @@
 
 .auth-button {
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.75rem;
     background-color: var(--color-primary);
-    color: white;
+    color: #FFFFFF;
     border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.2s ease;
 }
 
-
+.auth-button:hover {
+    background-color: var(--button-hover-bg);
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
 
 .alert-success {
     background-color: #d4edda;
@@ -165,7 +166,7 @@
     border-color: #f5c6cb;
 }
 .btn-group .btn.active {
-    background-color: #28a745 !important; 
+    background-color: var(--button-hover-bg) !important; /* Changed from #28a745 to match hover color */
     border-color: #000000 !important;
     color: white;
 }
@@ -175,6 +176,16 @@
     color: white;
 }
 
+.btn-primary {
+    --bs-btn-bg: var(--color-primary);
+    --bs-btn-hover-bg: var(--button-hover-bg);
+    --bs-btn-active-bg: var(--button-hover-bg);
+    --bs-btn-border-color: var(--color-primary);
+    --bs-btn-hover-border-color: var(--button-hover-bg);
+    --bs-btn-active-border-color: var(--button-hover-bg);
+    --bs-btn-focus-shadow-rgb: 179, 66, 0; /* Ajuste a cor da sombra de foco se necessÃ¡rio */
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); /* Sombra interna para o estado ativo */
+}
 
 .tooltip-inner {
     font-size: 14px; 
@@ -232,13 +243,6 @@
     color: var(--color-text-muted);
     z-index: 2;
 }
-
-/* Remove or comment out the existing image upload styles */
-/* .image-upload-container,
-.upload-label,
-.current-image-preview,
-.preview-img,
-.remove-image { ... } */
 
 /* Add new image upload styles */
 .image-card {

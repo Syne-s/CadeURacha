@@ -1,3 +1,52 @@
+:root {
+    /* NOVA PALETA */
+    --cor-fundo-principal: #F0F0F1;
+    --cor-card-principal: #CF5204;
+    --cor-texto-principal: #F8F7F8;
+    --cor-botao-principal: #F0F0F1;
+    --cor-botao-hover: #F8F7F8;
+    --cor-botao-texto: #C55204;
+    --cor-fundo-pesquisa: #E5E5E5;
+
+    /* Cores Primárias */
+    --color-primary: #ce4c00; /* Usada para elementos interativos e botões primários */
+    --color-secondary: #1c1829; /* Usada para cabeçalhos e textos principais */
+    --color-accent: #e5c03d; /* Usada para destaques e ícones */
+
+    /* Cores Secundárias */
+    --color-background-light: #F5F5F5; /* Fundo claro para cards e seções */
+    --color-background-default: #FFFFFF; /* Fundo principal para páginas */
+    --color-text-primary: #212121; /* Texto escuro para maior legibilidade */
+    --color-text-secondary: #616161; /* Texto cinza para informações secundárias */
+    --color-text-muted: #9E9E9E; /* Texto mais claro para legendas e detalhes */
+
+    /* Estados de Botões */
+    --button-primary-bg: var(--color-primary); /* Fundo do botão primário */
+    --button-primary-text: #FFFFFF; /* Texto do botão primário */
+    --button-secondary-bg: var(--color-background-default); /* Fundo do botão secundário */
+    --button-secondary-text: var(--color-primary); /* Texto do botão secundário */
+    --button-hover-bg: #b34200; /* Fundo do botão primário no estado hover */
+    --button-disabled-bg: #E0E0E0; /* Fundo do botão desativado */
+    --button-disabled-text: #BDBDBD; /* Texto do botão desativado */
+
+    /* Cores de Feedback */
+    --color-success: #4CAF50; /* Verde para ações bem-sucedidas */
+    --color-error: #ba2121; /* Vermelho para erros */
+    --color-warning: #FF9800; /* Laranja para avisos */
+
+    /* Cores de Mapa */
+    --map-marker-available: var(--color-primary); /* Marcador para quadras disponíveis */
+    --map-marker-booked: var(--color-success); /* Marcador para jogos confirmados */
+
+    /* Outras Cores */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra leve para elevação */
+    --border-default: #E0E0E0; /* Cor de borda padrão */
+
+    /* Variáveis adicionais para garantir que todas as cores sejam provenientes do :root */
+    --border-color: var(--border-default);
+    --color-background-muted: var(--color-background-light);
+}
+
 .auth-container {
     min-height: calc(100vh - 120px);
     display: flex;
@@ -13,27 +62,6 @@
     padding: 2rem;
     width: 100%;
     max-width: 800px;
-}
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.auth-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.auth-header h2 {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-.auth-header p {
-    color: #666;
-    margin-bottom: 0;
 }
 
 .edit-profile-content {
@@ -61,12 +89,14 @@
 
 .input-group-text {
     background-color: white;
+    border: 1px solid var(--border-default);  /* Adicionado border completo */
     border-right: none;
     color: #666;
     transition: border-color 0.2s ease;
 }
 
 .form-control {
+    border: 1px solid var(--border-default);  /* Adicionado border completo */
     border-left: none;
     padding: 0.75rem;
     transition: border-color 0.2s ease;
@@ -75,37 +105,46 @@
 /* Remove outline padrão do Bootstrap */
 .form-control:focus {
     box-shadow: none;
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 /* Quando o input está em foco, estiliza também o span adjacente */
 .form-control:focus ~ .input-group-text {
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 /* Quando o span está em foco, estiliza também o input */
 .input-group:focus-within .input-group-text {
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
 }
 
 .input-group:focus-within .form-control {
-    border-color: var(--primary-color);
+    border-color: var(--color-primary);
+}
+
+/* Simplificado os seletores para focus */
+.input-group:focus-within {
+    .input-group-text,
+    .form-control {
+        border-color: var(--color-primary);
+        box-shadow: none;
+    }
 }
 
 .auth-button {
     width: 100%;
     padding: 0.75rem;
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
     border: none;
-    border-radius: 4px;
-    font-weight: 500;
+    border-radius: 10px;
+    font-weight: bold;
     transition: all 0.2s ease;
 }
 
 .auth-button:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
+    background-color: var(--button-hover-bg);
+    box-shadow: 0 4px 8px var(--shadow-light);
 }
 
 .auth-footer {
@@ -114,7 +153,7 @@
 }
 
 .auth-link {
-    color: var(--primary-color);
+    color: var(--color-primary);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
@@ -210,17 +249,29 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(248, 249, 250, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
     pointer-events: none;
 }
 .overlay i {
-    color: #fff;
+    color: var(--color-text-muted);
     font-size: 3rem; /* Aumenta o tamanho do ícone da câmera */
 }
 
 .form-label {
     margin-bottom: 0.5rem; /* Ajuste conforme necessário */
+    font-weight: 500;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--color-primary);
+    --bs-btn-hover-bg: var(--button-hover-bg);
+    --bs-btn-active-bg: var(--button-hover-bg);
+    --bs-btn-border-color: var(--color-primary);
+    --bs-btn-hover-border-color: var(--button-hover-bg);
+    --bs-btn-active-border-color: var(--button-hover-bg);
+    --bs-btn-focus-shadow-rgb: 179, 66, 0; /* Ajuste a cor da sombra de foco se necessário */
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); /* Sombra interna para o estado ativo */
 }

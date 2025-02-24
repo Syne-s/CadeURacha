@@ -50,6 +50,31 @@
     transition: all .8s ease;
 }
 
+#Agrupador{
+    padding: 0;
+    margin: 0 auto;
+}
+
+.container .row {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.container .row::-webkit-scrollbar {
+    display: none;
+}
+
+.no-style {
+    background: transparent;
+    border: 0;
+}
+
+.arrow {
+    font-size: 55px;
+    color: var(--color-primary) !important;
+    cursor: pointer;
+}
+
 /* Temporário */
 
 .pai{
@@ -83,6 +108,9 @@ body {
     background-color: transparent;
     padding: 1rem;
     border: 2px solid var(--color-primary);
+    max-width: 100%; /* Evita que o container se expanda */
+    overflow-x: auto; /* Permite scroll apenas horizontalmente */
+    scrollbar-width: none; /* Oculta scrollbar no Firefox */
 }
 
 .row a{
@@ -99,6 +127,11 @@ body {
 
 .ajustador .container {
     margin: 0; 
+}
+
+.ajustador {
+    overflow: hidden; /* Impede expansão */
+    white-space: nowrap; /* Evita que os elementos quebrem linha */
 }
 
 
@@ -185,6 +218,7 @@ button:hover{
     height: fit-content !important;
     flex-direction: column;
     margin: auto;
+    background-color: var(--cor-texto-principal);
 }
 
 .botoes button{
