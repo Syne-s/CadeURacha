@@ -204,7 +204,7 @@ python manage.py runserver
 | RD008  | Editar Racha                                            | 🛑 Não iniciado |
 | RD009  | Excluir Racha                                            | 🛑 Não iniciado |
 | RD010 | Visualizar Tela de Detalhes do Racha do Usuário           | 🛑 Não iniciado |
-| RD010 | Editar Quadra                                            | 🛑 Não iniciado |
+| RD011 | Editar Quadra                                            | 🛑 Não iniciado |
 
 
 </div>
