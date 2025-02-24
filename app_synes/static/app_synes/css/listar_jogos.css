@@ -104,7 +104,7 @@ p b span {
     margin-left: 15%;
 }
 
-.container {
+.cream {
     width: 975px !important;
     padding: 2rem !important;
 }
@@ -162,10 +162,6 @@ p b span {
     transform: translateX(-.6rem);
 }
 
-i span {
-    font-family: "Syne", sans-serif !important;
-    transform: translateY(-.2rem) !important;
-}
 
 .card img {
     border-radius: 20px !important;
@@ -232,11 +228,6 @@ i span {
 
     .card-img-overlay i {
         font-size: 18px;
-    }
-
-    i span {
-        font-size: 16px;
-        transform: translateY(-.05rem) !important;
     }
 
     .card-img-overlay .texts {
