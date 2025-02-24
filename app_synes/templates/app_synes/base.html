@@ -275,7 +275,13 @@
     
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <h3>{{ user.username }}</h3>
+                                <h3 class="text-truncate"
+                                data-bs-toggle="tooltip" 
+                                data-bs-placement="top" 
+                                title="{{ user.username }}">
+                                {{ user.username }}
+                            </h3>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Rachas</a>
@@ -351,6 +357,17 @@
     </footer>
 
     <script>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            });
+        </script>
+        
 // Only keep universal.js functionality
 document.addEventListener("click", (event) => {
     const toggleButton = event.target.closest("[data-bs-toggle='collapse']");
@@ -363,6 +380,12 @@ document.addEventListener("click", (event) => {
         });
     }
 });
+
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".arrow").forEach(arrow => {
