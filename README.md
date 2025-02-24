@@ -201,10 +201,13 @@ python manage.py runserver
 | RD005 | Visualizar Alerta de Confirmação de Exclusão      | 🛑 Não iniciado |
 | RD006  | Visualizar Feedback de Cadastro e Edição          | 🛑 Não iniciado |
 | RD007  | Avaliar Quadra                                            | 🛑 Não iniciado |
-| RD008  | Editar Racha                                            | 🛑 Não iniciado |
-| RD009  | Excluir Racha                                            | 🛑 Não iniciado |
-| RD010 | Visualizar Detalhes do Racha do Usuário           | 🛑 Não iniciado |
-| RD011 | Editar Quadra                                            | 🛑 Não iniciado |
+| RD008  | Visualizar Detalhes do Racha do Usuário                  | 🛑 Não iniciado |
+| RD009  | Editar Racha                                            | 🛑 Não iniciado |
+| RD010  | Excluir Racha                                            | 🛑 Não iniciado |
+| RD011 | Visualizar Detalhes da Quadra do Usuário           | 🛑 Não iniciado |
+| RD012 | Editar Quadra                                            | 🛑 Não iniciado |
+| RD013 | Excluir Quadra                                            | 🛑 Não iniciado |
+| RD014 | Permitir que o Usuário recupere sua Senha | 🛑 Não iniciado |
 
 
 </div>
