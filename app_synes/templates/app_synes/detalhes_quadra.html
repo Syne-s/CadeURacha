@@ -22,7 +22,16 @@
             <h4 class="mb-1">{{ quadra.logradouro }}, {{ quadra.bairro }}</h4>
             
             <h5 class="text-center">Rachas Marcados:</h5>
-              <div class="ajustador w-100 d-flex justify-content-center flex-wrap">
+
+            <div id="Agrupador" class="col d-flex justify-content-center align-items-center w-100">
+
+            <!-- Setas -->
+
+            <button class="no-style">
+              <i class='bx bx-chevron-left arrow'></i>
+            </button>
+
+            <div class="ajustador d-flex align-items-center justify-content-between w-100">
                 <div class="container rounded-5 w-100 cream">
                   <div class="row d-flex flex-nowrap overflow-auto w-100">
                     {% for jogo in jogos_quadra %}
@@ -48,20 +57,50 @@
                   </div>
                 </div>
 
-                <a href="{% url 'cadastrar_racha' %}?arena_id={{ quadra.id }}">
-                  <button id="MarcarRacha" class="mt-4 rounded border-0 p-2">
-                    <b>Marcar Racha</b>
-                    <i class="bi bi-plus-circle"></i>
-                  </button>
-                </a>
+                <button class="no-style">
+                  <i class='bx bx-chevron-right arrow'></i>
+                </button>
+
+                <!-- Setas -->
 
               </div>
+              </div>
+         
+
+            <div class="d-flex justify-content-center">
+              <a href="{% url 'cadastrar_racha' %}?arena_id={{ quadra.id }}">
+                <button id="MarcarRacha" class="mt-4 rounded border-0 p-2">
+                  <b>Marcar Racha</b>
+                  <i class="bi bi-plus-circle"></i>
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
 </div>
 <script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".arrow").forEach(arrow => {
+        arrow.addEventListener("click", function () {
+            let agrupador = this.closest("#Agrupador");
+            let container = agrupador.querySelector(".container .row");
+            let scrollAmount = 100;
+
+            if (this.classList.contains("bx-chevron-left")) {
+                container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+            }
+        });
+    });
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
 
   document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".text-truncate").forEach(function (el) {
