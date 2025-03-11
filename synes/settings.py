@@ -148,6 +148,12 @@ CLOUDINARY_STORAGE = {
 # Configurar o Cloudinary como storage padrão para arquivos de mídia
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+# Configuração para limpar arquivos temporários
+CLOUDINARY_DELETE_AFTER_UPLOAD = True
+
+# Pasta temporária para uploads, que será limpa periodicamente
+TEMP_UPLOAD_ROOT = os.path.join(BASE_DIR, 'temp_uploads')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

@@ -73,8 +73,9 @@ class ArenaForm(forms.ModelForm):
                 # Obter a URL do Cloudinary
                 cloudinary_url = result['secure_url']
                 
-                # Salvar diretamente no campo foto_url em vez de foto_quadra
+                # Salvar apenas no campo foto_url
                 instance.foto_url = cloudinary_url
+                instance.foto_quadra = None  # Importante: não salvar localmente
                 
                 # Logs para debug
                 print(f"Cloudinary upload result for arena: {result}")
@@ -82,13 +83,8 @@ class ArenaForm(forms.ModelForm):
                 
             except Exception as e:
                 print(f"Error uploading arena image to Cloudinary: {e}")
-                # Fallback para método tradicional em caso de erro
-                image_io.seek(0)
-                instance.foto_quadra.save(
-                    new_file_name, 
-                    ContentFile(image_io.getvalue()), 
-                    save=False
-                )
+                # Não usamos mais fallback para método tradicional
+                # Apenas logar o erro e não salvar a imagem
         
         if commit:
             instance.save()
@@ -156,8 +152,9 @@ class EditProfileForm(forms.ModelForm):
                 # Obter a URL do Cloudinary
                 cloudinary_url = result['secure_url']
                 
-                # Salvar diretamente no campo foto_url em vez de foto_perfil
+                # Salvar apenas no campo foto_url e não usar o campo foto_perfil
                 instance.foto_url = cloudinary_url
+                instance.foto_perfil = None  # Importante: não salvar localmente
                 
                 # Logs para debug
                 print(f"Cloudinary upload result: {result}")
@@ -165,13 +162,8 @@ class EditProfileForm(forms.ModelForm):
                 
             except Exception as e:
                 print(f"Error uploading to Cloudinary: {e}")
-                # Fallback para método tradicional em caso de erro
-                image_io.seek(0)
-                instance.foto_perfil.save(
-                    new_file_name, 
-                    ContentFile(image_io.getvalue()), 
-                    save=False
-                )
+                # Não usamos mais fallback para método tradicional
+                # Apenas logar o erro e não salvar a imagem
         
         if commit:
             instance.save()
@@ -292,8 +284,9 @@ class JogoForm(forms.ModelForm):
                 # Obter a URL do Cloudinary
                 cloudinary_url = result['secure_url']
                 
-                # Salvar diretamente no campo foto_url em vez de imagem
+                # Salvar apenas no campo foto_url
                 instance.foto_url = cloudinary_url
+                instance.imagem = None  # Importante: não salvar localmente
                 
                 # Logs para debug
                 print(f"Cloudinary upload result for racha: {result}")
@@ -301,13 +294,8 @@ class JogoForm(forms.ModelForm):
                 
             except Exception as e:
                 print(f"Error uploading racha image to Cloudinary: {e}")
-                # Fallback para método tradicional em caso de erro
-                image_io.seek(0)
-                instance.imagem.save(
-                    new_file_name, 
-                    ContentFile(image_io.getvalue()), 
-                    save=False
-                )
+                # Não usamos mais fallback para método tradicional
+                # Apenas logar o erro e não salvar a imagem
         
         if commit:
             instance.save()
