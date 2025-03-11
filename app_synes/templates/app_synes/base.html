@@ -207,7 +207,7 @@
         
         <!-- Início Navbar -->
         <nav class="navbar navbar-lg fixed-top">
-            <div class="container-fluid d-flex align-items-center">
+            <div class="container-fluid d-flex align-items-center flex-wrap">
                 <!-- Logo - sempre visível -->
                 <div class="d-flex align-items-center navbar-img">
                     <a id="Logo" class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
@@ -216,30 +216,28 @@
                     </a>
                 </div>
                 
-                <!-- Botão hambúrguer - visível apenas em telas médias e pequenas -->
-                <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse"
+                <!-- Links principais - visíveis em desktop diretamente -->
+                <div class="main-nav-items d-none d-lg-flex">
+                    <a class="nav-item nav-link map-link change_format map_format" href="{% url 'mapa' %}">
+                        <i class='bx bxs-map-alt pe-2'></i>
+                        <span class="nav-text">Mapa de Quadras</span>
+                    </a>
+                    
+                    <a class="nav-item nav-link map-link change_format rachas_format" href="{% url 'todos' %}">
+                        <i class='bx bxs-basketball pe-2'></i>
+                        <span class="nav-text">Rachas &#38; Quadras</span>
+                    </a>
+                </div>
+                
+                <!-- Botão hambúrguer - visível apenas em telas pequenas (celulares) -->
+                <button class="navbar-toggler d-md-none d-sm-block" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarContent" aria-controls="navbarContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <i class='bx bx-menu'></i>
                 </button>
                 
-                <!-- Links principais - visíveis em desktop, colapsáveis em telas menores -->
-                <div id="navbarContent" class="collapse navbar-collapse">
-                    <div class="navbar-nav me-auto main-nav-items">
-                        <a class="nav-item nav-link map-link change_format map_format" href="{% url 'mapa' %}">
-                            <i class='bx bxs-map-alt pe-2'></i>
-                            <span class="nav-text">Mapa de Quadras</span>
-                        </a>
-                        
-                        <a class="nav-item nav-link map-link change_format rachas_format" href="{% url 'todos' %}">
-                            <i class='bx bxs-basketball pe-2'></i>
-                            <span class="nav-text">Rachas &#38; Quadras</span>
-                        </a>
-                    </div>
-                </div>
-                
                 <!-- Barra de pesquisa -->
-                <form class="d-flex search-form position-relative" role="search" action="{% url 'buscar' %}" method="GET" id="searchForm">
+                <form class="d-flex search-form position-relative ms-auto" role="search" action="{% url 'buscar' %}" method="GET" id="searchForm">
                     <input id="SearchBar" 
                            name="q"
                            class="form-control me-2 rounded-3 border-0" 
@@ -257,7 +255,7 @@
                 </form>
 
                 <!-- Botão de pesquisa para telas pequenas -->
-                <button class="btn search-toggle-btn d-none">
+                <button class="btn search-toggle-btn d-md-none">
                     <i class='bx bx-search'></i>
                 </button>
 
@@ -288,6 +286,38 @@
                     </button>
                 </div>
                 {% endif %}
+            </div>
+            
+            <!-- Segunda linha para navegação em tablets -->
+            <div class="tablet-nav d-none d-md-flex d-lg-none">
+                <div class="container-fluid">
+                    <div class="tablet-nav-items">
+                        <a class="nav-item nav-link map-link change_format map_format" href="{% url 'mapa' %}">
+                            <i class='bx bxs-map-alt pe-2'></i>
+                            <span class="nav-text">Mapa de Quadras</span>
+                        </a>
+                        
+                        <a class="nav-item nav-link map-link change_format rachas_format" href="{% url 'todos' %}">
+                            <i class='bx bxs-basketball pe-2'></i>
+                            <span class="nav-text">Rachas &#38; Quadras</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Menu colapsável para dispositivos móveis -->
+            <div id="navbarContent" class="collapse navbar-collapse">
+                <div class="navbar-nav me-auto mobile-nav-items">
+                    <a class="nav-item nav-link map-link change_format map_format" href="{% url 'mapa' %}">
+                        <i class='bx bxs-map-alt pe-2'></i>
+                        <span class="nav-text">Mapa de Quadras</span>
+                    </a>
+                    
+                    <a class="nav-item nav-link map-link change_format rachas_format" href="{% url 'todos' %}">
+                        <i class='bx bxs-basketball pe-2'></i>
+                        <span class="nav-text">Rachas &#38; Quadras</span>
+                    </a>
+                </div>
             </div>
         </nav>
 

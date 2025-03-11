@@ -328,10 +328,6 @@ input[type="search"]::-webkit-search-decoration,
             transition: all .75s ease-in;
         }
         
-        .map-link:hover {
-            opacity: 60%;
-        }
-        
         #Logo {
             cursor: pointer;
             color: var(--color-primary);
@@ -768,23 +764,226 @@ input[type="search"]::-webkit-search-decoration,
     z-index: 20;
     padding-left: 1rem;
     padding-right: 1rem;
+    flex-wrap: wrap; /* Permite que a navbar tenha duas linhas */
 }
 
-.navbar-toggler {
-    border: none;
-    font-size: 24px;
-    color: var(--color-primary);
-    padding: 0.25rem 0.5rem;
-    margin-right: 0.5rem;
+.navbar .container-fluid {
+    padding: 0.5rem 0;
 }
 
-.navbar-toggler:focus {
-    box-shadow: none;
+/* Ajustes para telas grandes (desktop) */
+@media (min-width: 992px) {
+    .navbar {
+        height: 73px !important; /* Altura fixa em desktop */
+        flex-wrap: nowrap !important; /* Evita quebra de linha na navbar em desktop */
+    }
+    
+    .main-nav-items {
+        flex: 0 1 auto; /* Não cresce, pode encolher, tamanho automático */
+        display: flex !important;
+        margin-left: 1.5rem;
+    }
+    
+    .search-form {
+        margin-left: auto !important;
+    }
+    
+    /* Garantir que os links principais estão sempre visíveis */
+    .main-nav-items .nav-item {
+        display: block;
+    }
+    
+    /* Esconder elementos mobile */
+    .navbar-toggler,
+    .tablet-nav,
+    .mobile-nav-items,
+    .search-toggle-btn {
+        display: none !important;
+    }
 }
 
-.main-nav-items {
-    display: flex;
-    align-items: center;
+/* Ajuste para telas médias (tablet) - Importante: usar max-width exato menos 0.02px */
+@media (max-width: 991.98px) {
+    /* Desativar elementos desktop e ativar elementos tablet */
+    .main-nav-items {
+        display: none !important; /* Esconder links desktop */
+    }
+    
+    .tablet-nav {
+        display: flex !important; /* Sempre mostrar em tablets */
+    }
+    
+    .navbar-collapse {
+        position: fixed;
+        top: 73px;
+        left: 0;
+        width: 100%;
+        background-color: var(--cor-texto-principal);
+        border-top: 1px solid var(--border-default);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 0.5rem 1rem;
+        z-index: 1050;
+    }
+}
+
+/* Específico para exatamente 992px */
+@media (width: 992px) {
+    .navbar {
+        height: 73px !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    .main-nav-items {
+        display: flex !important;
+        margin-left: 1.5rem;
+    }
+    
+    .tablet-nav {
+        display: none !important;
+    }
+}
+
+/* Ajuste para telas médias (tablet) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .navbar {
+        height: auto !important; /* Altura automática para acomodar duas linhas */
+        min-height: 73px;
+        padding-bottom: 0;
+    }
+    
+    .tablet-nav {
+        width: 100%;
+        background-color: var(--cor-texto-principal);
+        border-top: 1px solid rgba(0,0,0,0.05);
+        padding: 0.25rem 0;
+        margin-top: -0.5rem; /* Ajusta o espaçamento entre as duas linhas */
+    }
+    
+    .tablet-nav-items {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .main-content {
+        margin-top: 110px; /* Ajusta o conteúdo principal para acomodar a navbar mais alta */
+    }
+    
+    .search-form {
+        margin-left: auto !important;
+        margin-right: 1rem !important;
+        max-width: 400px !important; /* Aumentado de 300px para 400px */
+    }
+    
+    /* Certifique-se que a tablet-nav está sempre visível */
+    .tablet-nav {
+        display: flex !important;
+    }
+    
+    /* Esconder o botão hambúrguer em tablets - usando !important com alta especificidade */
+    .navbar .navbar-toggler,
+    .navbar .container-fluid .navbar-toggler {
+        display: none !important;
+    }
+}
+
+/* Mostrar o hambúrguer apenas em celulares */
+@media (max-width: 767.98px) {
+    .navbar {
+        height: 73px !important; /* Volta para altura fixa em celulares */
+    }
+    
+    .navbar-toggler {
+        display: block !important;
+    }
+    
+    .search-form {
+        display: none !important;
+    }
+    
+    .search-toggle-btn {
+        display: block !important;
+    }
+    
+    .navbar-img {
+        flex-grow: 1;
+        justify-content: center;
+    }
+    
+    #Logo {
+        margin: 0 auto;
+    }
+    
+    .tablet-nav {
+        display: none !important; /* Esconder navegação tablet em celular */
+    }
+    
+    /* Garantir que o hambúrguer seja visível apenas em dispositivos móveis */
+    .navbar .navbar-toggler {
+        display: block !important;
+        order: 1;
+    }
+}
+
+/* Media Queries para Navbar Responsiva */
+@media (max-width: 991.98px) {
+    .navbar-toggler {
+        display: block !important;
+    }
+    
+    .navbar-collapse {
+        position: fixed;
+        top: 73px;
+        left: 0;
+        width: 100%;
+        background-color: var(--cor-texto-principal);
+        border-top: 1px solid var(--border-default);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 0.5rem 1rem;
+        z-index: 1050;
+    }
+    
+    .main-nav-items {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .main-nav-items .nav-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 0;
+    }
+    
+    .navbar .container-fluid {
+        justify-content: space-between;
+    }
+    
+    .search-form {
+        max-width: 200px;
+    }
+    
+    #SearchBar::placeholder {
+        font-size: 0.8rem;
+    }
+}
+
+/* Ajustes para telas grandes (desktop) */
+@media (min-width: 992px) {
+    .navbar {
+        height: 73px !important; /* Altura fixa em desktop */
+        flex-wrap: nowrap !important; /* Evita quebra de linha na navbar em desktop */
+    }
+    
+    .main-nav-items {
+        flex: 0 1 auto; /* Não cresce, pode encolher, tamanho automático */
+        display: flex !important;
+    }
+    
+    .search-form {
+        margin-left: auto !important;
+    }
 }
 
 .nav-text {

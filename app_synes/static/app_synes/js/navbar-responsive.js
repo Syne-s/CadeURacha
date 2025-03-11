@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const navbarCollapse = document.getElementById('navbarContent');
         const navbarToggler = document.querySelector('.navbar-toggler');
         
-        if (window.innerWidth <= 992) {
+        if (window.innerWidth <= 991.98) {
             // Em telas menores, garantir que o menu está colapsado inicialmente
             if (navbarCollapse && navbarCollapse.classList.contains('show')) {
                 navbarCollapse.classList.remove('show');
