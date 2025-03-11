@@ -83,16 +83,18 @@ class EditProfileForm(forms.ModelForm):
                 result = cloudinary.uploader.upload(
                     image_io,
                     public_id=f"cadeURacha/perfil/{os.path.splitext(new_file_name)[0]}",
-                    folder="cadeURacha",
                     overwrite=True
                 )
                 
-                # Atualizar o campo com a URL do Cloudinary
-                instance.foto_perfil = result['secure_url']
+                # Obter a URL do Cloudinary
+                cloudinary_url = result['secure_url']
                 
-                # Log para debug
+                # Salvar diretamente no campo foto_url em vez de foto_perfil
+                instance.foto_url = cloudinary_url
+                
+                # Logs para debug
                 print(f"Cloudinary upload result: {result}")
-                print(f"Image URL set to: {instance.foto_perfil}")
+                print(f"Image URL set to foto_url: {cloudinary_url}")
                 
             except Exception as e:
                 print(f"Error uploading to Cloudinary: {e}")

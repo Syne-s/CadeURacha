@@ -9,18 +9,56 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h2>Usuário: {{ user.username }}</h2>
-                
-                {% if user.foto_perfil %}
-                    <p><strong>URL da Foto:</strong> {{ user.foto_perfil.url }}</p>
-                    <p><strong>Nome do Arquivo:</strong> {{ user.foto_perfil.name }}</p>
-                    <p><strong>Storage:</strong> {{ user.foto_perfil.storage }}</p>
+                <div class="bg-light p-3 rounded mb-3">
+                    <h3>Estado atual dos campos:</h3>
+                    <p><strong>Tem foto_perfil:</strong> {{ has_foto_perfil }}</p>
+                    <p><strong>Tem foto_url:</strong> {{ has_foto_url }}</p>
                     
+                    {% if foto_url_value %}
+                        <p><strong>Valor de foto_url:</strong> {{ foto_url_value }}</p>
+                    {% endif %}
+                    
+                    {% if foto_perfil_url %}
+                        <p><strong>URL de foto_perfil:</strong> {{ foto_perfil_url }}</p>
+                        <p><strong>Nome de foto_perfil:</strong> {{ foto_perfil_name }}</p>
+                        {% if foto_perfil_path %}
+                            <p><strong>Caminho de foto_perfil:</strong> {{ foto_perfil_path }}</p>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if foto_perfil_error %}
+                        <p class="text-danger"><strong>Erro ao acessar foto_perfil:</strong> {{ foto_perfil_error }}</p>
+                    {% endif %}
+                    
+                    <p><strong>get_profile_image_url retorna:</strong> {{ get_profile_image_url }}</p>
+                    
+                    {% if get_profile_image_url_error %}
+                        <p class="text-danger"><strong>Erro em get_profile_image_url:</strong> {{ get_profile_image_url_error }}</p>
+                    {% endif %}
+                </div>
+                
+                {% if get_profile_image_url %}
                     <div class="mb-4">
-                        <h3>Imagem de Perfil:</h3>
-                        <img src="{{ user.foto_perfil.url }}" alt="Foto de perfil" style="max-width: 300px;" class="img-thumbnail">
+                        <h3>Imagem de Perfil (usando get_profile_image_url):</h3>
+                        <img src="{{ get_profile_image_url }}" alt="Foto de perfil" style="max-width: 300px;" class="img-thumbnail">
                     </div>
                 {% else %}
                     <p>Este usuário não tem foto de perfil.</p>
+                {% endif %}
+                
+                <!-- Testes diretos com cada campo para diagnóstico -->
+                {% if has_foto_url %}
+                    <div class="mb-4">
+                        <h3>Imagem via foto_url diretamente:</h3>
+                        <img src="{{ user.foto_url }}" alt="Foto via foto_url" style="max-width: 300px;" class="img-thumbnail">
+                    </div>
+                {% endif %}
+                
+                {% if has_foto_perfil %}
+                    <div class="mb-4">
+                        <h3>Imagem via foto_perfil.url diretamente:</h3>
+                        <img src="{{ user.foto_perfil.url }}" alt="Foto via foto_perfil" style="max-width: 300px;" class="img-thumbnail">
+                    </div>
                 {% endif %}
             </div>
         </div>

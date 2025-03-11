@@ -616,5 +616,28 @@ def debug_cloudinary_urls(request):
 @login_required
 def debug_foto_perfil(request):
     """View para depurar uploads de foto de perfil"""
-    return render(request, 'app_synes/debug_foto_perfil.html')
+    # Adiciona informações extras para debug
+    context = {}
+    if request.user.is_authenticated:
+        context['has_foto_perfil'] = bool(request.user.foto_perfil)
+        context['has_foto_url'] = bool(request.user.foto_url)
+        
+        if request.user.foto_url:
+            context['foto_url_value'] = request.user.foto_url
+        
+        if request.user.foto_perfil:
+            try:
+                context['foto_perfil_url'] = request.user.foto_perfil.url
+                context['foto_perfil_name'] = request.user.foto_perfil.name
+                context['foto_perfil_path'] = request.user.foto_perfil.path if hasattr(request.user.foto_perfil, 'path') else None
+            except Exception as e:
+                context['foto_perfil_error'] = str(e)
+        
+        # Testar o método get_profile_image_url
+        try:
+            context['get_profile_image_url'] = request.user.get_profile_image_url
+        except Exception as e:
+            context['get_profile_image_url_error'] = str(e)
+    
+    return render(request, 'app_synes/debug_foto_perfil.html', context)
 

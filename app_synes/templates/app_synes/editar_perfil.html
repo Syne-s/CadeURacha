@@ -25,7 +25,7 @@
                             <input type="file" id="id_foto_perfil" name="foto_perfil" style="display: none;" accept="image/*">
                             <div class="image-card" onclick="document.getElementById('id_foto_perfil').click()">
                                 {% if profile_form.instance.foto_perfil %}
-                                    <img src="{{ profile_form.instance.foto_perfil.url }}" alt="Foto de Perfil">
+                                    <img src="{{ profile_form.instance.get_profile_image_url }}" alt="Foto de Perfil">
                                 {% endif %}
                                 <div class="overlay">
                                     <i class="bi bi-camera"></i>

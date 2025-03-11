@@ -7,9 +7,30 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField(default=True, verbose_name="Usuário ativo")
     foto_perfil = models.ImageField(upload_to='perfil/', blank=True, null=True)
     levar_bola = models.BooleanField(default=False, verbose_name="Levar bola")
+    foto_url = models.URLField(blank=True, null=True, verbose_name="URL da foto")  # Campo para armazenar a URL completa
 
     def __str__(self):
         return self.username
+    
+    def save(self, *args, **kwargs):
+        # Se foto_perfil for uma string e parece uma URL do Cloudinary, salvá-la em foto_url
+        if isinstance(self.foto_perfil, str) and ('cloudinary' in self.foto_perfil.lower() or 'res.cloudinary.com' in self.foto_perfil.lower()):
+            self.foto_url = self.foto_perfil
+            # Limpar o campo foto_perfil para evitar confusão
+            self.foto_perfil = None
+        super().save(*args, **kwargs)
+    
+    @property
+    def get_profile_image_url(self):
+        """Retorna a URL correta da imagem de perfil"""
+        # Primeiro verifica se há uma URL Cloudinary direta
+        if self.foto_url:
+            return self.foto_url
+        # Se não, tenta o campo normal foto_perfil
+        elif self.foto_perfil:
+            return self.foto_perfil.url
+        # Caso contrário, retorna None ou uma imagem padrão
+        return None
 
     class Meta:
         verbose_name = 'Usuário'
