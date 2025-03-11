@@ -518,7 +518,7 @@ input[type="search"]::-webkit-search-decoration,
         .result-item:hover {
             background-color: var(--color-background-muted);
             text-decoration: none;
-            color: var(--color-secondary);
+            color: var (--color-secondary);
         }
 
         .result-item:last-child {
@@ -1334,35 +1334,47 @@ input[type="search"]::-webkit-search-decoration,
     top: 73px;
 }
 
-/* Resultados de busca para mobile */
+.mobile-search-container form {
+    position: relative; /* Importante para posicionamento dos resultados */
+    margin-bottom: 0; /* Elimina qualquer margem que possa criar espaço */
+}
+
+/* Resultados de busca para mobile - acoplados diretamente à barra */
 .mobile-search-results {
-    position: absolute; /* Mudado de fixed para absolute para acompanhar o container pai */
-    top: 100%; /* Posicionar diretamente abaixo do container de pesquisa */
+    position: absolute; /* Posição absoluta em relação ao form */
+    top: 100%; /* Começa exatamente onde termina o form */
     left: 0;
     right: 0; 
-    max-height: calc(100vh - 173px); /* Viewport height menos cabeçalho */
+    max-height: calc(100vh - 173px);
     overflow-y: auto;
     background: var(--color-background-default);
     border: 1px solid var(--border-color);
-    border-top: none;
+    border-top: none; /* Remove borda superior para acoplar perfeitamente */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 2009; /* Menor que o container, mas maior que o resto */
+    z-index: 2009;
     display: none;
     border-radius: 0 0 8px 8px;
-    margin: 0; /* Remover margens para ficar acoplado */
+    margin: 0; /* Remove qualquer margem */
 }
 
-/* Garantir que o wrapper da pesquisa tenha posição relativa para os resultados serem absolutos em relação a ele */
-.mobile-search-wrapper {
-    position: relative;
-    width: 100%;
+/* Remover os estilos position:fixed antigos que podem estar causando conflito */
+.mobile-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
 }
 
-.mobile-search-wrapper #MobileSearchBar {
-    width: 100% !important;
-    padding-right: 40px;
-    border-radius: 8px;
-    height: 40px;
+/* Ajustar o container para ser relativo, facilitando o posicionamento dos resultados */
+.mobile-search-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Garantir que quando os resultados são mostrados, não há gap */
+.mobile-search-container.active .mobile-search-results.show {
+    display: block;
 }
 
 /* Resultados de busca para mobile */
