@@ -155,7 +155,6 @@ button{
     #TextoPrincipal {
         font-size: 32px;
         margin-top: 120px !important;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         position: relative;
         z-index: 1;
     }
@@ -164,7 +163,7 @@ button{
         position: relative;
         z-index: 1;
         flex-direction: column !important; /* Garante que os botões fiquem em coluna */
-        gap: 2rem;
+        gap: 5rem; /* Aumentado de 2rem para 5rem para criar mais espaço entre os elementos */
         margin-bottom: 6rem !important; /* Adiciona espaço na parte inferior para evitar sobreposição com o footer */
         padding-bottom: 2rem;
     }

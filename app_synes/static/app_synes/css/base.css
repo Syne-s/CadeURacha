@@ -704,20 +704,20 @@ input[type="search"]::-webkit-search-decoration,
     .footer {
         height: auto !important; /* Força a altura automática novamente */
         min-height: auto !important; /* Remove restrições de altura mínima */
-        padding: 1.5rem 1rem; /* Aumenta o padding para dar mais espaço */
+        padding: 1rem 1rem; /* Reduzido de 1.5rem para 1rem */
     }
     
     .footer-content {
         justify-content: center;
         text-align: center;
-        gap: 1.5rem;
-        padding-bottom: 1rem; /* Adiciona espaço extra na parte inferior */
+        gap: 0; /* Removido o gap de 1.5rem */
+        padding-bottom: 0; /* Removido o padding-bottom de 1rem */
     }
     
     .footer-left {
         justify-content: center;
         width: 100%;
-        margin-bottom: 1rem; /* Aumenta o espaço entre os elementos */
+        margin-bottom: 0.5rem; /* Reduzido de 1rem para 0.5rem */
     }
     
     .footer-text {
@@ -730,8 +730,8 @@ input[type="search"]::-webkit-search-decoration,
     .footer-contact {
         width: 100%;
         text-align: center;
-        margin-top: 1rem;
-        padding-bottom: 0.5rem; /* Adiciona espaço na parte inferior */
+        margin-top: 0.5rem; /* Reduzido de 1rem para 0.5rem */
+        padding-bottom: 0; /* Removido o padding-bottom de 0.5rem */
     }
 }
 
@@ -1308,5 +1308,76 @@ input[type="search"]::-webkit-search-decoration,
     .profile img {
         width: 30px !important;
         height: 30px !important;
+    }
+}
+
+/* Ajustes para resultados de pesquisa mobile */
+.search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Container para pesquisa mobile - ajustes adicionais */
+.mobile-search-container {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    background-color: var(--cor-texto-principal);
+    z-index: 2010;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: top 0.3s ease-in-out;
+}
+
+.mobile-search-container.active {
+    top: 73px;
+}
+
+/* Resultados de pesquisa no container móvel */
+.mobile-search-container #search-results {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    max-height: 70vh;
+    border-radius: 0 0 8px 8px;
+    z-index: 2020;
+}
+
+/* Garantir que os resultados da pesquisa sejam visíveis em dispositivos móveis */
+@media (max-width: 767.98px) {
+    .mobile-search-container.active {
+        display: block;
+    }
+    
+    .mobile-search-container .search-wrapper {
+        width: 100%;
+        position: relative;
+    }
+    
+    .mobile-search-container #SearchBar {
+        width: 100% !important;
+        padding-right: 40px;
+    }
+    
+    .mobile-search-container #search-results {
+        display: block;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+    
+    .search-close-btn {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        font-size: 1.25rem;
+        color: var(--color-primary);
+        cursor: pointer;
+        z-index: 5;
     }
 }
