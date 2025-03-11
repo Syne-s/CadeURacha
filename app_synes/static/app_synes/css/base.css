@@ -1334,71 +1334,25 @@ input[type="search"]::-webkit-search-decoration,
     top: 73px;
 }
 
-/* Resultados de pesquisa no container móvel */
-.mobile-search-container #search-results {
-    position: absolute;
-    top: calc(100% + 2px);
+/* Resultados de busca para mobile */
+.mobile-search-results {
+    position: absolute; /* Mudado de fixed para absolute para acompanhar o container pai */
+    top: 100%; /* Posicionar diretamente abaixo do container de pesquisa */
     left: 0;
-    right: 0;
-    max-height: 70vh;
+    right: 0; 
+    max-height: calc(100vh - 173px); /* Viewport height menos cabeçalho */
+    overflow-y: auto;
+    background: var(--color-background-default);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 2009; /* Menor que o container, mas maior que o resto */
+    display: none;
     border-radius: 0 0 8px 8px;
-    z-index: 2020;
+    margin: 0; /* Remover margens para ficar acoplado */
 }
 
-/* Garantir que os resultados da pesquisa sejam visíveis em dispositivos móveis */
-@media (max-width: 767.98px) {
-    .mobile-search-container.active {
-        display: block;
-    }
-    
-    .mobile-search-container .search-wrapper {
-        width: 100%;
-        position: relative;
-    }
-    
-    .mobile-search-container #SearchBar {
-        width: 100% !important;
-        padding-right: 40px;
-    }
-    
-    .mobile-search-container #search-results {
-        display: block;
-        width: 100%;
-        left: 0;
-        right: 0;
-    }
-    
-    .search-close-btn {
-        position: absolute;
-        right: 0.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        background: transparent;
-        border: none;
-        font-size: 1.25rem;
-        color: var(--color-primary);
-        cursor: pointer;
-        z-index: 5;
-    }
-}
-
-/* Container para pesquisa mobile */
-.mobile-search-container {
-    position: fixed;
-    top: -100px;
-    left: 0;
-    right: 0;
-    padding: 0.75rem 1rem;
-    background-color: var(--cor-texto-principal);
-    z-index: 2010;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: top 0.3s ease-in-out;
-}
-
-.mobile-search-container.active {
-    top: 73px;
-}
-
+/* Garantir que o wrapper da pesquisa tenha posição relativa para os resultados serem absolutos em relação a ele */
 .mobile-search-wrapper {
     position: relative;
     width: 100%;
@@ -1501,7 +1455,7 @@ input[type="search"]::-webkit-search-decoration,
     color: var(--color-text-muted);
 }
 
-/* Resultados de busca para mobile */
+/* Resultados de busca para mobile - ajustado para ser consistente com desktop */
 .mobile-search-results {
     position: fixed;
     top: 123px; /* altura do container mobile (50px) + altura da navbar (73px) */
@@ -1523,32 +1477,65 @@ input[type="search"]::-webkit-search-decoration,
     display: block;
 }
 
-/* Compartilhar estilos entre resultados desktop e mobile */
-.search-results-item {
+/* Estilo consistente para seções de resultados (desktop e mobile) */
+.search-section {
+    width: 100%;
+}
+
+/* Estilo consistente para os resultados individuais */
+.mobile-search-results .result-item {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--border-color);
     color: var(--color-secondary);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: background-color 0.2s ease;
-    font-size: 0.95rem;
-    text-decoration: none; /* Garantir que os links não tenham sublinhado */
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
-.search-results-item:last-child {
-    border-bottom: none;
-}
-
-.search-results-item:hover {
+.mobile-search-results .result-item:hover {
     background-color: var(--color-background-muted);
-    cursor: pointer;
     text-decoration: none;
     color: var(--color-secondary);
 }
 
-.no-results-message {
-    padding: 1rem;
+.mobile-search-results .result-item:last-child {
+    border-bottom: none;
+}
+
+.mobile-search-results .search-section-title {
+    padding: 0.5rem 1rem;
+    margin: 0;
+    background-color: var(--color-background-light);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.mobile-search-results .result-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
+.mobile-search-results .result-description {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.mobile-search-results .no-results {
     text-align: center;
     color: var(--color-text-muted);
+    padding: 1rem;
+}
+
+/* Remover estilo antigo que pode estar conflitando */
+.search-results-item {
+    display: none; /* Esconder o estilo antigo */
 }

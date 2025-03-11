@@ -41,31 +41,70 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para exibir resultados de pesquisa
     function displayMobileSearchResults(data) {
         mobileSearchResults.innerHTML = '';
+        
+        // Verificar se há resultados
         if (data.arenas.length || data.jogos.length) {
-            data.arenas.forEach(arena => {
-                const item = document.createElement('a');
-                item.classList.add('search-results-item');
-                item.href = `/detalhes_quadra/${arena.id}`;
-                item.innerHTML = `
-                    <div><span class="label-quadra">Quadra:</span> ${arena.nome}</div>
-                    <div>${arena.endereco}</div>
-                `;
-                mobileSearchResults.appendChild(item);
-            });
-            data.jogos.forEach(jogo => {
-                const item = document.createElement('a');
-                item.classList.add('search-results-item');
-                item.href = `/detalhes_racha/${jogo.id}`;
-                item.innerHTML = `
-                    <div><span class="label-jogo">Racha:</span> ${jogo.titulo}</div>
-                    <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
-                    <div class="description">${jogo.descricao || 'Sem descrição'}</div>
-                `;
-                mobileSearchResults.appendChild(item);
-            });
+            // Seção de Quadras
+            if (data.arenas.length > 0) {
+                const quadrasSection = document.createElement('div');
+                quadrasSection.classList.add('search-section');
+                
+                // Adicionar título da seção
+                const sectionTitle = document.createElement('h6');
+                sectionTitle.classList.add('search-section-title');
+                sectionTitle.textContent = 'Quadras';
+                quadrasSection.appendChild(sectionTitle);
+                
+                // Adicionar resultados de quadras
+                data.arenas.forEach(arena => {
+                    const item = document.createElement('a');
+                    item.classList.add('result-item');
+                    item.href = `/detalhes_quadra/${arena.id}`;
+                    item.innerHTML = `
+                        <div>
+                            <span class="label-quadra">Quadra:</span> ${arena.nome}
+                            <div class="result-subtitle">${arena.endereco}</div>
+                        </div>
+                    `;
+                    quadrasSection.appendChild(item);
+                });
+                
+                mobileSearchResults.appendChild(quadrasSection);
+            }
+            
+            // Seção de Rachas
+            if (data.jogos.length > 0) {
+                const rachasSection = document.createElement('div');
+                rachasSection.classList.add('search-section');
+                
+                // Adicionar título da seção
+                const sectionTitle = document.createElement('h6');
+                sectionTitle.classList.add('search-section-title');
+                sectionTitle.textContent = 'Rachas';
+                rachasSection.appendChild(sectionTitle);
+                
+                // Adicionar resultados de rachas
+                data.jogos.forEach(jogo => {
+                    const item = document.createElement('a');
+                    item.classList.add('result-item');
+                    item.href = `/detalhes_racha/${jogo.id}`;
+                    item.innerHTML = `
+                        <div>
+                            <span class="label-jogo">Racha:</span> ${jogo.titulo}
+                            <div class="result-subtitle">${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
+                            ${jogo.descricao ? `<div class="result-description">${jogo.descricao}</div>` : ''}
+                        </div>
+                    `;
+                    rachasSection.appendChild(item);
+                });
+                
+                mobileSearchResults.appendChild(rachasSection);
+            }
+            
             mobileSearchResults.classList.add('show');
         } else {
-            mobileSearchResults.innerHTML = '<div class="no-results-message">Nenhum resultado encontrado</div>';
+            // Mensagem de nenhum resultado
+            mobileSearchResults.innerHTML = '<div class="result-item no-results">Nenhum resultado encontrado</div>';
             mobileSearchResults.classList.add('show');
         }
     }
