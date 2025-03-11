@@ -1218,3 +1218,95 @@ input[type="search"]::-webkit-search-decoration,
     right: 0 !important;
     left: auto !important;
 }
+
+@media (max-width:559.98px) {
+    .navbar {
+        height: auto !important;
+        min-height: 73px !important;
+        padding: 0.75rem !important;
+        flex-wrap: wrap;
+        justify-content: space-between !important;
+    }
+    
+    .navbar .container-fluid {
+        padding: 0 0.5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: space-between !important;
+    }
+    
+    .navbar-img {
+        order: 2;
+        flex-basis: auto;
+    }
+    
+    #Logo {
+        font-size: 0.9rem;
+    }
+    
+    #Logo img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .navbar-toggler {
+        order: 1;
+        font-size: 1.2rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .search-toggle-btn {
+        order: 3;
+        font-size: 1.2rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .profile {
+        order: 4;
+        padding: 0 !important;
+    }
+    
+    .profile img {
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    #footer {
+        width: 100%;
+        padding: 1rem;
+        height: auto !important;
+        min-height: 73px;
+    }
+    
+    #SearchBar {
+        display: block;
+        width: 100% !important;
+        font-size: 0.9rem;
+    }
+    
+    footer p {
+        font-size: 12px;
+    }
+}
+
+/* Ajuste extra para telas muito pequenas */
+@media (max-width: 375px) {
+    .navbar {
+        padding: 0.5rem 0.25rem !important;
+    }
+    
+    #Logo {
+        font-size: 0.8rem;
+    }
+    
+    #Logo img {
+        width: 30px;
+        height: 30px;
+        margin-right: 0.25rem;
+    }
+    
+    .profile img {
+        width: 30px !important;
+        height: 30px !important;
+    }
+}
