@@ -625,3 +625,138 @@ input[type="search"]::-webkit-search-decoration,
     border-radius: 50%;
     overflow: hidden;
 }
+
+/* Footer responsivo */
+.footer {
+    background-color: var(--cor-texto-principal);
+    color: var(--color-text-muted);
+    padding: 1rem;
+    width: 100%;
+    min-height: 73px;
+    height: auto !important; /* Força a altura automática */
+    position: relative;
+    z-index: 20;
+    bottom: 0;
+    /* Remover todas as definições de altura fixa que possam estar causando conflito */
+}
+
+.footer-container {
+    width: 100%;
+    padding: 0 15px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinha ao topo para permitir crescimento */
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.footer-logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.footer-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.94px;
+    text-align: left;
+    max-width: 586px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 15px;
+}
+
+.footer-text p {
+    margin: 0;
+    padding: 0;
+    color: var(--color-text-muted);
+}
+
+.footer-contact {
+    color: var(--color-text-muted);
+    display: block;
+    text-align: right;
+}
+
+.footer-contact a {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    transition: color 0.3s;
+    display: block;
+}
+
+.footer-contact a:hover {
+    color: var(--color-text-primary);
+}
+
+/* Media queries para o footer */
+@media (max-width: 962px) {
+    .footer {
+        height: auto !important; /* Força a altura automática novamente */
+        min-height: auto !important; /* Remove restrições de altura mínima */
+        padding: 1.5rem 1rem; /* Aumenta o padding para dar mais espaço */
+    }
+    
+    .footer-content {
+        justify-content: center;
+        text-align: center;
+        gap: 1.5rem;
+        padding-bottom: 1rem; /* Adiciona espaço extra na parte inferior */
+    }
+    
+    .footer-left {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1rem; /* Aumenta o espaço entre os elementos */
+    }
+    
+    .footer-text {
+        text-align: center;
+        padding-left: 0;
+        width: 100%; /* Garante que ocupe toda a largura */
+        max-width: 100%; /* Remove a restrição de largura máxima */
+    }
+    
+    .footer-contact {
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        padding-bottom: 0.5rem; /* Adiciona espaço na parte inferior */
+    }
+}
+
+@media (max-width: 559.98px) {
+    .navbar {
+        height: 10rem !important;
+        padding: 2rem;
+    }
+    
+    .footer {
+        padding: 1.5rem 1rem;
+        height: auto !important;
+        min-height: auto !important;
+    }
+    
+    .footer-text {
+        font-size: 12px;
+    }
+    
+    .footer-logo img {
+        width: 32px;
+        height: 32px;
+    }
+}

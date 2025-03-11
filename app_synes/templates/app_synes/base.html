@@ -346,20 +346,22 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer id="footer" class="footer fixed-bottom w-100">
-        <div class="w-100 d-flex justify-content-between pe-3 pw-3">
-            <div class="d-flex align-items-center">
-                <div class="footer-logo">
-                    <img src="{% static 'app_synes/images/logo.png' %}" alt="cadêURacha Logo">
+    <footer class="footer w-100">
+        <div class="container-fluid footer-container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <img src="{% static 'app_synes/images/logo.png' %}" alt="cadêURacha Logo">
+                    </div>
+                    <div class="footer-text">
+                        <p>cadêURacha - Conectando jogadores de basquete em Fortaleza.</p>
+                        <p>© 2025 Synes. Todos os direitos reservados.</p>
+                    </div>
                 </div>
-                <div class="footer-text">
-                    <p>cadêURacha - Conectando jogadores de basquete em Fortaleza.</p>
-                    <p>© 2025 Synes. Todos os direitos reservados.</p>
+                <div class="footer-contact">
+                    <span>contate-nos:</span>
+                    <a href="mailto:synes.proj@gmail.com">synes.proj@gmail.com</a>
                 </div>
-            </div>
-            <div class="footer-contact">
-                <span>contate-nos:</span>
-                <a href="mailto:synes.proj@gmail.com">synes.proj@gmail.com</a>
             </div>
         </div>
     </footer>
