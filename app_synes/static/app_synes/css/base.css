@@ -760,3 +760,184 @@ input[type="search"]::-webkit-search-decoration,
         height: 32px;
     }
 }
+
+/* Estilos da Navbar Responsiva */
+.navbar {
+    background-color: var(--cor-texto-principal);
+    height: 73px !important;
+    z-index: 20;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 24px;
+    color: var(--color-primary);
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.main-nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.nav-text {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Estilo para os links principais */
+.map-link,
+.map-link:visited,
+.map-link:active {
+    color: var(--color-primary) !important;
+    transition: all .75s ease-in;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+/* Barra de pesquisa */
+.search-form {
+    max-width: 400px;
+    flex: 1;
+    margin: 0 1rem;
+}
+
+/* Botão de pesquisa mobile */
+.search-toggle-btn {
+    color: var(--color-primary);
+    font-size: 24px;
+    padding: 0.25rem;
+    margin-right: 0.5rem;
+    display: none;
+}
+
+/* Container para pesquisa mobile */
+.mobile-search-container {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    background-color: var(--cor-texto-principal);
+    z-index: 2010;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: top 0.3s ease-in-out;
+}
+
+.mobile-search-container.active {
+    top: 73px;
+}
+
+.search-close-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+/* Media Queries para Navbar Responsiva */
+@media (max-width: 992px) {
+    .navbar-toggler {
+        display: block !important;
+    }
+    
+    .navbar-collapse {
+        position: fixed;
+        top: 73px;
+        left: 0;
+        width: 100%;
+        background-color: var(--cor-texto-principal);
+        border-top: 1px solid var(--border-default);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 0.5rem 1rem;
+        z-index: 1050;
+    }
+    
+    .main-nav-items {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .main-nav-items .nav-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 0;
+    }
+    
+    .navbar .container-fluid {
+        justify-content: space-between;
+    }
+    
+    .search-form {
+        max-width: 200px;
+    }
+    
+    #SearchBar::placeholder {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-form {
+        display: none !important;
+    }
+    
+    .search-toggle-btn {
+        display: block;
+    }
+    
+    .navbar .container-fluid {
+        justify-content: space-between;
+    }
+    
+    .navbar-toggler {
+        order: 1;
+    }
+    
+    .navbar-img {
+        order: 2;
+    }
+    
+    .search-toggle-btn {
+        order: 3;
+    }
+    
+    .profile_container {
+        order: 4;
+    }
+    
+    #Logo span {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    #Logo img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .profile img {
+        width: 35px;
+        height: 35px;
+    }
+}

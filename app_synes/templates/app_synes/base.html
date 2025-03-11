@@ -13,239 +13,256 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    {% block extra_head %}{% endblock %}
-</head>
-{% block scripts %}
-<script>
-    console.log('Template base carregado');
+        {% block extra_head %}{% endblock %}
+    </head>
+    {% block scripts %}
+    <script>
+        console.log('Template base carregado');
 
-    class SearchHandler {
-        constructor() {
-            this.searchForm = document.getElementById('searchForm');
-            this.searchBar = document.getElementById('SearchBar');
-            this.searchResults = document.getElementById('search-results');
-            this.searchButton = document.getElementById('SearchButton');
-            this.quadrasResults = document.getElementById('quadras-results');
-            this.rachasResults = document.getElementById('rachas-results');
-            this.searchTimeout = null;
-            this.initializeEventListeners();
-        }
+        class SearchHandler {
+            constructor() {
+                this.searchForm = document.getElementById('searchForm');
+                this.searchBar = document.getElementById('SearchBar');
+                this.searchResults = document.getElementById('search-results');
+                this.searchButton = document.getElementById('SearchButton');
+                this.quadrasResults = document.getElementById('quadras-results');
+                this.rachasResults = document.getElementById('rachas-results');
+                this.searchTimeout = null;
+                this.initializeEventListeners();
+            }
 
-        initializeEventListeners() {
-            // Pesquisa em tempo real
-            this.searchBar.addEventListener('input', () => {
-                clearTimeout(this.searchTimeout);
-                this.searchTimeout = setTimeout(() => this.handleLiveSearch(), 300);
-            });
+            initializeEventListeners() {
+                // Pesquisa em tempo real
+                this.searchBar.addEventListener('input', () => {
+                    clearTimeout(this.searchTimeout);
+                    this.searchTimeout = setTimeout(() => this.handleLiveSearch(), 300);
+                });
 
-            // Lidar com envio do formulário
-            this.searchForm.addEventListener('submit', (e) => {
+                // Lidar com envio do formulário
+                this.searchForm.addEventListener('submit', (e) => {
+                    const query = this.searchBar.value.trim();
+                    if (!query) {
+                        e.preventDefault();
+                        return;
+                    }
+                    // Esconde resultados ao submeter
+                    this.searchResults.style.display = 'none';
+                });
+
+                // Fechar resultados ao clicar fora
+                document.addEventListener('click', (event) => {
+                    if (!this.searchBar.contains(event.target) && 
+                        !this.searchResults.contains(event.target)) {
+                        this.searchResults.style.display = 'none';
+                    }
+                });
+
+                // Tecla Enter
+                this.searchBar.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const query = this.searchBar.value.trim();
+                        if (query) {
+                            this.searchForm.submit();
+                        }
+                    }
+                });
+            }
+
+            async handleLiveSearch() {
                 const query = this.searchBar.value.trim();
-                if (!query) {
-                    e.preventDefault();
-                    return;
-                }
-                // Esconde resultados ao submeter
-                this.searchResults.style.display = 'none';
-            });
-
-            // Fechar resultados ao clicar fora
-            document.addEventListener('click', (event) => {
-                if (!this.searchBar.contains(event.target) && 
-                    !this.searchResults.contains(event.target)) {
+                
+                if (query.length >= 2) {
+                    try {
+                        const response = await fetch(`/search/?q=${query}`, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        });
+                        const data = await response.json();
+                        this.displayResults(data);
+                    } catch (error) {
+                        console.error('Erro na busca:', error);
+                    }
+                } else {
                     this.searchResults.style.display = 'none';
                 }
-            });
+            }
 
-            // Tecla Enter
-            this.searchBar.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    const query = this.searchBar.value.trim();
-                    if (query) {
-                        this.searchForm.submit();
-                    }
+            displayResults(data) {
+                this.quadrasResults.innerHTML = '';
+                this.rachasResults.innerHTML = '';
+                
+                // Display arenas (quadras)
+                if (data.arenas.length > 0) {
+                    this.quadrasResults.innerHTML = `
+                        <h6 class="search-section-title">Quadras</h6>
+                        ${data.arenas.map(arena => `
+                            <a href="/detalhes_quadra/${arena.id}" class="result-item">
+                                <div>
+                                    <span class="label-quadra">Quadra:</span> ${arena.nome}
+                                    <div class="result-subtitle">${arena.endereco}</div>
+                                </div>
+                            </a>
+                        `).join('')}
+                    `;
                 }
-            });
-        }
 
-        async handleLiveSearch() {
-            const query = this.searchBar.value.trim();
-            
-            if (query.length >= 2) {
-                try {
-                    const response = await fetch(`/search/?q=${query}`, {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    });
-                    const data = await response.json();
-                    this.displayResults(data);
-                } catch (error) {
-                    console.error('Erro na busca:', error);
+                // Display jogos (rachas)
+                if (data.jogos.length > 0) {
+                    this.rachasResults.innerHTML = `
+                        <h6 class="search-section-title">Rachas</h6>
+                        ${data.jogos.map(jogo => `
+                            <a href="/detalhes_racha/${jogo.id}" class="result-item">
+                                <div>
+                                    <span class="label-jogo">Racha:</span> ${jogo.titulo}
+                                    <div class="result-subtitle">${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
+                                    ${jogo.descricao ? `<div class="result-description">${jogo.descricao}</div>` : ''}
+                                </div>
+                            </a>
+                        `).join('')}
+                    `;
                 }
-            } else {
-                this.searchResults.style.display = 'none';
+
+                // No results message
+                if (!data.arenas.length && !data.jogos.length) {
+                    this.searchResults.innerHTML = `
+                        <div class="result-item no-results">
+                            Nenhum resultado encontrado
+                        </div>
+                    `;
+                }
+
+                this.searchResults.style.display = 'block';
             }
         }
 
-        displayResults(data) {
-            this.quadrasResults.innerHTML = '';
-            this.rachasResults.innerHTML = '';
-            
-            // Display arenas (quadras)
-            if (data.arenas.length > 0) {
-                this.quadrasResults.innerHTML = `
-                    <h6 class="search-section-title">Quadras</h6>
-                    ${data.arenas.map(arena => `
-                        <a href="/detalhes_quadra/${arena.id}" class="result-item">
-                            <div>
-                                <span class="label-quadra">Quadra:</span> ${arena.nome}
-                                <div class="result-subtitle">${arena.endereco}</div>
-                            </div>
-                        </a>
-                    `).join('')}
-                `;
-            }
-
-            // Display jogos (rachas)
-            if (data.jogos.length > 0) {
-                this.rachasResults.innerHTML = `
-                    <h6 class="search-section-title">Rachas</h6>
-                    ${data.jogos.map(jogo => `
-                        <a href="/detalhes_racha/${jogo.id}" class="result-item">
-                            <div>
-                                <span class="label-jogo">Racha:</span> ${jogo.titulo}
-                                <div class="result-subtitle">${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
-                                ${jogo.descricao ? `<div class="result-description">${jogo.descricao}</div>` : ''}
-                            </div>
-                        </a>
-                    `).join('')}
-                `;
-            }
-
-            // No results message
-            if (!data.arenas.length && !data.jogos.length) {
-                this.searchResults.innerHTML = `
-                    <div class="result-item no-results">
-                        Nenhum resultado encontrado
+        document.addEventListener('DOMContentLoaded', () => new SearchHandler());
+    </script>
+    {% endblock %}
+    <body>
+        {% if request.user.is_authenticated and request.invalid_username %}
+        <!-- Modal -->
+        <div class="modal fade" id="usernameUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atualização Necessária</h5>
                     </div>
-                `;
-            }
-
-            this.searchResults.style.display = 'block';
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => new SearchHandler());
-</script>
-{% endblock %}
-<body>
-    {% if request.user.is_authenticated and request.invalid_username %}
-    <!-- Modal -->
-    <div class="modal fade" id="usernameUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Atualização Necessária</h5>
-                </div>
-                <div class="modal-body">
-                    <p>Seu nome de usuário não atende aos padrões do sistema. Atualize-o seguindo as regras:</p>
-                    <ul>
-                        <li>Deve começar com uma letra</li>
-                        <li>Pode conter letras, números e sublinhados</li>
-                        <li>Não pode ter sublinhados consecutivos</li>
-                        <li>Não pode ter sublinhados no início/fim</li>
-                        <li>Deve ter entre 4 e 20 caracteres</li>
-                    </ul>
-                    <div class="form-group">
-                        <label for="newUsername">Novo nome de usuário:</label>
-                        <input type="text" class="form-control" id="newUsername" maxlength="20" required>
+                    <div class="modal-body">
+                        <p>Seu nome de usuário não atende aos padrões do sistema. Atualize-o seguindo as regras:</p>
+                        <ul>
+                            <li>Deve começar com uma letra</li>
+                            <li>Pode conter letras, números e sublinhados</li>
+                            <li>Não pode ter sublinhados consecutivos</li>
+                            <li>Não pode ter sublinhados no início/fim</li>
+                            <li>Deve ter entre 4 e 20 caracteres</li>
+                        </ul>
+                        <div class="form-group">
+                            <label for="newUsername">Novo nome de usuário:</label>
+                            <input type="text" class="form-control" id="newUsername" maxlength="20" required>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Show modal on page load if username is invalid
-        window.addEventListener('load', function() {
-            const modal = new bootstrap.Modal(document.getElementById('usernameUpdateModal'));
-            modal.show();
-        });
-
-        function updateUsername() {
-            const newUsername = document.getElementById('newUsername').value;
-            const pattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
-            
-            if (!pattern.test(newUsername) || newUsername.length < 4 || newUsername.length > 20) {
-                alert('Nome de usuário inválido. Verifique os requisitos.');
-                return;
-            }
-
-            fetch('/update_username/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ username: newUsername })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.reload();
-                } else {
-                    alert(data.message);
-                }
+        <script>
+            // Show modal on page load if username is invalid
+            window.addEventListener('load', function() {
+                const modal = new bootstrap.Modal(document.getElementById('usernameUpdateModal'));
+                modal.show();
             });
-        }
-    </script>
-    {% endif %}
-    <!-- Início Navbar -->
-    <nav class="navbar navbar-lg fixed-top">
-        <div class="container-fluid d-flex align-items-center">
 
-            <div class="d-flex align-items-center navbar-img">
-                <a id="Logo" class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
-                    <img class="ratio ratio-1x1 me-2" src="{% static 'app_synes/images/logo-ur.png' %}" alt="Logo do cadeURacha">
-                    <span>cadê<span>UR</span>acha</span>
-                </a>
-            </div>
-            
-            <a class="navbar-brand d-flex align-items-center map-link change_format map_format" href="{% url 'mapa' %}">
-                <i id="MapIcon" class='bx bxs-map-alt pe-2'></i>
-                Mapa de Quadras
-            </a>
-            
-            <a class="navbar-brand d-flex align-items-center map-link change_format rachas_format" href="{% url 'todos' %}">
-                <i id="MapIcon" class='bx bxs-basketball pe-2'></i>
-                Rachas 	&#38; Quadras
-            </a>
-            
-            <!-- Modifique o formulário de busca -->
-            <form class="d-flex w-25 position-relative" role="search" action="{% url 'buscar' %}" method="GET" id="searchForm">
-                <input id="SearchBar" 
-                       name="q"
-                       class="form-control me-2 rounded-3 border-0" 
-                       type="search" 
-                       placeholder="Buscar quadras e rachas..." 
-                       aria-label="Search"
-                       autocomplete="off">
-                <button id="SearchButton" type="submit">
+            function updateUsername() {
+                const newUsername = document.getElementById('newUsername').value;
+                const pattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+                
+                if (!pattern.test(newUsername) || newUsername.length < 4 || newUsername.length > 20) {
+                    alert('Nome de usuário inválido. Verifique os requisitos.');
+                    return;
+                }
+
+                fetch('/update_username/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ username: newUsername })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            }
+        </script>
+        {% endif %}
+        
+        <!-- Início Navbar -->
+        <nav class="navbar navbar-lg fixed-top">
+            <div class="container-fluid d-flex align-items-center">
+                <!-- Logo - sempre visível -->
+                <div class="d-flex align-items-center navbar-img">
+                    <a id="Logo" class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                        <img class="ratio ratio-1x1 me-2" src="{% static 'app_synes/images/logo-ur.png' %}" alt="Logo do cadeURacha">
+                        <span>cadê<span>UR</span>acha</span>
+                    </a>
+                </div>
+                
+                <!-- Botão hambúrguer - visível apenas em telas médias e pequenas -->
+                <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent" aria-controls="navbarContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <i class='bx bx-menu'></i>
+                </button>
+                
+                <!-- Links principais - visíveis em desktop, colapsáveis em telas menores -->
+                <div id="navbarContent" class="collapse navbar-collapse">
+                    <div class="navbar-nav me-auto main-nav-items">
+                        <a class="nav-item nav-link map-link change_format map_format" href="{% url 'mapa' %}">
+                            <i class='bx bxs-map-alt pe-2'></i>
+                            <span class="nav-text">Mapa de Quadras</span>
+                        </a>
+                        
+                        <a class="nav-item nav-link map-link change_format rachas_format" href="{% url 'todos' %}">
+                            <i class='bx bxs-basketball pe-2'></i>
+                            <span class="nav-text">Rachas &#38; Quadras</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Barra de pesquisa -->
+                <form class="d-flex search-form position-relative" role="search" action="{% url 'buscar' %}" method="GET" id="searchForm">
+                    <input id="SearchBar" 
+                           name="q"
+                           class="form-control me-2 rounded-3 border-0" 
+                           type="search" 
+                           placeholder="Buscar quadras e rachas..." 
+                           aria-label="Search"
+                           autocomplete="off">
+                    <button id="SearchButton" type="submit">
+                        <i class='bx bx-search'></i>
+                    </button>
+                    <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none;">
+                        <div id="quadras-results" class="search-section"></div>
+                        <div id="rachas-results" class="search-section"></div>
+                    </div>
+                </form>
+
+                <!-- Botão de pesquisa para telas pequenas -->
+                <button class="btn search-toggle-btn d-none">
                     <i class='bx bx-search'></i>
                 </button>
-                <div id="search-results" class="position-absolute w-100 bg-white border rounded mt-2" style="display: none;">
-                    <div id="quadras-results" class="search-section"></div>
-                    <div id="rachas-results" class="search-section"></div>
-                </div>
-            </form>
 
-    
-            {% if user.is_authenticated %}
-                <!-- Usuário logado -->
+                <!-- Perfil de usuário - sempre visível -->
+                {% if user.is_authenticated %}
                 <div class="profile_container d-flex">
                     <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
@@ -259,46 +276,6 @@
                         </div>
                     </button>
                 </div>
-    
-                <!-- Navbar Colapsado do Perfil -->
-                <div class="collapse navbar-collapse offcanvas offcanvas-custom offcanvas-end p-5 off-1 border-0 shadow" style="max-width: 311px !important;" id="navbarNavDropdownProfile">
-                    <div class="container w-100">
-                        <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
-                            <div class="ratio ratio-1x1">
-                                {% if user.foto_perfil or user.foto_url %}
-                                    <img src="{{ user.get_profile_image_url }}" alt="">
-                                {% else %}
-                                    <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="">
-                                {% endif %}
-                            </div>
-                            <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNavDropdownProfile">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-    
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <h3 class="text-truncate"
-                                data-bs-toggle="tooltip" 
-                                data-bs-placement="top" 
-                                title="{{ user.username }}">
-                                {{ user.username }}
-                            </h3>
-
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Rachas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'editar_perfil' %}">Editar Perfil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 {% else %}
                 <!-- Usuário não logado -->
                 <div class="profile_container d-flex">
@@ -310,223 +287,264 @@
                         </div>
                     </button>
                 </div>
-            
-                <!-- Navbar Colapsado do Perfil -->
-                <div class="collapse navbar-collapse offcanvas offcanvas-end p-5 off-1" id="navbarNavDropdownProfile">
-                    <div class="container w-100">
-                        <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
-                            <div class="ratio ratio-1x1">
-                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
-                            </div>
-                            <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNavDropdownProfile">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-            
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <h3>Perfil</h3>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'cadastrar_usuario' %}">Cadastro</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logar' %}">Login</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
+        </nav>
+
+        <!-- Mobile Search Bar - aparece quando o botão de pesquisa é clicado -->
+        <div class="mobile-search-container">
+            <form class="d-flex w-100 position-relative" role="search" action="{% url 'buscar' %}" method="GET">
+                <input id="MobileSearchBar" 
+                       name="q"
+                       class="form-control me-2 rounded-3 border-0" 
+                       type="search" 
+                       placeholder="Buscar quadras e rachas..." 
+                       aria-label="Search"
+                       autocomplete="off">
+                <button class="search-close-btn" type="button">
+                    <i class='bx bx-x'></i>
+                </button>
+            </form>
         </div>
-    </nav>
-    <!-- Fim Navbar -->
 
-    <main class="main-content">
-        {% block content %}{% endblock %}
-    </main>
+        <!-- Navbar Colapsado do Perfil -->
+        <div class="collapse navbar-collapse offcanvas offcanvas-custom offcanvas-end p-5 off-1 border-0 shadow" style="max-width: 311px !important;" id="navbarNavDropdownProfile">
+            <div class="container w-100">
+                <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
+                    <div class="ratio ratio-1x1">
+                        {% if user.is_authenticated %}
+                            {% if user.foto_perfil or user.foto_url %}
+                                <img src="{{ user.get_profile_image_url }}" alt="Foto do Usuário">
+                            {% else %}
+                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                            {% endif %}
+                        {% else %}
+                            <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                        {% endif %}
+                    </div>
+                    <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdownProfile">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-    <footer class="footer w-100">
-        <div class="container-fluid footer-container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <div class="footer-logo">
-                        <img src="{% static 'app_synes/images/logo.png' %}" alt="cadêURacha Logo">
-                    </div>
-                    <div class="footer-text">
-                        <p>cadêURacha - Conectando jogadores de basquete em Fortaleza.</p>
-                        <p>© 2025 Synes. Todos os direitos reservados.</p>
-                    </div>
-                </div>
-                <div class="footer-contact">
-                    <span>contate-nos:</span>
-                    <a href="mailto:synes.proj@gmail.com">synes.proj@gmail.com</a>
-                </div>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <h3 class="text-truncate"
+                               data-bs-toggle="tooltip" 
+                               data-bs-placement="top" 
+                               title="{{ user.username }}">
+                                {{ user.username }}
+                            </h3>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Rachas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'editar_perfil' %}">Editar Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <h3>Perfil</h3>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'cadastrar_usuario' %}">Cadastro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logar' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
-    </footer>
+        <!-- Fim Navbar -->
 
-    <script>
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer w-100">
+            <div class="container-fluid footer-container">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <img src="{% static 'app_synes/images/logo.png' %}" alt="cadêURacha Logo">
+                        </div>
+                        <div class="footer-text">
+                            <p>cadêURacha - Conectando jogadores de basquete em Fortaleza.</p>
+                            <p>© 2025 Synes. Todos os direitos reservados.</p>
+                        </div>
+                    </div>
+                    <div class="footer-contact">
+                        <span>contate-nos:</span>
+                        <a href="mailto:synes.proj@gmail.com">synes.proj@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
             document.addEventListener("DOMContentLoaded", function() {
                 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
                 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
             });
-        
-// Only keep universal.js functionality
-document.addEventListener("click", (event) => {
-    const toggleButton = event.target.closest("[data-bs-toggle='collapse']");
-    if (toggleButton) {
-        const targetId = toggleButton.getAttribute("data-bs-target");
-        document.querySelectorAll(".collapse.show").forEach((collapse) => {
-            if (collapse.id !== targetId.substring(1)) {
-                new bootstrap.Collapse(collapse).hide();
-            }
-        });
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".arrow").forEach(arrow => {
-        arrow.addEventListener("click", function () {
-            let agrupador = this.closest("#Agrupador");
-            let container = agrupador.querySelector(".container .row");
-            let scrollAmount = 100;
-
-            if (this.classList.contains("bx-chevron-left")) {
-                container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-            } else {
-                container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-            }
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const searchBar = document.getElementById('SearchBar');
-    const searchResults = document.getElementById('search-results');
-
-    searchBar.addEventListener('input', function() {
-        const query = searchBar.value.trim();
-        if (query.length >= 2) {
-            fetch(`/search/?q=${query}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                searchResults.innerHTML = '';
-                if (data.arenas.length || data.jogos.length) {
-                    data.arenas.forEach(arena => {
-                        const item = document.createElement('div');
-                        item.classList.add('result-item');
-                        item.innerHTML = `
-                            <div><span class="label-quadra">Quadra:</span> ${arena.nome}</div>
-                            <div>${arena.endereco}</div>
-                        `;
-                        searchResults.appendChild(item);
+            
+            // Only keep universal.js functionality
+            document.addEventListener("click", (event) => {
+                const toggleButton = event.target.closest("[data-bs-toggle='collapse']");
+                if (toggleButton) {
+                    const targetId = toggleButton.getAttribute("data-bs-target");
+                    document.querySelectorAll(".collapse.show").forEach((collapse) => {
+                        if (collapse.id !== targetId.substring(1)) {
+                            new bootstrap.Collapse(collapse).hide();
+                        }
                     });
-                    data.jogos.forEach(jogo => {
-                        const item = document.createElement('div');
-                        item.classList.add('result-item');
-                        console.log('Descrição do Racha:', jogo.descricao); // Debug log
-                        item.innerHTML = `
-                            <div><span class="label-jogo">Racha:</span> ${jogo.titulo}</div>
-                            <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
-                            <div class="description">${jogo.descricao || 'Sem descrição'}</div>
-                        `;
-                        searchResults.appendChild(item);
-                    });
-                } else {
-                    searchResults.innerHTML = '<div class="result-item">Nenhum resultado encontrado</div>';
                 }
-                searchResults.style.display = 'block';
             });
-        } else {
-            searchResults.style.display = 'none';
-        }
-    });
 
-    document.addEventListener('click', function(event) {
-        if (!searchBar.contains(event.target) && !searchResults.contains(event.target)) {
-            searchResults.style.display = 'none';
-        }
-    });
-});
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".arrow").forEach(arrow => {
+                    arrow.addEventListener("click", function () {
+                        let agrupador = this.closest("#Agrupador");
+                        let container = agrupador.querySelector(".container .row");
+                        let scrollAmount = 100;
 
-{% if request.user.is_authenticated %}
-<!-- Modal for updating username appears on every page -->
-<div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
-            </div>
-            <div class="modal-body">
-                <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
-                <ul>
-                    <li>Deve começar com uma letra</li>
-                    <li>Pode conter letras, números e sublinhados</li>
-                    <li>Não pode ter sublinhados consecutivos</li>
-                    <li>Não pode ter sublinhados no início/fim</li>
-                    <li>Deve ter entre 4 e 20 caracteres</li>
-                </ul>
-                <div class="form-group">
-                    <label for="newUsername">Novo nome de usuário:</label>
-                    <input type="text" class="form-control" id="newUsername" required>
+                        if (this.classList.contains("bx-chevron-left")) {
+                            container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+                        } else {
+                            container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+                        }
+                    });
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchBar = document.getElementById('SearchBar');
+                const searchResults = document.getElementById('search-results');
+
+                searchBar.addEventListener('input', function() {
+                    const query = searchBar.value.trim();
+                    if (query.length >= 2) {
+                        fetch(`/search/?q=${query}`, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            searchResults.innerHTML = '';
+                            if (data.arenas.length || data.jogos.length) {
+                                data.arenas.forEach(arena => {
+                                    const item = document.createElement('div');
+                                    item.classList.add('result-item');
+                                    item.innerHTML = `
+                                        <div><span class="label-quadra">Quadra:</span> ${arena.nome}</div>
+                                        <div>${arena.endereco}</div>
+                                    `;
+                                    searchResults.appendChild(item);
+                                });
+                                data.jogos.forEach(jogo => {
+                                    const item = document.createElement('div');
+                                    item.classList.add('result-item');
+                                    console.log('Descrição do Racha:', jogo.descricao); // Debug log
+                                    item.innerHTML = `
+                                        <div><span class="label-jogo">Racha:</span> ${jogo.titulo}</div>
+                                        <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
+                                        <div class="description">${jogo.descricao || 'Sem descrição'}</div>
+                                    `;
+                                    searchResults.appendChild(item);
+                                });
+                            } else {
+                                searchResults.innerHTML = '<div class="result-item">Nenhum resultado encontrado</div>';
+                            }
+                            searchResults.style.display = 'block';
+                        });
+                    } else {
+                        searchResults.style.display = 'none';
+                    }
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!searchBar.contains(event.target) && !searchResults.contains(event.target)) {
+                        searchResults.style.display = 'none';
+                    }
+                });
+            });
+
+            {% if request.user.is_authenticated %}
+            <!-- Modal for updating username appears on every page -->
+            <div class="modal fade" id="usernameUpdateModal" tabindex="-1" aria-labelledby="usernameUpdateModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="usernameUpdateModalLabel">Atualização Necessária</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>Seu nome de usuário não atende aos novos padrões do sistema. Por favor, atualize-o seguindo as regras:</p>
+                            <ul>
+                                <li>Deve começar com uma letra</li>
+                                <li>Pode conter letras, números e sublinhados</li>
+                                <li>Não pode ter sublinhados consecutivos</li>
+                                <li>Não pode ter sublinhados no início/fim</li>
+                                <li>Deve ter entre 4 e 20 caracteres</li>
+                            </ul>
+                            <div class="form-group">
+                                <label for="newUsername">Novo nome de usuário:</label>
+                                <input type="text" class="form-control" id="newUsername" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="updateUsername()">Atualizar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Use the username from the server context and check validity
-    const username = "{{ request.user.username|escapejs }}";
-    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
-    if ( username.length < 4 || username.length > 20 || !usernamePattern.test(username) ) {
-        const modalEl = document.getElementById('usernameUpdateModal');
-        if (modalEl) {
-            const modal = new bootstrap.Modal(modalEl);
-            modal.show();
-        }
-    }
-});
+            document.addEventListener("DOMContentLoaded", function() {
+                const modalEl = document.getElementById('usernameUpdateModal');
+                if (modalEl) {
+                    const modal = new bootstrap.Modal(modalEl);
+                    modal.show();
+                }
+            });
 
-function validateUsername(username) {
-    const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
-    return username.length >= 4 && username.length <= 20 && usernamePattern.test(username);
-}
+            function validateUsername(username) {
+                const usernamePattern = /^[a-zA-Z](?!.*__)[a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$/;
+                return username.length >= 4 && username.length <= 20 && usernamePattern.test(username);
+            }
 
-function updateUsername() {
-    const newUsername = document.getElementById('newUsername').value;
-    if (!validateUsername(newUsername)) {
-        alert('O novo nome de usuário não atende aos requisitos.');
-        return;
-    }
-    fetch('/update_username/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-        },
-        body: JSON.stringify({ username: newUsername })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            window.location.reload();
-        } else {
-            alert(data.message);
-        }
-    });
-}
-{% endif %}
-</script>
-</body>
+            function updateUsername() {
+                const newUsername = document.getElementById('newUsername').value;
+                if (!validateUsername(newUsername)) {
+                    alert('O novo nome de usuário não atende aos requisitos.');
+                    return;
+                }
+
+                fetch('/update_username/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: JSON.stringify({ username: newUsername })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            }
+            {% endif %}
+        </script>
+        <script src="{% static 'app_synes/js/navbar-responsive.js' %}"></script>
+    </body>
 </html>
