@@ -245,6 +245,75 @@ class JogoForm(forms.ModelForm):
                     )
         return cleaned_data
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        
+        # Tratar o upload da imagem para o Cloudinary
+        if self.cleaned_data.get('imagem'):
+            try:
+                # Configurar Cloudinary explicitamente
+                cloudinary.config(
+                    cloud_name=settings.CLOUDINARY_STORAGE['CLOUD_NAME'],
+                    api_key=settings.CLOUDINARY_STORAGE['API_KEY'],
+                    api_secret=settings.CLOUDINARY_STORAGE['API_SECRET'],
+                    secure=True
+                )
+                
+                # Processar a imagem
+                image = Image.open(self.cleaned_data['imagem'])
+                # Redimensionar a imagem para um tamanho máximo
+                max_size = (1200, 800)
+                image.thumbnail(max_size, Image.LANCZOS)
+                
+                # Se a imagem for PNG com transparência, converter para JPEG com fundo branco
+                if image.mode in ('RGBA', 'LA'):
+                    background = Image.new('RGB', image.size, (255, 255, 255))
+                    background.paste(image, mask=image.split()[3])
+                    image = background
+                
+                # Preparar para salvar
+                image_io = BytesIO()
+                image.save(image_io, format='JPEG', quality=90)
+                image_io.seek(0)
+                
+                # Gerar nome de arquivo único
+                file_name = self.cleaned_data['imagem'].name
+                base_name, ext = os.path.splitext(file_name)
+                timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+                new_file_name = f"{base_name}_{timestamp}.jpg"
+                
+                # Upload direto para o Cloudinary
+                result = cloudinary.uploader.upload(
+                    image_io,
+                    public_id=f"cadeURacha/rachas/{os.path.splitext(new_file_name)[0]}",
+                    overwrite=True
+                )
+                
+                # Obter a URL do Cloudinary
+                cloudinary_url = result['secure_url']
+                
+                # Salvar diretamente no campo foto_url em vez de imagem
+                instance.foto_url = cloudinary_url
+                
+                # Logs para debug
+                print(f"Cloudinary upload result for racha: {result}")
+                print(f"Racha image URL set to foto_url: {cloudinary_url}")
+                
+            except Exception as e:
+                print(f"Error uploading racha image to Cloudinary: {e}")
+                # Fallback para método tradicional em caso de erro
+                image_io.seek(0)
+                instance.imagem.save(
+                    new_file_name, 
+                    ContentFile(image_io.getvalue()), 
+                    save=False
+                )
+        
+        if commit:
+            instance.save()
+        
+        return instance
+
 class CustomUserForm(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')

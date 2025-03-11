@@ -122,15 +122,27 @@ class Jogo(models.Model):
         blank=True, 
         verbose_name="Imagem do Racha"
     )
+    foto_url = models.URLField(blank=True, null=True, verbose_name="URL da foto do racha")
     
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # Se imagem for uma string e parece uma URL do Cloudinary, salvá-la em foto_url
+        if isinstance(self.imagem, str) and ('cloudinary' in self.imagem.lower() or 'res.cloudinary.com' in self.imagem.lower()):
+            self.foto_url = self.imagem
+            # Limpar o campo imagem para evitar confusão
+            self.imagem = None
+        super().save(*args, **kwargs)
 
     @property
     def get_jogo_image_url(self):
         """Retorna a URL correta da imagem do jogo"""
-        # Primeiro tenta o campo normal imagem
-        if self.imagem:
+        # Primeiro verifica se há uma URL Cloudinary direta
+        if self.foto_url:
+            return self.foto_url
+        # Se não, tenta o campo normal imagem
+        elif self.imagem:
             return self.imagem.url
         # Caso contrário, retorna a imagem padrão
         try:
