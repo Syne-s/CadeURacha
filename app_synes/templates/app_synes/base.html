@@ -271,7 +271,9 @@
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown shadow" aria-labelledby="profileDropdown">
                         <div class="dropdown-header d-flex align-items-center">
                             <div class="d-flex align-items-center">
-                                <img src="{{ user.get_profile_image_url }}" alt="Foto de perfil" class="rounded-circle me-2" width="40" height="40">
+                                <div class="profile-dropdown-image">
+                                    <img src="{{ user.get_profile_image_url }}" alt="Foto de perfil" class="rounded-circle">
+                                </div>
                                 <div>
                                     <h6 class="mb-0">{{ user.username }}</h6>
                                     <small class="text-muted">{{ user.email }}</small>
