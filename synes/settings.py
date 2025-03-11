@@ -1,6 +1,10 @@
 import os
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
+
+# Carregar variáveis do arquivo .env
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_synes',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -125,11 +131,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Configurações do WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# URL para acessar arquivos de mídia (se necessário)
+# URL para acessar arquivos de mídia
 MEDIA_URL = '/media/'
 
-# Diretório onde os arquivos de mídia serão armazenados
+# Diretório local para armazenar arquivos temporariamente (não utilizado no CloudinaryStorage)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cloudinary settings
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL', 'cloudinary://224475213161893:B9i4Azod_MlMogtflzSlj0Qx7eE@dgzifammt')
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dgzifammt'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '224475213161893'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'B9i4Azod_MlMogtflzSlj0Qx7eE'),
+}
+
+# Configurar o Cloudinary como storage padrão para arquivos de mídia
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
