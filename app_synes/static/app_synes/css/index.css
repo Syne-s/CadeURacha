@@ -121,3 +121,98 @@ button{
         align-items: center;
     }
 }
+
+/* Responsive background image rotation for mobile */
+@media (max-width: 767.98px) {
+    body {
+        background: url('img/fundo-vertical.png');
+        background-size: cover; /* Garante que a imagem cubra todo o elemento */
+        background-repeat: no-repeat; /* Evita que a imagem se repita */
+        background-position: center; /* Centraliza a imagem na tela */
+        position: relative;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Imagem de fundo rotacionada - mantida como fallback se necessário */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('../images/fundo.png');
+        background-size: cover;
+        background-position: center;
+        transform: rotate(90deg) scale(2);
+        transform-origin: center center;
+        z-index: -1;
+        display: none; /* Oculta o elemento, preferindo a imagem vertical direta */
+    }
+
+    /* Ajustes para garantir que o conteúdo seja legível */
+    #TextoPrincipal {
+        font-size: 32px;
+        margin-top: 120px !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 1;
+    }
+
+    .test {
+        position: relative;
+        z-index: 1;
+        flex-direction: column !important; /* Garante que os botões fiquem em coluna */
+        gap: 2rem;
+        margin-bottom: 6rem !important; /* Adiciona espaço na parte inferior para evitar sobreposição com o footer */
+        padding-bottom: 2rem;
+    }
+    
+    /* Garantir que ambos os fundos (containers dos botões) tenham a mesma largura e comportamento */
+    .fundo {
+        width: 100% !important; /* Força largura consistente para ambos */
+        max-width: 280px; /* Limita a largura máxima para melhor aparência */
+        margin: 0 auto;
+        height: auto !important; /* Permite altura automática */
+    }
+    
+    /* Ajustar o texto para que caiba melhor */
+    .fundo .texts {
+        font-size: 20px !important; /* Diminui um pouco o tamanho da fonte */
+        padding: 0 1rem;
+        word-break: break-word; /* Permite quebra de palavras longas */
+        hyphens: auto; /* Adiciona hífens automaticamente */
+    }
+    
+    /* Ajustar botões para terem o mesmo tamanho */
+    #ExplorarRacha,
+    #MarcarRacha {
+        width: 100% !important;
+        white-space: normal !important; /* Permite quebra de linha no texto do botão */
+        height: auto !important; /* Altura se ajusta ao conteúdo */
+        min-height: 60px; /* Altura mínima para garantir boa área de clique */
+        padding: 0.75rem !important;
+        font-size: 18px !important;
+    }
+}
+
+/* Ajustes específicos para telas muito pequenas */
+@media (max-width: 359px) {
+    .test {
+        margin-bottom: 7rem !important; /* Aumenta ainda mais o espaçamento inferior */
+    }
+    
+    #TextoPrincipal {
+        font-size: 28px !important;
+    }
+    
+    .fundo .texts {
+        font-size: 18px !important; /* Reduz ainda mais o texto */
+    }
+    
+    #ExplorarRacha,
+    #MarcarRacha {
+        font-size: 16px !important;
+    }
+}
