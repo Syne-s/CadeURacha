@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileSearchResults.innerHTML = '';
         if (data.arenas.length || data.jogos.length) {
             data.arenas.forEach(arena => {
-                const item = document.createElement('div');
+                const item = document.createElement('a');
                 item.classList.add('search-results-item');
+                item.href = `/detalhes_quadra/${arena.id}`;
                 item.innerHTML = `
                     <div><span class="label-quadra">Quadra:</span> ${arena.nome}</div>
                     <div>${arena.endereco}</div>
@@ -52,8 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileSearchResults.appendChild(item);
             });
             data.jogos.forEach(jogo => {
-                const item = document.createElement('div');
+                const item = document.createElement('a');
                 item.classList.add('search-results-item');
+                item.href = `/detalhes_racha/${jogo.id}`;
                 item.innerHTML = `
                     <div><span class="label-jogo">Racha:</span> ${jogo.titulo}</div>
                     <div>${jogo.arena} - ${jogo.data} às ${jogo.horario}</div>
