@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para verificar e ajustar o layout conforme o tamanho da tela
     function checkScreenSize() {
         const navbarCollapse = document.getElementById('navbarContent');
-        const navbarToggler = document.querySelector('.navbar-toggler');
         
         if (window.innerWidth <= 991.98) {
             // Em telas menores, garantir que o menu está colapsado inicialmente
@@ -53,4 +52,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Verificar o tamanho da tela ao redimensionar
     window.addEventListener('resize', checkScreenSize);
+    
+    // Melhorias para o dropdown de perfil
+    const profileButton = document.getElementById('profileDropdown');
+    if (profileButton) {
+        // Inicializar o dropdown via Bootstrap JS para garantir comportamento correto
+        const profileDropdown = new bootstrap.Dropdown(profileButton, {
+            popperConfig: {
+                placement: 'bottom-end',
+                modifiers: [
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 8],
+                        },
+                    },
+                ],
+            }
+        });
+        
+        // Adicionar animações suaves
+        const dropdownMenu = profileButton.nextElementSibling;
+        if (dropdownMenu) {
+            dropdownMenu.addEventListener('show.bs.dropdown', function () {
+                this.classList.add('animate__animated', 'animate__fadeIn');
+                this.style.animationDuration = '0.3s';
+            });
+        }
+    }
 });

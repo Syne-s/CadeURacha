@@ -262,28 +262,57 @@
                 <!-- Perfil de usuário - sempre visível -->
                 {% if user.is_authenticated %}
                 <div class="profile_container d-flex">
-                    <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <div class="ratio ratio-1x1">
-                            {% if user.foto_perfil or user.foto_url %}
-                                <img src="{{ user.get_profile_image_url }}" alt="Foto do Usuário">
-                            {% else %}
-                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
-                            {% endif %}
-                        </div>
+                    <button class="profile opacity-image" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="profileDropdown">
+                        <img src="{{ user.get_profile_image_url }}" alt="Foto de perfil" class="rounded-circle">
                     </button>
+                    
+                    <!-- Menu dropdown do perfil - aparece abaixo do botão -->
+                    <div class="dropdown-menu dropdown-menu-end profile-dropdown shadow" aria-labelledby="profileDropdown">
+                        <div class="dropdown-header d-flex align-items-center">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ user.get_profile_image_url }}" alt="Foto de perfil" class="rounded-circle me-2" width="40" height="40">
+                                <div>
+                                    <h6 class="mb-0">{{ user.username }}</h6>
+                                    <small class="text-muted">{{ user.email }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'listar_jogos' %}">
+                            <i class='bx bx-basketball me-2'></i>Meus Rachas
+                        </a>
+                        <a class="dropdown-item" href="{% url 'editar_perfil' %}">
+                            <i class='bx bx-user me-2'></i>Editar Perfil
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                            <i class='bx bx-log-out me-2'></i>Sair
+                        </a>
+                    </div>
                 </div>
                 {% else %}
                 <!-- Usuário não logado -->
                 <div class="profile_container d-flex">
-                    <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <div class="ratio ratio-1x1">
-                            <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
-                        </div>
+                    <button class="profile opacity-image" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="profileDropdown">
+                        <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto de perfil" class="rounded-circle">
                     </button>
+                    
+                    <!-- Menu dropdown para usuário não logado -->
+                    <div class="dropdown-menu dropdown-menu-end profile-dropdown shadow" aria-labelledby="profileDropdown">
+                        <div class="dropdown-header text-center">
+                            <h6 class="mb-0">Bem-vindo!</h6>
+                            <small class="text-muted">Entre ou crie sua conta</small>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logar' %}">
+                            <i class='bx bx-log-in me-2'></i>Entrar
+                        </a>
+                        <a class="dropdown-item" href="{% url 'cadastrar_usuario' %}">
+                            <i class='bx bx-user-plus me-2'></i>Cadastrar
+                        </a>
+                    </div>
                 </div>
                 {% endif %}
             </div>
@@ -336,62 +365,6 @@
                 </button>
             </form>
         </div>
-
-        <!-- Navbar Colapsado do Perfil -->
-        <div class="collapse navbar-collapse offcanvas offcanvas-custom offcanvas-end p-5 off-1 border-0 shadow" style="max-width: 311px !important;" id="navbarNavDropdownProfile">
-            <div class="container w-100">
-                <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
-                    <div class="ratio ratio-1x1">
-                        {% if user.is_authenticated %}
-                            {% if user.foto_perfil or user.foto_url %}
-                                <img src="{{ user.get_profile_image_url }}" alt="Foto do Usuário">
-                            {% else %}
-                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
-                            {% endif %}
-                        {% else %}
-                            <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
-                        {% endif %}
-                    </div>
-                    <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdownProfile">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <h3 class="text-truncate"
-                               data-bs-toggle="tooltip" 
-                               data-bs-placement="top" 
-                               title="{{ user.username }}">
-                                {{ user.username }}
-                            </h3>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'listar_jogos' %}">Meus Rachas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'editar_perfil' %}">Editar Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <h3>Perfil</h3>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cadastrar_usuario' %}">Cadastro</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logar' %}">Login</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <!-- Fim Navbar -->
 
         <main class="main-content">
             {% block content %}{% endblock %}

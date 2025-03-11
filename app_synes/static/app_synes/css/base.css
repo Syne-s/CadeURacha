@@ -1140,3 +1140,81 @@ input[type="search"]::-webkit-search-decoration,
         height: 35px;
     }
 }
+
+/* Estilos aprimorados para o dropdown de perfil */
+.profile-dropdown {
+    min-width: 240px !important;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+}
+
+.profile-dropdown .dropdown-header {
+    padding: 0.75rem 1rem;
+    color: var(--color-text-primary);
+    background-color: rgba(0,0,0,0.02);
+    border-radius: 10px 10px 0 0;
+}
+
+.profile-dropdown .dropdown-item {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.profile-dropdown .dropdown-item:hover {
+    background-color: rgba(0,0,0,0.04);
+    color: var(--color-primary);
+}
+
+.profile-dropdown .dropdown-item i {
+    font-size: 1.25rem;
+}
+
+.profile-dropdown .dropdown-divider {
+    margin: 0.25rem 0;
+    border-color: var(--border-default);
+}
+
+.profile-dropdown .text-danger:hover {
+    color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Ajustes para o botão de perfil */
+.profile {
+    border: none !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.profile:hover {
+    transform: scale(1.05);
+}
+
+.profile:active {
+    transform: scale(0.95);
+}
+
+.profile img {
+    width: 46.8px;
+    height: 46.8px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Fix para o dropdown-menu-end funcionar corretamente */
+.dropdown-menu-end {
+    right: 0 !important;
+    left: auto !important;
+}
