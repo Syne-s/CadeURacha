@@ -16,12 +16,13 @@
         {% endif %}
         <div class="edit-profile-content">
             <div class="left-column">
+                <!-- Certifique-se de que o formulário tenha o atributo enctype correto -->
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_foto_perfil" class="form-label">Foto de Perfil</label>
                         <div class="form-group text-center">
-                            <input type="file" id="id_foto_perfil" name="foto_perfil" style="display: none;">
+                            <input type="file" id="id_foto_perfil" name="foto_perfil" style="display: none;" accept="image/*">
                             <div class="image-card" onclick="document.getElementById('id_foto_perfil').click()">
                                 {% if profile_form.instance.foto_perfil %}
                                     <img src="{{ profile_form.instance.foto_perfil.url }}" alt="Foto de Perfil">
@@ -105,4 +106,38 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Script para mostrar preview da imagem selecionada
+    const imageInput = document.getElementById('id_foto_perfil');
+    const imageCard = document.querySelector('.image-card');
+    
+    if (imageInput && imageCard) {
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Remove qualquer imagem existente
+                    let existingImg = imageCard.querySelector('img');
+                    if (existingImg) {
+                        existingImg.remove();
+                    }
+                    
+                    // Cria nova imagem para preview
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Preview da Foto de Perfil';
+                    
+                    // Adiciona a imagem antes do overlay
+                    const overlay = imageCard.querySelector('.overlay');
+                    imageCard.insertBefore(img, overlay);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

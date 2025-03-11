@@ -1,0 +1,76 @@
+{% extends 'app_synes/base.html' %}
+{% load static %}
+{% block title %}Debug Cloudinary URLs{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Debug Cloudinary URLs</h1>
+    
+    <div class="mb-4">
+        <h2>Configuração Cloudinary</h2>
+        <p>DEFAULT_FILE_STORAGE: {{ default_storage }}</p>
+        <p>CLOUDINARY_URL: {% if cloudinary_url %}Configurado{% else %}Não configurado{% endif %}</p>
+        <p>CLOUDINARY_CLOUD_NAME: {% if cloud_name %}{{ cloud_name }}{% else %}Não configurado{% endif %}</p>
+    </div>
+    
+    {% if user.is_authenticated and user.foto_perfil %}
+        <h2>Informações da Foto de Perfil</h2>
+        <p><strong>URL:</strong> {{ foto_url }}</p>
+        <p><strong>Nome do arquivo:</strong> {{ foto_name }}</p>
+        <p><strong>Storage:</strong> {{ foto_storage }}</p>
+        
+        <div class="mb-4">
+            <img src="{{ foto_url }}" alt="Foto de perfil" style="max-width: 200px;" class="img-thumbnail">
+        </div>
+    {% else %}
+        <p>Usuário não autenticado ou sem foto de perfil</p>
+    {% endif %}
+    
+    <h2>Arenas com Fotos</h2>
+    <div class="row">
+        {% for arena in arenas %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if arena.foto_quadra %}
+                        <img src="{{ arena.foto_quadra.url }}" class="card-img-top" alt="Foto da {{ arena.nome }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ arena.nome }}</h5>
+                        <p><strong>URL:</strong> {{ arena.foto_quadra.url }}</p>
+                        <p><strong>Nome:</strong> {{ arena.foto_quadra.name }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Nenhuma arena com foto encontrada</p>
+        {% endfor %}
+    </div>
+    
+    <h2>Jogos com Imagens</h2>
+    <div class="row">
+        {% for jogo in jogos %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if jogo.imagem %}
+                        <img src="{{ jogo.imagem.url }}" class="card-img-top" alt="Imagem do {{ jogo.titulo }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ jogo.titulo }}</h5>
+                        <p><strong>URL:</strong> {{ jogo.imagem.url }}</p>
+                        <p><strong>Nome:</strong> {{ jogo.imagem.name }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Nenhum jogo com imagem encontrado</p>
+        {% endfor %}
+    </div>
+    
+    <div class="mt-4 mb-5">
+        <h2>Ações</h2>
+        <form method="post" action="{% url 'debug_cloudinary' %}">
+            {% csrf_token %}
+            <button type="submit" name="force_migrate" class="btn btn-primary">Forçar migração para Cloudinary</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

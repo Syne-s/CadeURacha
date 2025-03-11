@@ -37,4 +37,6 @@ urlpatterns = [
     path('toggle_presenca/', views.toggle_presenca, name='toggle_presenca'),
     path('toggle_levar_bola/', views.toggle_levar_bola, name='toggle_levar_bola'),
     path('buscar/', views.buscar, name='buscar'),
+    path('debug_cloudinary/', views.debug_cloudinary_urls, name='debug_cloudinary'),
+    path('debug_foto_perfil/', views.debug_foto_perfil, name='debug_foto_perfil'),
 ]

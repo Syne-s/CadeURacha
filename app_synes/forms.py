@@ -8,6 +8,10 @@ from io import BytesIO
 from PIL import Image, ImageOps
 from django.core.files.base import ContentFile
 import re
+import cloudinary
+import cloudinary.uploader
+import os
+from django.conf import settings
 
 class ArenaForm(forms.ModelForm):
     class Meta:
@@ -49,20 +53,73 @@ class EditProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
+        
         if self.cleaned_data.get('foto_perfil'):
-            image = Image.open(self.cleaned_data['foto_perfil'])
-            image = self._process_image(image)
-            image_io = BytesIO()
-            image.save(image_io, format='JPEG')
-            instance.foto_perfil.save(self.cleaned_data['foto_perfil'].name, ContentFile(image_io.getvalue()), save=False)
+            try:
+                # Configurar Cloudinary explicitamente
+                cloudinary.config(
+                    cloud_name=settings.CLOUDINARY_STORAGE['CLOUD_NAME'],
+                    api_key=settings.CLOUDINARY_STORAGE['API_KEY'],
+                    api_secret=settings.CLOUDINARY_STORAGE['API_SECRET'],
+                    secure=True
+                )
+                
+                # Processar a imagem
+                image = Image.open(self.cleaned_data['foto_perfil'])
+                image = self._process_image(image)
+                
+                # Preparar para salvar
+                image_io = BytesIO()
+                image.save(image_io, format='JPEG', quality=90)
+                image_io.seek(0)
+                
+                # Gerar nome de arquivo único
+                file_name = self.cleaned_data['foto_perfil'].name
+                base_name, ext = os.path.splitext(file_name)
+                timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+                new_file_name = f"{base_name}_{timestamp}.jpg"
+                
+                # Upload direto para o Cloudinary
+                result = cloudinary.uploader.upload(
+                    image_io,
+                    public_id=f"cadeURacha/perfil/{os.path.splitext(new_file_name)[0]}",
+                    folder="cadeURacha",
+                    overwrite=True
+                )
+                
+                # Atualizar o campo com a URL do Cloudinary
+                instance.foto_perfil = result['secure_url']
+                
+                # Log para debug
+                print(f"Cloudinary upload result: {result}")
+                print(f"Image URL set to: {instance.foto_perfil}")
+                
+            except Exception as e:
+                print(f"Error uploading to Cloudinary: {e}")
+                # Fallback para método tradicional em caso de erro
+                image_io.seek(0)
+                instance.foto_perfil.save(
+                    new_file_name, 
+                    ContentFile(image_io.getvalue()), 
+                    save=False
+                )
+        
         if commit:
             instance.save()
+        
         return instance
 
     def _process_image(self, image):
-        # Define the desired size
-        desired_size = (300, 300)  # Adjust as needed
-        image = ImageOps.fit(image, desired_size, Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+        # Redimensionar a imagem para um tamanho máximo
+        max_size = (500, 500)
+        image.thumbnail(max_size, Image.LANCZOS)
+        
+        # Se a imagem for PNG com transparência, converter para JPEG com fundo branco
+        if image.mode in ('RGBA', 'LA'):
+            background = Image.new('RGB', image.size, (255, 255, 255))
+            background.paste(image, mask=image.split()[3])
+            image = background
+            
         return image
 
 class CustomPasswordChangeForm(PasswordChangeForm):

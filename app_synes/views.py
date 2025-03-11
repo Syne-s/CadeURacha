@@ -16,6 +16,7 @@ import json
 import re
 from django.views.decorators.http import require_POST
 from zoneinfo import ZoneInfo
+from django.conf import settings
 
 def check_username(request):
     username = request.GET.get('username')
@@ -148,12 +149,30 @@ def cadastrar_quadra(request):
 @login_required
 def editar_perfil(request):
     if request.method == 'POST':
-        profile_form = EditProfileForm(request.POST, request.FILES, instance=request.user)  # Add request.FILES
+        # Certifique-se de passar request.FILES para o formulário para capturar uploads de arquivo
+        profile_form = EditProfileForm(
+            request.POST, 
+            request.FILES, 
+            instance=request.user
+        )
         password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         
         if 'username' in request.POST or 'email' in request.POST or 'foto_perfil' in request.FILES:
             if profile_form.is_valid():
-                profile_form.save()
+                user = profile_form.save()
+                
+                # Log detalhado para depuração
+                if 'foto_perfil' in request.FILES:
+                    print("=" * 50)
+                    print("UPLOAD DE FOTO DE PERFIL - DEBUG")
+                    print(f"Foto salva: {user.foto_perfil}")
+                    print(f"URL da foto: {user.foto_perfil.url}")
+                    print(f"Nome do arquivo: {user.foto_perfil.name}")
+                    print(f"Storage usado: {user.foto_perfil.storage}")
+                    print(f"DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}")
+                    print(f"CLOUDINARY CONFIG: {settings.CLOUDINARY_STORAGE}")
+                    print("=" * 50)
+                
                 messages.success(request, 'Perfil atualizado com sucesso.')
             else:
                 for field, errors in profile_form.errors.items():
@@ -213,7 +232,6 @@ def criar_jogo(request):
 def cadastrar_racha(request):
     # Get the arena_id from URL parameters
     arena_id = request.GET.get('arena_id')
-    
     if request.method == 'POST':
         form = JogoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -235,7 +253,7 @@ def cadastrar_racha(request):
                 messages.error(request, f'Erro no campo {field}: {", ".join(errors)}')
     else:
         initial_data = {}
-        if arena_id:
+        if (arena_id):
             try:
                 arena = Arena.objects.get(id=arena_id)
                 initial_data = {'arena': arena}
@@ -244,7 +262,6 @@ def cadastrar_racha(request):
                 form = JogoForm()
         else:
             form = JogoForm()
-    
     return render(request, 'app_synes/cadastrar_racha.html', {'form': form})
 
 @login_required
@@ -252,11 +269,9 @@ def listar_jogos(request):
     # Obtém o timezone de Brasília
     tz_brasil = ZoneInfo("America/Sao_Paulo")
     agora = timezone.now().astimezone(tz_brasil)
-
     # Obtém os jogos e converte para lista para poder ordenar
     jogos_criados = list(Jogo.objects.filter(criador_jogo=request.user))
     jogos_confirmados = list(Jogo.objects.filter(participantes=request.user))
-
     # Função auxiliar para ordenação
     def get_datetime_jogo(jogo):
         data = jogo.data
@@ -265,15 +280,12 @@ def listar_jogos(request):
             datetime.combine(data, horario),
             timezone=tz_brasil
         )
-
     # Ordena os jogos por data e horário
     jogos_criados.sort(key=lambda x: get_datetime_jogo(x))
     jogos_confirmados.sort(key=lambda x: get_datetime_jogo(x))
-
     # Remove jogos que já passaram
     jogos_criados = [j for j in jogos_criados if get_datetime_jogo(j) >= agora]
     jogos_confirmados = [j for j in jogos_confirmados if get_datetime_jogo(j) >= agora]
-
     context = {
         'jogos_criados': jogos_criados,
         'jogos_confirmados': jogos_confirmados,
@@ -283,13 +295,10 @@ def listar_jogos(request):
 
 def listar_todos_jogos(request):
     hoje = date.today()
-
     # Excluir jogos expirados
     Jogo.objects.filter(data__lt=hoje).delete()
-
     # Recuperar todos os jogos restantes
     jogos = Jogo.objects.all()
-
     return render(request, 'app_synes/listar_todos_jogos.html', {'jogos': jogos})
 
 def search(request):
@@ -300,15 +309,12 @@ def search(request):
                 Q(nome__icontains=query) |
                 Q(bairro__icontains=query)
             )[:5]
-
             arena_ids = [arena.id for arena in arenas]
-
             jogos = Jogo.objects.filter(
                 Q(titulo__icontains=query) |
                 Q(descricao__icontains=query) |
                 Q(arena_id__in=arena_ids)
             ).select_related('arena')[:5]
-
             results = {
                 'arenas': [
                     {
@@ -331,20 +337,17 @@ def search(request):
                 ]
             }
             return JsonResponse(results)
-        
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 @login_required
 def editar_jogo(request, id):
     jogo = get_object_or_404(Jogo, id=id)
-    jogos = Jogo.objects.all()
     if request.method == 'POST':
         form = JogoForm(request.POST, instance=jogo)
         if form.is_valid():
             form.save()
             messages.success(request, 'Jogo atualizado com sucesso!')
             return redirect('listar_jogos')
-            
         else:
             messages.error(request, 'Erro ao atualizar jogo.')
     else:
@@ -364,36 +367,29 @@ def excluir_jogo(request, id):
 def confirmar_presenca(request, id):
     jogo = get_object_or_404(Jogo, id=id)
     user = request.user
-
     if user in jogo.participantes.all():
         return JsonResponse({'status': 'error', 'message': 'Você já confirmou presença.'})
-
     jogo.participantes.add(user)
     return JsonResponse({'status': 'success',
                           'message': 'Presença confirmada!',
                           'texto_cancelar_presenca':'Cancelar presença',
                           'acao_cancelar_presenca':'cancelar-presenca'})
 
-
 @login_required
 def excluir_presenca(request, id):
     jogo = get_object_or_404(Jogo, id=id)
     user = request.user
-
     if user not in jogo.participantes.all():
         return JsonResponse({'status': 'error', 'message': 'Você não confirmou presença neste evento.'})
-
     jogo.participantes.remove(user)
     return JsonResponse({'status': 'success',
                           'message': 'Presença removida com sucesso!',
                           'texto_confirmar_presenca':'Confirmar presença',
                           'acao_confirmar_presenca':'confirmar-presenca'})
-    
 
 @login_required
 def levar_bola(request, jogo_id):
     jogo = get_object_or_404(Jogo, id=jogo_id)
-
     if request.method == 'POST':
         acao = request.POST.get('acao')
 
@@ -405,10 +401,8 @@ def levar_bola(request, jogo_id):
             jogo.bolas -= 1
             request.user.leva_bola = False  # Desmarca que o usuário está levando a bola
             messages.success(request, "Você cancelou sua bolinha.")
-
         jogo.save()
         request.user.save()
-
     return redirect('listar_todos_jogos')
 
 def update_username(request):
@@ -421,7 +415,6 @@ def update_username(request):
                 'success': False,
                 'message': 'Nome de usuário inválido'
             })
-            
         try:
             request.user.username = new_username
             request.user.save()
@@ -434,7 +427,6 @@ def update_username(request):
                 'success': False,
                 'message': 'Erro ao atualizar nome de usuário'
             })
-    
     return JsonResponse({'success': False, 'message': 'Método não permitido'})
 
 def teste(request):
@@ -444,13 +436,10 @@ def todos(request):
     # Obtém o timezone de Brasília
     tz_brasil = ZoneInfo("America/Sao_Paulo")
     agora = timezone.now().astimezone(tz_brasil)
-
     # Obtém todas as quadras
     quadras = Arena.objects.all().order_by('bairro', 'nome')
-
     # Obtém os jogos e converte para lista para ordenar
     jogos = list(Jogo.objects.all())
-
     # Função auxiliar para ordenação
     def get_datetime_jogo(jogo):
         data = jogo.data
@@ -459,13 +448,10 @@ def todos(request):
             datetime.combine(data, horario),
             timezone=tz_brasil
         )
-
     # Ordena os jogos por data e horário
     jogos.sort(key=lambda x: get_datetime_jogo(x))
-
     # Remove jogos que já passaram
     jogos = [j for j in jogos if get_datetime_jogo(j) >= agora]
-
     return render(request, 'app_synes/todos.html', {
         'quadras': quadras,
         'jogos': jogos,
@@ -476,13 +462,10 @@ def detalhes_quadra(request, id):
     # Obtém o timezone de Brasília
     tz_brasil = ZoneInfo("America/Sao_Paulo")
     agora = timezone.now().astimezone(tz_brasil)
-
     # Busca a quadra específica ou retorna 404 se não encontrar
     quadra = get_object_or_404(Arena, id=id)
-    
     # Busca todos os jogos relacionados a esta quadra e converte para lista
     jogos_quadra = list(Jogo.objects.filter(arena=quadra))
-
     # Função auxiliar para ordenação
     def get_datetime_jogo(jogo):
         data = jogo.data
@@ -491,13 +474,10 @@ def detalhes_quadra(request, id):
             datetime.combine(data, horario),
             timezone=tz_brasil
         )
-
     # Ordena os jogos por data e horário
     jogos_quadra.sort(key=lambda x: get_datetime_jogo(x))
-
     # Remove jogos que já passaram
     jogos_quadra = [j for j in jogos_quadra if get_datetime_jogo(j) >= agora]
-    
     context = {
         'quadra': quadra,
         'jogos_quadra': jogos_quadra,
@@ -508,19 +488,17 @@ def detalhes_jogo(request, id):
     jogo = get_object_or_404(Jogo, id=id)
     participantes = jogo.participantes.all()
     tem_bolas = jogo.participantes.filter(levar_bola=True).exists()
-    
     context = {
         'jogo': jogo,
         'jogadores': participantes,
         'tem_bolas': tem_bolas
     }
     return render(request, 'app_synes/detalhes_racha.html', context)
-
+    
 @login_required
 def detalhes_racha_user(request, id):
     jogo = get_object_or_404(Jogo, id=id)
     participantes = jogo.participantes.all()
-    
     context = {
         'jogo': jogo,
         'jogadores': participantes
@@ -553,7 +531,6 @@ def toggle_presenca(request):
                 request.user.save()
             jogo.save()
             mensagem = "Presença cancelada com sucesso!"
-        
         return JsonResponse({'success': True, 'message': mensagem})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
@@ -577,7 +554,6 @@ def toggle_levar_bola(request):
                 'success': False, 
                 'message': 'Você precisa confirmar presença primeiro'
             })
-            
     except Exception as e:
         return JsonResponse({
             'success': False,
@@ -586,24 +562,59 @@ def toggle_levar_bola(request):
 
 def buscar(request):
     query = request.GET.get('q', '')
-    
     quadras = Arena.objects.filter(
         Q(nome__icontains=query) |
         Q(bairro__icontains=query) |
         Q(cidade__icontains=query)
     )
-    
     jogos = Jogo.objects.filter(
         Q(titulo__icontains=query) |
         Q(arena__nome__icontains=query) |
         Q(arena__bairro__icontains=query)
     )
-    
     context = {
         'query': query,  # Esta é a linha importante
         'quadras': quadras,
         'jogos': jogos,
     }
-    
     return render(request, 'app_synes/buscar.html', context)
+
+def debug_cloudinary_urls(request):
+    """View temporária para depurar URLs do Cloudinary"""
+    from django.conf import settings
+    from django.core.management import call_command
+    
+    # Force migration if requested
+    if request.method == 'POST' and 'force_migrate' in request.POST:
+        try:
+            call_command('migrate_to_cloudinary_alt')
+            messages.success(request, 'Migração para Cloudinary executada com sucesso!')
+        except Exception as e:
+            messages.error(request, f'Erro na migração: {str(e)}')
+        return redirect('debug_cloudinary')
+    
+    user = request.user
+    context = {
+        'user': user,
+        'default_storage': settings.DEFAULT_FILE_STORAGE,
+        'cloudinary_url': bool(settings.CLOUDINARY_URL),
+        'cloud_name': settings.CLOUDINARY_STORAGE.get('CLOUD_NAME'),
+    }
+    if user.is_authenticated and user.foto_perfil:
+        context['foto_url'] = user.foto_perfil.url
+        context['foto_name'] = user.foto_perfil.name
+        context['foto_storage'] = str(type(user.foto_perfil.storage))
+    # Verificar arenas
+    arenas = Arena.objects.exclude(foto_quadra='').exclude(foto_quadra__isnull=True)[:5]
+    context['arenas'] = arenas
+    # Verificar jogos
+    jogos = Jogo.objects.exclude(imagem='').exclude(imagem__isnull=True)[:5]
+    context['jogos'] = jogos
+    
+    return render(request, 'app_synes/debug_cloudinary.html', context)
+
+@login_required
+def debug_foto_perfil(request):
+    """View para depurar uploads de foto de perfil"""
+    return render(request, 'app_synes/debug_foto_perfil.html')
 

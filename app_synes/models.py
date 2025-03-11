@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, verbose_name="E-mail")
     is_active = models.BooleanField(default=True, verbose_name="Usuário ativo")
-    foto_perfil = models.ImageField(upload_to='perfil/', null=True, blank=True, verbose_name="Foto de Perfil")
+    foto_perfil = models.ImageField(upload_to='perfil/', blank=True, null=True)
     levar_bola = models.BooleanField(default=False, verbose_name="Levar bola")
 
     def __str__(self):

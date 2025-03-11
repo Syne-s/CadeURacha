@@ -138,11 +138,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudinary settings
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL', 'cloudinary://224475213161893:B9i4Azod_MlMogtflzSlj0Qx7eE@dgzifammt')
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dgzifammt'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '224475213161893'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'B9i4Azod_MlMogtflzSlj0Qx7eE'),
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
 # Configurar o Cloudinary como storage padrão para arquivos de mídia

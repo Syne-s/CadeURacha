@@ -1,0 +1,45 @@
+{% extends 'app_synes/base.html' %}
+{% load static %}
+{% block title %}Debug Foto de Perfil{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Informações da Foto de Perfil</h1>
+    
+    {% if user.is_authenticated %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2>Usuário: {{ user.username }}</h2>
+                
+                {% if user.foto_perfil %}
+                    <p><strong>URL da Foto:</strong> {{ user.foto_perfil.url }}</p>
+                    <p><strong>Nome do Arquivo:</strong> {{ user.foto_perfil.name }}</p>
+                    <p><strong>Storage:</strong> {{ user.foto_perfil.storage }}</p>
+                    
+                    <div class="mb-4">
+                        <h3>Imagem de Perfil:</h3>
+                        <img src="{{ user.foto_perfil.url }}" alt="Foto de perfil" style="max-width: 300px;" class="img-thumbnail">
+                    </div>
+                {% else %}
+                    <p>Este usuário não tem foto de perfil.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2>Atualizar Foto de Perfil</h2>
+                <form method="post" enctype="multipart/form-data" action="{% url 'editar_perfil' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_foto_perfil" class="form-label">Nova foto de perfil</label>
+                        <input type="file" name="foto_perfil" id="id_foto_perfil" class="form-control" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Atualizar Foto</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <p>Você precisa estar logado para ver esta página.</p>
+    {% endif %}
+</div>
+{% endblock %}
