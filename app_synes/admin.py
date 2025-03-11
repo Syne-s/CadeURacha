@@ -42,7 +42,9 @@ class ArenaAdmin(admin.ModelAdmin):
         verbose_name_plural = 'Quadras'
 
     def display_foto(self, obj):
-        if obj.foto_quadra:
+        if obj.foto_url:
+            return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', obj.foto_url, obj.foto_url)
+        elif obj.foto_quadra:
             return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', obj.foto_quadra.url, obj.foto_quadra.url)
         return "Sem imagem"
     

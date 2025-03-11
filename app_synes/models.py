@@ -29,8 +29,12 @@ class CustomUser(AbstractUser):
         # Se não, tenta o campo normal foto_perfil
         elif self.foto_perfil:
             return self.foto_perfil.url
-        # Caso contrário, retorna None ou uma imagem padrão
-        return None
+        # Caso contrário, retorna a imagem padrão
+        try:
+            from app_synes.default_images import DEFAULT_PERFIL_IMAGE_URL
+            return DEFAULT_PERFIL_IMAGE_URL or None
+        except (ImportError, AttributeError):
+            return None
 
     class Meta:
         verbose_name = 'Usuário'
@@ -52,6 +56,7 @@ class Arena(models.Model):
     pais = models.CharField(max_length=255, blank=True, null=True, verbose_name="País")
     
     foto_quadra = models.ImageField(upload_to='arenas/', null=True, blank=True)
+    foto_url = models.URLField(blank=True, null=True, verbose_name="URL da foto da quadra")
     
     # Relacionamento com usuário que cadastrou
     usuario = models.ForeignKey(
@@ -66,6 +71,30 @@ class Arena(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    def save(self, *args, **kwargs):
+        # Se foto_quadra for uma string e parece uma URL do Cloudinary, salvá-la em foto_url
+        if isinstance(self.foto_quadra, str) and ('cloudinary' in self.foto_quadra.lower() or 'res.cloudinary.com' in self.foto_quadra.lower()):
+            self.foto_url = self.foto_quadra
+            # Limpar o campo foto_quadra para evitar confusão
+            self.foto_quadra = None
+        super().save(*args, **kwargs)
+    
+    @property
+    def get_arena_image_url(self):
+        """Retorna a URL correta da imagem da quadra"""
+        # Primeiro verifica se há uma URL Cloudinary direta
+        if self.foto_url:
+            return self.foto_url
+        # Se não, tenta o campo normal foto_quadra
+        elif self.foto_quadra:
+            return self.foto_quadra.url
+        # Caso contrário, retorna a imagem padrão
+        try:
+            from app_synes.default_images import DEFAULT_QUADRA_IMAGE_URL
+            return DEFAULT_QUADRA_IMAGE_URL or None
+        except (ImportError, AttributeError):
+            return None
 
     class Meta:
         verbose_name = "Quadra"
@@ -97,6 +126,19 @@ class Jogo(models.Model):
     def __str__(self):
         return self.titulo
 
+    @property
+    def get_jogo_image_url(self):
+        """Retorna a URL correta da imagem do jogo"""
+        # Primeiro tenta o campo normal imagem
+        if self.imagem:
+            return self.imagem.url
+        # Caso contrário, retorna a imagem padrão
+        try:
+            from app_synes.default_images import DEFAULT_RACHA_IMAGE_URL
+            return DEFAULT_RACHA_IMAGE_URL or None
+        except (ImportError, AttributeError):
+            return None
+    
     class Meta:
         verbose_name = 'Racha'
         verbose_name_plural = 'Rachas'

@@ -10,8 +10,8 @@
     <div class="fundo shadow" style="width: 926px; height: 379px;">
       <div class="row g-0 w-100">
         <div class="col-md-4 d-flex justify-content-center align-items-center flex-wrap translate">
-          {% if quadra.foto_quadra %}
-            <img src="{{ quadra.foto_quadra.url }}" class="img-fluid mb-4" alt="Imagem da {{ quadra.nome }}">
+          {% if quadra.foto_quadra or quadra.foto_url %}
+            <img src="{{ quadra.get_arena_image_url }}" class="img-fluid mb-4" alt="Imagem da {{ quadra.nome }}">
           {% else %}
             <img src="{% static 'app_synes/images/quadra.jpeg' %}" class="img-fluid mb-4" alt="Imagem padrão">
           {% endif %}

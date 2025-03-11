@@ -11,11 +11,7 @@
     <div class="fundo shadow" style="width: 926px; height: 379px;">
       <div class="row g-0">
         <div class="col-md-4 d-flex justify-content-center align-items-center flex-wrap">
-          {% if jogo.imagem %}
-            <img src="{{ jogo.imagem.url }}" class="img-fluid mb-4" alt="Imagem do Racha">
-          {% else %}
-            <img src="{% static 'app_synes/images/space.jpg' %}" class="img-fluid mb-4" alt="Imagem do Racha">
-          {% endif %}
+          <img src="{{ jogo.get_jogo_image_url }}" class="img-fluid mb-4" alt="Imagem do Racha">
           
           <!-- Seção de Participantes -->
           <div class="participantes-section">

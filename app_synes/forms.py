@@ -37,9 +37,76 @@ class ArenaForm(forms.ModelForm):
         # Atualizar o campo endereço
         instance.endereco = ', '.join(filter(None, endereco_parts))
         
+        # Tratar o upload da foto da quadra para o Cloudinary
+        if self.cleaned_data.get('foto_quadra'):
+            try:
+                # Configurar Cloudinary explicitamente
+                cloudinary.config(
+                    cloud_name=settings.CLOUDINARY_STORAGE['CLOUD_NAME'],
+                    api_key=settings.CLOUDINARY_STORAGE['API_KEY'],
+                    api_secret=settings.CLOUDINARY_STORAGE['API_SECRET'],
+                    secure=True
+                )
+                
+                # Processar a imagem
+                image = Image.open(self.cleaned_data['foto_quadra'])
+                image = self._process_image(image)
+                
+                # Preparar para salvar
+                image_io = BytesIO()
+                image.save(image_io, format='JPEG', quality=90)
+                image_io.seek(0)
+                
+                # Gerar nome de arquivo único
+                file_name = self.cleaned_data['foto_quadra'].name
+                base_name, ext = os.path.splitext(file_name)
+                timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+                new_file_name = f"{base_name}_{timestamp}.jpg"
+                
+                # Upload direto para o Cloudinary
+                result = cloudinary.uploader.upload(
+                    image_io,
+                    public_id=f"cadeURacha/arenas/{os.path.splitext(new_file_name)[0]}",
+                    overwrite=True
+                )
+                
+                # Obter a URL do Cloudinary
+                cloudinary_url = result['secure_url']
+                
+                # Salvar diretamente no campo foto_url em vez de foto_quadra
+                instance.foto_url = cloudinary_url
+                
+                # Logs para debug
+                print(f"Cloudinary upload result for arena: {result}")
+                print(f"Arena image URL set to foto_url: {cloudinary_url}")
+                
+            except Exception as e:
+                print(f"Error uploading arena image to Cloudinary: {e}")
+                # Fallback para método tradicional em caso de erro
+                image_io.seek(0)
+                instance.foto_quadra.save(
+                    new_file_name, 
+                    ContentFile(image_io.getvalue()), 
+                    save=False
+                )
+        
         if commit:
             instance.save()
+        
         return instance
+        
+    def _process_image(self, image):
+        # Redimensionar a imagem para um tamanho máximo
+        max_size = (1200, 800)
+        image.thumbnail(max_size, Image.LANCZOS)
+        
+        # Se a imagem for PNG com transparência, converter para JPEG com fundo branco
+        if image.mode in ('RGBA', 'LA'):
+            background = Image.new('RGB', image.size, (255, 255, 255))
+            background.paste(image, mask=image.split()[3])
+            image = background
+            
+        return image
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
