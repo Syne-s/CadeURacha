@@ -362,6 +362,10 @@ input[type="search"]::-webkit-search-decoration,
         .profile {
             border: none !important;
             background-color: transparent !important;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .navbar-img img{
@@ -598,3 +602,26 @@ input[type="search"]::-webkit-search-decoration,
             }
         
         }
+
+/* Correção para imagens em contêineres ratio */
+.ratio.ratio-1x1 img {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-position: center center;
+}
+
+/* Ajustes específicos para a navbar */
+.profile .ratio.ratio-1x1 {
+    width: 46.8px;
+    height: 46.8px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-collapse .ratio.ratio-1x1 {
+    width: 73.6px !important;
+    height: 73.6px !important;
+    border-radius: 50%;
+    overflow: hidden;
+}

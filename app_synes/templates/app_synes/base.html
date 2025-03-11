@@ -250,11 +250,13 @@
                     <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
                         aria-expanded="false" aria-label="Toggle navigation">
-                        {% if user.foto_perfil or user.foto_url %}
-                            <img class="ratio ratio-1x1" src="{{ user.get_profile_image_url }}" alt="Foto do Usuário">
-                        {% else %}
-                            <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
-                        {% endif %}
+                        <div class="ratio ratio-1x1">
+                            {% if user.foto_perfil or user.foto_url %}
+                                <img src="{{ user.get_profile_image_url }}" alt="Foto do Usuário">
+                            {% else %}
+                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                            {% endif %}
+                        </div>
                     </button>
                 </div>
     
@@ -262,11 +264,13 @@
                 <div class="collapse navbar-collapse offcanvas offcanvas-custom offcanvas-end p-5 off-1 border-0 shadow" style="max-width: 311px !important;" id="navbarNavDropdownProfile">
                     <div class="container w-100">
                         <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
-                            {% if user.foto_perfil or user.foto_url %}
-                                <img class="ratio ratio-1x1" src="{{ user.get_profile_image_url }}" alt="">
-                            {% else %}
-                                <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="">
-                            {% endif %}
+                            <div class="ratio ratio-1x1">
+                                {% if user.foto_perfil or user.foto_url %}
+                                    <img src="{{ user.get_profile_image_url }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="">
+                                {% endif %}
+                            </div>
                             <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNavDropdownProfile">
                                 <span aria-hidden="true">&times;</span>
@@ -301,7 +305,9 @@
                     <button class="profile opacity-image" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdownProfile" aria-controls="navbarNavDropdownProfile" 
                         aria-expanded="false" aria-label="Toggle navigation">
-                        <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                        <div class="ratio ratio-1x1">
+                            <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                        </div>
                     </button>
                 </div>
             
@@ -309,7 +315,9 @@
                 <div class="collapse navbar-collapse offcanvas offcanvas-end p-5 off-1" id="navbarNavDropdownProfile">
                     <div class="container w-100">
                         <div class="d-flex justify-content-between align-items-center profile-collapse mb-5">
-                            <img class="ratio ratio-1x1" src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                            <div class="ratio ratio-1x1">
+                                <img src="{% static 'app_synes/images/user-default.jpg' %}" alt="Foto do Usuário Padrão">
+                            </div>
                             <button type="button" class="close" aria-label="Close" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNavDropdownProfile">
                                 <span aria-hidden="true">&times;</span>
