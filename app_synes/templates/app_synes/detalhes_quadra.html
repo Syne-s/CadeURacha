@@ -10,11 +10,7 @@
     <div class="fundo shadow" style="width: 926px; height: 379px;">
       <div class="row g-0 w-100">
         <div class="col-md-4 d-flex justify-content-center align-items-center flex-wrap translate">
-          {% if quadra.foto_quadra or quadra.foto_url %}
-            <img src="{{ quadra.get_arena_image_url }}" class="img-fluid mb-4" alt="Imagem da {{ quadra.nome }}">
-          {% else %}
-            <img src="{% static 'app_synes/images/quadra.jpeg' %}" class="img-fluid mb-4" alt="Imagem padrão">
-          {% endif %}
+          <img src="{{ quadra.get_arena_image_url }}" class="img-fluid mb-4" alt="Imagem da {{ quadra.nome }}">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -37,11 +33,7 @@
                     {% for jogo in jogos_quadra %}
                       <a href="{% url 'detalhes_jogo' jogo.id %}">
                         <div class="card border-0 text-bg-dark ratio ratio-1x1">
-                          {% if jogo.imagem %}
-                            <img src="{{ jogo.imagem.url }}" class="card-img" alt="Imagem do Racha">
-                          {% else %}
-                            <img src="{% static 'app_synes/images/jam.jpg' %}" class="card-img" alt="Imagem padrão do Racha">
-                          {% endif %}
+                          <img src="{{ jogo.get_jogo_image_url }}" class="card-img" alt="Imagem do Racha">
                           <div class="card-img-overlay">
                             <i class='bx bxs-basketball'></i>
                             <div class="texts">

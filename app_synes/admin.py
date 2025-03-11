@@ -21,8 +21,9 @@ class JogoAdmin(admin.ModelAdmin):
         verbose_name_plural = 'Rachas'
 
     def display_imagem(self, obj):
-        if obj.imagem:
-            return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', obj.imagem.url, obj.imagem.url)
+        if obj.foto_url or obj.imagem:
+            img_url = obj.get_jogo_image_url
+            return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', img_url, img_url)
         return "Sem imagem"
     
     display_imagem.short_description = "Imagem do Racha"
@@ -42,10 +43,9 @@ class ArenaAdmin(admin.ModelAdmin):
         verbose_name_plural = 'Quadras'
 
     def display_foto(self, obj):
-        if obj.foto_url:
-            return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', obj.foto_url, obj.foto_url)
-        elif obj.foto_quadra:
-            return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', obj.foto_quadra.url, obj.foto_quadra.url)
+        if obj.foto_url or obj.foto_quadra:
+            img_url = obj.get_arena_image_url
+            return format_html('<a href="{}" target="_blank"><img src="{}" width="50" height="50" style="object-fit: cover;" /><br>Ver imagem</a>', img_url, img_url)
         return "Sem imagem"
     
     display_foto.short_description = "Foto da Quadra"

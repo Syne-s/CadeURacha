@@ -88,13 +88,17 @@ class Arena(models.Model):
             return self.foto_url
         # Se não, tenta o campo normal foto_quadra
         elif self.foto_quadra:
-            return self.foto_quadra.url
+            try:
+                return self.foto_quadra.url
+            except:
+                pass  # Silencia erros se a URL não puder ser gerada
         # Caso contrário, retorna a imagem padrão
         try:
             from app_synes.default_images import DEFAULT_QUADRA_IMAGE_URL
-            return DEFAULT_QUADRA_IMAGE_URL or None
+            return DEFAULT_QUADRA_IMAGE_URL
         except (ImportError, AttributeError):
-            return None
+            # Fallback absoluto caso o módulo default_images não exista
+            return "https://res.cloudinary.com/dgzifammt/image/upload/v1741699878/cadeURacha/defaults/quadra_default.jpg"
 
     class Meta:
         verbose_name = "Quadra"
@@ -143,14 +147,18 @@ class Jogo(models.Model):
             return self.foto_url
         # Se não, tenta o campo normal imagem
         elif self.imagem:
-            return self.imagem.url
+            try:
+                return self.imagem.url
+            except:
+                pass  # Silencia erros se a URL não puder ser gerada
         # Caso contrário, retorna a imagem padrão
         try:
             from app_synes.default_images import DEFAULT_RACHA_IMAGE_URL
-            return DEFAULT_RACHA_IMAGE_URL or None
+            return DEFAULT_RACHA_IMAGE_URL
         except (ImportError, AttributeError):
-            return None
-    
+            # Fallback absoluto caso o módulo default_images não exista
+            return "https://res.cloudinary.com/dgzifammt/image/upload/v1741699877/cadeURacha/defaults/racha_default.webp"
+
     class Meta:
         verbose_name = 'Racha'
         verbose_name_plural = 'Rachas'
