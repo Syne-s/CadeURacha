@@ -18,7 +18,7 @@
               <p class="section-title"><strong>Participantes:</strong></p>
               <div class="participantes-container mb-4">
                   {% for jogador in jogadores %}
-                      {% if jogador.foto_perfil %}
+                      {% if jogador.get_profile_image_url %}
                           <img src="{{ jogador.get_profile_image_url }}" 
                                class="rounded-circle d-inline-block" 
                                style="width:30px; height:30px;" 

@@ -19,8 +19,8 @@
           <p class="text-center w-100"><strong>Jogadores:</strong></p>
           <div class="d-flex flex-wrap gap-2 overflow-auto w-50 h-25 mb-4">
             {% for jogador in jogadores %}
-              {% if jogador.foto_perfil %}
-                <img src="{{ jogador.foto_perfil.url }}" 
+              {% if jogador.get_profile_image_url %}
+                <img src="{{ jogador.get_profile_image_url }}" 
                      class="rounded-circle d-inline-block" 
                      style="width:30px; height:30px;" 
                      alt="Foto de perfil de {{ jogador.username }}"
