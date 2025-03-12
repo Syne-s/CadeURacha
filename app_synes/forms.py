@@ -152,9 +152,14 @@ class EditProfileForm(forms.ModelForm):
                 # Obter a URL do Cloudinary
                 cloudinary_url = result['secure_url']
                 
-                # Salvar apenas no campo foto_url e não usar o campo foto_perfil
+                # Importante: primeiro definir a URL, depois limpar o campo de arquivo
                 instance.foto_url = cloudinary_url
-                instance.foto_perfil = None  # Importante: não salvar localmente
+                
+                # Não salve o arquivo localmente depois de enviá-lo para o Cloudinary
+                # Mas faça isso de forma segura para evitar o erro
+                if hasattr(instance, '_foto_perfil_cache'):
+                    delattr(instance, '_foto_perfil_cache')
+                instance.foto_perfil = None
                 
                 # Logs para debug
                 print(f"Cloudinary upload result: {result}")
@@ -162,8 +167,8 @@ class EditProfileForm(forms.ModelForm):
                 
             except Exception as e:
                 print(f"Error uploading to Cloudinary: {e}")
-                # Não usamos mais fallback para método tradicional
-                # Apenas logar o erro e não salvar a imagem
+                # Não limpe foto_perfil se o upload falhou
+                # Se houver exceção, mantenha o arquivo original
         
         if commit:
             instance.save()

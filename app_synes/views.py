@@ -161,19 +161,31 @@ def editar_perfil(request):
             if profile_form.is_valid():
                 user = profile_form.save()
                 
-                # Log detalhado para depuração
+                # Log detalhado para depuração - COM VERIFICAÇÕES DE SEGURANÇA
                 if 'foto_perfil' in request.FILES:
                     print("=" * 50)
                     print("UPLOAD DE FOTO DE PERFIL - DEBUG")
                     print(f"Foto salva: {user.foto_perfil}")
-                    print(f"URL da foto: {user.foto_perfil.url}")
-                    print(f"Nome do arquivo: {user.foto_perfil.name}")
-                    print(f"Storage usado: {user.foto_perfil.storage}")
+                    
+                    # Verificar se foto_perfil existe antes de tentar acessar url
+                    if user.foto_perfil:
+                        try:
+                            print(f"URL da foto: {user.foto_perfil.url}")
+                            print(f"Nome do arquivo: {user.foto_perfil.name}")
+                            print(f"Storage usado: {user.foto_perfil.storage}")
+                        except Exception as e:
+                            print(f"Erro ao acessar atributos de foto_perfil: {str(e)}")
+                    
+                    # Verificar se foto_url foi definida (método Cloudinary)
+                    if user.foto_url:
+                        print(f"URL Cloudinary: {user.foto_url}")
+                        
                     print(f"DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}")
                     print(f"CLOUDINARY CONFIG: {settings.CLOUDINARY_STORAGE}")
                     print("=" * 50)
                 
                 messages.success(request, 'Perfil atualizado com sucesso.')
+                return redirect('editar_perfil')
             else:
                 for field, errors in profile_form.errors.items():
                     for error in errors:
